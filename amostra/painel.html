@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Amostra da sala · painel do professor · CDAD II</title>
+<link rel="icon" href="../_shared/img/logo-insper-preto.png">
+<style>
+/* ==========================================================================
+   Painel do professor da amostra da sala. Esta é a página PROJETADA.
+
+   Duas vistas, escolhidas no seletor da barra:
+
+   1. as médias: primeiro só o eixo e a média das 8.505 em vermelho; ao
+      "soltar", as médias da sala caem em caixinhas (pontos) ou viram barras
+      (histograma). O "+30" acrescenta amostras simuladas, em cinza, para a
+      forma de sino aparecer mesmo com uma turma pequena.
+   2. os intervalos: um por linha, com os que não contêm a média em vermelho
+      e a proporção deles escrita em cima.
+
+   Tudo em corpo grande: quem está na última fileira tem que ler.
+   ========================================================================== */
+
+:root {
+  --marca: #e50505;
+  --verde: #12996f;
+  --cinza: #9aa0a8;
+  --fundo: #ffffff;
+  --superficie: #f4f5f7;
+  --borda: #d8dbe0;
+  --texto: #14161a;
+  --fraco: #4a4f57;
+  --raio: 12px;
+}
+
+html[data-tema="escuro"] {
+  --marca: #ff6b6b;
+  --verde: #5ad8a6;
+  --cinza: #7d838c;
+  --fundo: #0d0f12;
+  --superficie: #22252b;
+  --borda: #3a3f48;
+  --texto: #ffffff;
+  --fraco: #d3d7de;
+}
+
+* { box-sizing: border-box; }
+
+/* o `display` dos rótulos passava por cima do atributo hidden */
+[hidden] { display: none !important; }
+
+body {
+  margin: 0;
+  background: var(--fundo);
+  color: var(--texto);
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 18px;
+  line-height: 1.4;
+}
+
+/* ---- barra de controle -------------------------------------------------- */
+
+.controle {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .45rem;
+  padding: .55rem .9rem;
+  background: var(--superficie);
+  border-bottom: 1px solid var(--borda);
+  font-size: .8rem;
+}
+.controle.recolhida > *:not(.puxador) { display: none; }
+
+button, select, input {
+  font: inherit;
+  font-size: .82rem;
+  color: var(--texto);
+  background: var(--fundo);
+  border: 1px solid var(--borda);
+  border-radius: 8px;
+  padding: .38rem .7rem;
+  cursor: pointer;
+}
+button:hover:not(:disabled) { border-color: var(--marca); }
+button.primario { background: var(--marca); border-color: var(--marca); color: #fff; font-weight: 600; }
+button.perigo { color: var(--marca); }
+input[type="password"] { width: 9rem; }
+label.marca { display: inline-flex; align-items: center; gap: .3rem; }
+label.marca input { width: auto; }
+
+.puxador { margin-left: auto; opacity: .5; }
+.aviso-senha { color: var(--marca); font-weight: 600; }
+
+/* ---- palco -------------------------------------------------------------- */
+
+.palco { padding: 1.1rem 2rem 1.5rem; }
+
+h1 { font-size: 1.9rem; line-height: 1.15; margin: 0 0 .4rem; letter-spacing: -0.015em; }
+
+.resumo { font-size: 1.1rem; color: var(--fraco); min-height: 1.5em; margin-bottom: .6rem; }
+.resumo b { color: var(--texto); }
+.resumo .fora { color: var(--marca); font-weight: 700; }
+
+.duas { display: grid; grid-template-columns: 1fr 300px; gap: 1.6rem; align-items: start; }
+/* depois de soltar, o QR continua à vista, menor, para quem chegou atrasado */
+.duas.cheia { grid-template-columns: 1fr 210px; }
+.duas.cheia .lateral img { max-width: 200px; padding: .6rem; }
+.duas.cheia .contador { font-size: 2.4rem; }
+
+.grafico svg { width: 100%; height: auto; display: block; overflow: visible; }
+
+.legenda { display: flex; gap: 1.4rem; font-size: .95rem; color: var(--fraco); margin-top: .3rem; }
+.legenda i { display: inline-block; width: .8em; height: .8em; border-radius: 50%; margin-right: .35em; vertical-align: -0.05em; }
+
+/* ---- QR ----------------------------------------------------------------- */
+
+.lateral { text-align: center; }
+.lateral img { width: 100%; max-width: 280px; background: #fff; border-radius: var(--raio); padding: .8rem; }
+.endereco { font-family: ui-monospace, Consolas, monospace; font-size: .9rem; font-weight: 700; margin-top: .5rem; word-break: break-all; }
+.contador { margin-top: .9rem; font-size: 3.4rem; font-weight: 700; line-height: 1; color: var(--marca); }
+.contador small { display: block; font-size: .85rem; font-weight: 400; color: var(--fraco); }
+
+/* ---- o desenho ---------------------------------------------------------- */
+
+.eixo line, .eixo path { stroke: var(--fraco); stroke-width: 1.5; }
+.eixo text { fill: var(--fraco); font-size: 17px; }
+.eixo .titulo-eixo { font-size: 18px; fill: var(--texto); }
+
+.mu { stroke: var(--marca); stroke-width: 4; }
+.mu-texto { fill: var(--marca); font-size: 19px; font-weight: 700; }
+
+.aluno { fill: var(--verde); }
+.simulada { fill: var(--cinza); }
+.barra-aluno { fill: var(--verde); }
+.barra-simulada { fill: var(--cinza); }
+.normal { fill: none; stroke: var(--texto); stroke-width: 2.5; stroke-dasharray: 8 6; opacity: .75; }
+
+.ic-aluno { stroke: var(--verde); }
+.ic-simulado { stroke: var(--cinza); }
+.ic-fora { stroke: var(--marca); }
+.ic-ponto-aluno { fill: var(--verde); }
+.ic-ponto-simulado { fill: var(--cinza); }
+.ic-ponto-fora { fill: var(--marca); }
+.alvo { stroke: transparent; }
+
+[data-dica] { cursor: pointer; }
+
+/* As médias caem de cima para a caixinha delas. */
+.cai { animation: cair .85s cubic-bezier(.25, .85, .35, 1) both; }
+@keyframes cair {
+  from { transform: translateY(-560px); opacity: 0; }
+  12% { opacity: 1; }
+  to { transform: none; opacity: 1; }
+}
+
+/* Os intervalos abrem a partir da própria média. */
+.abre { transform-box: fill-box; transform-origin: center; animation: abrir .6s ease-out both; }
+@keyframes abrir {
+  from { transform: scaleX(0); opacity: 0; }
+  to { transform: none; opacity: 1; }
+}
+
+.dica {
+  position: fixed;
+  z-index: 20;
+  pointer-events: none;
+  background: var(--texto);
+  color: var(--fundo);
+  border-radius: 8px;
+  padding: .45rem .7rem;
+  font-size: .95rem;
+  max-width: 26rem;
+  white-space: pre-line;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, .25);
+}
+
+.espera { text-align: center; padding: 5rem 1rem; color: var(--fraco); font-size: 1.1rem; }
+</style>
+</head>
+<body>
+
+<div class="controle" id="controle">
+  <input type="password" id="senha" placeholder="senha" autocomplete="current-password">
+  <select id="vista">
+    <option value="media">1 · as médias</option>
+    <option value="ic">2 · os intervalos</option>
+  </select>
+  <button id="b-soltar" class="primario">soltar</button>
+  <button id="b-modo">ver histograma</button>
+  <label class="marca"><input type="checkbox" id="c-normal"> curva normal</label>
+  <button id="b-mais">+30</button>
+  <button id="b-sem-simuladas">tirar as simuladas</button>
+  <button id="b-apagar" class="perigo">apagar respostas</button>
+  <button id="b-tema">escuro</button>
+  <span id="recado"></span>
+  <span class="puxador">esc esconde a barra</span>
+</div>
+
+<div class="palco">
+  <h1 id="titulo"></h1>
+  <div class="resumo" id="resumo"></div>
+  <div class="duas" id="duas">
+    <div class="grafico">
+      <svg id="svg" viewBox="0 0 1200 520" role="img" aria-label="gráfico da sala"></svg>
+      <div class="legenda" id="legenda"></div>
+    </div>
+    <aside class="lateral">
+      <img id="qr" alt="QR code da atividade">
+      <div class="endereco" id="endereco"></div>
+      <div class="contador" id="contador">0<small>respostas</small></div>
+    </aside>
+  </div>
+</div>
+
+<div class="dica" id="dica" hidden></div>
+
+<script type="module" src="painel.js"></script>
+</body>
+</html>

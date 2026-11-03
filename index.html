@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Projetos aplicados · CDAD II · 2026/2</title>
+<link rel="icon" href="_shared/img/logo-insper-preto.png">
+<script src="_shared/tema.js"></script>
+<link rel="stylesheet" href="_shared/styles.css">
+<style>
+  .capa { background: var(--topo-fundo); color: var(--topo-texto); border-bottom: 3px solid var(--vermelho); }
+  .capa .interno { max-width: var(--largura); margin: 0 auto; padding: 2.6rem 1.25rem 2.2rem; }
+  .capa img { height: 26px; margin-bottom: 1.6rem; }
+  .capa .trilha { font-family: var(--fonte-mono); font-size: .72rem; letter-spacing: .16em;
+                  text-transform: uppercase; color: #ababab; }
+  .capa h1 { font-family: var(--fonte-display); font-size: clamp(1.9rem, 4.5vw, 3rem);
+             line-height: 1.05; margin: .3rem 0 .7rem; max-width: 24ch; }
+  .capa p { max-width: 62ch; color: #dcdcdc; margin: 0; }
+  .capa .selo-prof { display: inline-block; margin-top: 1rem; font-family: var(--fonte-mono);
+                     font-size: .7rem; letter-spacing: .1em; text-transform: uppercase;
+                     border: 1px solid var(--turquesa); color: var(--turquesa);
+                     padding: .2rem .5rem; border-radius: 2px; }
+
+  .lista { display: grid; gap: 1rem; }
+  @media (min-width: 860px) { .lista { grid-template-columns: 1fr 1fr; } }
+
+  .cartao { display: flex; flex-direction: column; background: var(--branco);
+            border: var(--borda); border-top: 3px solid var(--grafite);
+            border-radius: var(--raio); padding: 1rem 1.1rem; text-decoration: none;
+            color: inherit; box-shadow: var(--sombra); transition: transform .1s, border-color .15s; }
+  a.cartao:hover { transform: translateY(-2px); border-top-color: var(--vermelho); }
+  .cartao .topo-cartao { display: flex; align-items: baseline; gap: .5rem; margin-bottom: .35rem;
+                         flex-wrap: wrap; }
+  .cartao .num { font-family: var(--fonte-mono); font-size: .72rem; letter-spacing: .1em;
+                 color: var(--vermelho); font-weight: 700; }
+  .cartao h2 { font-family: var(--fonte-display); font-size: 1.1rem; margin: 0; }
+  .cartao p { font-size: .88rem; margin: 0 0 .6rem; }
+  .cartao .marcas { display: flex; gap: .35rem; flex-wrap: wrap; margin-top: auto;
+                    align-items: center; }
+
+  .cartao.travado { border-top-color: var(--cinza-400); background: var(--tom-neutro); cursor: default; }
+  .cartao.travado h2, .cartao.travado p { color: var(--cinza-800); }
+  .cartao.travado .num { color: var(--cinza-600); }
+  .cartao .quando { margin-left: auto; font-family: var(--fonte-mono); font-size: .68rem;
+                    letter-spacing: .06em; text-transform: uppercase; color: var(--cinza-600);
+                    white-space: nowrap; }
+  .cartao.professor { border-top-color: var(--roxo); background: var(--tom-roxo); }
+  .cartao.presencial { border-top-color: var(--grafite); background: var(--tom-neutro); cursor: default; }
+
+  .rodape-prof { margin-top: 2rem; text-align: center; }
+  .rodape-prof a { font-size: .78rem; color: var(--cinza-600); }
+</style>
+</head>
+<body>
+
+<header class="capa">
+  <div class="interno">
+    <img src="_shared/img/logo-insper-branco.png" alt="Insper">
+    <div class="trilha">Ciência de Dados Aplicada ao Direito II · 2026/2</div>
+    <h1>Projetos aplicados</h1>
+    <p>
+      Oito projetos que rodam no navegador. Python de verdade (pandas, plotnine, scipy,
+      statsmodels, scikit-learn) compilado para WebAssembly, dados reais de tribunais e feedback
+      por rubrica. Cada projeto abre na data da aula correspondente.
+    </p>
+    <div id="selo-prof"></div>
+  </div>
+</header>
+
+<main>
+  <div class="lista" id="lista"></div>
+
+  <section class="secao" style="margin-top:1.6rem">
+    <header>
+      <span class="n">i</span>
+      <h2>Como estes projetos funcionam</h2>
+    </header>
+    <div class="corpo">
+      <p class="enunciado">
+        Você se identifica com o e-mail do Insper, faz o projeto na própria página e submete ali
+        mesmo. Nos projetos com feedback automático, um modelo de linguagem comenta o seu trabalho
+        seguindo uma <strong>rubrica que fica visível na tela</strong>: ele aponta problemas e faz
+        perguntas, e não escreve a resposta no seu lugar. Discordar do feedback é legítimo, e o
+        caminho é conversar com o professor.
+      </p>
+      <p class="enunciado">
+        Alguns projetos têm <strong>bloqueio para cópia e cola (Ctrl+C e Ctrl+V)</strong> e
+        registram quando você sai da aba. O que está ativo em cada um aparece escrito na tela antes
+        de começar, e você pode consultar a qualquer momento o que foi registrado, clicando no
+        canto superior direito. A página só enxerga o que acontece dentro dela: não há acesso à
+        sua tela, a outros programas nem à câmera.
+      </p>
+    </div>
+  </section>
+
+  <!--
+    Fora dos oito projetos, duas páginas que a aula usa e que não valem nota.
+    Elas ficam aqui porque, se não ficassem, existiriam só como link solto no
+    slide: quem perdesse a aba perderia a página.
+  -->
+  <section class="secao" style="margin-top:1.6rem">
+    <header>
+      <span class="n">+</span>
+      <h2>Para usar em aula e para estudar</h2>
+    </header>
+    <div class="corpo">
+      <p class="enunciado">
+        <a href="quiz/"><strong>Quiz da aula</strong></a> · nas aulas de probabilidade e
+        inferência, o professor abre uma pergunta e você responde pelo celular. Sem login,
+        sem nota, anônimo. Deixe a página aberta: as perguntas trocam sozinhas.
+      </p>
+      <p class="enunciado">
+        <a href="gincana-estudo/"><strong>Gincana para estudar</strong></a> · as rodadas de
+        pandas e plotnine da aula 5, sem cronômetro e sem grupo, para refazer quantas vezes
+        quiser.
+      </p>
+      <p class="enunciado">
+        <a href="quest/"><strong>Quest do planejamento</strong></a> · na aula 12, em grupos:
+        um problema, uma pergunta ruim e sete etapas até a pesquisa inteira, cada uma julgada
+        por uma IA. Ganha quem for barrado menos vezes. Abre no horário da aula.
+      </p>
+      <p class="enunciado">
+        <a href="acordo/"><strong>Simulador de estratégia de acordo</strong></a> · uma carteira
+        simulada de processos, um modelo de probabilidade de perda e uma alçada: veja quando a
+        estratégia de acordo dá prejuízo, quando se paga e quanto economiza em 60 meses.
+      </p>
+    </div>
+  </section>
+
+  <div class="rodape-prof">
+    <a href="?prof=1">área da equipe (professor, colegas e monitores)</a>
+  </div>
+</main>
+
+<script type="module">
+import { el, $, limpar } from "./_shared/ui.js";
+import {
+  carregarLiberacao, situacao, formatarData, modoProfessor, garantirModoProfessor, quemEntrou,
+} from "./_shared/liberacao.js";
+
+const PROJETOS = [
+  {
+    id: "ex01", n: "Projeto 1", aula: "aula 03", pasta: "ex01-variaveis",
+    titulo: "Da sentença para a tabela",
+    texto: "Escolher uma pergunta de pesquisa sobre sentenças reais do TJSP, definir as variáveis que respondem a ela, e ver um modelo de linguagem preencher a tabela a partir dos documentos.",
+    marcas: ["em grupo", "rubrica", "sem cópia e cola"],
+  },
+  {
+    id: "ex02", n: "Projeto 2", aula: "aula 06", pasta: "ex02-pandas-plotnine",
+    titulo: "Montar o gráfico na ordem certa",
+    texto: "Ordenar operações de pandas e camadas de plotnine para montar o código que responde a uma pergunta. O código roda no seu navegador e o gráfico que aparece é o do seu código.",
+    marcas: ["em grupo", "pandas", "plotnine"],
+  },
+  {
+    id: "ex02b", n: "Projeto 2", aula: "reposição", pasta: "ex02b-reposicao",
+    titulo: "Montar o gráfico na ordem certa (reposição)",
+    texto: "Mesma mecânica, mesma base e mesma rubrica do projeto 2, com quatro perguntas diferentes. É a versão para quem combinou com o professor outra data para fazer o projeto.",
+    marcas: ["individual", "pandas", "plotnine"],
+  },
+  {
+    id: "ex03", n: "Projeto 3", aula: "aula 10", pasta: "ex03-corretor-provinha",
+    titulo: "Prova de probabilidade e inferência",
+    texto: "Prova em papel, feita em sala: você resolve à mão, mostrando o cálculo, e entrega a folha de respostas. A correção usa leitura automática das folhas, feita pelo professor depois da aula.",
+    marcas: ["individual", "em papel", "em sala"],
+    presencial: true,
+    tituloProfessor: "Corretor das folhas de resposta",
+    textoProfessor: "Ferramenta do professor: sobe as fotos das folhas, um modelo de visão transcreve, o app corrige contra o gabarito e gera notas e feedback por aluno.",
+    marcasProfessor: ["professor", "visão", "revisão antes da nota"],
+  },
+  {
+    id: "ex03b", n: "Projeto 3", aula: "reposição", pasta: "ex03b-reposicao",
+    titulo: "Probabilidade e variável aleatória (reposição)",
+    texto: "A prova do projeto 3 em versão para fazer em casa, com os mesmos conteúdos e pesos e casos novos. É para quem combinou com o professor outra data; depois do prazo, fica aberta como treino para a prova intermediária.",
+    marcas: ["individual", "em casa", "sem colar"],
+  },
+  {
+    id: "ex04", n: "Projeto 4", aula: "aula 13", pasta: "ex04-planejamento",
+    titulo: "Planejamento de pesquisa",
+    texto: "Escolher um tema, formular a pergunta, definir a fonte de dados e as variáveis que serão construídas, e só então a hipótese e a análise. O feedback segue a rubrica do planejamento.",
+    marcas: ["em grupo", "rubrica", "sem cópia e cola"],
+  },
+  {
+    id: "ex05", n: "Projeto 5", aula: "aula 18", pasta: "ex05-analise-inferencial",
+    titulo: "Testes de hipóteses nas Câmaras Criminais",
+    texto: "Cinco perguntas de pesquisa sobre recursos criminais do TJSP. Em cada uma, escolher as variáveis e o método (qui-quadrado, teste t, anova, regressão), rodar a análise e interpretar o resultado para uma pessoa do Direito.",
+    marcas: ["em grupo", "scipy", "rubrica"],
+  },
+  {
+    id: "ex05b", n: "Projeto 5", aula: "reposição", pasta: "ex05b-reposicao",
+    titulo: "Testes de hipóteses em acórdãos criminais (reposição)",
+    texto: "Para quem faltou à aula 18: cinco perguntas sobre acórdãos criminais do TJSP, com outra base e sem feedback automático. Individual, com prazo até 14/10 às 17h, sem sair da tela do exercício: cada saída desconta nota.",
+    marcas: ["individual", "sem sair da tela", "sem colar"],
+  },
+  {
+    id: "ex06", n: "Projeto 6", aula: "aula 21", pasta: "ex06-onde-colocar-o-corte",
+    titulo: "Do modelo ao corte",
+    texto: "Triagem de processos de saúde no NatJus. Ler uma regressão linear múltipla e uma regressão logística, escolher o ponto de corte com a matriz de confusão e as métricas, e justificar. Acompanha a lista 6.",
+    marcas: ["individual", "rubrica"],
+  },
+  {
+    id: "ex06b", n: "Projeto 6", aula: "versão para casa", pasta: "ex06b-execucao-fiscal",
+    titulo: "Do modelo ao corte: execução fiscal",
+    texto: "Para quem faz o Projeto 6 em casa: o mesmo exercício, com execuções fiscais no lugar do NatJus. Abre às 13:00 e fecha às 19:00 de 27/10, e cada pessoa tem 1 hora a partir de quando se identifica.",
+    marcas: ["individual", "rubrica", "1 hora"],
+  },
+  {
+    id: "ex07", n: "Projeto 7", aula: "aula 27", pasta: "ex07-quiz-ml",
+    titulo: "Prova de machine learning",
+    texto: "Quinze questões de múltipla escolha, com questões e alternativas em ordem diferente para cada aluno. A correção é feita no servidor.",
+    marcas: ["individual", "tela cheia", "tempo limite"],
+  },
+  {
+    id: "ex08", n: "Projeto 8", aula: "aula 27, em casa", pasta: "ex08-competicao",
+    titulo: "Competição de modelo preditivo",
+    texto: "Treinar um modelo no Colab e subir o arquivo de predições. A AUC é calculada no servidor, com os rótulos de teste que ninguém vê, e entra num ranking.",
+    marcas: ["individual", "em casa", "AUC"],
+  },
+];
+
+await garantirModoProfessor();
+const config = await carregarLiberacao("liberacao.json");
+const prof = modoProfessor();
+
+if (prof) {
+  const quem = quemEntrou();
+  $("#selo-prof").append(
+    el("span.selo-prof", {
+      texto: quem ? `${quem}: tudo liberado` : "modo professor: tudo liberado",
+    })
+  );
+}
+
+const lista = limpar($("#lista"));
+for (const projeto of PROJETOS) {
+  const s = situacao(config, projeto.id);
+  // reposição combinada com uma pessoa: o card só entra na lista depois de
+  // `oculto_ate`, e até lá quem tem a senha chega pelo link direto
+  if (s.oculto) continue;
+  const soProfessor = s.so_professor && !prof;
+  const comoProfessor = prof && projeto.tituloProfessor;
+
+  const titulo = comoProfessor ? projeto.tituloProfessor : projeto.titulo;
+  const texto = comoProfessor ? projeto.textoProfessor : projeto.texto;
+  const marcas = (comoProfessor ? projeto.marcasProfessor : projeto.marcas) || projeto.marcas;
+
+  // o projeto 3 é presencial: o aluno vê o card, mas não há app para ele abrir
+  const presencialParaAluno = projeto.presencial && !prof;
+  const abrivel = s.liberado && !presencialParaAluno && !soProfessor;
+
+  const conteudo = [
+    el("div.topo-cartao", {}, [
+      el("span.num", { texto: `${projeto.n} · ${projeto.aula}` }),
+      s.chegou ? null : el("span.quando", { texto: `abre em ${formatarData(s.libera_em)}` }),
+    ]),
+    el("h2", { texto: titulo }),
+    el("p", { texto }),
+    el("div.marcas", {}, [
+      ...marcas.map((m) => el("span.etiqueta", { texto: m })),
+      s.entrega_em
+        ? el("span.etiqueta", { texto: `entrega até ${formatarData(s.entrega_em)}` })
+        : null,
+      !s.chegou ? el("span.etiqueta.alerta", { texto: "🔒 ainda não liberado" }) : null,
+      s.porProfessor ? el("span.etiqueta.ok", { texto: "aberto pelo modo professor" }) : null,
+      presencialParaAluno && s.chegou
+        ? el("span.etiqueta", { texto: "não há app: é em papel" })
+        : null,
+    ]),
+  ];
+
+  const classes = [
+    comoProfessor ? "professor" : null,
+    presencialParaAluno ? "presencial" : null,
+    !s.liberado ? "travado" : null,
+  ]
+    .filter(Boolean)
+    .join(".");
+  const base = `cartao${classes ? "." + classes : ""}`;
+
+  lista.append(
+    abrivel
+      ? el(`a.${base}`, { href: `${projeto.pasta}/` }, conteudo)
+      : el(`div.${base}`, { "aria-disabled": "true" }, conteudo)
+  );
+}
+</script>
+</body>
+</html>

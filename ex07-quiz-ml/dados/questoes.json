@@ -1,0 +1,415 @@
+{
+ "id": "ex07_provinha_ml",
+ "titulo": "Provinha de machine learning",
+ "exercicio": "Projeto 7 (aula 27)",
+ "instrucoes": "Prova individual, sem consulta e sem IA, com 15 questões de múltipla escolha e cinco alternativas cada. As questões e as alternativas aparecem em ordem diferente para cada aluno. Você tem 30 minutos e a prova roda em tela cheia. Antes de entregar aparece uma tela para conferir as respostas.",
+ "minutos": 30,
+ "n_questoes": 15,
+ "questoes": [
+  {
+   "id": "q01",
+   "tema": "definição",
+   "enunciado": "Um tribunal quer um sistema que, a partir de processos já julgados, aprenda a sinalizar quais recursos novos têm maior chance de reforma. Em que sentido isso é aprendizado supervisionado?",
+   "alternativas": [
+    {
+     "id": "a",
+     "texto": "Porque existe uma variável resposta observada nos casos passados (o recurso foi reformado ou não), que serve de gabarito para o ajuste do modelo."
+    },
+    {
+     "id": "b",
+     "texto": "Porque um servidor do tribunal supervisiona as previsões do modelo antes de o processo ser distribuído."
+    },
+    {
+     "id": "c",
+     "texto": "Porque o modelo é treinado com regras jurídicas previamente cadastradas por especialistas."
+    },
+    {
+     "id": "d",
+     "texto": "Porque o algoritmo agrupa os processos parecidos entre si sem precisar de rótulo."
+    },
+    {
+     "id": "e",
+     "texto": "Porque o modelo é treinado com dados públicos, que passaram por revisão de outra pessoa."
+    }
+   ]
+  },
+  {
+   "id": "q02",
+   "tema": "overfitting",
+   "enunciado": "Um modelo de árvore alcança 99% de acurácia nos dados usados para treiná-lo e 61% em dados que ele nunca viu. O diagnóstico mais direto é:",
+   "alternativas": [
+    {
+     "id": "a",
+     "texto": "Sobreajuste: o modelo decorou particularidades da amostra de treino que não se repetem fora dela."
+    },
+    {
+     "id": "b",
+     "texto": "Subajuste: o modelo é simples demais para o problema."
+    },
+    {
+     "id": "c",
+     "texto": "Vazamento de dados: alguma variável do futuro entrou no treino."
+    },
+    {
+     "id": "d",
+     "texto": "Desbalanceamento: uma das classes é muito mais frequente que a outra."
+    },
+    {
+     "id": "e",
+     "texto": "Desbalanceamento entre treino e teste: as duas amostras têm proporções diferentes de classes."
+    }
+   ]
+  },
+  {
+   "id": "q03",
+   "tema": "validação",
+   "enunciado": "Por que a validação cruzada em k partes é preferível a uma única divisão treino/teste quando a base é pequena?",
+   "alternativas": [
+    {
+     "id": "a",
+     "texto": "Porque cada observação é usada para validar exatamente uma vez, o que reduz a dependência da estimativa de desempenho de um sorteio específico."
+    },
+    {
+     "id": "b",
+     "texto": "Porque treinar k vezes aumenta o tamanho efetivo da amostra."
+    },
+    {
+     "id": "c",
+     "texto": "Porque elimina o sobreajuste do modelo final."
+    },
+    {
+     "id": "d",
+     "texto": "Porque garante que treino e teste tenham exatamente a mesma distribuição."
+    },
+    {
+     "id": "e",
+     "texto": "Porque treinar em k partes reduz o tempo total de treinamento."
+    }
+   ]
+  },
+  {
+   "id": "q04",
+   "tema": "vazamento",
+   "enunciado": "Para prever se um processo será extinto sem julgamento de mérito, alguém inclui como variável explicativa a data do arquivamento definitivo. O problema é:",
+   "alternativas": [
+    {
+     "id": "a",
+     "texto": "Vazamento: a variável só existe depois do desfecho que se quer prever, então o modelo parece ótimo no papel e é inútil na prática."
+    },
+    {
+     "id": "b",
+     "texto": "Multicolinearidade entre a data de arquivamento e a data de distribuição."
+    },
+    {
+     "id": "c",
+     "texto": "Nada, desde que a data seja transformada em número de dias."
+    },
+    {
+     "id": "d",
+     "texto": "Excesso de variáveis, o que sempre piora o desempenho fora da amostra."
+    },
+    {
+     "id": "e",
+     "texto": "Erro de escala: datas precisam ser normalizadas antes de entrar em qualquer modelo."
+    }
+   ]
+  },
+  {
+   "id": "q05",
+   "tema": "métricas",
+   "enunciado": "Em uma base em que 4% dos processos têm o desfecho de interesse, um modelo que responde sempre 'não' obtém 96% de acurácia. O que isso mostra?",
+   "alternativas": [
+    {
+     "id": "a",
+     "texto": "Que acurácia é uma métrica pobre sob classes desbalanceadas, porque pode ser alta sem que o modelo identifique nenhum caso de interesse."
+    },
+    {
+     "id": "b",
+     "texto": "Que o modelo trivial é um bom ponto de partida, faltando apenas ajustar hiperparâmetros."
+    },
+    {
+     "id": "c",
+     "texto": "Que a base precisa de mais variáveis explicativas."
+    },
+    {
+     "id": "d",
+     "texto": "Que a acurácia deveria ser calculada apenas na classe minoritária."
+    },
+    {
+     "id": "e",
+     "texto": "Que a métrica deveria ser calculada só nos processos em que o modelo respondeu 'sim'."
+    }
+   ]
+  },
+  {
+   "id": "q06",
+   "tema": "métricas",
+   "enunciado": "Um modelo sinaliza 200 processos para revisão. Desses, 60 realmente precisavam. Havia 150 processos que precisavam de revisão na base. Precisão e recall são, respectivamente:",
+   "alternativas": [
+    {
+     "id": "a",
+     "texto": "30% e 40%."
+    },
+    {
+     "id": "b",
+     "texto": "40% e 30%."
+    },
+    {
+     "id": "c",
+     "texto": "30% e 60%."
+    },
+    {
+     "id": "d",
+     "texto": "60% e 40%."
+    },
+    {
+     "id": "e",
+     "texto": "50% e 50%."
+    }
+   ]
+  },
+  {
+   "id": "q07",
+   "tema": "trade-off",
+   "enunciado": "Ao baixar o limiar de decisão de 0,5 para 0,2 em um classificador de probabilidade, o esperado é:",
+   "alternativas": [
+    {
+     "id": "a",
+     "texto": "Recall sobe e precisão tende a cair, porque mais casos passam a ser classificados como positivos."
+    },
+    {
+     "id": "b",
+     "texto": "Precisão sobe e recall cai, porque o modelo fica mais exigente."
+    },
+    {
+     "id": "c",
+     "texto": "As duas sobem, porque o modelo passa a errar menos."
+    },
+    {
+     "id": "d",
+     "texto": "Nenhuma das duas muda, porque o modelo é o mesmo."
+    },
+    {
+     "id": "e",
+     "texto": "Recall e precisão sobem juntos, porque o modelo passa a considerar mais informação."
+    }
+   ]
+  },
+  {
+   "id": "q08",
+   "tema": "regularização",
+   "enunciado": "O que a regularização faz em um modelo de regressão logística?",
+   "alternativas": [
+    {
+     "id": "a",
+     "texto": "Penaliza coeficientes grandes, aceitando um pouco mais de viés em troca de menos variância e melhor desempenho fora da amostra."
+    },
+    {
+     "id": "b",
+     "texto": "Remove automaticamente as observações atípicas da base de treino."
+    },
+    {
+     "id": "c",
+     "texto": "Padroniza as variáveis para que fiquem na mesma escala."
+    },
+    {
+     "id": "d",
+     "texto": "Garante que o modelo encontre o mínimo global da função de perda."
+    },
+    {
+     "id": "e",
+     "texto": "Escolhe automaticamente quais variáveis entram no modelo, descartando as irrelevantes."
+    }
+   ]
+  },
+  {
+   "id": "q09",
+   "tema": "hiperparâmetros",
+   "enunciado": "Qual destes é um hiperparâmetro, e não um parâmetro estimado a partir dos dados?",
+   "alternativas": [
+    {
+     "id": "a",
+     "texto": "A profundidade máxima da árvore de decisão."
+    },
+    {
+     "id": "b",
+     "texto": "O coeficiente da variável 'tempo de tramitação' na regressão logística."
+    },
+    {
+     "id": "c",
+     "texto": "O intercepto do modelo linear."
+    },
+    {
+     "id": "d",
+     "texto": "A probabilidade predita para um processo específico."
+    },
+    {
+     "id": "e",
+     "texto": "O número de observações do conjunto de treino."
+    }
+   ]
+  },
+  {
+   "id": "q10",
+   "tema": "tuning",
+   "enunciado": "Um grupo testa 40 combinações de hiperparâmetros e escolhe a que teve melhor desempenho no conjunto de teste, reportando esse número como desempenho esperado do modelo. O que está errado?",
+   "alternativas": [
+    {
+     "id": "a",
+     "texto": "O conjunto de teste foi usado para escolher o modelo, então o desempenho reportado é otimista; a escolha deveria usar validação e o teste ficar intocado até o fim."
+    },
+    {
+     "id": "b",
+     "texto": "Nada, desde que as 40 combinações tenham sido definidas antes de ver os dados."
+    },
+    {
+     "id": "c",
+     "texto": "Testar 40 combinações é pouco para garantir o ótimo."
+    },
+    {
+     "id": "d",
+     "texto": "O erro é usar acurácia em vez de F1 na seleção."
+    },
+    {
+     "id": "e",
+     "texto": "O erro é não ter usado validação cruzada dentro de cada uma das 40 combinações."
+    }
+   ]
+  },
+  {
+   "id": "q11",
+   "tema": "árvores",
+   "enunciado": "Uma vantagem de árvores de decisão sobre a regressão logística em problemas jurídicos é:",
+   "alternativas": [
+    {
+     "id": "a",
+     "texto": "Capturam interações e efeitos não lineares sem que o analista precise especificá-los antes."
+    },
+    {
+     "id": "b",
+     "texto": "Produzem estimativas de incerteza melhor calibradas para cada predição."
+    },
+    {
+     "id": "c",
+     "texto": "São imunes ao sobreajuste por construção."
+    },
+    {
+     "id": "d",
+     "texto": "Exigem menos dados para atingir o mesmo desempenho."
+    },
+    {
+     "id": "e",
+     "texto": "Fornecem valores-p para cada variável, o que facilita a discussão jurídica."
+    }
+   ]
+  },
+  {
+   "id": "q12",
+   "tema": "floresta",
+   "enunciado": "Por que uma random forest costuma superar uma árvore única?",
+   "alternativas": [
+    {
+     "id": "a",
+     "texto": "Porque combina muitas árvores decorrelacionadas (por reamostragem e sorteio de variáveis), reduzindo a variância da predição."
+    },
+    {
+     "id": "b",
+     "texto": "Porque cada árvore da floresta é mais profunda que a árvore única."
+    },
+    {
+     "id": "c",
+     "texto": "Porque elimina o viés do modelo ao aumentar o número de árvores."
+    },
+    {
+     "id": "d",
+     "texto": "Porque treina as árvores em sequência, cada uma corrigindo o erro da anterior."
+    },
+    {
+     "id": "e",
+     "texto": "Porque a floresta usa todas as variáveis em cada divisão, enquanto a árvore usa uma só."
+    }
+   ]
+  },
+  {
+   "id": "q13",
+   "tema": "boosting",
+   "enunciado": "A diferença central entre random forest e gradient boosting é:",
+   "alternativas": [
+    {
+     "id": "a",
+     "texto": "A floresta treina árvores em paralelo sobre reamostragens; o boosting treina árvores em sequência, cada uma ajustando o resíduo das anteriores."
+    },
+    {
+     "id": "b",
+     "texto": "A floresta usa árvores rasas e o boosting usa árvores profundas."
+    },
+    {
+     "id": "c",
+     "texto": "O boosting não precisa de hiperparâmetros."
+    },
+    {
+     "id": "d",
+     "texto": "A floresta serve só para classificação e o boosting só para regressão."
+    },
+    {
+     "id": "e",
+     "texto": "A floresta aceita variáveis categóricas e o boosting exige tudo numérico."
+    }
+   ]
+  },
+  {
+   "id": "q14",
+   "tema": "viés e variância",
+   "enunciado": "Um modelo com viés alto e variância baixa se caracteriza por:",
+   "alternativas": [
+    {
+     "id": "a",
+     "texto": "Errar de forma parecida em qualquer amostra, porque é simples demais para capturar o padrão."
+    },
+    {
+     "id": "b",
+     "texto": "Mudar muito de uma amostra para outra, acertando em média."
+    },
+    {
+     "id": "c",
+     "texto": "Ter desempenho perfeito no treino e ruim no teste."
+    },
+    {
+     "id": "d",
+     "texto": "Ser sempre preferível a um modelo com viés baixo."
+    },
+    {
+     "id": "e",
+     "texto": "Acertar no treino e no teste, mas com intervalos de confiança muito largos."
+    }
+   ]
+  },
+  {
+   "id": "q15",
+   "tema": "uso responsável",
+   "enunciado": "Um modelo de triagem tem recall de 0,80 para um grupo de pessoas e 0,50 para outro. Sobre isso, é correto afirmar que:",
+   "alternativas": [
+    {
+     "id": "a",
+     "texto": "A métrica agregada esconde distribuição desigual do erro, e o modelo pode reproduzir desigualdade mesmo com bom desempenho global."
+    },
+    {
+     "id": "b",
+     "texto": "Não há problema, desde que o F1 global esteja alto."
+    },
+    {
+     "id": "c",
+     "texto": "A diferença desaparece se o limiar for ajustado para maximizar acurácia."
+    },
+    {
+     "id": "d",
+     "texto": "O problema se resolve retirando do modelo a variável que identifica o grupo."
+    },
+    {
+     "id": "e",
+     "texto": "É esperado: recall sempre varia entre grupos porque os grupos têm tamanhos diferentes."
+    }
+   ]
+  }
+ ]
+}

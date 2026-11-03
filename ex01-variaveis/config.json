@@ -1,0 +1,81 @@
+{
+  "tipos": [
+    {
+      "id": "identificador",
+      "rotulo": "Identificador",
+      "classe": "tipo-id",
+      "saida": "texto",
+      "ajuda": "Código que nomeia uma entidade: o número do processo, o número da câmara, o código IBGE do município. Não entra em cálculo.",
+      "regra": "Copie o código exatamente como aparece, sem reformatar."
+    },
+    {
+      "id": "categorica_nominal",
+      "rotulo": "Categórica nominal",
+      "classe": "tipo-cat",
+      "saida": "categoria",
+      "ajuda": "Categorias sem ordem que classificam o caso: comarca, fundamento invocado, resultado. Se o valor for um código de cadastro, é identificador.",
+      "regra": "Responda com UMA das categorias listadas, escrita exatamente como foi listada."
+    },
+    {
+      "id": "categorica_ordinal",
+      "rotulo": "Categórica ordinal",
+      "classe": "tipo-cat",
+      "saida": "categoria",
+      "ajuda": "Categorias com ordem natural: regime fechado, semiaberto, aberto.",
+      "regra": "Responda com UMA das categorias listadas, escrita exatamente como foi listada."
+    },
+    {
+      "id": "categorica_binaria",
+      "rotulo": "Categórica binária",
+      "classe": "tipo-cat",
+      "saida": "categoria",
+      "ajuda": "Só dois valores: houve confissão (sim ou não).",
+      "regra": "Responda com UM dos dois valores listados, escrito exatamente como foi listado."
+    },
+    {
+      "id": "numerica_discreta",
+      "rotulo": "Numérica discreta",
+      "classe": "tipo-num",
+      "saida": "numero",
+      "ajuda": "Contagem: número de réus, número de testemunhas.",
+      "regra": "Responda com um número inteiro puro (ex.: 3). Sem texto, sem unidade, sem aspas."
+    },
+    {
+      "id": "numerica_continua",
+      "rotulo": "Numérica contínua",
+      "classe": "tipo-num",
+      "saida": "numero",
+      "ajuda": "Medida em escala: pena em anos, valor em reais, gramas de droga.",
+      "regra": "Responda com um número puro, ponto como separador decimal (ex.: 15000.5). Nunca escreva R$, nunca use ponto de milhar, nunca use vírgula decimal."
+    }
+  ],
+  "papeis": [
+    {
+      "id": "identificacao",
+      "rotulo": "Identifica o caso",
+      "ajuda": "Serve para achar o processo depois. Não entra na comparação."
+    },
+    {
+      "id": "dependente",
+      "rotulo": "O que eu quero explicar",
+      "ajuda": "O desfecho da pergunta: aquilo que você quer entender por que varia. Em estatística, variável resposta ou dependente."
+    },
+    {
+      "id": "independente",
+      "rotulo": "O que pode explicar",
+      "ajuda": "Aquilo que pode estar associado ao desfecho. Em estatística, variável explicativa ou independente."
+    },
+    {
+      "id": "filtro",
+      "rotulo": "Define quais casos entram",
+      "ajuda": "Não responde à pergunta, mas delimita o conjunto: só sentenças de mérito, só condenações, só um período."
+    }
+  ],
+  "limites": {
+    "min_variaveis": 3,
+    "max_variaveis": 8,
+    "max_avaliacoes": 5,
+    "min_estatisticas": 120,
+    "max_avaliacoes_estudo": 3
+  }
+}

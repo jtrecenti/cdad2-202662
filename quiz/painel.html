@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quiz · painel do professor · CDAD II</title>
+<link rel="icon" href="../_shared/img/logo-insper-preto.png">
+<style>
+/* ==========================================================================
+   Painel do professor. Esta é a página PROJETADA.
+
+   Duas telas no mesmo lugar, e a diferença é o tamanho:
+
+   - enquanto a votação está aberta, o que a sala precisa ver é o QR e o
+     enunciado, e o professor precisa ver quantos já votaram. A distribuição
+     fica escondida de propósito: projetar as barras crescendo faz a turma
+     votar na maioria.
+   - depois de revelar, o enunciado encolhe e as barras tomam a tela.
+
+   Tudo em corpo grande: quem está na última fileira tem que ler.
+   ========================================================================== */
+
+:root {
+  --marca: #e50505;
+  --verde: #12996f;
+  --fundo: #ffffff;
+  --superficie: #f4f5f7;
+  --borda: #d8dbe0;
+  --texto: #14161a;
+  --fraco: #4a4f57;
+  --raio: 12px;
+}
+
+html[data-tema="escuro"] {
+  --marca: #ff6b6b;
+  --verde: #5ad8a6;
+  --fundo: #0d0f12;
+  --superficie: #22252b;
+  --borda: #3a3f48;
+  --texto: #ffffff;
+  --fraco: #d3d7de;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--fundo);
+  color: var(--texto);
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 18px;
+  line-height: 1.4;
+}
+
+/* ---- barra de controle -------------------------------------------------- */
+
+.controle {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .45rem;
+  padding: .55rem .9rem;
+  background: var(--superficie);
+  border-bottom: 1px solid var(--borda);
+  font-size: .8rem;
+}
+
+.controle.recolhida > *:not(.puxador) { display: none; }
+
+button, select, input {
+  font: inherit;
+  font-size: .82rem;
+  color: var(--texto);
+  background: var(--fundo);
+  border: 1px solid var(--borda);
+  border-radius: 8px;
+  padding: .38rem .7rem;
+  cursor: pointer;
+}
+
+button:hover:not(:disabled) { border-color: var(--marca); }
+button:disabled { opacity: .4; cursor: default; }
+button.primario { background: var(--marca); border-color: var(--marca); color: #fff; font-weight: 600; }
+button.perigo { color: var(--marca); }
+select { min-width: 15rem; }
+input[type="password"] { width: 9rem; }
+
+.puxador { margin-left: auto; opacity: .5; }
+.aviso-senha { color: var(--marca); font-weight: 600; }
+
+/* ---- palco -------------------------------------------------------------- */
+
+.palco { padding: 1.4rem 2rem 2rem; }
+
+.contexto {
+  background: var(--superficie);
+  border-left: 5px solid var(--borda);
+  border-radius: 0 var(--raio) var(--raio) 0;
+  padding: .8rem 1.1rem;
+  color: var(--fraco);
+  font-size: 1.05rem;
+  margin-bottom: 1rem;
+}
+
+h1 {
+  font-size: 2.1rem;
+  line-height: 1.15;
+  margin: 0 0 1.1rem;
+  letter-spacing: -0.015em;
+}
+
+.palco.revelado h1 { font-size: 1.45rem; margin-bottom: .7rem; }
+.palco.revelado .contexto { display: none; }
+
+.duas {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 2rem;
+  align-items: start;
+}
+
+.palco.revelado .duas { grid-template-columns: 1fr; }
+.palco.revelado .lateral { display: none; }
+
+/* ---- QR ----------------------------------------------------------------- */
+
+.lateral { text-align: center; }
+
+.lateral img {
+  width: 100%;
+  max-width: 300px;
+  background: #fff;
+  border-radius: var(--raio);
+  padding: .8rem;
+}
+
+.endereco {
+  font-family: ui-monospace, Consolas, monospace;
+  font-size: 1rem;
+  font-weight: 700;
+  margin-top: .5rem;
+  word-break: break-all;
+}
+
+.contador {
+  margin-top: .9rem;
+  font-size: 3.4rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--marca);
+}
+.contador small { display: block; font-size: .85rem; font-weight: 400; color: var(--fraco); }
+
+/* ---- alternativas ------------------------------------------------------- */
+
+.opcoes { display: flex; flex-direction: column; gap: .6rem; }
+
+.linha {
+  position: relative;
+  border: 2px solid var(--borda);
+  border-radius: var(--raio);
+  padding: .7rem 1rem;
+  overflow: hidden;
+  background: var(--fundo);
+}
+
+/* a barra é o fundo da própria linha, e não um gráfico ao lado: o texto da
+   alternativa e o tamanho do voto ficam no mesmo lugar do olhar */
+.linha .preenche {
+  position: absolute;
+  inset: 0 auto 0 0;
+  background: var(--borda);
+  opacity: .5;
+  transition: width .4s ease;
+  z-index: 0;
+}
+
+.linha > .conteudo { position: relative; z-index: 1; display: flex; align-items: center; gap: .9rem; }
+
+.linha .letra {
+  flex: none;
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  display: grid; place-items: center;
+  background: var(--superficie);
+  border: 1px solid var(--borda);
+  font-weight: 700;
+}
+
+.linha .texto { flex: 1; font-size: 1.05rem; }
+.linha .n { font-size: 1.5rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+
+.linha.certa { border-color: var(--verde); }
+.linha.certa .preenche { background: var(--verde); opacity: .3; }
+.linha.certa .letra { background: var(--verde); border-color: var(--verde); color: #fff; }
+
+.comentario {
+  margin-top: 1rem;
+  background: var(--superficie);
+  border-left: 5px solid var(--verde);
+  border-radius: 0 var(--raio) var(--raio) 0;
+  padding: .9rem 1.2rem;
+  font-size: 1.05rem;
+}
+
+.espera { text-align: center; padding: 5rem 1rem; color: var(--fraco); font-size: 1.1rem; }
+/* ---- bloco: várias perguntas na mesma tela ------------------------------ */
+.grade-bloco { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .9rem; }
+.palco.revelado .grade-bloco { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.cartao-bloco { border: 2px solid var(--borda); border-radius: 12px; padding: .8rem .9rem; }
+.cartao-titulo { font-size: .8rem; font-weight: 700; color: var(--fraco); text-transform: uppercase; letter-spacing: .03em; }
+.cartao-enunciado { font-size: 1.05rem; line-height: 1.3; margin: .25rem 0 .55rem; }
+.cartao-n { font-size: .9rem; color: var(--fraco); }
+.cartao-porque { font-size: .8rem; color: var(--fraco); margin-top: .5rem; line-height: 1.35; }
+.opcoes.compacta { gap: .3rem; }
+.opcoes.compacta .linha { padding: .3rem .6rem; }
+.opcoes.compacta .texto { font-size: .9rem; }
+.opcoes.compacta .n { font-size: 1rem; }
+</style>
+</head>
+<body>
+
+<div class="controle" id="controle">
+  <input type="password" id="senha" placeholder="senha" autocomplete="current-password">
+  <select id="pergunta"></select>
+  <button id="b-abrir" class="primario">abrir</button>
+  <button id="b-fechar">fechar</button>
+  <button id="b-revelar">revelar</button>
+  <button id="b-limpar" class="perigo">apagar votos</button>
+  <button id="b-tema">escuro</button>
+  <span id="recado"></span>
+  <span class="puxador">esc esconde a barra</span>
+</div>
+
+<div class="palco" id="palco">
+  <div class="espera">Digite a senha e escolha uma pergunta.</div>
+</div>
+
+<script type="module" src="painel.js"></script>
+</body>
+</html>

@@ -1,0 +1,328 @@
+{
+  "base": {
+    "arquivo": "../_shared/dados/camaras.csv",
+    "variavel": "camaras",
+    "meta": "../_shared/dados/camaras.json"
+  },
+  "_leia": [
+    "Reposição do projeto 2: mesma base, mesma mecânica e mesma rubrica, com quatro",
+    "perguntas diferentes. Cada desafio espelha uma habilidade do original: v1 agrega e",
+    "ordena barras (como o d1), v2 filtra antes de descrever a distribuição (como o d2),",
+    "v3 muda a unidade de análise para o relator (como o d3) e v4 cruza tempo com um",
+    "segundo grupo (como o d4).",
+    "",
+    "`usar: true` entra na solução; `usar: false` é distrator, e `porque_nao` é o que o",
+    "app explica quando o aluno usa. `ordem` vale só para os blocos de pandas.",
+    "As imagens de esperado/ saem de:",
+    "uv run python scripts/gerar_graficos_esperados.py --app ex02b-reposicao"
+  ],
+  "desafios": [
+    {
+      "id": "v1",
+      "titulo": "Que câmara mais dá provimento",
+      "pergunta": "Entre as câmaras criminais com pelo menos 90 recursos na base, qual proporção dos recursos recebe algum provimento, total ou parcial?",
+      "grafico_esperado": "Barras horizontais, uma por câmara, ordenadas da maior para a menor proporção de provimento.",
+      "imagem": "esperado/v1.png",
+      "blocos_pandas": [
+        {
+          "id": "p1",
+          "codigo": ".assign(proveu=camaras['decisao'] != 'Negaram')",
+          "usar": true,
+          "ordem": 1
+        },
+        {
+          "id": "p2",
+          "codigo": ".groupby('camara', as_index=False)",
+          "usar": true,
+          "ordem": 2
+        },
+        {
+          "id": "p3",
+          "codigo": ".agg(prop_proveu=('proveu', 'mean'), n=('proveu', 'size'))",
+          "usar": true,
+          "ordem": 3
+        },
+        {
+          "id": "p4",
+          "codigo": ".query('n >= 90')",
+          "usar": true,
+          "ordem": 4
+        },
+        {
+          "id": "p5",
+          "codigo": ".query(\"decisao == 'Provido'\")",
+          "usar": false,
+          "porque_nao": "Isso joga fora o denominador e ainda esquece o provimento parcial: sobram só os recursos totalmente providos, e a proporção vira 1 em toda câmara."
+        }
+      ],
+      "blocos_plotnine": [
+        {
+          "id": "g1",
+          "codigo": "ggplot(dados, aes(x='reorder(camara, prop_proveu)', y='prop_proveu'))",
+          "usar": true,
+          "primeiro": true
+        },
+        {
+          "id": "g2",
+          "codigo": "+ geom_col(fill='#0a6ea8')",
+          "usar": true
+        },
+        {
+          "id": "g3",
+          "codigo": "+ coord_flip()",
+          "usar": true
+        },
+        {
+          "id": "g4",
+          "codigo": "+ labs(x='Câmara', y='Proporção de recursos com algum provimento')",
+          "usar": true
+        },
+        {
+          "id": "g5",
+          "codigo": "+ geom_bar()",
+          "usar": false,
+          "porque_nao": "geom_bar conta linhas. Aqui a altura da barra já está calculada na tabela, então o geom certo é geom_col."
+        },
+        {
+          "id": "g6",
+          "codigo": "+ geom_point(size=3)",
+          "usar": false,
+          "porque_nao": "Ponto serve para relação entre duas numéricas. Para comparar o nível de uma proporção entre categorias, a barra lê melhor."
+        }
+      ],
+      "verificacao": "'prop_proveu' in dados.columns and dados['n'].min() >= 90 and 3 <= dados.shape[0] <= 16"
+    },
+    {
+      "id": "v2",
+      "titulo": "Tempo de tramitação por tipo de relator",
+      "pergunta": "Entre os recursos publicados de 2019 em diante, e descartando os tempos acima de 8 anos (que são casos atípicos de tramitação), o tempo até o julgamento difere entre desembargadores e juízes substitutos em 2º grau?",
+      "grafico_esperado": "Um boxplot por tipo de relator, com o tempo em anos, deitado. Os dois filtros do enunciado precisam ser aplicados antes.",
+      "imagem": "esperado/v2.png",
+      "blocos_pandas": [
+        {
+          "id": "p1",
+          "codigo": ".query('tempo <= 8')",
+          "usar": true,
+          "ordem": 1
+        },
+        {
+          "id": "p2",
+          "codigo": ".query('ano_publicacao >= 2019')",
+          "usar": true,
+          "ordem": 2
+        },
+        {
+          "id": "p3",
+          "codigo": ".groupby('rel_tipo', as_index=False).agg(tempo=('tempo', 'mean'))",
+          "usar": false,
+          "porque_nao": "Resumindo para a média você perde a distribuição, e o boxplot fica sem o que mostrar. Boxplot precisa das observações uma por uma."
+        },
+        {
+          "id": "p4",
+          "codigo": ".drop_duplicates('camara')",
+          "usar": false,
+          "porque_nao": "Isso deixaria um recurso por câmara e mudaria a unidade de análise, que a pergunta não pediu."
+        }
+      ],
+      "blocos_plotnine": [
+        {
+          "id": "g1",
+          "codigo": "ggplot(dados, aes(x='rel_tipo', y='tempo'))",
+          "usar": true,
+          "primeiro": true
+        },
+        {
+          "id": "g2",
+          "codigo": "+ geom_boxplot(fill='#dcdcdc')",
+          "usar": true
+        },
+        {
+          "id": "g3",
+          "codigo": "+ coord_flip()",
+          "usar": true
+        },
+        {
+          "id": "g4",
+          "codigo": "+ labs(x='Tipo de relator', y='Tempo até o julgamento (anos)')",
+          "usar": true
+        },
+        {
+          "id": "g5",
+          "codigo": "+ geom_col()",
+          "usar": false,
+          "porque_nao": "geom_col somaria o tempo de todos os recursos do grupo, o que não significa nada. A pergunta é sobre distribuição."
+        }
+      ],
+      "verificacao": "dados['tempo'].max() <= 8 and dados['ano_publicacao'].min() >= 2019 and dados.shape[0] > 400"
+    },
+    {
+      "id": "v3",
+      "titulo": "Tempo de magistratura e negativa de recurso",
+      "pergunta": "Entre os relatores da base, quem tem mais tempo de magistratura nega uma proporção maior ou menor de recursos? Considere só os relatores com pelo menos 5 recursos na base: com um ou dois casos, a proporção de um relator diz mais sobre o acaso do que sobre ele. Cada ponto do gráfico deve ser um relator, não um recurso.",
+      "grafico_esperado": "Um gráfico de dispersão com um ponto por relator, já filtrado pelos que têm pelo menos 5 recursos: tempo de magistratura no eixo x, proporção de recursos negados no eixo y, com uma reta de tendência.",
+      "imagem": "esperado/v3.png",
+      "blocos_pandas": [
+        {
+          "id": "p1",
+          "codigo": ".assign(negou=camaras['decisao'] == 'Negaram')",
+          "usar": true,
+          "ordem": 1
+        },
+        {
+          "id": "p2",
+          "codigo": ".groupby(['relator', 'rel_tempo_magistratura'], as_index=False)",
+          "usar": true,
+          "ordem": 2
+        },
+        {
+          "id": "p3",
+          "codigo": ".agg(prop_negou=('negou', 'mean'), n=('negou', 'size'))",
+          "usar": true,
+          "ordem": 3
+        },
+        {
+          "id": "p4",
+          "codigo": ".query('n >= 5')",
+          "usar": true,
+          "ordem": 4
+        },
+        {
+          "id": "p5",
+          "codigo": ".drop_duplicates('relator')",
+          "usar": false,
+          "porque_nao": "Isso deixa uma linha por relator, mas com a decisão de um recurso qualquer dele, e não com a proporção. A pergunta é sobre o comportamento do magistrado."
+        },
+        {
+          "id": "p6",
+          "codigo": ".groupby('rel_tempo_magistratura', as_index=False)",
+          "usar": false,
+          "porque_nao": "Agrupar só pelo tempo de magistratura junta relatores diferentes que têm o mesmo tempo, e o ponto deixa de ser um magistrado."
+        }
+      ],
+      "blocos_plotnine": [
+        {
+          "id": "g1",
+          "codigo": "ggplot(dados, aes(x='rel_tempo_magistratura', y='prop_negou'))",
+          "usar": true,
+          "primeiro": true
+        },
+        {
+          "id": "g2",
+          "codigo": "+ geom_point(size=2.5, alpha=.7)",
+          "usar": true
+        },
+        {
+          "id": "g3",
+          "codigo": "+ geom_smooth(method='lm', color='#e50505')",
+          "usar": true
+        },
+        {
+          "id": "g4",
+          "codigo": "+ labs(x='Tempo de magistratura (anos)', y='Proporção de recursos negados')",
+          "usar": true
+        },
+        {
+          "id": "g5",
+          "codigo": "+ geom_col()",
+          "usar": false,
+          "porque_nao": "Barra serve para comparar categorias. Tempo de magistratura é numérico contínuo: o gráfico que mostra relação entre duas numéricas é o de dispersão."
+        },
+        {
+          "id": "g6",
+          "codigo": "+ geom_boxplot()",
+          "usar": false,
+          "porque_nao": "Boxplot compara a distribuição entre grupos. Aqui cada relator é um ponto só, então não há distribuição dentro do grupo para resumir."
+        }
+      ],
+      "verificacao": "'prop_negou' in dados.columns and 'rel_tempo_magistratura' in dados.columns and dados['n'].min() >= 5 and dados.shape[0] > 20"
+    },
+    {
+      "id": "v4",
+      "titulo": "Provimento ao longo do tempo, por origem do relator",
+      "pergunta": "De 2018 em diante, a proporção de recursos com algum provimento mudou ao longo dos anos, e o padrão é o mesmo entre relatores que entraram pelo quinto constitucional e os demais?",
+      "grafico_esperado": "Uma linha por origem do relator, de 2018 em diante, com o ano no eixo x e a proporção de provimento no eixo y, com os pontos marcados.",
+      "imagem": "esperado/v4.png",
+      "blocos_pandas": [
+        {
+          "id": "p1",
+          "codigo": ".assign(proveu=camaras['decisao'] != 'Negaram')",
+          "usar": true,
+          "ordem": 1
+        },
+        {
+          "id": "p2",
+          "codigo": ".query('ano_publicacao >= 2018')",
+          "usar": true,
+          "ordem": 2
+        },
+        {
+          "id": "p3",
+          "codigo": ".groupby(['ano_publicacao', 'rel_quinto'], as_index=False)",
+          "usar": true,
+          "ordem": 3
+        },
+        {
+          "id": "p4",
+          "codigo": ".agg(prop_proveu=('proveu', 'mean'), n=('proveu', 'size'))",
+          "usar": true,
+          "ordem": 4
+        },
+        {
+          "id": "p5",
+          "codigo": ".groupby('ano_publicacao', as_index=False)",
+          "usar": false,
+          "porque_nao": "Agrupando só por ano some a separação que a pergunta pede: sai uma linha só, e não dá para comparar as duas origens."
+        },
+        {
+          "id": "p6",
+          "codigo": ".query(\"rel_quinto == 'sim'\")",
+          "usar": false,
+          "porque_nao": "Isso deixa só um dos grupos na tabela. A pergunta compara os dois, então os dois precisam sobreviver ao filtro."
+        }
+      ],
+      "blocos_plotnine": [
+        {
+          "id": "g1",
+          "codigo": "ggplot(dados, aes(x='ano_publicacao', y='prop_proveu', color='rel_quinto'))",
+          "usar": true,
+          "primeiro": true
+        },
+        {
+          "id": "g2",
+          "codigo": "+ geom_line(size=1)",
+          "usar": true
+        },
+        {
+          "id": "g3",
+          "codigo": "+ geom_point(size=2)",
+          "usar": true
+        },
+        {
+          "id": "g4",
+          "codigo": "+ labs(x='Ano de publicação', y='Proporção com algum provimento', color='Quinto constitucional')",
+          "usar": true
+        },
+        {
+          "id": "g5",
+          "codigo": "+ geom_col()",
+          "usar": false,
+          "porque_nao": "Barra por ano esconde justamente a comparação entre os dois grupos ao longo do tempo, que é o ponto da pergunta."
+        },
+        {
+          "id": "g6",
+          "codigo": "+ geom_boxplot()",
+          "usar": false,
+          "porque_nao": "Cada combinação de ano e grupo já é um número só na tabela. Boxplot precisa de vários valores por grupo para resumir."
+        },
+        {
+          "id": "g7",
+          "codigo": "ggplot(dados, aes(x='ano_publicacao', y='prop_proveu'))",
+          "usar": false,
+          "primeiro": true,
+          "porque_nao": "Este ggplot não mapeia a cor em nada, então as duas origens de relator viram uma linha só e a comparação que a pergunta pede desaparece. Quem separa os grupos é o color='rel_quinto' dentro do aes()."
+        }
+      ],
+      "verificacao": "'prop_proveu' in dados.columns and dados['ano_publicacao'].min() >= 2018 and dados['rel_quinto'].nunique() == 2 and dados.shape[0] >= 8"
+    }
+  ]
+}

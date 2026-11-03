@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quest do planejamento · painel · CDAD II</title>
+<link rel="icon" href="../_shared/img/logo-insper-preto.png">
+<style>
+/* ==========================================================================
+   Painel da quest, para o telão. Mostra em que etapa cada grupo está e quem
+   já terminou. O número de barradas só aparece quando o professor revela o
+   placar, no fim: é ele que decide o prêmio.
+   ========================================================================== */
+:root {
+  --marca: #e50505; --verde: #12996f; --fundo: #ffffff; --superficie: #f4f5f7;
+  --borda: #d8dbe0; --texto: #14161a; --fraco: #4a4f57; --raio: 12px;
+}
+html[data-tema="escuro"] {
+  --marca: #ff6b6b; --verde: #5ad8a6; --fundo: #0d0f12; --superficie: #1c1f25;
+  --borda: #3a3f48; --texto: #ffffff; --fraco: #d3d7de;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body { margin: 0; background: var(--fundo); color: var(--texto);
+       font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; font-size: 18px; }
+.controle { position: sticky; top: 0; z-index: 5; display: flex; flex-wrap: wrap; gap: .45rem;
+            align-items: center; padding: .55rem .9rem; background: var(--superficie);
+            border-bottom: 1px solid var(--borda); font-size: .8rem; }
+.controle.recolhida > *:not(.puxador) { display: none; }
+button, input { font: inherit; font-size: .82rem; color: var(--texto); background: var(--fundo);
+                border: 1px solid var(--borda); border-radius: 8px; padding: .38rem .7rem; }
+button { cursor: pointer; }
+button.primario { background: var(--marca); border-color: var(--marca); color: #fff; font-weight: 600; }
+button.perigo { color: var(--marca); }
+.puxador { margin-left: auto; opacity: .5; }
+#recado.ruim { color: var(--marca); font-weight: 600; }
+.palco { padding: 1.1rem 2rem 2rem; }
+h1 { font-size: 1.9rem; margin: 0 0 .3rem; }
+.resumo { color: var(--fraco); margin-bottom: 1rem; font-size: 1.05rem; }
+.grade { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: .8rem; }
+.cartao { border: 1px solid var(--borda); border-radius: var(--raio); padding: .7rem .8rem; background: var(--fundo); }
+.cartao.vazio { opacity: .4; }
+.cartao.fim { border-color: var(--verde); box-shadow: inset 0 3px 0 var(--verde); }
+.cartao .topo { display: flex; justify-content: space-between; align-items: baseline; }
+.cartao .n { font-weight: 800; font-size: 1.25rem; }
+.cartao .st { font-size: .8rem; color: var(--fraco); }
+.cartao .tema { font-size: .82rem; color: var(--fraco); min-height: 2.3em; margin: .2rem 0 .5rem; }
+.barras { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; }
+.barras i { height: 10px; border-radius: 3px; background: var(--superficie); border: 1px solid var(--borda); }
+.barras i.feita { background: var(--verde); border-color: var(--verde); }
+.cartao button { margin-top: .5rem; width: 100%; }
+.podio { margin-top: 1.4rem; }
+.podio h2, .placar h2 { font-size: 1.2rem; margin: 0 0 .5rem; }
+.podio ol { margin: 0; padding-left: 1.3rem; font-size: 1.05rem; }
+.placar { margin-top: 1.4rem; }
+.placar table { border-collapse: collapse; width: 100%; max-width: 900px; font-size: 1rem; }
+.placar th, .placar td { text-align: left; padding: .4rem .6rem; border-bottom: 1px solid var(--borda); }
+.placar tr.premio td { font-weight: 700; }
+</style>
+</head>
+<body>
+<div class="controle" id="controle">
+  <input type="password" id="senha" placeholder="senha" autocomplete="current-password">
+  <button id="b-revelar" class="primario">revelar o placar</button>
+  <button id="b-troca">abrir a troca</button>
+  <button id="b-apagar" class="perigo">apagar tudo</button>
+  <button id="b-tema">escuro</button>
+  <a href="index.html?previa=1&amp;prof=1" target="_blank" rel="noopener" style="font-size:.8rem;color:inherit">prévia dos enunciados ↗</a>
+  <span id="recado"></span>
+  <span class="puxador">esc esconde a barra</span>
+</div>
+<div class="palco">
+  <h1>Quest do planejamento</h1>
+  <div class="resumo" id="resumo"></div>
+  <div class="grade" id="grade"></div>
+  <div class="podio" id="podio"></div>
+  <div class="placar" id="placar"></div>
+</div>
+<script type="module" src="painel.js"></script>
+</body>
+</html>

@@ -1,0 +1,83 @@
+{
+ "nome": "Câmaras Criminais do TJSP",
+ "fonte": "Pesquisa das Câmaras Criminais, ABJ (https://abj.org.br/pesquisas/camaras-2/)",
+ "n": 1500,
+ "descricao": "Recursos criminais julgados pelas Câmaras de Direito Criminal do TJSP. Uma linha por recurso.",
+ "variaveis": [
+  {
+   "nome": "processo",
+   "descricao": "Número do processo (CNJ)",
+   "tipo": "identificador"
+  },
+  {
+   "nome": "assunto",
+   "descricao": "Assunto processual (TPU/CNJ)",
+   "tipo": "categorica_nominal"
+  },
+  {
+   "nome": "camara",
+   "descricao": "Câmara de Direito Criminal julgadora",
+   "tipo": "categorica_nominal"
+  },
+  {
+   "nome": "relator",
+   "descricao": "Nome do relator do recurso",
+   "tipo": "categorica_nominal"
+  },
+  {
+   "nome": "comarca",
+   "descricao": "Comarca de origem do processo",
+   "tipo": "categorica_nominal"
+  },
+  {
+   "nome": "polo_mp",
+   "descricao": "Posição do Ministério Público no recurso",
+   "tipo": "categorica_nominal"
+  },
+  {
+   "nome": "decisao",
+   "descricao": "Resultado do recurso",
+   "tipo": "categorica_nominal"
+  },
+  {
+   "nome": "unanimidade",
+   "descricao": "Se a decisão foi unânime ou por maioria",
+   "tipo": "categorica_nominal"
+  },
+  {
+   "nome": "ano_publicacao",
+   "descricao": "Ano de publicação do acórdão",
+   "tipo": "numerica_discreta"
+  },
+  {
+   "nome": "tempo",
+   "descricao": "Tempo entre distribuição e julgamento, em anos",
+   "tipo": "numerica_continua"
+  },
+  {
+   "nome": "rel_idade",
+   "descricao": "Idade do relator no julgamento, em anos",
+   "tipo": "numerica_continua"
+  },
+  {
+   "nome": "rel_faculdade",
+   "descricao": "Faculdade de Direito do relator",
+   "tipo": "categorica_nominal"
+  },
+  {
+   "nome": "rel_tempo_magistratura",
+   "descricao": "Tempo de magistratura do relator, em anos",
+   "tipo": "numerica_continua"
+  },
+  {
+   "nome": "rel_tipo",
+   "descricao": "Cargo do relator",
+   "tipo": "categorica_nominal"
+  },
+  {
+   "nome": "rel_quinto",
+   "descricao": "Se o relator entrou pelo quinto constitucional",
+   "tipo": "categorica_nominal"
+  }
+ ]
+}

@@ -1,0 +1,174 @@
+{
+ "id": "ex06_modelos",
+ "titulo": "Projeto 6 - Do modelo ao corte",
+ "exercicio": "Projeto 6 (aula 21)",
+ "instrucoes": "Projeto individual, sobre demandas de saúde no TJSP (dados simulados). Todo processo recebe manifestação técnica do NatJus; o que se decide é quais casos recebem análise aprofundada por um especialista (capacidade de 150 por mês, para 1.000 processos) e quais ficam com o parecer padronizado. O aluno passa por três etapas: lê dois modelos lineares do custo anual do tratamento pedido (o primeiro só com doença rara, o segundo com outras características) e uma tabela de médias com e sem doença rara, lê uma regressão logística da necessidade de análise aprofundada e escolhe o ponto de corte dessa logística. Você avalia UMA etapa por vez: recebe a saída do Python (ou as métricas do corte escolhido) e as respostas do aluno, item a item. Avalie cada critério pelo item correspondente, e o critério de correspondência com a saída por todos os itens juntos.",
+ "criterios": [
+  {
+   "id": "linear_coeficiente",
+   "etapa": "linear",
+   "nome": "Interpretação do coeficiente no segundo modelo",
+   "descricao": "No segundo modelo, o coeficiente de doenca_rara (cerca de 60,6, intervalo de 58,6 a 62,6) é a diferença média de custo anual, em R$ mil, entre processos com e sem doença rara, mantidas as demais variáveis do modelo. A frase precisa ter o valor, a unidade (R$ mil por ano), o intervalo de 95% e a ideia de 'mantidas as demais' (ou 'entre processos com as mesmas demais características').",
+   "niveis": {
+    "insuficiente": "lê o coeficiente errado (do primeiro modelo, de outra variável) ou sem unidade nenhuma",
+    "abaixo_do_esperado": "valor e unidade certos, mas falta o intervalo ou o 'mantidas as demais'",
+    "esperado": "valor, unidade, intervalo e 'mantidas as demais'"
+   },
+   "penalizar": "dizer que a doença rara 'causa' o aumento de custo, ou que todo processo com doença rara custa exatamente esse valor a mais"
+  },
+  {
+   "id": "linear_confundimento",
+   "etapa": "linear",
+   "nome": "Por que o coeficiente muda do primeiro para o segundo modelo",
+   "descricao": "O coeficiente de doenca_rara cai de cerca de 74 no primeiro modelo para cerca de 61 no segundo. A tabela de médias mostra por quê: entre os processos com doença rara, 70% pedem medicamento fora da RENAME, contra 24% dos sem doença rara; as outras variáveis têm médias parecidas nos dois grupos. Medicamento fora da RENAME também encarece o tratamento (coeficiente de cerca de 30 no segundo modelo). No primeiro modelo, parte do que aparece como efeito da doença rara é do medicamento fora da lista. O aluno precisa nomear medicamento_fora_rename, dizer que ela é mais comum com doença rara e que também afeta o custo.",
+   "niveis": {
+    "insuficiente": "não explica, ou diz que o primeiro modelo 'errou'",
+    "abaixo_do_esperado": "diz que outras variáveis entraram, sem dizer qual nem por quê, ou nomeia a variável sem ligá-la à doença rara e ao custo",
+    "esperado": "nomeia medicamento_fora_rename, usa a tabela (mais comum com doença rara) e diz que ela também afeta o custo"
+   }
+  },
+  {
+   "id": "linear_valor_p",
+   "etapa": "linear",
+   "nome": "Valor-p perto da linha de 5% e tamanho do efeito",
+   "descricao": "No segundo modelo, o coeficiente de idade_autor é cerca de 0,037 em R$ mil por ano de idade (cerca de R$ 37 a mais de custo anual por ano de idade), com valor-p de 0,029 e intervalo de 0,004 a 0,071, mantidas as demais. O valor-p fica abaixo de 0,05 e o intervalo não contém o zero: há evidência de associação ao nível de 5%, mas perto da linha (o intervalo quase toca o zero). E o efeito é pequeno: 10 anos a mais de idade, cerca de R$ 370 a mais por ano, diante de custos na casa das dezenas de milhares de reais. Esperado: ler o coeficiente na unidade certa, concluir que há evidência com base no valor-p ou no intervalo, e comentar que o efeito é pequeno ou que a evidência está perto da linha. Se o aluno comparar com outras variáveis do segundo modelo, uso_off_label (valor-p 0,097) e reu_plano_saude (0,555) não têm evidência ao nível de 5%.",
+   "niveis": {
+    "insuficiente": "diz que não há evidência, lê o valor-p como probabilidade de a hipótese ser verdadeira, ou erra a unidade (lê 0,037 como R$ 37 mil)",
+    "abaixo_do_esperado": "conclusão certa sobre a evidência, mas sem dizer nada sobre o tamanho do efeito nem sobre estar perto da linha",
+    "esperado": "conclui que há evidência ao nível de 5% (valor-p ou intervalo), lê o efeito na unidade certa e nota que é pequeno ou que está perto da linha"
+   },
+   "penalizar": "tratar 'estatisticamente significativo' como 'importante' ou 'grande'"
+  },
+  {
+   "id": "linear_r2",
+   "etapa": "linear",
+   "nome": "Leitura do R²",
+   "descricao": "O R² é a fração da variação do custo anual entre os processos que o modelo explica: cerca de 0,41 no primeiro modelo e 0,60 no segundo. O aluno deve ler os dois R² e dizer que o segundo modelo explica mais. Um R² alto não prova causa, e um R² mais baixo não torna o coeficiente errado.",
+   "niveis": {
+    "insuficiente": "confunde R² com valor-p, com acurácia ou com probabilidade de acerto",
+    "abaixo_do_esperado": "cita os números sem dizer o que medem",
+    "esperado": "lê os dois R² como fração da variação explicada e compara"
+   }
+  },
+  {
+   "id": "logit_razao",
+   "etapa": "logistica",
+   "nome": "Razão de chances na unidade do problema",
+   "descricao": "A razão de chances de medicamento_fora_rename é e elevado ao coeficiente: a chance de precisar de análise aprofundada com medicamento fora da RENAME é cerca de 4,5 vezes a chance sem (intervalo de 3,6 a 5,5), mantidas as demais. A frase precisa falar de CHANCE (não de probabilidade), ter o intervalo e o 'mantidas as demais'.",
+   "niveis": {
+    "insuficiente": "lê o coeficiente bruto como razão de chances, ou diz que a probabilidade é 4,5 vezes maior",
+    "abaixo_do_esperado": "razão de chances certa, mas sem intervalo ou sem 'mantidas as demais'",
+    "esperado": "razão de chances, chance (não probabilidade), intervalo e 'mantidas as demais'"
+   },
+   "penalizar": "trocar chance por probabilidade ('é 4,5 vezes mais provável')"
+  },
+  {
+   "id": "logit_direcao",
+   "etapa": "logistica",
+   "nome": "Razão de chances abaixo de 1",
+   "descricao": "reu_plano_saude tem razão de chances abaixo de 1 (cerca de 0,65, intervalo de 0,53 a 0,79): quando o réu é operadora de plano de saúde, a chance de precisar de análise aprofundada é cerca de 35% menor, mantidas as demais. Coeficiente negativo, razão abaixo de 1. Uma leitura de bônus, não exigida: contra a operadora, o rol da ANS já padroniza boa parte das respostas.",
+   "niveis": {
+    "insuficiente": "lê como aumento, ou diz que a chance cai 0,65%",
+    "abaixo_do_esperado": "direção certa, sem quantificar ou sem intervalo",
+    "esperado": "direção e tamanho certos (multiplica por cerca de 0,65, ou cerca de 35% menor), com intervalo"
+   }
+  },
+  {
+   "id": "logit_sem_evidencia",
+   "etapa": "logistica",
+   "nome": "Intervalo que cruza o 1, com valor-p perto da linha",
+   "descricao": "oncologico tem razão de chances de cerca de 1,22 (intervalo de 0,97 a 1,53) e valor-p de 0,086: o intervalo contém o 1, então não há evidência, ao nível de 5%, de associação com a necessidade de análise aprofundada, mantidas as demais. A estimativa aponta para chance um pouco maior, mas os dados também são compatíveis com nenhuma diferença ou até com uma chance menor. Ausência de evidência não é evidência de ausência: não dá para dizer que ser oncológico 'não importa'. Na escala do coeficiente, o intervalo cruza o zero; na da razão de chances, cruza o 1.",
+   "niveis": {
+    "insuficiente": "diz que há associação (ou que oncológico aumenta a chance em 22%) sem ressalva, ou procura o zero no intervalo da razão de chances",
+    "abaixo_do_esperado": "conclusão certa, mas diz que ser oncológico 'não tem efeito' ou 'não influencia'",
+    "esperado": "intervalo que contém o 1 (ou valor-p acima de 0,05) e conclusão de 'sem evidência', sem afirmar que o efeito é zero"
+   }
+  },
+  {
+   "id": "logit_probabilidade",
+   "etapa": "logistica",
+   "nome": "Probabilidade prevista de um perfil",
+   "descricao": "As probabilidades dos perfis A e B são o que o modelo prevê para processos com aquelas características: cerca de 54% e 3,2%. O aluno deve ler as duas como probabilidade de precisar de análise aprofundada, dizer quais características separam os perfis (no perfil A, medicamento fora da RENAME, uso off-label, alto custo e réu poder público) e notar que a probabilidade ainda não é uma decisão: é preciso um ponto de corte.",
+   "niveis": {
+    "insuficiente": "lê como razão de chances, ou como certeza ('o perfil A precisa de análise')",
+    "abaixo_do_esperado": "lê as probabilidades certas, sem dizer o que separa os perfis",
+    "esperado": "lê as duas probabilidades, liga às características dos perfis e nota que ainda falta o corte"
+   }
+  },
+  {
+   "id": "acuracia_trivial_calculo",
+   "etapa": "corte",
+   "nome": "Cálculo da acurácia do modelo trivial",
+   "descricao": "Com o slider em 1,00, nenhum processo vai ao especialista: VP = 0, FP = 0, FN = 89 e VN = 911. A acurácia é (VP + VN) / total = (0 + 911) / 1.000 = 91,1%. Esperado: a conta montada com os números da matriz e o resultado. Arredondamento razoável e a conta escrita como VN / total valem.",
+   "niveis": {
+    "insuficiente": "não calcula, ou usa células erradas (por exemplo, divide pelos que precisavam)",
+    "abaixo_do_esperado": "resultado certo sem a conta, ou conta certa com erro de aritmética",
+    "esperado": "conta montada com os números da matriz e resultado de cerca de 91%"
+   }
+  },
+  {
+   "id": "acuracia_desbalanceada",
+   "etapa": "corte",
+   "nome": "Por que a acurácia engana aqui",
+   "descricao": "O modelo trivial manda todos os processos para o parecer padronizado, sem olhar nada. Só 8,9% dos processos do mês (89 de 1.000) precisam de análise aprofundada, então essa regra acerta os outros 91,1%. A acurácia alta dela não significa nada: a sensibilidade (recall) é zero, e todos os casos que precisavam do especialista ficam com o parecer padronizado.",
+   "niveis": {
+    "insuficiente": "trata a acurácia como boa medida, ou não explica o 91%",
+    "abaixo_do_esperado": "diz que o modelo trivial é ruim sem ligar à prevalência baixa",
+    "esperado": "liga o 91% à prevalência baixa e diz o que o modelo trivial deixa de fora (sensibilidade zero)"
+   },
+   "penalizar": "defender o corte apenas porque maximiza acurácia"
+  },
+  {
+   "id": "matriz_e_metricas",
+   "etapa": "corte",
+   "nome": "Matriz de confusão, precisão e sensibilidade no vocabulário do caso",
+   "descricao": "Falso positivo: o processo foi ao especialista sem precisar. Falso negativo: precisava do especialista e ficou com o parecer padronizado. Precisão: dos enviados ao especialista, a fração que precisava. Sensibilidade (recall): dos que precisavam, a fração que chegou ao especialista. O app não mostra as métricas: o aluno deve calculá-las a partir da matriz do corte escolhido, mostrando a conta, e reportar os números sem inverter nenhum desses pares.",
+   "niveis": {
+    "insuficiente": "inverte falso positivo e falso negativo, ou troca precisão por sensibilidade",
+    "abaixo_do_esperado": "números certos, mas sem traduzir para o caso",
+    "esperado": "números certos e traduzidos para o caso, sem inversões"
+   },
+   "penalizar": "qualquer troca entre precisão e sensibilidade, ou entre FP e FN, deve ser apontada pelo nome"
+  },
+  {
+   "id": "capacidade_e_erro",
+   "etapa": "corte",
+   "nome": "Justificativa do corte: capacidade e o erro mais grave",
+   "descricao": "O NatJus faz 150 análises aprofundadas por mês, e a coordenação pediu uma regra que caiba na equipe e deixe escapar o menor número possível de casos complexos. O aluno deve dizer qual erro considera mais grave, quem paga por ele (o paciente decidido com parecer genérico, o paciente que espera na fila do especialista, o erário) e como o corte escolhido lida com a capacidade. Um corte que manda muito mais de 150 processos ao especialista cria uma fila, e o texto precisa dizer o que acontece com o excedente. Qualquer um dos erros pode ser defendido como o mais grave, desde que a justificativa seja coerente com o corte escolhido.",
+   "niveis": {
+    "insuficiente": "ignora a capacidade e não diz qual erro é mais grave",
+    "abaixo_do_esperado": "trata um dos dois (capacidade ou erro mais grave) e esquece o outro",
+    "esperado": "diz qual erro é mais grave e quem paga, e liga o corte à capacidade de 150"
+   }
+  },
+  {
+   "id": "limites_metricas",
+   "etapa": "corte",
+   "nome": "Limites das métricas",
+   "descricao": "O texto deve nomear pelo menos um limite concreto do que as métricas agregadas não mostram: quem definiu o rótulo 'precisava de análise', a gravidade clínica de cada caso, a distribuição do erro entre grupos de pessoas, ou o efeito de a triagem existir sobre quem litiga.",
+   "niveis": {
+    "insuficiente": "trata as métricas como suficientes",
+    "abaixo_do_esperado": "limite genérico ('nenhuma métrica é perfeita')",
+    "esperado": "nomeia pelo menos um limite concreto"
+   }
+  },
+  {
+   "id": "correspondencia",
+   "etapa": "todas",
+   "nome": "Correspondência com a saída do app",
+   "descricao": "Compare as respostas com os números da saída do Python (etapas de regressão) ou com as métricas do corte escolhido (etapa do corte). Número citado errado, sinal invertido, ou conclusão que a saída não sustenta é erro grave.",
+   "niveis": {
+    "insuficiente": "afirma coisas que a saída não mostra, ou inverte o sinal de um efeito",
+    "abaixo_do_esperado": "números certos, mas alguma conclusão vai além do que a saída sustenta",
+    "esperado": "tudo o que afirma está na saída"
+   },
+   "penalizar": "citar valores que não aparecem na saída"
+  }
+ ],
+ "observacoes": "Não reescreva as respostas do aluno. Quando houver troca de chance por probabilidade, de precisão por sensibilidade ou de falso positivo por falso negativo, aponte pelo nome e pergunte como o aluno diria aquilo com o número da saída. Não trate a existência da manifestação técnica como algo em disputa: ela é obrigatória no cenário. Os dados são simulados, e o aluno não precisa discutir a validade externa.",
+ "escala": {
+  "insuficiente": "não atende (nota 0)",
+  "abaixo_do_esperado": "atende em parte (nota 0,5)",
+  "esperado": "atende (nota 1,0)"
+ }
+}

@@ -1,0 +1,132 @@
+{
+ "base": {
+  "arquivo": "../_shared/dados/camaras.csv",
+  "meta": "../_shared/dados/camaras.json",
+  "variavel": "camaras"
+ },
+ "perguntas": [
+  {
+   "id": "q1",
+   "titulo": "Decisões de desembargadores e de juízes substitutos são igualmente unânimes?",
+   "pergunta": "A proporção de decisões por maioria (não unânimes) é diferente entre recursos relatados por desembargadores e por juízes substitutos em 2º grau?",
+   "esperado": {
+    "metodo": "duas_proporcoes",
+    "y": "unanimidade",
+    "x": "rel_tipo"
+   },
+   "observacao": "Duas variáveis binárias: a resposta é a unanimidade, a explicativa é o cargo do relator. O qui-quadrado também serve."
+  },
+  {
+   "id": "q2",
+   "titulo": "O recurso demora mais quando o Ministério Público recorre?",
+   "pergunta": "O tempo até o julgamento é diferente quando o Ministério Público está no polo ativo e quando está no polo passivo do recurso?",
+   "esperado": {
+    "metodo": "teste_t",
+    "y": "tempo",
+    "x": "polo_mp"
+   },
+   "observacao": "Variável resposta numérica, explicativa categórica com dois níveis."
+  },
+  {
+   "id": "q3",
+   "titulo": "Alguns crimes demoram mais para ser julgados?",
+   "pergunta": "O tempo até o julgamento varia entre os assuntos criminais?",
+   "esperado": {
+    "metodo": "anova",
+    "y": "tempo",
+    "x": "assunto"
+   },
+   "observacao": "Variável resposta numérica, explicativa categórica com mais de dois níveis."
+  },
+  {
+   "id": "q4",
+   "titulo": "Relatores mais experientes julgam mais rápido?",
+   "pergunta": "Relatores com mais tempo de magistratura julgam em menos tempo?",
+   "esperado": {
+    "metodo": "regressao",
+    "y": "tempo",
+    "x": "rel_tempo_magistratura"
+   },
+   "observacao": "Duas variáveis numéricas."
+  },
+  {
+   "id": "q5",
+   "titulo": "Decisões unânimes negam mais recursos?",
+   "pergunta": "Decisões unânimes negam recursos em proporção diferente das decisões por maioria?",
+   "esperado": {
+    "metodo": "quiquadrado",
+    "y": "decisao",
+    "x": "unanimidade"
+   },
+   "observacao": "Duas variáveis categóricas."
+  }
+ ],
+ "metodos": [
+  {
+   "id": "quiquadrado",
+   "rotulo": "Teste qui-quadrado de independência",
+   "exige": "duas variáveis categóricas",
+   "quando": "compara distribuição de categorias entre grupos"
+  },
+  {
+   "id": "duas_proporcoes",
+   "rotulo": "Teste de duas proporções",
+   "exige": "variável resposta binária e explicativa com 2 níveis",
+   "quando": "compara a proporção de uma categoria entre dois grupos"
+  },
+  {
+   "id": "teste_t",
+   "rotulo": "Teste t para diferença de médias",
+   "exige": "variável resposta numérica e explicativa categórica com exatamente 2 níveis",
+   "quando": "compara a média de dois grupos"
+  },
+  {
+   "id": "anova",
+   "rotulo": "ANOVA de um fator",
+   "exige": "variável resposta numérica e explicativa categórica com 3 ou mais níveis",
+   "quando": "compara a média de três ou mais grupos"
+  },
+  {
+   "id": "regressao",
+   "rotulo": "Regressão linear simples",
+   "exige": "variável resposta e explicativa numéricas",
+   "quando": "estima como a variável resposta varia por unidade da explicativa"
+  }
+ ],
+ "campos": [
+  {
+   "id": "metodo",
+   "criterio": "adequacao_metodo",
+   "rotulo": "Por que este método",
+   "ajuda": "Diga por que o método escolhido serve para a variável resposta e a explicativa desta pergunta."
+  },
+  {
+   "id": "hipoteses",
+   "criterio": "hipoteses_explicitas",
+   "rotulo": "Hipótese nula e hipótese alternativa",
+   "ajuda": "O que a hipótese nula afirma e o que a alternativa afirma, com as variáveis da pergunta e a medida comparada (proporção, média, coeficiente)."
+  },
+  {
+   "id": "pvalor",
+   "criterio": "leitura_pvalor",
+   "rotulo": "Valor-p e conclusão do teste",
+   "ajuda": "Qual foi o valor-p, o que ele indica e qual a conclusão ao nível de 5%."
+  },
+  {
+   "id": "efeito",
+   "criterio": "tamanho_efeito",
+   "rotulo": "Direção e tamanho da diferença ou da associação",
+   "ajuda": "Quem tem mais ou menos, e quanto, na unidade do problema (pontos percentuais, anos)."
+  },
+  {
+   "id": "consequencia",
+   "criterio": "consequencia",
+   "rotulo": "O que isso muda para o problema jurídico",
+   "ajuda": "Para quem esse resultado importa (parte, advogado, tribunal) e por quê."
+  }
+ ],
+ "limites": {
+  "max_caracteres_campo": 600,
+  "max_avaliacoes_por_pergunta": 3
+ }
+}

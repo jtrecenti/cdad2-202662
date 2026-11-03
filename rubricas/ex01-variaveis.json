@@ -1,0 +1,89 @@
+{
+ "id": "ex01_variaveis",
+ "titulo": "Projeto 1 - Escolha e tipagem de variáveis a partir de decisões",
+ "exercicio": "Projeto 1 (aula 03)",
+ "instrucoes": "Avalie a lista de variáveis que o grupo definiu para responder à pergunta de pesquisa escolhida, e a tabela que o LLM preencheu a partir das decisões. O foco é a *qualidade das escolhas*, não a quantidade de variáveis. Uma lista curta e certeira é melhor do que uma lista longa e frouxa.",
+ "criterios": [
+  {
+   "id": "identificador",
+   "nome": "Existe um identificador",
+   "descricao": "A tabela precisa de uma variável que identifique unicamente cada decisão (número do processo ou id da decisão). Sem isso não é possível conferir, corrigir nem juntar com outra base.",
+   "niveis": {
+    "insuficiente": "não há identificador, ou o que foi indicado repete entre linhas",
+    "abaixo_do_esperado": "há algo que identifica, mas ambíguo (por exemplo só a comarca e a data)",
+    "esperado": "há uma variável identificadora única e explícita"
+   },
+   "penalizar": "tratar o identificador como variável de análise (por exemplo, calcular média do número do processo)"
+  },
+  {
+   "id": "tipos",
+   "nome": "Tipo declarado compatível com a natureza da variável",
+   "descricao": "Cada variável deve ser declarada como identificador, categórica nominal, categórica ordinal, categórica binária, numérica discreta ou numérica contínua. Não existe tipo 'texto': trecho copiado da sentença é matéria-prima, não variável. O tipo tem que corresponder à natureza do que se mede, e determina o formato do valor extraído: numérica devolve número, categórica devolve uma das categorias listadas, identificador devolve o código do caso.",
+   "niveis": {
+    "insuficiente": "vários tipos errados, por exemplo valor em reais como categórica ou resultado do recurso como numérica",
+    "abaixo_do_esperado": "a maioria correta, com um ou dois erros de tipo",
+    "esperado": "todos os tipos coerentes com a natureza das variáveis"
+   },
+   "penalizar": "codificar categoria como número (1, 2, 3) e chamar isso de variável numérica; declarar como ordinal algo que não tem ordem; declarar como numérica algo que a sentença traz por extenso e que voltou como texto (a coluna 'fora do tipo' mostra isso); criar coluna que guarda um trecho copiado da sentença, que não mede nada e não entra em conta nenhuma"
+  },
+  {
+   "id": "consonancia",
+   "nome": "Consonância com a pergunta de pesquisa",
+   "descricao": "Toda variável deve ter função clara na pergunta: ser o desfecho, ser um fator explicativo plausível, ser um controle, ou ser necessária para filtrar o universo. Variável sem função é ruído.",
+   "niveis": {
+    "insuficiente": "as variáveis não conversam com a pergunta, ou falta justamente o desfecho",
+    "abaixo_do_esperado": "o desfecho está lá, mas há variáveis sem função e/ou falta um fator central",
+    "esperado": "desfecho claro e cada variável com função identificável"
+   },
+   "penalizar": "não haver nenhuma variável que sirva de desfecho (resposta) para a pergunta"
+  },
+  {
+   "id": "viabilidade",
+   "nome": "Viabilidade de extrair da decisão",
+   "descricao": "A variável tem que ser extraível do texto disponível. Pedir informação que a decisão não traz (renda do autor, tempo de espera na fila do SUS, custo real do tratamento) gera coluna vazia ou, pior, LLM inventando.",
+   "niveis": {
+    "insuficiente": "boa parte das variáveis não existe no texto das decisões",
+    "abaixo_do_esperado": "uma ou duas variáveis dependem de informação ausente ou raramente mencionada",
+    "esperado": "todas plausivelmente extraíveis do texto"
+   },
+   "penalizar": "não prever o valor faltante quando a informação claramente falta em parte das decisões"
+  },
+  {
+   "id": "suficiencia",
+   "nome": "Suficiência para responder a pergunta",
+   "descricao": "Com essas variáveis, é possível chegar a uma resposta defensável? Avalie se dá para fazer o cruzamento mínimo que a pergunta exige, e diga o que ainda falta.",
+   "niveis": {
+    "insuficiente": "mesmo com a tabela preenchida, a pergunta continua sem resposta possível",
+    "abaixo_do_esperado": "dá para responder em parte, faltando um elemento importante",
+    "esperado": "as variáveis permitem responder à pergunta como formulada"
+   }
+  },
+  {
+   "id": "definicao",
+   "nome": "Definição operacional das categorias",
+   "descricao": "As categorias de cada variável categórica devem ser mutuamente exclusivas, exaustivas e definidas de forma que duas pessoas classifiquem igual. O campo 'de onde tirar' precisa dizer onde a informação está na sentença e com que valores registrar.",
+   "niveis": {
+    "insuficiente": "categorias sobrepostas ou vagas, cada leitor classificaria de outro jeito",
+    "abaixo_do_esperado": "definições aceitáveis, mas alguma categoria ambígua ou faltando 'outros'",
+    "esperado": "categorias claras, exclusivas e exaustivas"
+   }
+  },
+  {
+   "id": "estatisticas",
+   "nome": "Estatísticas compatíveis com os tipos declarados",
+   "descricao": "O grupo diz que estatísticas calcularia com a tabela. Avalie se cada estatística proposta é possível com o tipo da variável em que ela seria calculada, e se ela de fato aproxima da resposta da pergunta de pesquisa. O repertório desta altura do curso é este e só este: média, mediana, desvio padrão, contagem e proporção, eventualmente separadas por uma categoria. Correlação, regressão, teste de hipótese, intervalo de confiança e qualquer modelo estão FORA do programa até aqui: não cobre, não sugira e não considere falta a ausência deles.",
+   "niveis": {
+    "insuficiente": "não propõe estatística, ou propõe contas impossíveis com os tipos declarados (média de variável categórica, por exemplo)",
+    "abaixo_do_esperado": "as estatísticas cabem nos tipos, mas ficam soltas: não dizem o que comparar com o quê, ou não chegam perto da pergunta",
+    "esperado": "estatísticas coerentes com os tipos, com comparação explícita, e que aproximam da resposta, dentro do repertório de média, mediana, desvio padrão, contagem e proporção"
+   },
+   "penalizar": "média ou desvio padrão de variável categórica; média de identificador; proporção sem dizer sobre qual total; ignorar que a distribuição de valores em reais costuma ser assimétrica, o que torna a média sozinha enganosa. Não penalizar por não usar correlação, regressão ou teste de hipótese: isso ainda não foi ensinado"
+  }
+ ],
+ "observacoes": "Comente também a tabela preenchida: se alguma coluna veio quase toda vazia ou com valores fora das categorias declaradas, isso é evidência de que a variável foi mal definida, e não erro do LLM. Não sugira variáveis prontas; pergunte o que o grupo pretendia medir. Nunca sugira correlação, regressão, teste de hipótese ou modelo estatístico: a turma ainda não viu isso, e sugerir vira ruído. As contas disponíveis são média, mediana, desvio padrão, contagem e proporção.",
+ "escala": {
+  "insuficiente": "não atende (nota 0)",
+  "abaixo_do_esperado": "atende em parte (nota 0,5)",
+  "esperado": "atende (nota 1,0)"
+ }
+}

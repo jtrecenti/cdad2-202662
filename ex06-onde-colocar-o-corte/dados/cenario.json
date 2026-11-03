@@ -1,0 +1,26 @@
+{
+ "cenario": "Demandas de saúde no TJSP - quais casos recebem análise aprofundada",
+ "simulado": true,
+ "aviso": "Dados simulados. Não existe base pública de pareceres do NatJus com rótulo verdadeiro; a simulação foi calibrada para reproduzir a prevalência baixa e a discriminação típicas do problema.",
+ "n_concluidos": 6000,
+ "n_processos_mes": 1000,
+ "capacidade_analise_mes": 150,
+ "prevalencia": 0.089,
+ "acuracia_modelo_trivial": 0.911,
+ "auc_modelo": 0.8091,
+ "variaveis": {
+  "id": "Identificador do processo",
+  "precisa_analise": "1 se o caso precisava de análise aprofundada (o parecer padronizado não respondia à pergunta do juiz), 0 se não",
+  "custo_anual": "Custo anual estimado do tratamento pedido, em R$ mil",
+  "medicamento_fora_rename": "1 se o medicamento está fora da RENAME (lista do SUS)",
+  "uso_off_label": "1 se o uso é off-label (fora da bula aprovada)",
+  "alto_custo": "1 se o custo anual passa de R$ 100 mil",
+  "doenca_rara": "1 se a doença é rara",
+  "laudo_unico_medico_assistente": "1 se o único laudo é do médico assistente",
+  "sem_documento_medico": "1 se não há documento médico nos autos",
+  "urgencia_declarada": "1 se a petição inicial declara urgência",
+  "reu_plano_saude": "1 se o réu é operadora de plano de saúde (e não o poder público)",
+  "oncologico": "1 se o pedido é de tratamento oncológico (câncer)",
+  "idade_autor": "Idade do autor, em anos"
+ }
+}

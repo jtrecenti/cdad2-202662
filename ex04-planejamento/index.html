@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Projeto 4 · Planejamento de pesquisa · CDAD II</title>
+<link rel="icon" href="../_shared/img/logo-insper-preto.png">
+<script src="../_shared/tema.js"></script>
+<link rel="stylesheet" href="../_shared/styles.css">
+<style>
+  .contagem { font-family: var(--fonte-mono); font-size: .72rem; color: var(--cinza-600); }
+  .contagem.ok { color: var(--verde-ok); }
+
+  .cartao-tema {
+    display: block; border: var(--borda); border-radius: var(--raio);
+    padding: .8rem .9rem; margin-bottom: .6rem; cursor: pointer; background: var(--branco);
+  }
+  .cartao-tema:hover { border-color: var(--cinza-400); }
+  .cartao-tema.marcado { border-color: var(--vermelho); box-shadow: inset 3px 0 0 var(--vermelho); }
+  .cartao-tema input { width: auto; margin-right: .4rem; }
+  .cartao-tema h4 { margin: 0 0 .2rem; font-size: .95rem; }
+  .cartao-tema .area { font-family: var(--fonte-mono); font-size: .68rem; letter-spacing: .08em;
+                       text-transform: uppercase; color: var(--cinza-600); }
+
+  .var-linha {
+    display: grid; gap: .5rem; grid-template-columns: 1fr; align-items: start;
+    border: var(--borda); border-left: 3px solid var(--cinza-400);
+    border-radius: 0 var(--raio) var(--raio) 0; padding: .6rem .7rem; margin-bottom: .5rem;
+    background: var(--branco);
+  }
+  @media (min-width: 950px) {
+    .var-linha { grid-template-columns: 1.1fr .9fr 1.2fr 1.6fr auto; }
+  }
+  .var-linha.tem-dependente { border-left-color: var(--vermelho); }
+  .var-linha.tem-identificador { border-left-color: var(--grafite); }
+  .var-linha.tem-independente { border-left-color: var(--azul-num); }
+  .papeis-check { display: flex; flex-direction: column; gap: .15rem; font-size: .8rem; }
+  .papeis-check label { display: flex; align-items: center; gap: .3rem; cursor: pointer; }
+  .papeis-check input { width: auto; margin: 0; }
+  .papeis-check .ajuda { color: var(--cinza-600); font-size: .74rem; }
+
+  .destaque-principal { border-top-width: 4px; border-top-color: var(--vermelho); }
+  .destaque-principal > header { background: linear-gradient(to bottom, var(--branco), var(--tom-vermelho)); }
+
+  .exemplos-formula {
+    border-left: 3px solid var(--cinza-400); background: var(--tom-neutro);
+    padding: .5rem .7rem; margin: 0 0 .4rem; border-radius: 0 var(--raio) var(--raio) 0;
+  }
+  .exemplos-formula .formas { display: grid; gap: .3rem; margin: .3rem 0; font-size: .88rem; }
+</style>
+<script>
+  // Composição das fórmulas de H0 e H1. Carrega em paralelo: se falhar, o
+  // aluno vê o LaTeX, que continua legível.
+  window.MathJax = { tex: { inlineMath: [["\\(", "\\)"]] }, options: { enableMenu: false } };
+</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head>
+<body>
+
+<main>
+  <div class="abertura">
+    <h2>Planejamento de pesquisa</h2>
+    <p class="enunciado">
+      Pesquisa empírica boa ou ruim se decide antes de coletar o primeiro dado. Este projeto é o
+      planejamento: sair de um tema amplo e chegar em <strong>uma pergunta que se responde com
+      dados</strong>, com a fonte, as variáveis, a hipótese e a análise definidas.
+    </p>
+    <ol class="enunciado">
+      <li>Escolher um tema da lista.</li>
+      <li>Formular a pergunta, dizer por que ela importa e para quem, e de onde vêm os dados.</li>
+      <li><strong>Declarar as variáveis</strong> que você vai construir: nome, tipo, papel e como medir.</li>
+      <li>Definir a população e o que você quer estimar, escrever as hipóteses usando essas variáveis, e a análise que responde à pergunta.</li>
+      <li>Pedir feedback pela rubrica e ajustar. São até 3 avaliações, e você pode registrar o que discorda.</li>
+      <li>Fechar, baixar o arquivo e entregar.</li>
+    </ol>
+    <div class="entrega">
+      <strong>O que entregar no BlackBoard:</strong> o arquivo em markdown gerado no final, sem
+      editar. O app mostra o código de verificação (hash) dele.
+      <br>
+      <span class="miudo">
+        Trabalho em grupo, com cópia e cola bloqueados. Os tamanhos sugeridos de texto são
+        sugestão, não regra: o que vale é a rubrica.
+      </span>
+    </div>
+  </div>
+
+  <section class="secao" id="s-tema">
+    <header>
+      <span class="n">01</span>
+      <h2>Escolher o tema</h2>
+      <span class="dica">oito temas, todos de matérias que você já cursou</span>
+    </header>
+    <div class="corpo">
+      <div id="lista-temas"></div>
+      <div id="tema-escolhido"></div>
+    </div>
+  </section>
+
+  <section class="secao travada" id="s-antes">
+    <header>
+      <span class="n">02</span>
+      <h2>A pergunta e a fonte</h2>
+      <span class="dica" id="progresso-antes"></span>
+    </header>
+    <div class="corpo">
+      <div id="painel-rubrica"></div>
+      <div id="campos-antes"></div>
+    </div>
+  </section>
+
+  <section class="secao travada destaque-principal" id="s-variaveis">
+    <header>
+      <span class="n">03</span>
+      <h2>As variáveis que você vai construir</h2>
+      <span class="dica" id="contador-variaveis"></span>
+    </header>
+    <div class="corpo">
+      <p class="enunciado">
+        Cada linha é uma coluna da tabela que a pesquisa vai produzir. Os papéis são estes:
+      </p>
+      <ul class="enunciado">
+        <li><strong>Identifica o caso</strong>: serve para achar o processo depois e não entra na comparação;</li>
+        <li><strong>O que eu quero explicar</strong>: o desfecho da pergunta (em estatística, variável resposta ou dependente);</li>
+        <li><strong>O que pode explicar</strong>: o que pode estar associado ao desfecho (variável explicativa ou independente);</li>
+        <li><strong>Define quais casos entram</strong>: delimita a base, como o período ou a comarca.</li>
+      </ul>
+      <p class="enunciado">
+        Uma variável pode ter mais de um papel quando isso faz sentido: a comarca pode ser, ao
+        mesmo tempo, filtro (só a capital) e algo que pode explicar o desfecho (comparar
+        comarcas). O que não faz sentido é a mesma variável ser o desfecho e o que explica o
+        desfecho: aí a pergunta se explica por si mesma.
+      </p>
+      <div id="editor-variaveis"></div>
+      <div id="alertas-papeis"></div>
+      <div class="acoes" style="margin-top:.4rem">
+        <button class="secundario" id="b-add-variavel">+ variável</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="secao travada" id="s-depois">
+    <header>
+      <span class="n">04</span>
+      <h2>População, hipóteses, análise e limites</h2>
+      <span class="dica" id="progresso-depois"></span>
+    </header>
+    <div class="corpo">
+      <p class="enunciado">
+        Agora que as variáveis existem, dá para dizer sobre quem é o estudo e o que nele se quer
+        estimar, escrever as hipóteses com essas variáveis e escolher a análise a partir dos tipos
+        que você declarou: a tabela ou o resumo que responde à pergunta, o gráfico que mostra o
+        resultado e o intervalo de confiança da estimativa.
+      </p>
+      <div id="campos-depois"></div>
+    </div>
+  </section>
+
+  <section class="secao travada" id="s-avaliar">
+    <header>
+      <span class="n">05</span>
+      <h2>Feedback pela rubrica</h2>
+      <span class="dica" id="contador-feedback"></span>
+    </header>
+    <div class="corpo">
+      <div class="acoes" style="margin-top:0">
+        <button class="principal" id="b-avaliar">Avaliar o meu planejamento</button>
+        <span id="status-avaliacao" class="miudo"></span>
+      </div>
+      <div id="painel-feedback" style="margin-top:1rem"></div>
+    </div>
+  </section>
+
+  <section class="secao travada" id="s-observacoes">
+    <header>
+      <span class="n">06</span>
+      <h2>Observações sobre o feedback</h2>
+      <span class="dica">opcional, vai junto na entrega</span>
+    </header>
+    <div class="corpo">
+      <p class="enunciado">
+        Discorda de algum ponto do feedback automático? Escreva o seu argumento aqui. O professor
+        lê isto junto com o planejamento, e discordar com um bom motivo faz parte do projeto.
+      </p>
+      <div class="campo">
+        <label class="rotulo" for="c-observacoes">O que você contesta, e por quê</label>
+        <textarea id="c-observacoes" rows="4" maxlength="1500" spellcheck="true"
+                  placeholder="o critério, o que a IA disse, e o seu argumento"></textarea>
+      </div>
+    </div>
+  </section>
+
+  <section class="secao travada" id="s-entrega">
+    <header>
+      <span class="n">07</span>
+      <h2>Fechar e entregar</h2>
+    </header>
+    <div class="corpo">
+      <div class="acoes">
+        <button class="principal" id="b-fechar">Gerar o arquivo da entrega</button>
+        <span id="status-entrega" class="miudo"></span>
+      </div>
+      <div id="painel-entrega" style="margin-top:1rem"></div>
+    </div>
+  </section>
+</main>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>

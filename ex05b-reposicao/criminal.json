@@ -1,0 +1,57 @@
+{
+ "nome": "Acórdãos criminais do TJSP",
+ "fonte": "Consulta de jurisprudência do TJSP: acórdãos criminais, com variáveis extraídas do texto do acórdão",
+ "n": 475,
+ "variaveis": [
+  {
+   "nome": "processo",
+   "descricao": "Número do processo (CNJ)",
+   "tipo": "identificador"
+  },
+  {
+   "nome": "comarca",
+   "descricao": "Comarca de origem do processo",
+   "tipo": "categorica_nominal"
+  },
+  {
+   "nome": "classe",
+   "descricao": "Classe processual (apelação, revisão criminal, embargos...)",
+   "tipo": "categorica_nominal"
+  },
+  {
+   "nome": "assunto",
+   "descricao": "Assunto processual (TPU/CNJ)",
+   "tipo": "categorica_nominal"
+  },
+  {
+   "nome": "regime_inicial",
+   "descricao": "Regime inicial de cumprimento da pena fixado (aberto, semiaberto ou fechado)",
+   "tipo": "categorica_ordinal"
+  },
+  {
+   "nome": "pena_anos",
+   "descricao": "Pena privativa de liberdade fixada, em anos (vazia quando a extração do texto falhou)",
+   "tipo": "numerica_continua"
+  },
+  {
+   "nome": "houve_reincidencia",
+   "descricao": "Se o réu é reincidente (sim ou não)",
+   "tipo": "categorica_nominal"
+  },
+  {
+   "nome": "houve_confissao",
+   "descricao": "Se houve confissão do réu (sim ou não)",
+   "tipo": "categorica_nominal"
+  },
+  {
+   "nome": "eh_trafico",
+   "descricao": "Se o caso é de tráfico de drogas (sim ou não)",
+   "tipo": "categorica_nominal"
+  },
+  {
+   "nome": "n_palavras_ementa",
+   "descricao": "Número de palavras da ementa do acórdão",
+   "tipo": "numerica_discreta"
+  }
+ ]
+}

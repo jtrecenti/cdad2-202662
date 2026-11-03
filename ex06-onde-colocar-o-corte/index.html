@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Projeto 6 · Do modelo ao corte · CDAD II</title>
+<link rel="icon" href="../_shared/img/logo-insper-preto.png">
+<script src="../_shared/tema.js"></script>
+<link rel="stylesheet" href="../_shared/styles.css">
+<style>
+  .abas { display: flex; flex-wrap: wrap; gap: .3rem; border-bottom: var(--borda); margin-bottom: .8rem; }
+  .abas button {
+    background: none; border: var(--borda); border-bottom: none; border-radius: var(--raio) var(--raio) 0 0;
+    padding: .45rem .8rem; cursor: pointer; font: inherit; font-size: .85rem; color: inherit;
+    margin-bottom: -1px; text-align: left;
+  }
+  .abas button.ativa { background: var(--branco); border-color: var(--vermelho); box-shadow: inset 0 3px 0 var(--vermelho); font-weight: 600; }
+  .primeiras-linhas td, .primeiras-linhas th { white-space: nowrap; }
+  .pergunta-etapa { font-size: 1.02rem; margin: 0 0 .8rem; }
+  pre.saida { max-height: 34rem; }
+  .campos .campo { margin-bottom: .7rem; }
+  .campos .miudo { margin: 0 0 .25rem; }
+
+  .matriz { border-collapse: collapse; width: 100%; max-width: 30rem; }
+  .matriz th, .matriz td { border: 1px solid var(--cinza-400); padding: .55rem .6rem; text-align: center; }
+  .matriz thead th { background: var(--cinza-100); font-family: var(--fonte-mono);
+                     font-size: .68rem; letter-spacing: .06em; text-transform: uppercase; }
+  .matriz td.celula { font-family: var(--fonte-mono); font-size: 1.15rem; font-weight: 700; }
+  .matriz td.vp { background: var(--tom-verde); }
+  .matriz td.vn { background: var(--tom-neutro); }
+  .matriz td.fp { background: var(--tom-laranja); }
+  .matriz td.fn { background: var(--tom-vermelho); }
+  .matriz td .cod { display: block; font-family: var(--fonte-mono); font-size: .62rem;
+                    letter-spacing: .08em; color: var(--cinza-800); font-weight: 400; }
+
+  .metricas { display: grid; gap: .6rem; grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr)); }
+  .traducao { display: grid; gap: .5rem; }
+  .traducao .linha { display: flex; gap: .6rem; align-items: baseline;
+                     border-left: 3px solid var(--cinza-400); padding: .35rem .6rem;
+                     background: var(--branco); border-radius: 0 2px 2px 0; }
+  .traducao .linha.ruim { border-left-color: var(--vermelho); }
+  .traducao .linha.ok { border-left-color: var(--turquesa); }
+  .traducao .valor { font-family: var(--fonte-mono); font-weight: 700; min-width: 3.4rem;
+                     text-align: right; }
+
+  input[type=range] { width: 100%; accent-color: var(--vermelho); }
+  .corte-atual { font-family: var(--fonte-mono); font-size: 2.1rem; font-weight: 700; }
+  .calculadora { margin-top: .4rem; }
+  .calculadora summary { cursor: pointer; font-size: .85rem; }
+  textarea.codigo { font-family: var(--fonte-mono); font-size: .85rem; width: 100%; tab-size: 4; }
+  pre.saida.calc { min-height: 2.2rem; max-height: 12rem; margin-top: .4rem; }
+
+  canvas { max-width: 100%; height: auto; background: var(--branco);
+           border: var(--borda); border-radius: var(--raio); }
+</style>
+</head>
+<body>
+
+<main>
+  <div class="abertura">
+    <h2>Do modelo ao corte: triagem de processos de saúde</h2>
+
+    <h3>O caso</h3>
+    <p class="enunciado">
+      Um tribunal estadual recebe cerca de <strong>mil processos novos de saúde por mês</strong>:
+      pedidos de medicamento, de cirurgia, de internação, quase sempre com pedido de liminar.
+      Antes de decidir, o juiz pede a manifestação técnica do <strong>NatJus</strong>, o núcleo
+      de apoio técnico do Judiciário. Isso é a regra, e não está em discussão aqui:
+      <strong>todo processo recebe manifestação técnica</strong>.
+    </p>
+    <p class="enunciado">
+      O que está em discussão é o <strong>tipo</strong> de manifestação. A maior parte dos casos
+      é respondida com um <strong>parecer padronizado</strong>, montado a partir das notas
+      técnicas que já existem: sai em um ou dois dias e responde bem ao caso típico. Alguns
+      casos não são típicos, e para eles existe a <strong>análise aprofundada</strong>, em que um
+      especialista lê a documentação clínica daquele processo e escreve um parecer próprio. Esse
+      especialista é o recurso escasso: cabem cerca de <strong>150 análises aprofundadas por
+      mês</strong>.
+    </p>
+
+    <h3>O que você vai fazer</h3>
+    <ol class="enunciado">
+      <li><strong>Regressão linear múltipla:</strong> ler os modelos do custo anual do tratamento pedido.</li>
+      <li><strong>Regressão logística:</strong> ler o modelo que estima a probabilidade de o
+        processo precisar de análise aprofundada.</li>
+      <li><strong>Ponto de corte:</strong> decidir a partir de que probabilidade o processo vai
+        para o especialista, com a matriz de confusão e as métricas.</li>
+    </ol>
+    <p class="enunciado">
+      Em cada etapa, responda aos itens em poucas frases, para <strong>uma pessoa do Direito</strong>
+      que não fez esta disciplina. Cada etapa pode receber até três avaliações automáticas pela
+      rubrica. As saídas do Python já estão prontas: você não precisa rodar código. É o mesmo
+      tipo de leitura da lista 6.
+    </p>
+    <div class="entrega">
+      <strong>O que entregar no BlackBoard:</strong> o arquivo markdown gerado na etapa 04, com
+      as respostas das três etapas, o corte escolhido e as suas observações, se houver.
+      <br>
+      <span class="miudo">Trabalho individual, com cópia e cola bloqueados. Os dados são simulados.</span>
+    </div>
+  </div>
+
+  <section class="secao" id="s-base">
+    <header>
+      <span class="n">00</span>
+      <h2>A base</h2>
+      <span class="dica">dados simulados</span>
+    </header>
+    <div class="corpo">
+      <div id="resumo-base"></div>
+    </div>
+  </section>
+
+  <section class="secao" id="s-linear">
+    <header>
+      <span class="n">01</span>
+      <h2>Regressão linear múltipla</h2>
+      <span class="dica" id="contador-linear"></span>
+    </header>
+    <div class="corpo" id="etapa-linear"></div>
+  </section>
+
+  <section class="secao" id="s-logistica">
+    <header>
+      <span class="n">02</span>
+      <h2>Regressão logística</h2>
+      <span class="dica" id="contador-logistica"></span>
+    </header>
+    <div class="corpo" id="etapa-logistica"></div>
+  </section>
+
+  <section class="secao" id="s-corte">
+    <header>
+      <span class="n">03</span>
+      <h2>Ponto de corte e métricas</h2>
+      <span class="dica" id="contador-corte"></span>
+    </header>
+    <div class="corpo">
+      <div id="pergunta-corte"></div>
+      <div class="grade duas">
+        <div>
+          <span class="rotulo">a partir desta probabilidade, o processo vai ao especialista</span>
+          <div class="fileira">
+            <span class="corte-atual" id="valor-corte">0,50</span>
+            <span class="miudo" id="nota-corte"></span>
+          </div>
+          <input type="range" id="slider" min="0" max="1" step="0.01" value="0.5">
+          <canvas id="distribuicao" width="560" height="86"></canvas>
+          <p class="miudo">
+            Processos com probabilidade prevista igual ou acima do corte vão para o especialista;
+            os demais ficam com o parecer padronizado. O modelo é o mesmo em qualquer posição do
+            slider: o que muda é a <strong>regra de decisão</strong>. A faixa mostra onde estão
+            as probabilidades dos 1.000 processos do mês.
+          </p>
+          <table class="matriz" id="matriz"></table>
+        </div>
+        <div>
+          <span class="rotulo">o mesmo, em processos</span>
+          <div class="traducao" id="traducao"></div>
+          <p class="miudo" style="margin-top:.8rem">
+            As medidas (acurácia, precisão, sensibilidade) não aparecem aqui: calculá-las a partir
+            da matriz faz parte dos itens abaixo.
+          </p>
+        </div>
+      </div>
+      <hr class="regua">
+      <div id="etapa-corte"></div>
+    </div>
+  </section>
+
+  <section class="secao" id="s-entrega">
+    <header>
+      <span class="n">04</span>
+      <h2>Entrega</h2>
+    </header>
+    <div class="corpo">
+      <div id="resumo-entrega"></div>
+      <div class="campo" style="margin-top:.8rem">
+        <label class="rotulo" for="observacoes">Observações (opcional)</label>
+        <p class="miudo">
+          Se você discorda de algum feedback automático, explique aqui: qual item, o que a IA
+          apontou e por que a sua resposta está certa. O professor lê este campo na correção.
+        </p>
+        <textarea id="observacoes" rows="4" maxlength="2000" spellcheck="true"></textarea>
+      </div>
+      <div class="acoes" style="margin-top:.6rem">
+        <button class="principal" id="b-fechar">Fechar e gerar a entrega</button>
+      </div>
+      <div id="painel-entrega" style="margin-top:1rem"></div>
+    </div>
+  </section>
+</main>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>

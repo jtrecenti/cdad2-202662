@@ -1,0 +1,102 @@
+{
+ "id": "ex04_planejamento",
+ "titulo": "Projeto 4 - Planejamento de pesquisa empírica em Direito",
+ "exercicio": "Projeto 4 (aula 13)",
+ "instrucoes": "Avalie o formulário de planejamento de pesquisa preenchido pelo grupo a partir do tema escolhido. O critério não é ambição: é se essa pesquisa poderia ser executada e se o resultado responderia à pergunta feita. Planejamento bom é planejamento executável. O grupo declara, para cada variável, um ou mais papéis (identificador, dependente = desfecho, independente = explicativa, filtro); confira esses papéis um a um contra a pergunta e a hipótese, porque é ali que o erro costuma estar. Contexto importante: o projeto acontece antes de a turma ver testes de hipóteses. A turma sabe tipos de variáveis, medidas resumo, operações com pandas, gráficos, probabilidade condicional em tabela de dupla entrada, variável aleatória e intervalo de confiança para uma proporção. Não cobre nada além disso. O formulário pede que o grupo escreva H0 e H1, inclusive com símbolos, mas isso é só redação de hipótese: não peça p-valor, estatística de teste, nível de significância nem decisão de rejeitar, e não rebaixe ninguém por não trazer essas coisas.",
+ "criterios": [
+  {
+   "id": "pergunta",
+   "nome": "Pergunta de pesquisa bem definida",
+   "descricao": "A pergunta precisa ter população delimitada, recorte temporal, e um desfecho observável. Deve ser respondível com dados, não com opinião ou interpretação jurídica. Atenção para não cobrar duas vezes: o formulário passou a ter um campo próprio de população, tipo de estudo, parâmetro e estimativa. Se a população e o período estiverem declarados lá e a pergunta em si for clara e empírica, não rebaixe este critério alegando que falta população na pergunta; avalie aqui a qualidade da pergunta, e a delimitação no critério de população.",
+   "niveis": {
+    "insuficiente": "pergunta normativa ('o STJ deveria...') ou vaga demais para virar dado",
+    "abaixo_do_esperado": "pergunta empírica, mas sem população, período ou desfecho claros",
+    "esperado": "pergunta empírica com população, período e desfecho explícitos"
+   },
+   "penalizar": "pergunta que se responde com sim/não sem precisar de dado; pergunta que confunde 'o que o direito diz' com 'o que acontece na prática'"
+  },
+  {
+   "id": "fonte",
+   "nome": "Fonte de dados",
+   "descricao": "A fonte precisa existir, ser do Judiciário e conter as variáveis prometidas. O campo pede duas coisas, e só estas: qual é a fonte, entre as que a turma viu na aula 12 (busca de processos do juscraper-app, DataJud, Banco de Sentenças, jurisprudência de 2º grau, consulta processual do e-SAJ), e de que ponto o grupo parte, dos processos que entraram ou das decisões já proferidas. Não cobre forma de acesso nem volume estimado: o formulário deixou de perguntar as duas coisas. Atenção: o campo também não pede mais 'o que a fonte não vê', porque a turma não entendia o que se queria ali. Se a fonte escolher os casos pelo próprio desfecho (busca por palavra-chave que coincide com o resultado, base só de casos com recurso, tempo médio calculado só sobre processos já encerrados), explique isso no comentário como alerta útil, mas não rebaixe o nível por causa disso: o grupo não foi convidado a responder essa pergunta aqui. O que a pesquisa deixa de fora continua sendo cobrado no critério de limites.",
+   "niveis": {
+    "insuficiente": "fonte inexistente, fora do Judiciário sem justificativa, ou que não contém o desfecho prometido",
+    "abaixo_do_esperado": "fonte plausível, mas que não responde à pergunta feita, ou sem dizer de que ponto parte",
+    "esperado": "fonte do Judiciário compatível com a pergunta, com o ponto de partida declarado"
+   },
+   "penalizar": "supor que existe base pública com informação que só está nos autos (sigilo, petições, valores); fonte que não contém o desfecho declarado"
+  },
+  {
+   "id": "variaveis",
+   "nome": "Variáveis, tipos e definição operacional",
+   "descricao": "Cada variável precisa de tipo estatístico declarado e de definição operacional: onde a informação está no documento e que valores ela pode assumir. Precisa haver identificador do caso. A lista de tipos do app não tem mais o tipo 'Data': uma data pode entrar como numérica (dias entre dois marcos, idade do processo) ou como categórica ordinal (ano, mês), e as duas escolhas estão certas quando a definição operacional diz como o valor é construído. Não cobre um tipo 'data' que o formulário não oferece.",
+   "niveis": {
+    "insuficiente": "tipos incompatíveis com a natureza das variáveis, ou definição operacional ausente",
+    "abaixo_do_esperado": "tipos corretos, mas definição vaga demais para duas pessoas classificarem igual",
+    "esperado": "tipos corretos e definição operacional que outra pessoa conseguiria aplicar"
+   },
+   "penalizar": "categoria codificada como número e chamada de numérica; ausência de identificador; 'como medir' que repete o nome da variável"
+  },
+  {
+   "id": "papeis",
+   "nome": "Papel de cada variável na pergunta",
+   "descricao": "O papel declarado tem que ser coerente com a pergunta e com a hipótese. Erros a procurar, nesta ordem: (1) a mesma variável marcada como desfecho e como explicativa, o que faz a pergunta se explicar por si mesma; (2) mais de um desfecho, o que são duas pesquisas em uma; (3) nenhum desfecho, ou nenhuma explicativa; (4) identificador com outro papel junto, como número de processo usado para explicar algo; (5) desfecho que na verdade é consequência do que o grupo chamou de explicativa, ou o contrário (a seta invertida no tempo); (6) explicativa que só existe depois do desfecho, o que torna a associação impossível de interpretar; (7) filtro que apaga justamente a variação que a pergunta quer estudar.",
+   "niveis": {
+    "insuficiente": "há erro lógico de papel (variável que explica a si mesma, dois desfechos, nenhum desfecho, seta invertida no tempo) e o texto não percebe",
+    "abaixo_do_esperado": "papéis formalmente possíveis, mas algum não se sustenta diante da pergunta ou da hipótese",
+    "esperado": "cada papel se sustenta diante da pergunta, e as variáveis com mais de um papel têm motivo declarado"
+   },
+   "penalizar": "aceitar sem comentar uma variável marcada como dependente e independente ao mesmo tempo; aceitar uma explicativa que é medida depois do desfecho"
+  },
+  {
+   "id": "populacao",
+   "nome": "População, tipo de estudo, parâmetro e estimativa",
+   "descricao": "O grupo precisa dizer quem entra no estudo (população, com lugar e período), se o estudo é populacional (olha todos os casos) ou amostral (olha uma parte, e diz como ela seria escolhida), qual é o parâmetro de interesse (o número da população inteira, que não se observa por completo) e qual é a estimativa (o número calculado nos dados que se tem). O erro mais comum é confundir os dois últimos, ou chamar de amostra o que na verdade é a população inteira do recorte declarado. É a primeira vez que a turma escreve isso: seja exigente com a coerência e generoso com o vocabulário.",
+   "niveis": {
+    "insuficiente": "não define a população, ou não distingue estimativa de parâmetro em nenhum momento",
+    "abaixo_do_esperado": "população definida, mas o tipo de estudo não bate com o recorte, ou o parâmetro está vago ('quero saber sobre as decisões')",
+    "esperado": "população com lugar e período, tipo de estudo coerente com ela, parâmetro nomeado e estimativa que corresponde a ele"
+   },
+   "penalizar": "dizer que é amostral sem nenhuma ideia de como a parte seria escolhida; parâmetro que não tem relação com o desfecho declarado nas variáveis"
+  },
+  {
+   "id": "hipoteses",
+   "nome": "Hipóteses falsificáveis, em palavras e formalizadas",
+   "descricao": "São dois campos. No primeiro, H0 e H1 em português, usando os nomes das variáveis declaradas: H0 afirma que não há diferença nem associação, e H1 tem direção (maior, menor, mais frequente). Não exija que o grupo diga o que refutaria a hipótese: o formulário deixou de pedir isso. No segundo, as mesmas duas afirmações com símbolos, nomeando o parâmetro (p para proporção, mu para média, com índice de grupo) e escrevendo a igualdade e a desigualdade. Avalie se a versão formalizada corresponde à versão em palavras e se os parâmetros são os mesmos declarados no critério de população. A turma viu isso pela primeira vez neste projeto: notação imperfeita que expressa a ideia certa é nível esperado.",
+   "niveis": {
+    "insuficiente": "não há hipótese, é impossível contrariá-la com dado, ou a formalização está ausente",
+    "abaixo_do_esperado": "hipótese em palavras sem direção ou desconectada das variáveis, ou formalização que não corresponde ao que foi dito em palavras",
+    "esperado": "H0 e H1 em palavras, com direção e ligadas às variáveis, e a formalização correspondente com os parâmetros nomeados"
+   },
+   "penalizar": "hipótese circular (que se confirma por definição), hipótese protegida por 'pode', hipótese sobre variável que não está na lista, e H0 que já afirma a diferença que o grupo espera encontrar"
+  },
+  {
+   "id": "metodo",
+   "nome": "Análise compatível com os tipos de variável",
+   "descricao": "A análise proposta tem que ser compatível com o tipo do desfecho e do que pode explicá-lo, usando o que a turma já viu: desfecho categórico por grupo pede a proporção do desfecho em cada grupo, com tabela de dupla entrada e barras empilhadas em proporção; desfecho numérico por grupo pede mediana ou média por grupo e boxplot; duas numéricas pedem gráfico de dispersão. A incerteza deve ser reportada sobre a estimativa que o grupo declarou no campo de população: quando o estudo é amostral, a estimativa vem com intervalo de confiança. Se o grupo declarou estudo populacional de forma coerente com o recorte, não exija intervalo de confiança, porque ali não há erro de amostragem a reportar. Não exija teste de hipótese, que ainda não foi dado; se o grupo citar um teste compatível, não penalize.",
+   "niveis": {
+    "insuficiente": "análise incompatível com os tipos declarados, ou ausente",
+    "abaixo_do_esperado": "análise compatível, mas sem gráfico, sem justificativa pelos tipos, ou sem nenhuma menção à incerteza quando a base é amostra",
+    "esperado": "resumo e gráfico compatíveis com os tipos, justificados por eles, e a incerteza reportada com intervalo de confiança quando for amostra"
+   },
+   "penalizar": "média de variável categórica; comparar contagens absolutas entre grupos de tamanhos diferentes em vez de proporções; gráfico incompatível com os tipos (histograma de categórica, linha sem tempo no eixo); exigir do grupo teste de hipótese"
+  },
+  {
+   "id": "limites",
+   "nome": "Limites e riscos reconhecidos",
+   "descricao": "O grupo deve nomear o que essa pesquisa não vai conseguir concluir, incluindo o limite entre associação e causalidade, com uma explicação alternativa concreta para a associação esperada.",
+   "niveis": {
+    "insuficiente": "não reconhece limite nenhum, ou promete conclusão causal",
+    "abaixo_do_esperado": "reconhece limites genéricos ('a amostra é pequena', 'correlação não é causalidade') sem mecanismo",
+    "esperado": "nomeia limites concretos ligados à fonte e às variáveis, com uma explicação alternativa plausível"
+   },
+   "penalizar": "linguagem causal ('provoca', 'causa', 'faz com que') para desenho observacional"
+  }
+ ],
+ "observacoes": "Cópia e cola estão bloqueados neste projeto. Se o texto tiver marcas de resposta genérica de LLM (frases longas sem referência ao tema escolhido, ausência total de detalhe institucional brasileiro), aponte isso como falta de ancoragem no tema, sem acusar ninguém. Quando o app já tiver detectado um problema de papel por regra, não repita a frase dele: explique a consequência do erro para a pergunta do grupo. O desenho do estudo agora é declarado no campo de população (estudo amostral ou populacional): não cobre um campo separado de desenho, e não exija do campo da fonte aquilo que o formulário passou a perguntar no campo de população.",
+ "escala": {
+  "insuficiente": "não atende (nota 0)",
+  "abaixo_do_esperado": "atende em parte (nota 0,5)",
+  "esperado": "atende (nota 1,0)"
+ }
+}

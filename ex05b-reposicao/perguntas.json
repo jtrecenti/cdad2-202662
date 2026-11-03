@@ -1,0 +1,122 @@
+{
+ "base": {
+  "arquivo": "criminal.csv",
+  "meta": "criminal.json",
+  "variavel": "criminal"
+ },
+ "perguntas": [
+  {
+   "id": "r1",
+   "titulo": "Réus de tráfico confessam menos?",
+   "pergunta": "A proporção de réus que confessaram é diferente entre os casos de tráfico de drogas e os demais casos?",
+   "esperado": {
+    "metodo": "duas_proporcoes",
+    "y": "houve_confissao",
+    "x": "eh_trafico"
+   },
+   "observacao": "Duas variáveis binárias. O qui-quadrado também serve."
+  },
+  {
+   "id": "r2",
+   "titulo": "O regime inicial muda conforme a reincidência?",
+   "pergunta": "A distribuição do regime inicial (aberto, semiaberto, fechado) é diferente entre réus reincidentes e não reincidentes?",
+   "esperado": {
+    "metodo": "quiquadrado",
+    "y": "regime_inicial",
+    "x": "houve_reincidencia"
+   },
+   "observacao": "Duas variáveis categóricas, a resposta com três níveis."
+  },
+  {
+   "id": "r3",
+   "titulo": "A pena é menor quando o réu confessa?",
+   "pergunta": "A pena média fixada é diferente entre réus que confessaram e réus que não confessaram?",
+   "esperado": {
+    "metodo": "teste_t",
+    "y": "pena_anos",
+    "x": "houve_confissao"
+   },
+   "observacao": "Variável resposta numérica, explicativa com dois níveis."
+  },
+  {
+   "id": "r4",
+   "titulo": "A pena média muda de um regime inicial para outro?",
+   "pergunta": "A pena média fixada é a mesma nos três regimes iniciais (aberto, semiaberto e fechado)?",
+   "esperado": {
+    "metodo": "anova",
+    "y": "pena_anos",
+    "x": "regime_inicial"
+   },
+   "observacao": "Variável resposta numérica, explicativa com três níveis."
+  },
+  {
+   "id": "r5",
+   "titulo": "Ementas mais longas acompanham penas maiores?",
+   "pergunta": "A pena fixada tende a ser maior nos acórdãos com ementas mais longas?",
+   "esperado": {
+    "metodo": "regressao",
+    "y": "pena_anos",
+    "x": "n_palavras_ementa"
+   },
+   "observacao": "Duas variáveis numéricas."
+  }
+ ],
+ "metodos": [
+  {
+   "id": "quiquadrado",
+   "rotulo": "Teste qui-quadrado de independência",
+   "exige": "duas variáveis categóricas"
+  },
+  {
+   "id": "duas_proporcoes",
+   "rotulo": "Teste de duas proporções",
+   "exige": "variável resposta binária e explicativa com 2 níveis"
+  },
+  {
+   "id": "teste_t",
+   "rotulo": "Teste t para diferença de médias",
+   "exige": "variável resposta numérica e explicativa categórica com exatamente 2 níveis"
+  },
+  {
+   "id": "anova",
+   "rotulo": "ANOVA de um fator",
+   "exige": "variável resposta numérica e explicativa categórica com 3 ou mais níveis"
+  },
+  {
+   "id": "regressao",
+   "rotulo": "Regressão linear simples",
+   "exige": "variável resposta e explicativa numéricas"
+  }
+ ],
+ "campos": [
+  {
+   "id": "metodo",
+   "rotulo": "Por que este método",
+   "ajuda": "Diga por que o método escolhido serve para a variável resposta e a explicativa desta pergunta."
+  },
+  {
+   "id": "hipoteses",
+   "rotulo": "Hipótese nula e hipótese alternativa",
+   "ajuda": "O que a hipótese nula afirma e o que a alternativa afirma, com as variáveis da pergunta e a medida comparada (proporção, média, coeficiente)."
+  },
+  {
+   "id": "pvalor",
+   "rotulo": "Valor-p e conclusão do teste",
+   "ajuda": "Qual foi o valor-p, o que ele indica e qual a conclusão ao nível de 5%."
+  },
+  {
+   "id": "efeito",
+   "rotulo": "Direção e tamanho da diferença ou da associação",
+   "ajuda": "Quem tem mais ou menos, e quanto, na unidade do problema (pontos percentuais, anos)."
+  },
+  {
+   "id": "consequencia",
+   "rotulo": "O que isso muda para o problema jurídico",
+   "ajuda": "Para quem esse resultado importa (réu, defesa, Ministério Público, tribunal) e por quê."
+  }
+ ],
+ "limites": {
+  "max_caracteres_campo": 600
+ },
+ "desconto_por_violacao": 0.5
+}

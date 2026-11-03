@@ -1,0 +1,749 @@
+{
+ "_leia": [
+  "Perguntas do quiz ao vivo das aulas 7 a 13.",
+  "",
+  "Este arquivo é PÚBLICO: ele desce para o celular do aluno. A resposta certa",
+  "e o comentário NÃO moram aqui, e sim em dados-privados/quiz_gabarito.json,",
+  "que entra no bundle do Worker. Se você acrescentar uma pergunta aqui, tem",
+  "que acrescentar a resposta lá, senão o botão de revelar não mostra nada.",
+  "",
+  "O id manda: a07q1 é a primeira pergunta da aula 7. O painel do professor",
+  "lista as perguntas na ordem em que aparecem aqui.",
+  "",
+  "Sobre escrever as opções: a errada tem que ser um erro que alguém comete de",
+  "verdade, e não uma bobagem. Numa pergunta em que só uma opção é plausível, a",
+  "sala acerta por eliminação e o quiz não mede nada. As distratoras daqui são",
+  "as confusões que a literatura registra: trocar o sentido da condicional,",
+  "dividir pelo total errado e multiplicar eventos dependentes.",
+  "",
+  "A pergunta a07q7 tem \"tipo\": \"data\": em vez de opções, o aluno escolhe dia e mês, e o revelar mostra todas as datas repetidas. Ela não tem resposta certa, então não precisa de entrada no gabarito.",
+  "",
+  "A amostra da sala da aula 11 não passa por aqui: ela tem app e painel próprios, em apps/amostra/.",
+  "",
+  "As perguntas cl1 a cl10 são da aula convidada na Clínica 2 (projeto BTG, 19/10/2026). O campo aula delas é texto, e o painel mostra o texto como está.",
+  "",
+  "A pergunta cl1a6 tem \"tipo\": \"bloco\": abre cl1 a cl6 na mesma tela, e cada voto vai para a sua pergunta. Os itens do bloco estão aqui (para desenhar) e no gabarito (para o Worker aceitar o voto). As seis continuam abríveis uma a uma.",
+  "",
+  "As perguntas a21q1 a a21q4 (aula 21) também vêm num bloco, a21q1a4: as quatro situações numa tela só, com as mesmas opções."
+ ],
+ "perguntas": [
+  {
+   "id": "a07q0",
+   "aula": 7,
+   "titulo": "A informação muda a aposta?",
+   "contexto": "Um núcleo de prática jurídica levantou 400 sentenças de primeiro grau em ações contra planos de saúde:\n\n                        procedente   improcedente   total\ncobertura negada              180             60      240\nreajuste                       20            140      160\ntotal                         200            200      400\n\nSorteando uma sentença ao acaso, a chance de ela ser procedente é de 200 em 400, ou seja, 50%. Agora eu conto uma informação a mais: a sentença sorteada era de um pedido de cobertura negada.",
+   "enunciado": "Com essa informação, qual a chance de a sentença ser procedente?",
+   "opcoes": [
+    "Continua 50%: a informação não muda o resultado de um sorteio já feito.",
+    "Sobe para 75%.",
+    "Sobe para 90%.",
+    "Cai para 45%."
+   ]
+  },
+  {
+   "id": "a07q1",
+   "aula": 7,
+   "titulo": "O número de 1 em 73 milhões",
+   "contexto": "Inglaterra, 1999. Sally Clark perdeu dois filhos bebês, com poucos meses de diferença. No julgamento, um pediatra afirmou que a chance de morte súbita em berço numa família como a dela era de 1 em 8.543, e que a chance de acontecer duas vezes era de 1 em 8.543 × 8.543, ou seja, 1 em 73 milhões. Ela foi condenada.",
+   "enunciado": "Qual é o erro mais grave nessa conta?",
+   "opcoes": [
+    "Nenhum: a conta está certa, o número é que é grande demais para um júri entender.",
+    "Multiplicar as duas probabilidades só vale se as duas mortes forem independentes, e há motivo genético e ambiental para não serem.",
+    "As probabilidades deveriam ter sido somadas, e não multiplicadas.",
+    "O erro está na ordem: deveria ser 8.543 + 8.543."
+   ]
+  },
+  {
+   "id": "a07q2",
+   "aula": 7,
+   "titulo": "A conclusão do promotor",
+   "contexto": "Um exame de DNA aponta coincidência entre o material do réu e o encontrado no local. O laboratório informa: em pessoas escolhidas ao acaso na população, uma coincidência dessas aparece em 1 a cada 1 milhão.",
+   "enunciado": "O promotor conclui: \"a chance de o réu ser inocente é de 1 em 1 milhão\". Essa conclusão está:",
+   "opcoes": [
+    "Certa: é exatamente o que o número do laboratório diz.",
+    "Errada: o laboratório informou a chance de coincidir DADO que a pessoa é inocente, e o promotor leu como a chance de ser inocente DADO que coincidiu.",
+    "Errada: o número certo seria 1 em 2 milhões, porque há duas hipóteses.",
+    "Certa, desde que o exame tenha sido repetido em dois laboratórios."
+   ]
+  },
+  {
+   "id": "a07q3",
+   "aula": 7,
+   "titulo": "A condicional invertida",
+   "contexto": "Na mesma base de 400 sentenças: 240 pediam cobertura negada e 160 discutiam reajuste; 200 foram procedentes e 200 improcedentes; e 180 são de cobertura E procedentes.\n\nNo começo da aula vimos que P(procedente | cobertura) = 180/240 = 0,75. Agora a pergunta é a inversa.",
+   "enunciado": "Qual conta dá P(pedido de cobertura | procedente)?",
+   "opcoes": [
+    "180 / 400",
+    "180 / 240",
+    "180 / 200",
+    "240 / 400"
+   ]
+  },
+  {
+   "id": "a07q4",
+   "aula": 7,
+   "titulo": "E se não houvesse relação",
+   "contexto": "Na mesma base de 400 sentenças: metade foi procedente, ou seja, P(procedente) = 0,50; e 60% dos pedidos eram de cobertura negada, ou seja, P(cobertura) = 0,60. Observamos 180 sentenças que são as duas coisas ao mesmo tempo.",
+   "enunciado": "Se pedido e resultado não tivessem relação nenhuma, quantas sentenças seriam as duas coisas?",
+   "opcoes": [
+    "120.",
+    "As mesmas 180: a conta não muda.",
+    "200.",
+    "240."
+   ]
+  },
+  {
+   "id": "a07q5",
+   "aula": 7,
+   "titulo": "A perícia grafotécnica",
+   "contexto": "Uma auditoria encaminhou ao instituto de criminalística os 10.000 contratos de um lote. Na verdade, 1 em cada 100 tem assinatura falsificada.\n\nEntre os contratos com assinatura falsificada, a perícia aponta falsidade em 99% dos casos. Entre os contratos autênticos, ela aponta falsidade em 1% dos casos, por variação natural da assinatura.\n\nUm contrato acabou de ser apontado pela perícia.",
+   "enunciado": "Qual a probabilidade de a assinatura desse contrato ser mesmo falsa?",
+   "opcoes": [
+    "99%, que é a taxa de acerto da perícia.",
+    "Cerca de 98%, descontando o 1% de erro.",
+    "Cerca de 50%.",
+    "1%, que é a proporção de falsificações no lote."
+   ]
+  },
+  {
+   "id": "a07q6",
+   "aula": 7,
+   "titulo": "A partir de que chance recusar o acordo",
+   "contexto": "Seu cliente é o autor e pede R$ 500 mil. O réu propõe acordo de R$ 200 mil. Indo a julgamento, custas e honorários custam R$ 50 mil em qualquer cenário, e a condenação seria de R$ 500 mil.\n\nCom 40% de chance de procedência, o julgamento vale, em média, 0,40 × 500 − 50 = 150 mil, e o acordo de 200 mil é melhor.",
+   "enunciado": "A partir de que probabilidade de procedência passaria a valer a pena recusar o acordo?",
+   "opcoes": [
+    "30%",
+    "40%",
+    "50%",
+    "60%"
+   ]
+  },
+  {
+   "id": "a07q7",
+   "aula": 7,
+   "tipo": "data",
+   "titulo": "Aniversários da turma",
+   "contexto": "Somos cerca de 30 pessoas nesta sala. Antes de olhar a lista, faça o seu palpite: qual a chance de duas pessoas aqui fazerem aniversário no mesmo dia?",
+   "enunciado": "Informe o dia e o mês do seu aniversário."
+  },
+  {
+   "id": "a08q4",
+   "aula": 8,
+   "titulo": "A inversa, na tabela de hoje",
+   "contexto": "400 processos de um Juizado Especial Cível:\n\n                acordo   sem acordo   total\ncom audiência       60           40     100\nsem audiência       60          240     300\ntotal              120          280     400\n\nJá calculamos P(acordo | com audiência) = 60/100 = 0,60.",
+   "enunciado": "Qual conta dá P(com audiência | acordo)?",
+   "opcoes": [
+    "60/400",
+    "60/100",
+    "60/120",
+    "100/400"
+   ]
+  },
+  {
+   "id": "a08q5",
+   "aula": 8,
+   "titulo": "O bafômetro na blitz",
+   "contexto": "Um teste rápido de alcoolemia acusa 90% de quem realmente dirigiu embriagado, e acusa 10% de quem não dirigiu. Numa blitz de rua, 2% dos motoristas dirigiram embriagados.",
+   "enunciado": "O teste acusou um motorista. Qual a chance de ele ter mesmo dirigido embriagado?",
+   "opcoes": [
+    "Cerca de 90%, que é a taxa de acerto do teste.",
+    "Cerca de 50%.",
+    "Cerca de 15%.",
+    "Cerca de 2%, que é a proporção de embriagados na rua."
+   ]
+  },
+  {
+   "id": "a08q1",
+   "aula": 16,
+   "titulo": "Contar acertos num número fixo de tentativas",
+   "contexto": "Um escritório vai interpor 10 recursos. Cada um, isoladamente, tem cerca de 30% de chance de ser provido, e o resultado de um não interfere no do outro.",
+   "enunciado": "Para responder \"qual a chance de pelo menos 4 serem providos?\", qual distribuição descreve o número de recursos providos?",
+   "opcoes": [
+    "Bernoulli, porque cada recurso é provido ou não.",
+    "Binomial, porque são 10 repetições independentes com a mesma chance, e contamos quantas deram certo.",
+    "Poisson, porque estamos contando ocorrências.",
+    "Normal, porque toda contagem grande vira normal."
+   ]
+  },
+  {
+   "id": "a08q2",
+   "aula": 16,
+   "titulo": "Quanto tempo até acontecer",
+   "contexto": "Uma vara quer modelar o tempo, em dias, entre a distribuição de um processo e a sentença. O tempo pode ser qualquer número positivo, muitos processos terminam rápido e uma minoria demora muito.",
+   "enunciado": "Qual distribuição é a candidata natural para esse tempo de espera?",
+   "opcoes": [
+    "Binomial, porque cada dia o processo é julgado ou não.",
+    "Geométrica, porque contamos dias até o evento.",
+    "Exponencial, porque é um tempo contínuo de espera e a cauda longa é justamente o formato dela.",
+    "Normal, porque é a distribuição mais comum."
+   ]
+  },
+  {
+   "id": "a08q3",
+   "aula": 16,
+   "titulo": "Quantos chegam por dia",
+   "contexto": "Uma vara recebe, em média, 7 processos novos por dia útil. Alguns dias chegam 3, outros 12. Queremos a chance de chegarem mais de 15 num dia.",
+   "enunciado": "Qual distribuição descreve o número de processos que chegam num dia?",
+   "opcoes": [
+    "Poisson, porque é uma contagem de ocorrências num intervalo fixo de tempo, sem um teto natural.",
+    "Binomial, porque cada processo chega ou não chega.",
+    "Exponencial, porque envolve tempo.",
+    "Geométrica, porque contamos até o próximo processo."
+   ]
+  },
+  {
+   "id": "a11q1",
+   "aula": 11,
+   "titulo": "O número que eu tenho e o número que eu quero",
+   "contexto": "Você sorteou 400 sentenças de um tribunal que julgou 90 mil no ano e encontrou 62% de procedência. Quer saber a taxa de procedência do tribunal inteiro.",
+   "enunciado": "Nesse enunciado, o que é o parâmetro?",
+   "opcoes": [
+    "Os 62% encontrados nas 400 sentenças.",
+    "A taxa de procedência das 90 mil sentenças do tribunal, que você não conhece.",
+    "As 400 sentenças sorteadas.",
+    "O tamanho da amostra, 400."
+   ]
+  },
+  {
+   "id": "a11q2",
+   "aula": 11,
+   "titulo": "O que o intervalo diz",
+   "contexto": "Uma pesquisadora sorteou 100 dos 8.505 recursos e calculou o intervalo de confiança de 95% para o tempo médio: de 2,4 a 3,2 anos.",
+   "enunciado": "Qual leitura desse intervalo é a correta?",
+   "opcoes": [
+    "Há 95% de chance de o tempo médio dos 8.505 recursos estar entre 2,4 e 3,2 anos.",
+    "95% dos recursos levam entre 2,4 e 3,2 anos para ser julgados.",
+    "Se ela repetisse o sorteio muitas vezes e calculasse um intervalo a cada vez, cerca de 95% desses intervalos conteriam o tempo médio dos 8.505.",
+    "O tempo médio dos 8.505 é 2,8 anos, com erro de no máximo 0,4 ano para mais ou para menos."
+   ]
+  },
+  {
+   "id": "a12q1",
+   "aula": 12,
+   "titulo": "Qual fonte responde",
+   "contexto": "Pergunta: nas ações de despejo por falta de pagamento distribuídas na capital em 2025, em que proporção o juiz concedeu a liminar de desocupação?\n\nA liminar é decidida no começo do processo, numa decisão interlocutória. Muitas ações terminam em acordo ou com o pagamento da dívida, sem sentença.",
+   "enunciado": "Qual caminho responde a essa pergunta com menos viés?",
+   "opcoes": [
+    "Buscar \"liminar concedida\" no banco de sentenças de primeiro grau.",
+    "Usar os acórdãos de agravo de instrumento sobre liminar de despejo, no segundo grau.",
+    "Listar as ações de despejo distribuídas em 2025, pelo DataJud ou pela consulta processual, e ler em cada uma a decisão sobre a liminar.",
+    "Usar o total de ações de despejo do relatório Justiça em Números."
+   ]
+  },
+  {
+   "id": "a12q2",
+   "aula": 12,
+   "titulo": "A hipótese que os dados podem contrariar",
+   "contexto": "Pergunta: nos recursos inominados julgados pelo Colégio Recursal da capital em 2025, o provimento do recurso está associado a quem recorre, o consumidor ou a empresa?",
+   "enunciado": "Qual destas é uma hipótese que os dados podem contrariar?",
+   "opcoes": [
+    "O resultado do recurso pode depender de quem recorre.",
+    "O Colégio Recursal favorece as empresas.",
+    "A proporção de recursos providos é maior quando quem recorre é a empresa; a hipótese cai se ela for igual ou maior quando recorre o consumidor.",
+    "Os recursos são providos quando a sentença está errada."
+   ]
+  },
+  {
+   "id": "a12q3",
+   "aula": 12,
+   "titulo": "Qual fonte responde (2)",
+   "contexto": "Pergunta: nos acórdãos de apelação do TJSP julgados em agosto de 2026 sobre negativa de cobertura de plano de saúde, em que proporção a operadora foi condenada a custear o tratamento?",
+   "enunciado": "Qual caminho responde a essa pergunta?",
+   "opcoes": [
+    "Listar pelo DataJud as ações contra planos de saúde distribuídas em 2026 e ler a sentença de cada uma.",
+    "Buscar na jurisprudência do TJSP os acórdãos julgados em agosto de 2026 sobre negativa de cobertura e ler, em cada um, o que o tribunal decidiu.",
+    "Abrir no jus.br os autos completos de cada processo contra planos de saúde.",
+    "Usar o total de reclamações contra operadoras registradas na ANS em 2026."
+   ]
+  },
+  {
+   "id": "a12q4",
+   "aula": 12,
+   "titulo": "Qual fonte responde (3)",
+   "contexto": "Pergunta: das execuções fiscais de IPTU distribuídas no TJSP em janeiro de 2017, que proporção passou por arquivamento provisório até hoje?\n\nO arquivamento provisório é lançado como uma movimentação do processo (código 245 da tabela do CNJ). Muitas dessas execuções nunca tiveram sentença.",
+   "enunciado": "Qual caminho responde a essa pergunta?",
+   "opcoes": [
+    "Buscar \"arquivamento provisório\" no banco de sentenças de primeiro grau.",
+    "Usar os acórdãos de apelação em execução fiscal julgados pelo TJSP.",
+    "Abrir no e-SAJ as execuções fiscais que aparecem primeiro na busca por \"IPTU\".",
+    "Listar pelo DataJud as execuções fiscais de IPTU distribuídas em janeiro de 2017 e contar as que têm a movimentação de arquivamento provisório."
+   ]
+  },
+  {
+   "id": "a09q4",
+   "aula": 9,
+   "titulo": "O fixo mexe no risco?",
+   "contexto": "Nos honorários da conciliação, E(X) = R$ 200 e o desvio padrão é de uns R$ 283.",
+   "enunciado": "O escritório passa a pagar R$ 100 fixos por dia, além dos honorários de sempre. O que acontece com o desvio padrão?",
+   "opcoes": [
+    "Dobra.",
+    "Aumenta em 100.",
+    "Não muda.",
+    "Diminui."
+   ]
+  },
+  {
+   "id": "a09q5",
+   "aula": 9,
+   "titulo": "O que a esperança promete",
+   "contexto": "A advogada atende duas audiências por dia. Ela recebe R$ 0, R$ 500 ou R$ 1.000, e E(X) = R$ 200.",
+   "enunciado": "Qual afirmação sobre esses R$ 200 é a correta?",
+   "opcoes": [
+    "É o valor mais provável do dia.",
+    "É o valor que ela recebe num dia típico.",
+    "É a média ao longo de muitos dias, e nunca é o que ela recebe num dia.",
+    "É o menor valor que ela recebe num dia."
+   ]
+  },
+  {
+   "id": "a10q1",
+   "aula": 10,
+   "titulo": "Qual distribuição descreve isso",
+   "contexto": "Uma vara quer modelar quantas petições iniciais chegam por dia no protocolo.",
+   "enunciado": "Qual distribuição descreve esse fenômeno?",
+   "opcoes": [
+    "Bernoulli",
+    "Binomial",
+    "Poisson",
+    "Normal"
+   ]
+  },
+  {
+   "id": "a10q2",
+   "aula": 10,
+   "titulo": "A altura da curva",
+   "contexto": "O tempo de tramitação de um processo é uma variável contínua, e o gráfico dela é uma curva.",
+   "enunciado": "Qual a probabilidade de um processo levar exatamente 412,73 dias?",
+   "opcoes": [
+    "A altura da curva no ponto 412,73.",
+    "Zero.",
+    "Depende da média e do desvio padrão.",
+    "A área debaixo da curva até 412,73."
+   ]
+  },
+  {
+   "id": "a13q6",
+   "aula": 13,
+   "titulo": "Qual análise responde",
+   "contexto": "Pergunta: nas sentenças de 2025 dos Juizados da capital em ações por atraso de voo, a falta de assistência material está associada à condenação por dano moral?\n\nA base tem uma linha por sentença: processo, companhia, horas_atraso, recebeu_assistencia, condenou (verdadeiro ou falso) e valor_dano_moral.",
+   "enunciado": "Qual análise responde a essa pergunta?",
+   "opcoes": [
+    "A média de valor_dano_moral em cada grupo de recebeu_assistencia.",
+    "A mediana de valor_dano_moral em cada companhia.",
+    "A proporção de condenações (a média de condenou) em cada grupo de recebeu_assistencia.",
+    "A média de horas_atraso entre as sentenças com e sem condenação."
+   ]
+  },
+  {
+   "id": "a13q1",
+   "aula": 13,
+   "titulo": "O papel do valor da condenação",
+   "contexto": "Pergunta: nas sentenças de 2025 dos Juizados da capital em ações por atraso de voo, a falta de assistência material está associada à condenação por dano moral?\n\nA base tem uma linha por sentença, com as colunas processo, companhia, horas_atraso, recebeu_assistencia, condenou (verdadeiro ou falso) e valor_dano_moral.",
+   "enunciado": "Qual é o papel de valor_dano_moral nessa pergunta?",
+   "opcoes": [
+    "É o que eu quero explicar: é o desfecho da pergunta.",
+    "Pode explicar a condenação: quanto maior o valor, maior a chance de condenar.",
+    "Define quais casos entram na análise.",
+    "Fica de fora: só existe quando há condenação, então não pode explicá-la, e o desfecho aqui é ter havido condenação."
+   ]
+  },
+  {
+   "id": "a13q2",
+   "aula": 13,
+   "titulo": "Qual código responde",
+   "contexto": "Quero a proporção de condenações por dano moral em cada grupo de recebeu_assistencia, só nos atrasos de 4 horas ou mais. A coluna condenou é verdadeiro ou falso.\n\nA: voos.groupby(\"recebeu_assistencia\").agg(prop=(\"condenou\", \"mean\")).query(\"horas_atraso >= 4\")\n\nB: voos.query(\"horas_atraso >= 4\").groupby(\"recebeu_assistencia\").agg(prop=(\"condenou\", \"sum\"))\n\nC: voos.query(\"horas_atraso >= 4\").groupby(\"recebeu_assistencia\").agg(prop=(\"condenou\", \"mean\"))\n\nD: voos.query(\"horas_atraso >= 4\").groupby(\"condenou\").agg(prop=(\"recebeu_assistencia\", \"mean\"))",
+   "enunciado": "Qual código responde à pergunta?",
+   "opcoes": [
+    "A",
+    "B",
+    "C",
+    "D"
+   ]
+  },
+  {
+   "id": "a13q3",
+   "aula": 13,
+   "titulo": "Que posição responde",
+   "contexto": "São 80 sentenças sem assistência e 220 com. O gráfico tem recebeu_assistencia no eixo x e condenou na cor das barras, com geom_bar.",
+   "enunciado": "Para mostrar se a chance de condenação muda conforme a assistência, qual position usar?",
+   "opcoes": [
+    "position=\"dodge\": as barras lado a lado, começando da mesma base.",
+    "position=\"fill\": cada barra vai a 100%, e fica só a divisão interna de cada grupo.",
+    "position=\"stack\": as barras empilhadas, com o total de cada grupo.",
+    "Nenhuma: o certo é um histograma de condenou."
+   ]
+  },
+  {
+   "id": "a13q4",
+   "aula": 13,
+   "titulo": "A inversa, de novo",
+   "contexto": "                  condenou   não condenou   total\nsem assistência         64             16      80\ncom assistência         66            154     220\ntotal                  130            170     300",
+   "enunciado": "Entre as sentenças com condenação, que fração é de passageiros sem assistência?",
+   "opcoes": [
+    "64 / 80 = 0,80",
+    "64 / 130 ≈ 0,49",
+    "64 / 300 ≈ 0,21",
+    "80 / 300 ≈ 0,27"
+   ]
+  },
+  {
+   "id": "a13q5",
+   "aula": 13,
+   "titulo": "A frase do relatório",
+   "contexto": "As 300 sentenças foram sorteadas entre as 6.000 do ano. A proporção de condenações na amostra foi de 0,43, e o intervalo de confiança de 95% vai de 37% a 49%.",
+   "enunciado": "Qual frase pode ir para o relatório?",
+   "opcoes": [
+    "Há 95% de chance de a taxa de condenação do ano estar entre 37% e 49%.",
+    "Estimamos em 43% a taxa de condenação do ano, com intervalo de confiança de 95% entre 37% e 49%.",
+    "95% das sentenças do ano tiveram taxa de condenação entre 37% e 49%.",
+    "Se as 300 tivessem vindo da busca \"dano moral atraso de voo\", o intervalo continuaria valendo, porque o tamanho da amostra é o mesmo."
+   ]
+  },
+  {
+   "id": "cl1a6",
+   "aula": "Clínica BTG (19/10)",
+   "titulo": "As seis perguntas numa tela só",
+   "tipo": "bloco",
+   "contexto": "Projeto do BTG com a Clínica 2. Classifique a pergunta: previsão (o que deve acontecer, dado o que sei), intervenção (o que muda se o banco agir de outro jeito em muitos processos) ou contrafactual (o que teria acontecido num processo específico, num mundo que não aconteceu).",
+   "enunciado": "Classifique cada uma das seis perguntas do projeto.",
+   "opcoes": [
+    "Previsão",
+    "Intervenção",
+    "Contrafactual"
+   ],
+   "itens": [
+    "cl1",
+    "cl2",
+    "cl3",
+    "cl4",
+    "cl5",
+    "cl6"
+   ]
+  },
+  {
+   "id": "cl1",
+   "aula": "Clínica BTG (19/10)",
+   "titulo": "Processo novo no TJSP",
+   "contexto": "Projeto do BTG com a Clínica 2. Classifique a pergunta: previsão (o que deve acontecer, dado o que sei), intervenção (o que muda se o banco agir de outro jeito em muitos processos) ou contrafactual (o que teria acontecido num processo específico, num mundo que não aconteceu).",
+   "enunciado": "Qual a chance de pagamento num processo novo do TJSP com tese de juros abusivos?",
+   "opcoes": [
+    "Previsão",
+    "Intervenção",
+    "Contrafactual"
+   ]
+  },
+  {
+   "id": "cl2",
+   "aula": "Clínica BTG (19/10)",
+   "titulo": "Oferta de R$ 500 no TJPR",
+   "contexto": "Projeto do BTG com a Clínica 2. Classifique a pergunta: previsão (o que deve acontecer, dado o que sei), intervenção (o que muda se o banco agir de outro jeito em muitos processos) ou contrafactual (o que teria acontecido num processo específico, num mundo que não aconteceu).",
+   "enunciado": "Se o banco oferecer R$ 500 em todos os processos do TJPR, o custo total cai?",
+   "opcoes": [
+    "Previsão",
+    "Intervenção",
+    "Contrafactual"
+   ]
+  },
+  {
+   "id": "cl3",
+   "aula": "Clínica BTG (19/10)",
+   "titulo": "O processo X",
+   "contexto": "Projeto do BTG com a Clínica 2. Classifique a pergunta: previsão (o que deve acontecer, dado o que sei), intervenção (o que muda se o banco agir de outro jeito em muitos processos) ou contrafactual (o que teria acontecido num processo específico, num mundo que não aconteceu).",
+   "enunciado": "O processo X foi a sentença e o banco pagou R$ 6 mil. Se tivesse feito acordo no início, quanto teria pago?",
+   "opcoes": [
+    "Previsão",
+    "Intervenção",
+    "Contrafactual"
+   ]
+  },
+  {
+   "id": "cl4",
+   "aula": "Clínica BTG (19/10)",
+   "titulo": "Ranking de risco",
+   "contexto": "Projeto do BTG com a Clínica 2. Classifique a pergunta: previsão (o que deve acontecer, dado o que sei), intervenção (o que muda se o banco agir de outro jeito em muitos processos) ou contrafactual (o que teria acontecido num processo específico, num mundo que não aconteceu).",
+   "enunciado": "Quais processos da carteira têm mais chance de terminar em condenação?",
+   "opcoes": [
+    "Previsão",
+    "Intervenção",
+    "Contrafactual"
+   ]
+  },
+  {
+   "id": "cl5",
+   "aula": "Clínica BTG (19/10)",
+   "titulo": "Contestar sempre",
+   "contexto": "Projeto do BTG com a Clínica 2. Classifique a pergunta: previsão (o que deve acontecer, dado o que sei), intervenção (o que muda se o banco agir de outro jeito em muitos processos) ou contrafactual (o que teria acontecido num processo específico, num mundo que não aconteceu).",
+   "enunciado": "Se o banco passar a contestar em todos os processos, a taxa de pagamento cai?",
+   "opcoes": [
+    "Previsão",
+    "Intervenção",
+    "Contrafactual"
+   ]
+  },
+  {
+   "id": "cl6",
+   "aula": "Clínica BTG (19/10)",
+   "titulo": "A desistência de Y",
+   "contexto": "Projeto do BTG com a Clínica 2. Classifique a pergunta: previsão (o que deve acontecer, dado o que sei), intervenção (o que muda se o banco agir de outro jeito em muitos processos) ou contrafactual (o que teria acontecido num processo específico, num mundo que não aconteceu).",
+   "enunciado": "A autora do processo Y desistiu depois da contestação. Teria desistido sem a contestação?",
+   "opcoes": [
+    "Previsão",
+    "Intervenção",
+    "Contrafactual"
+   ]
+  },
+  {
+   "id": "cl7",
+   "aula": "Clínica BTG (19/10)",
+   "titulo": "CO₂ e expectativa de vida",
+   "contexto": "Olhe os quatro gráficos no telão. Cada ponto seria um país em 2023: no eixo horizontal, a emissão de CO₂ por habitante; no vertical, a expectativa de vida.",
+   "enunciado": "Qual dos quatro gráficos se parece com os dados reais?",
+   "opcoes": [
+    "A: quem emite mais vive menos",
+    "B: não há relação",
+    "C: quem emite mais vive mais",
+    "D: vive mais quem emite um valor intermediário"
+   ]
+  },
+  {
+   "id": "cl8",
+   "aula": "Clínica BTG (19/10)",
+   "titulo": "Droga apreendida e pena",
+   "contexto": "Em condenações por tráfico, a reta de regressão da pena pela quantidade de droga apreendida é decrescente: a cada 100 gramas a mais, a pena cai 4,4 meses (dados simulados).",
+   "enunciado": "Qual a explicação mais provável?",
+   "opcoes": [
+    "Os juízes punem menos quem trafica mais.",
+    "Quem é preso com mais droga tem advogado melhor.",
+    "O tipo de droga muda a pena e também a quantidade típica apreendida.",
+    "A reta não significa nada: é ruído da amostra."
+   ]
+  },
+  {
+   "id": "cl9",
+   "aula": "Clínica BTG (19/10)",
+   "titulo": "Juros e pagamento no BTG",
+   "contexto": "Na planilha do BTG (28.896 processos), são ações revisionais que em geral alegam juros abusivos. Mesmo assim, 14,0% dos processos com juros até 2% ao mês tiveram pagamento, contra 9,6% dos com juros acima de 3%.",
+   "enunciado": "Que variável pode afetar ao mesmo tempo a taxa de juros do contrato e o pagamento, e explicar essa queda?",
+   "opcoes": [
+    "O valor pago no processo.",
+    "O ano em que o processo foi ajuizado.",
+    "A homologação de um acordo no processo.",
+    "O número de páginas da petição inicial."
+   ]
+  },
+  {
+   "id": "cl10",
+   "aula": "Clínica BTG (19/10)",
+   "titulo": "Onde blindar o avião",
+   "contexto": "Segunda Guerra. O comando contou os buracos de bala nos aviões que voltaram das missões: muitos nas asas e na fuselagem, quase nenhum nos motores e na cabine. Blindagem pesa, então só dá para reforçar algumas partes.",
+   "enunciado": "Onde reforçar a blindagem?",
+   "opcoes": [
+    "Nas asas, onde há mais buracos.",
+    "Na fuselagem, que é a maior parte do avião.",
+    "Nos motores e na cabine, onde quase não há buracos.",
+    "Em todo o avião igualmente, porque os tiros caem ao acaso."
+   ]
+  },
+  {
+   "id": "a21q1a4",
+   "aula": 21,
+   "titulo": "Qual medida importa em cada situação?",
+   "tipo": "bloco",
+   "contexto": "Para cada situação, escolha a medida que deve guiar a escolha do ponto de corte: acurácia, precisão, sensibilidade (recall) ou especificidade.",
+   "enunciado": "Responda as quatro situações.",
+   "opcoes": [
+    "Acurácia",
+    "Precisão",
+    "Sensibilidade",
+    "Especificidade"
+   ],
+   "itens": [
+    "a21q1",
+    "a21q2",
+    "a21q3",
+    "a21q4"
+   ]
+  },
+  {
+   "id": "a21q1",
+   "aula": 21,
+   "titulo": "Liminares de saúde",
+   "contexto": "Para cada situação, escolha a medida que deve guiar a escolha do ponto de corte: acurácia, precisão, sensibilidade (recall) ou especificidade.",
+   "enunciado": "Um tribunal usa um modelo para separar as liminares de saúde que vão para análise urgente. Se um caso grave fica na fila comum, a pessoa pode ficar sem o tratamento a tempo. A equipe de análise urgente é grande e dá conta de casos a mais.",
+   "opcoes": [
+    "Acurácia",
+    "Precisão",
+    "Sensibilidade",
+    "Especificidade"
+   ]
+  },
+  {
+   "id": "a21q2",
+   "aula": 21,
+   "titulo": "Busca de bens na execução fiscal",
+   "contexto": "Para cada situação, escolha a medida que deve guiar a escolha do ponto de corte: acurácia, precisão, sensibilidade (recall) ou especificidade.",
+   "enunciado": "A procuradoria só consegue fazer 200 buscas de bens por mês e usa um modelo para escolher em quais execuções fiscais buscar. Cada busca que não encontra nada gasta uma vaga que poderia ter ido para outro processo.",
+   "opcoes": [
+    "Acurácia",
+    "Precisão",
+    "Sensibilidade",
+    "Especificidade"
+   ]
+  },
+  {
+   "id": "a21q3",
+   "aula": 21,
+   "titulo": "Bloqueio de benefícios",
+   "contexto": "Para cada situação, escolha a medida que deve guiar a escolha do ponto de corte: acurácia, precisão, sensibilidade (recall) ou especificidade.",
+   "enunciado": "O INSS testa um modelo que bloqueia, por suspeita de fraude, o pagamento de benefícios. A Defensoria quer saber, entre todos os segurados que não cometeram fraude, quantos continuam recebendo sem bloqueio.",
+   "opcoes": [
+    "Acurácia",
+    "Precisão",
+    "Sensibilidade",
+    "Especificidade"
+   ]
+  },
+  {
+   "id": "a21q4",
+   "aula": 21,
+   "titulo": "Dois erros com o mesmo peso",
+   "contexto": "Para cada situação, escolha a medida que deve guiar a escolha do ponto de corte: acurácia, precisão, sensibilidade (recall) ou especificidade.",
+   "enunciado": "Um escritório classifica petições em dois tipos de rito, com cerca de metade das petições em cada um. Errar para um lado ou para o outro dá o mesmo retrabalho: alguém refaz a classificação.",
+   "opcoes": [
+    "Acurácia",
+    "Precisão",
+    "Sensibilidade",
+    "Especificidade"
+   ]
+  },
+  {
+   "id": "a23q1a4",
+   "aula": 23,
+   "titulo": "Que tipo de aprendizado é este?",
+   "tipo": "bloco",
+   "contexto": "Para cada situação, escolha o tipo de aprendizado: classificação, regressão (ambos supervisionados) ou agrupamento (não supervisionado).",
+   "enunciado": "Responda as quatro situações.",
+   "opcoes": [
+    "Classificação",
+    "Regressão",
+    "Agrupamento (não supervisionado)"
+   ],
+   "itens": [
+    "a23q1",
+    "a23q2",
+    "a23q3",
+    "a23q4"
+   ]
+  },
+  {
+   "id": "a23q1",
+   "aula": 23,
+   "titulo": "Recursos que serão reformados",
+   "contexto": "Para cada situação, escolha o tipo de aprendizado: classificação, regressão (ambos supervisionados) ou agrupamento (não supervisionado).",
+   "enunciado": "Um tribunal tem milhares de recursos já julgados, com o resultado de cada um, e quer estimar quais recursos novos serão reformados.",
+   "opcoes": [
+    "Classificação",
+    "Regressão",
+    "Agrupamento (não supervisionado)"
+   ]
+  },
+  {
+   "id": "a23q2",
+   "aula": 23,
+   "titulo": "Valor da indenização",
+   "contexto": "Para cada situação, escolha o tipo de aprendizado: classificação, regressão (ambos supervisionados) ou agrupamento (não supervisionado).",
+   "enunciado": "Um escritório tem mil sentenças de dano moral com o valor fixado e quer estimar o valor da indenização num processo novo.",
+   "opcoes": [
+    "Classificação",
+    "Regressão",
+    "Agrupamento (não supervisionado)"
+   ]
+  },
+  {
+   "id": "a23q3",
+   "aula": 23,
+   "titulo": "Teses em ações de massa",
+   "contexto": "Para cada situação, escolha o tipo de aprendizado: classificação, regressão (ambos supervisionados) ou agrupamento (não supervisionado).",
+   "enunciado": "Uma procuradoria tem 50 mil petições sem nenhuma classificação e quer descobrir quais grupos de teses repetidas existem.",
+   "opcoes": [
+    "Classificação",
+    "Regressão",
+    "Agrupamento (não supervisionado)"
+   ]
+  },
+  {
+   "id": "a23q4",
+   "aula": 23,
+   "titulo": "Dias até a sentença",
+   "contexto": "Para cada situação, escolha o tipo de aprendizado: classificação, regressão (ambos supervisionados) ou agrupamento (não supervisionado).",
+   "enunciado": "Uma vara tem o histórico dos processos e quer prever quantos dias um processo novo levará até a sentença.",
+   "opcoes": [
+    "Classificação",
+    "Regressão",
+    "Agrupamento (não supervisionado)"
+   ]
+  },
+  {
+   "id": "a24q1a4",
+   "aula": 24,
+   "titulo": "Esta variável pode entrar no modelo?",
+   "tipo": "bloco",
+   "contexto": "Queremos prever, no dia da distribuição, se a sentença será favorável ao autor. Para cada coluna, decida se ela pode entrar no modelo.",
+   "enunciado": "Responda as quatro situações.",
+   "opcoes": [
+    "Pode entrar",
+    "Não pode: é vazamento"
+   ],
+   "itens": [
+    "a24q1",
+    "a24q2",
+    "a24q3",
+    "a24q4"
+   ]
+  },
+  {
+   "id": "a24q1",
+   "aula": 24,
+   "titulo": "Tipo de ação",
+   "contexto": "Queremos prever, no dia da distribuição, se a sentença será favorável ao autor. Para cada coluna, decida se ela pode entrar no modelo.",
+   "enunciado": "A classe e o assunto do processo, informados na petição inicial.",
+   "opcoes": [
+    "Pode entrar",
+    "Não pode: é vazamento"
+   ]
+  },
+  {
+   "id": "a24q2",
+   "aula": 24,
+   "titulo": "Data do trânsito em julgado",
+   "contexto": "Queremos prever, no dia da distribuição, se a sentença será favorável ao autor. Para cada coluna, decida se ela pode entrar no modelo.",
+   "enunciado": "A data em que o processo transitou em julgado.",
+   "opcoes": [
+    "Pode entrar",
+    "Não pode: é vazamento"
+   ]
+  },
+  {
+   "id": "a24q3",
+   "aula": 24,
+   "titulo": "Valor da causa",
+   "contexto": "Queremos prever, no dia da distribuição, se a sentença será favorável ao autor. Para cada coluna, decida se ela pode entrar no modelo.",
+   "enunciado": "O valor da causa indicado na petição inicial.",
+   "opcoes": [
+    "Pode entrar",
+    "Não pode: é vazamento"
+   ]
+  },
+  {
+   "id": "a24q4",
+   "aula": 24,
+   "titulo": "Houve recurso",
+   "contexto": "Queremos prever, no dia da distribuição, se a sentença será favorável ao autor. Para cada coluna, decida se ela pode entrar no modelo.",
+   "enunciado": "Se alguma das partes recorreu da sentença.",
+   "opcoes": [
+    "Pode entrar",
+    "Não pode: é vazamento"
+   ]
+  }
+ ]
+}

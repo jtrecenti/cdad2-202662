@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#e50505">
+<title>Amostra da sala · CDAD II</title>
+<link rel="icon" href="../_shared/img/logo-insper-preto.png">
+<style>
+/* ==========================================================================
+   Amostra da sala, na tela do celular.
+
+   Mesmo desenho do quiz: a pessoa está olhando para o telão e volta ao celular
+   para uma tarefa curta. A diferença é que aqui há uma tabela e uma "célula"
+   de código, então o corpo é um pouco menor e a célula imita o notebook, que
+   é onde a turma já viu esse código rodar.
+   ========================================================================== */
+
+:root {
+  --marca: #e50505;
+  --verde: #12996f;
+  --fundo: #ffffff;
+  --superficie: #f4f5f7;
+  --borda: #d8dbe0;
+  --texto: #14161a;
+  --fraco: #4a4f57;
+  --codigo: #f6f7f9;
+  --raio: 12px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --marca: #ff6b6b;
+    --verde: #5ad8a6;
+    --fundo: #0d0f12;
+    --superficie: #1c1f25;
+    --borda: #3a3f48;
+    --texto: #ffffff;
+    --fraco: #d3d7de;
+    --codigo: #171a1f;
+  }
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: 0 1rem calc(1.4rem + env(safe-area-inset-bottom));
+  background: var(--fundo);
+  color: var(--texto);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 16px;
+  line-height: 1.45;
+  -webkit-text-size-adjust: 100%;
+}
+
+header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: .6rem;
+  padding: .9rem 0 .7rem;
+  border-bottom: 3px solid var(--marca);
+  margin-bottom: 1rem;
+}
+header b { font-size: 1rem; }
+header span { font-size: .74rem; color: var(--fraco); }
+
+h1 { font-size: 1.2rem; line-height: 1.25; margin: .2rem 0 .7rem; }
+
+p { margin: 0 0 .8rem; }
+
+.painel {
+  border-radius: var(--raio);
+  padding: .75rem .85rem;
+  margin: .8rem 0;
+  font-size: .9rem;
+  background: var(--superficie);
+  border-left: 4px solid var(--borda);
+}
+.painel.ok { border-left-color: var(--verde); }
+.painel.aviso { border-left-color: var(--marca); }
+.painel b { display: block; margin-bottom: .2rem; }
+
+/* ---- login -------------------------------------------------------------- */
+
+.login {
+  display: flex;
+  align-items: stretch;
+  border: 2px solid var(--borda);
+  border-radius: var(--raio);
+  overflow: hidden;
+  margin: .4rem 0 .8rem;
+}
+.login:focus-within { border-color: var(--marca); }
+.login input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  padding: .8rem .8rem;
+  font: inherit;
+  font-size: 1.05rem;
+  color: var(--texto);
+  background: var(--fundo);
+  outline: none;
+}
+.login span {
+  display: grid;
+  place-items: center;
+  padding: 0 .7rem;
+  background: var(--superficie);
+  color: var(--fraco);
+  font-size: .85rem;
+  white-space: nowrap;
+}
+
+button.acao {
+  width: 100%;
+  min-height: 52px;
+  font: inherit;
+  font-weight: 700;
+  color: #fff;
+  background: var(--marca);
+  border: 0;
+  border-radius: var(--raio);
+  cursor: pointer;
+}
+button.acao[disabled] { opacity: .45; cursor: default; }
+button.acao.secundaria { background: transparent; color: var(--marca); border: 2px solid var(--marca); }
+
+/* ---- a amostra ---------------------------------------------------------- */
+
+.tabela {
+  max-height: 14.5rem;
+  overflow: auto;
+  border: 1px solid var(--borda);
+  border-radius: var(--raio);
+  margin: .5rem 0 1rem;
+}
+table { width: 100%; border-collapse: collapse; font-size: .8rem; }
+th, td { padding: .32rem .5rem; text-align: left; border-bottom: 1px solid var(--borda); }
+th { position: sticky; top: 0; background: var(--superficie); font-weight: 600; }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+
+/* ---- a célula ----------------------------------------------------------- */
+
+.celula {
+  border: 1px solid var(--borda);
+  border-radius: var(--raio);
+  overflow: hidden;
+  margin: .6rem 0 1rem;
+}
+.celula .cabeca {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: .35rem .5rem .35rem .8rem;
+  background: var(--superficie);
+  font-size: .72rem;
+  color: var(--fraco);
+}
+.celula button.rodar {
+  font: inherit;
+  font-size: .85rem;
+  font-weight: 700;
+  color: var(--verde);
+  background: var(--fundo);
+  border: 1px solid var(--verde);
+  border-radius: 8px;
+  padding: .3rem .8rem;
+  cursor: pointer;
+}
+.celula pre {
+  margin: 0;
+  padding: .7rem .8rem;
+  background: var(--codigo);
+  font-family: ui-monospace, "Cascadia Code", Consolas, monospace;
+  font-size: .82rem;
+  line-height: 1.55;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.celula pre input {
+  width: 4.2rem;
+  font: inherit;
+  padding: .1rem .3rem;
+  border: 2px solid var(--marca);
+  border-radius: 6px;
+  background: var(--fundo);
+  color: var(--texto);
+}
+.celula .saida {
+  padding: .55rem .8rem;
+  border-top: 1px dashed var(--borda);
+  font-family: ui-monospace, "Cascadia Code", Consolas, monospace;
+  font-size: .9rem;
+  font-weight: 700;
+}
+.celula .saida.erro { color: var(--marca); font-weight: 400; }
+.celula .explica { padding: 0 .8rem .6rem; font-size: .8rem; color: var(--fraco); }
+
+.espera { text-align: center; padding: 3rem 1rem; color: var(--fraco); }
+
+.rodape {
+  margin-top: 1.4rem;
+  padding-top: .7rem;
+  border-top: 1px solid var(--borda);
+  font-size: .72rem;
+  color: var(--fraco);
+}
+</style>
+</head>
+<body>
+
+<header>
+  <b>Amostra da sala · CDAD II</b>
+  <span id="etapa"></span>
+</header>
+
+<main id="tela">
+  <div class="espera">Carregando a base...</div>
+</main>
+
+<p class="rodape">
+  Sem nota. O login serve de semente do sorteio (o mesmo login sorteia sempre a
+  mesma amostra) e é o que aparece no painel da sala.
+</p>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>

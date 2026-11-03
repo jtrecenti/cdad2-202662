@@ -1,0 +1,124 @@
+{
+ "limites": {
+  "max_avaliacoes_por_etapa": 3,
+  "max_caracteres_campo": 1500
+ },
+ "etapas": [
+  {
+   "id": "linear",
+   "n": "01",
+   "titulo": "Regressão linear múltipla",
+   "dica": "o custo do tratamento pedido",
+   "pergunta": "O que está associado ao custo anual do tratamento pedido? Os dois modelos abaixo foram ajustados nos 6.000 processos já concluídos. O primeiro explica o custo só pela doença rara. O segundo acrescenta outras características do processo. No fim da saída, uma tabela compara os processos com e sem doença rara.",
+   "saida": "linear",
+   "campos": [
+    {
+     "id": "coef_rara",
+     "criterio": "linear_coeficiente",
+     "rotulo": "a) Interprete o coeficiente de doenca_rara no segundo modelo.",
+     "ajuda": "Diga quanto o custo anual muda, em média, entre processos com e sem doença rara, em que unidade e com o intervalo de 95%. Lembre que, no segundo modelo, a comparação é entre processos iguais nas outras características."
+    },
+    {
+     "id": "mudanca",
+     "criterio": "linear_confundimento",
+     "rotulo": "b) O coeficiente de doenca_rara é maior no primeiro modelo do que no segundo. Por que ele muda?",
+     "ajuda": "Use a tabela de médias no fim da saída: veja qual característica é bem mais comum nos processos com doença rara e explique o que isso faz com o primeiro modelo."
+    },
+    {
+     "id": "idade",
+     "criterio": "linear_valor_p",
+     "rotulo": "c) A idade do autor está associada ao custo do tratamento?",
+     "ajuda": "Interprete o coeficiente de idade_autor no segundo modelo (a idade está em anos) e diga o que o valor-p e o intervalo de 95% permitem concluir. O efeito é grande ou pequeno, em reais?"
+    },
+    {
+     "id": "r2",
+     "criterio": "linear_r2",
+     "rotulo": "d) Compare o R² dos dois modelos.",
+     "ajuda": "Explique o que o R² mede e o que a diferença entre os dois modelos indica."
+    }
+   ]
+  },
+  {
+   "id": "logistica",
+   "n": "02",
+   "titulo": "Regressão logística",
+   "dica": "quem precisa de análise aprofundada",
+   "pergunta": "Que características do processo estão associadas à necessidade de análise aprofundada? O modelo foi ajustado nos 6.000 processos já concluídos, nos quais já se sabe quais precisaram do especialista. A saída traz os coeficientes, as razões de chances e a probabilidade prevista para dois perfis de processo. São probabilidades como essas que você vai usar para escolher o corte na etapa 03.",
+   "saida": "logistica",
+   "campos": [
+    {
+     "id": "or_rename",
+     "criterio": "logit_razao",
+     "rotulo": "a) Interprete a razão de chances de medicamento_fora_rename.",
+     "ajuda": "Diga quantas vezes a chance de precisar de análise aprofundada muda quando o medicamento está fora da RENAME, com o intervalo de 95%, comparando processos iguais nas demais características. Chance não é probabilidade."
+    },
+    {
+     "id": "or_plano",
+     "criterio": "logit_direcao",
+     "rotulo": "b) Interprete a razão de chances de reu_plano_saude.",
+     "ajuda": "Ela está abaixo de 1. O que isso quer dizer, e de quanto é a diferença?"
+    },
+    {
+     "id": "or_onco",
+     "criterio": "logit_sem_evidencia",
+     "rotulo": "c) O tratamento ser oncológico está associado à necessidade de análise aprofundada?",
+     "ajuda": "Olhe a razão de chances de oncologico, o valor-p e o intervalo de 95%. O que dá para concluir, e com que cautela?"
+    },
+    {
+     "id": "perfis",
+     "criterio": "logit_probabilidade",
+     "rotulo": "d) Interprete as probabilidades previstas dos perfis A e B.",
+     "ajuda": "Diga o que cada número significa, quais características separam os dois perfis e o que ainda falta para decidir se o processo vai ao especialista."
+    }
+   ]
+  },
+  {
+   "id": "corte",
+   "n": "03",
+   "titulo": "Ponto de corte e métricas",
+   "dica": "a probabilidade vira decisão",
+   "contexto": [
+    "Agora a probabilidade vira decisão. Todo mês, o NatJus vai usar o modelo da etapa 02 para separar os processos que vão para o especialista. Os demais recebem o parecer padronizado. Nenhuma regra acerta sempre, e os dois erros possíveis têm custos diferentes.",
+    "**Um caso que precisava do especialista e recebeu o parecer padronizado** (um **falso negativo**) chega ao juiz com uma manifestação que não responde à pergunta dele. A liminar é decidida assim mesmo: o juiz pode negar um tratamento de que a pessoa precisa, ou conceder um tratamento caro sem base técnica.",
+    "**Um caso que não precisava e foi ao especialista** (um **falso positivo**) recebe um parecer correto, mas ocupa uma das **150 vagas** do mês. Se a regra mandar mais processos do que isso, forma-se uma fila: os casos do fim da fila esperam semanas, e a liminar, que costuma ser urgente, atrasa para todos eles.",
+    "A coordenação do NatJus pediu uma regra que caiba na equipe que existe hoje e que deixe escapar o menor número possível de casos complexos."
+   ],
+   "pergunta": "A partir de que probabilidade o processo vai para o especialista? Escolha o corte no slider abaixo, olhando a matriz de confusão nos 1.000 processos novos do mês, e responda aos itens.",
+   "saida": null,
+   "campos": [
+    {
+     "id": "acc_trivial",
+     "criterio": "acuracia_trivial_calculo",
+     "rotulo": "a) Calcule a acurácia do modelo trivial.",
+     "ajuda": "O modelo trivial é uma regra que não olha nenhuma característica do processo: manda todos para o parecer padronizado, sempre. Para vê-lo, arraste o slider até o maior valor possível (1,00): nenhum processo vai ao especialista. Calcule a acurácia no bloco do Python abaixo e escreva a conta na resposta. Depois, volte o slider para o corte que você escolher.",
+     "calculadora": true
+    },
+    {
+     "id": "trivial",
+     "criterio": "acuracia_desbalanceada",
+     "rotulo": "b) Por que a acurácia do modelo trivial não serve para avaliar a triagem?",
+     "ajuda": "Mesmo sem olhar nada, essa regra acerta a maior parte dos processos. De onde vem essa acurácia, e o que ela deixa de fora?"
+    },
+    {
+     "id": "metricas",
+     "criterio": "matriz_e_metricas",
+     "rotulo": "c) Descreva o resultado do corte que você escolheu.",
+     "ajuda": "Diga o corte e quantos processos vão ao especialista, quantos são falsos positivos e falsos negativos, e calcule a precisão e a sensibilidade (recall) no bloco do Python abaixo, escrevendo as contas na resposta. Explique cada número com as palavras do caso.",
+     "calculadora": true
+    },
+    {
+     "id": "justificativa",
+     "criterio": "capacidade_e_erro",
+     "rotulo": "d) Justifique o corte escolhido.",
+     "ajuda": "Qual dos dois erros você considera mais grave, e quem arca com ele? Como o seu corte respeita a capacidade de 150 análises por mês?"
+    },
+    {
+     "id": "limites",
+     "criterio": "limites_metricas",
+     "rotulo": "e) O que essas métricas não mostram?",
+     "ajuda": "Aponte um limite concreto: algo que importa para a decisão e que a matriz de confusão não registra."
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,1271 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head>
+<script src="aula11_files/libs/quarto-html/tabby.min.js"></script>
+<script src="aula11_files/libs/quarto-html/popper.min.js"></script>
+<script src="aula11_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="aula11_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="aula11_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="aula11_files/libs/quarto-html/quarto-syntax-highlighting-a06763021a52c43c40a351ac8b799b8f.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.9.36">
+
+  <meta name="author" content="Julio Trecenti">
+  <title>Inferência estatística</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="aula11_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="aula11_files/libs/revealjs/dist/reveal.css">
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+      }
+    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+    div.sourceCode
+      { color: #24292e;  }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #24292e; } /* Normal */
+    code span.al { color: #ff5555; font-weight: bold; } /* Alert */
+    code span.an { color: #6a737d; } /* Annotation */
+    code span.at { color: #d73a49; } /* Attribute */
+    code span.bn { color: #005cc5; } /* BaseN */
+    code span.bu { color: #d73a49; } /* BuiltIn */
+    code span.cf { color: #d73a49; } /* ControlFlow */
+    code span.ch { color: #032f62; } /* Char */
+    code span.cn { color: #005cc5; } /* Constant */
+    code span.co { color: #6a737d; } /* Comment */
+    code span.cv { color: #6a737d; } /* CommentVar */
+    code span.do { color: #6a737d; } /* Documentation */
+    code span.dt { color: #d73a49; } /* DataType */
+    code span.dv { color: #005cc5; } /* DecVal */
+    code span.er { color: #ff5555; text-decoration: underline; } /* Error */
+    code span.ex { color: #d73a49; font-weight: bold; } /* Extension */
+    code span.fl { color: #005cc5; } /* Float */
+    code span.fu { color: #6f42c1; } /* Function */
+    code span.im { color: #032f62; } /* Import */
+    code span.in { color: #6a737d; } /* Information */
+    code span.kw { color: #d73a49; } /* Keyword */
+    code span.op { color: #24292e; } /* Operator */
+    code span.ot { color: #6f42c1; } /* Other */
+    code span.pp { color: #d73a49; } /* Preprocessor */
+    code span.re { color: #6a737d; } /* RegionMarker */
+    code span.sc { color: #005cc5; } /* SpecialChar */
+    code span.ss { color: #032f62; } /* SpecialString */
+    code span.st { color: #032f62; } /* String */
+    code span.va { color: #e36209; } /* Variable */
+    code span.vs { color: #032f62; } /* VerbatimString */
+    code span.wa { color: #ff5555; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="aula11_files/libs/revealjs/dist/theme/quarto-ff804d11be19d5c6686ef269b821e7ff.css">
+  <link rel="stylesheet" href="recursos/fontes.css">
+  <link href="aula11_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="aula11_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="aula11_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="aula11_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+  <script type="module" src="aula11_files/libs/quarto-ojs/quarto-ojs-runtime.js"></script>
+  <link href="aula11_files/libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
+  <script src="recursos/tema.js"></script>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section class="quarto-title-block center">
+  <h1 class="title">Inferência estatística</h1>
+  <p class="subtitle">Aula 11 · Ciência de Dados Aplicada ao Direito II</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Julio Trecenti 
+</div>
+</div>
+</div>
+
+  <p class="date">15/09/2026</p>
+</section>
+<section class="slide level2">
+<h2>Objetivos da aula</h2>
+<ul>
+<li>distinguir população, amostra, parâmetro e estimativa;</li>
+<li>usar o teorema central do limite para construir intervalos de confiança;</li>
+<li>calcular e interpretar intervalos de confiança.</li>
+</ul>
+</section>
+<section class="slide level2">
+<h2>Exemplo 1</h2>
+<p>Uma pesquisadora quer saber quanto tempo <span class="fragment grifo g-pop" data-fragment-index="1">8.505 recursos criminais do TJSP</span> levaram, em média, da distribuição ao julgamento. Para saber o tempo de cada recurso, é preciso abrir o processo e ler as datas. Por isso, ela <span class="fragment grifo g-amo" data-fragment-index="2">sorteia 100 recursos</span>, lê cada um e calcula a média deles: <span class="fragment grifo g-esti" data-fragment-index="4">2,8 anos</span>. Mas o que ela quer mesmo saber é <span class="fragment grifo g-par" data-fragment-index="3">o tempo médio dos 8.505</span>.</p>
+<svg class="esquema" viewbox="0 0 1180 336" width="100%" role="img" aria-label="população, amostra, parâmetro e estimativa">
+  <defs>
+    <pattern id="pontos-pop" x="10" y="30" width="30" height="30" patternunits="userSpaceOnUse">
+      <circle cx="15" cy="15" r="6" class="e-ponto"></circle>
+    </pattern>
+    <marker id="ponta-amo" viewbox="0 0 10 10" refx="8" refy="5" markerwidth="7" markerheight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" class="e-amo-f"></path>
+    </marker>
+    <marker id="ponta-esti" viewbox="0 0 10 10" refx="8" refy="5" markerwidth="7" markerheight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" class="e-esti-f"></path>
+    </marker>
+    <marker id="ponta-volta" viewbox="0 0 10 10" refx="8" refy="5" markerwidth="7" markerheight="7" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" class="e-volta-f"></path>
+    </marker>
+  </defs>
+
+  <g class="fragment" data-fragment-index="1">
+    <text x="12" y="20" class="e-rot e-pop-t">população · os 8.505 recursos</text>
+    <rect x="10" y="30" width="400" height="220" rx="16" fill="url(#pontos-pop)" class="e-pop-borda"></rect>
+  </g>
+
+  <g class="fragment" data-fragment-index="2">
+    <circle cx="85" cy="75" r="7" class="e-sorteado"></circle>
+    <circle cx="175" cy="45" r="7" class="e-sorteado"></circle>
+    <circle cx="265" cy="105" r="7" class="e-sorteado"></circle>
+    <circle cx="355" cy="165" r="7" class="e-sorteado"></circle>
+    <circle cx="55" cy="195" r="7" class="e-sorteado"></circle>
+    <circle cx="145" cy="135" r="7" class="e-sorteado"></circle>
+    <circle cx="235" cy="225" r="7" class="e-sorteado"></circle>
+    <circle cx="325" cy="75" r="7" class="e-sorteado"></circle>
+    <circle cx="115" cy="225" r="7" class="e-sorteado"></circle>
+    <circle cx="205" cy="165" r="7" class="e-sorteado"></circle>
+    <circle cx="295" cy="195" r="7" class="e-sorteado"></circle>
+    <circle cx="385" cy="105" r="7" class="e-sorteado"></circle>
+    <path d="M 416 140 L 486 140" class="e-seta e-amo-l" marker-end="url(#ponta-amo)"></path>
+    <text x="451" y="128" text-anchor="middle" class="e-mini">sorteio</text>
+    <text x="497" y="70" class="e-rot e-amo-t">amostra · 100 sorteados</text>
+    <rect x="495" y="80" width="200" height="120" rx="14" class="e-amo"></rect>
+    <circle cx="525" cy="120" r="7" class="e-sorteado"></circle>
+    <circle cx="553" cy="120" r="7" class="e-sorteado"></circle>
+    <circle cx="581" cy="120" r="7" class="e-sorteado"></circle>
+    <circle cx="609" cy="120" r="7" class="e-sorteado"></circle>
+    <circle cx="637" cy="120" r="7" class="e-sorteado"></circle>
+    <circle cx="665" cy="120" r="7" class="e-sorteado"></circle>
+    <circle cx="525" cy="160" r="7" class="e-sorteado"></circle>
+    <circle cx="553" cy="160" r="7" class="e-sorteado"></circle>
+    <circle cx="581" cy="160" r="7" class="e-sorteado"></circle>
+    <circle cx="609" cy="160" r="7" class="e-sorteado"></circle>
+    <circle cx="637" cy="160" r="7" class="e-sorteado"></circle>
+    <circle cx="665" cy="160" r="7" class="e-sorteado"></circle>
+  </g>
+
+  <g class="fragment" data-fragment-index="3">
+    <text x="210" y="282" text-anchor="middle" class="e-rot e-par-t">parâmetro = ?</text>
+    <text x="210" y="306" text-anchor="middle" class="e-mini">o tempo médio dos 8.505: fixo e desconhecido</text>
+  </g>
+
+  <g class="fragment" data-fragment-index="4">
+    <path d="M 700 140 L 812 140" class="e-seta e-esti-l" marker-end="url(#ponta-esti)"></path>
+    <text x="756" y="126" text-anchor="middle" class="e-mini">média dos 100</text>
+    <rect x="822" y="95" width="250" height="90" rx="14" class="e-esti"></rect>
+    <text x="947" y="130" text-anchor="middle" class="e-rot e-esti-t">estimativa</text>
+    <text x="947" y="166" text-anchor="middle" class="e-num">2,8 anos</text>
+    <text x="947" y="208" text-anchor="middle" class="e-mini">conhecida, e muda a cada sorteio</text>
+  </g>
+
+  <g class="fragment" data-fragment-index="5">
+    <path d="M 947 222 C 947 300, 640 318, 420 290" class="e-volta" marker-end="url(#ponta-volta)"></path>
+    <text x="760" y="330" text-anchor="middle" class="e-mini">inferência: usar a estimativa para falar do parâmetro</text>
+  </g>
+</svg>
+<div class="miudo fragment" data-fragment-index="5">
+<p>O parâmetro mora na população; a estimativa mora na amostra.</p>
+</div>
+</section>
+<section class="slide level2">
+<h2>Exercício</h2>
+<div class="colunas">
+<div>
+<div class="caixa caso">
+<p><span class="rotulo">população</span></p>
+<p><strong>8.505 recursos criminais</strong> julgados pelas câmaras do TJSP. Uma linha por recurso: câmara, assunto e tempo.</p>
+</div>
+<div class="caixa ideia">
+<p><span class="rotulo">pergunta</span></p>
+<p>Quanto tempo, <strong>em média</strong>, os 8.505 recursos levaram da distribuição ao julgamento?</p>
+</div>
+</div>
+<div>
+<div class="caixa atencao">
+<p><span class="rotulo">parâmetro</span></p>
+<p>A média de todos os 8.505 recursos é desconhecida na prática, mas para este exercício ela já está calculada.</p>
+</div>
+</div>
+</div>
+</section>
+<section class="slide level2" data-background-color="var(--superficie)">
+<h2>Sorteie a sua amostra</h2>
+<div class="quiz">
+<div class="qr">
+<p><img data-src="recursos/qr-amostra.svg"></p>
+<div class="endereco">
+<p>jtrecenti.github.io/cdad2-202662/amostra</p>
+</div>
+</div>
+<h3>Cada um com os seus 100 recursos</h3>
+<ol type="1">
+<li>Digite o seu login do Insper.</li>
+<li>O site sorteia 100 recursos, usando o login como semente.</li>
+<li>Rode a célula: é o tempo médio na sua amostra, a sua estimativa.</li>
+<li>Envie para o painel.</li>
+</ol>
+</div>
+<div class="link-painel">
+<p><a href="https://jtrecenti.github.io/cdad2-202662/amostra/painel.html?vista=media" target="_blank">abrir o painel ↗</a></p>
+</div>
+</section>
+<section class="slide level2">
+<h2>O que a sala sorteou</h2>
+<div class="colunas">
+<div>
+<div class="caixa exercicio">
+<p><span class="rotulo">olhando o painel</span></p>
+<ol type="1">
+<li>Em torno de que valor as médias da sala se juntam?</li>
+<li>Alguém acertou a média dos 8.505 em cheio? Quem ficou longe errou a conta?</li>
+<li>O que acontece com a forma quando juntamos mais amostras?</li>
+</ol>
+</div>
+</div>
+<div>
+<div class="caixa ideia">
+<p><span class="rotulo">o nome disso</span></p>
+<p><strong>Distribuição amostral</strong>: a distribuição das estimativas quando o sorteio é repetido muitas vezes, sempre com o mesmo tamanho de amostra.</p>
+</div>
+<div class="miudo">
+<p>O gráfico do painel <strong>não</strong> é a distribuição do tempo dos recursos: é a distribuição da média que sai da conta de cada um. A média da amostra é uma variável aleatória, como as da aula 9.</p>
+</div>
+</div>
+</div>
+<div class="link-painel">
+<p><a href="https://jtrecenti.github.io/cdad2-202662/amostra/painel.html?vista=media" target="_blank">abrir o painel ↗</a></p>
+</div>
+</section>
+<section class="slide level2">
+<h2>Três propriedades</h2>
+<div class="caixa ideia">
+<p><span class="rotulo">1 · centro</span></p>
+<p>O valor esperado da média amostral é a média populacional. As médias da sala se espalham em torno da linha vermelha, sem puxar para um lado.</p>
+</div>
+<div class="caixa ideia">
+<p><span class="rotulo">2 · forma</span></p>
+<p>A média amostral tem distribuição aproximadamente <strong>normal</strong>, mesmo com o tempo dos recursos sendo torto. Quem garante é o teorema central do limite.</p>
+</div>
+<div class="caixa ideia">
+<p><span class="rotulo">3 · incerteza</span></p>
+<p>A incerteza da média amostral se chama <strong>erro-padrão</strong>: é o desvio-padrão dos dados da amostra dividido por <span class="math inline">\(\sqrt{n}\)</span>. Ou seja, ela encolhe conforme a amostra cresce.</p>
+</div>
+</section>
+<section class="slide level2 muito-denso">
+<h2>Teorema central do limite</h2>
+<div class="caixa ideia">
+<p><span class="rotulo">o enunciado</span></p>
+<p>Para amostras grandes o bastante, a média de uma amostra aleatória tem distribuição aproximadamente <strong>normal</strong>, centrada na média da população, <strong>seja qual for</strong> a forma da população.</p>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb1" data-startfrom="246" data-source-offset="0"><pre class="sourceCode js"><code class="sourceCode javascript" style="counter-reset: source-line 245;"><span id="cb1-246"><a href="" aria-hidden="true" tabindex="-1"></a><span class="co">// os três controles numa linha só, para sobrar altura para os histogramas</span></span>
+<span id="cb1-247"><a href="" aria-hidden="true" tabindex="-1"></a>viewof tcl <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">form</span>({</span>
+<span id="cb1-248"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="dt">forma</span><span class="op">:</span> Inputs<span class="op">.</span><span class="fu">radio</span>([<span class="st">"assimétrica"</span><span class="op">,</span> <span class="st">"duas modas"</span><span class="op">,</span> <span class="st">"uniforme"</span><span class="op">,</span> <span class="st">"moeda"</span>]<span class="op">,</span></span>
+<span id="cb1-249"><a href="" aria-hidden="true" tabindex="-1"></a>                      {<span class="dt">value</span><span class="op">:</span> <span class="st">"assimétrica"</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"população"</span>})<span class="op">,</span></span>
+<span id="cb1-250"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="dt">n</span><span class="op">:</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">1</span><span class="op">,</span> <span class="dv">100</span>]<span class="op">,</span> {<span class="dt">value</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"tamanho da amostra"</span>})<span class="op">,</span></span>
+<span id="cb1-251"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="dt">k</span><span class="op">:</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">100</span><span class="op">,</span> <span class="dv">5000</span>]<span class="op">,</span> {<span class="dt">value</span><span class="op">:</span> <span class="dv">1000</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="dv">100</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"quantas amostras"</span>})</span>
+<span id="cb1-252"><a href="" aria-hidden="true" tabindex="-1"></a>}<span class="op">,</span> {<span class="dt">template</span><span class="op">:</span> (i) <span class="kw">=&gt;</span> htl<span class="op">.</span><span class="fu">html</span><span class="vs">`&lt;div class="controles-tcl"&gt;</span><span class="sc">${</span><span class="bu">Object</span><span class="op">.</span><span class="fu">values</span>(i)<span class="sc">}</span><span class="vs">&lt;/div&gt;`</span>})</span></code></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb2" data-startfrom="257" data-source-offset="0"><pre class="sourceCode js"><code class="sourceCode javascript" style="counter-reset: source-line 256;"><span id="cb2-257"><a href="" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb2-258"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> {forma<span class="op">,</span> n<span class="op">,</span> k} <span class="op">=</span> tcl<span class="op">;</span></span>
+<span id="cb2-259"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> pop <span class="op">=</span> <span class="bu">Array</span><span class="op">.</span><span class="fu">from</span>({<span class="dt">length</span><span class="op">:</span> <span class="dv">4000</span>}<span class="op">,</span> () <span class="kw">=&gt;</span> populacao[forma]())<span class="op">;</span></span>
+<span id="cb2-260"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> meds <span class="op">=</span> <span class="bu">Array</span><span class="op">.</span><span class="fu">from</span>({<span class="dt">length</span><span class="op">:</span> k}<span class="op">,</span> () <span class="kw">=&gt;</span> <span class="fu">medias</span>(n<span class="op">,</span> forma))<span class="op">;</span></span>
+<span id="cb2-261"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> caixa <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">createElement</span>(<span class="st">"div"</span>)<span class="op">;</span></span>
+<span id="cb2-262"><a href="" aria-hidden="true" tabindex="-1"></a>  caixa<span class="op">.</span><span class="fu">append</span>(</span>
+<span id="cb2-263"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rotulo</span>(<span class="st">"a população"</span>)<span class="op">,</span></span>
+<span id="cb2-264"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="fu">histograma</span>(pop<span class="op">,</span> media_teorica[forma]<span class="op">,</span> <span class="dv">150</span><span class="op">,</span> <span class="st">"#8a8f98"</span>)<span class="op">,</span></span>
+<span id="cb2-265"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rotulo</span>(<span class="vs">`as médias de </span><span class="sc">${</span>k<span class="sc">}</span><span class="vs"> amostras de tamanho </span><span class="sc">${</span>n<span class="sc">}</span><span class="vs">`</span>)<span class="op">,</span></span>
+<span id="cb2-266"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="fu">histograma</span>(meds<span class="op">,</span> media_teorica[forma]<span class="op">,</span> <span class="dv">250</span><span class="op">,</span> <span class="st">"#12996f"</span>)</span>
+<span id="cb2-267"><a href="" aria-hidden="true" tabindex="-1"></a>  )<span class="op">;</span></span>
+<span id="cb2-268"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> caixa<span class="op">;</span></span>
+<span id="cb2-269"><a href="" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-2" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Erro-padrão</h2>
+<div class="caixa ideia">
+<p><span class="rotulo">erro-padrão</span></p>
+<p><span class="math display">\[\text{EP} = \frac{\text{DP}}{\sqrt{n}}\]</span></p>
+<p>DP é o desvio-padrão dos dados da amostra, e <span class="math inline">\(n\)</span> é o tamanho dela.</p>
+</div>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th>amostra</th>
+<th>erro-padrão, com DP de 1,87 ano</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>25 recursos</td>
+<td>1,87 ÷ 5 ≈ 0,37 ano</td>
+</tr>
+<tr class="even">
+<td>100 recursos</td>
+<td>1,87 ÷ 10 ≈ 0,19 ano</td>
+</tr>
+<tr class="odd">
+<td>400 recursos</td>
+<td>1,87 ÷ 20 ≈ 0,09 ano</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section class="slide level2 secao" data-numero="3">
+<h2>Intervalo de confiança</h2>
+<div class="miudo">
+<p>Na vida real há uma amostra só. O intervalo leva a incerteza junto com a estimativa: em vez de um número, uma faixa.</p>
+</div>
+</section>
+<section class="slide level2 denso">
+<h2>Construção</h2>
+<div class="caixa ideia">
+<p><span class="rotulo">intervalo de confiança para a média</span></p>
+<p><span class="math display">\[\text{média} \pm z \times \frac{\text{DP}}{\sqrt{n}}\]</span></p>
+<p>Com 95% de confiança, <span class="math inline">\(z = 1{,}96\)</span>. De onde vem esse número é o próximo slide.</p>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb3" data-startfrom="307" data-source-offset="0"><pre class="sourceCode js"><code class="sourceCode javascript" style="counter-reset: source-line 306;"><span id="cb3-307"><a href="" aria-hidden="true" tabindex="-1"></a>viewof ic <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">form</span>({</span>
+<span id="cb3-308"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="dt">media</span><span class="op">:</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">1</span><span class="op">,</span> <span class="dv">5</span>]<span class="op">,</span> {<span class="dt">value</span><span class="op">:</span> <span class="fl">2.8</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="fl">0.1</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"média"</span>})<span class="op">,</span></span>
+<span id="cb3-309"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="dt">dp</span><span class="op">:</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="fl">0.5</span><span class="op">,</span> <span class="dv">4</span>]<span class="op">,</span> {<span class="dt">value</span><span class="op">:</span> <span class="fl">1.9</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="fl">0.1</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"desvio-padrão"</span>})<span class="op">,</span></span>
+<span id="cb3-310"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="dt">n</span><span class="op">:</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">4</span><span class="op">,</span> <span class="dv">1000</span>]<span class="op">,</span> {<span class="dt">value</span><span class="op">:</span> <span class="dv">100</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"tamanho da amostra"</span>})<span class="op">,</span></span>
+<span id="cb3-311"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="dt">conf</span><span class="op">:</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="dv">0</span><span class="op">,</span> <span class="fl">0.9999</span>]<span class="op">,</span> {<span class="dt">value</span><span class="op">:</span> <span class="fl">0.95</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="fl">0.0001</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"confiança"</span>})</span>
+<span id="cb3-312"><a href="" aria-hidden="true" tabindex="-1"></a>}<span class="op">,</span> {<span class="dt">template</span><span class="op">:</span> (i) <span class="kw">=&gt;</span> htl<span class="op">.</span><span class="fu">html</span><span class="vs">`&lt;div class="controles-ic"&gt;</span><span class="sc">${</span><span class="bu">Object</span><span class="op">.</span><span class="fu">values</span>(i)<span class="sc">}</span><span class="vs">&lt;/div&gt;`</span>})</span></code></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-3" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb4" data-startfrom="317" data-source-offset="0"><pre class="sourceCode js"><code class="sourceCode javascript" style="counter-reset: source-line 316;"><span id="cb4-317"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">desenhaIC</span>(ic)</span></code></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-4" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+</section>
+<section class="slide level2 denso">
+<h2>Nível de confiança</h2>
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb5" data-startfrom="324" data-source-offset="0"><pre class="sourceCode js"><code class="sourceCode javascript" style="counter-reset: source-line 323;"><span id="cb5-324"><a href="" aria-hidden="true" tabindex="-1"></a>viewof conf <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">range</span>([<span class="fl">0.5</span><span class="op">,</span> <span class="fl">0.9999</span>]<span class="op">,</span> {<span class="dt">value</span><span class="op">:</span> <span class="fl">0.95</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="fl">0.0001</span><span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">"confiança"</span>})</span></code></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-5" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb6" data-startfrom="329" data-source-offset="0"><pre class="sourceCode js"><code class="sourceCode javascript" style="counter-reset: source-line 328;"><span id="cb6-329"><a href="" aria-hidden="true" tabindex="-1"></a><span class="fu">curvaNormal</span>(conf)</span></code></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-6" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+<div class="miudo">
+<p>Pelo teorema central do limite, a média da amostra é aproximadamente normal em torno da média populacional. Numa normal, 95% da área fica a menos de 1,96 erros-padrão do centro: esse é o <span class="math inline">\(z\)</span>. Mais confiança pede um <span class="math inline">\(z\)</span> maior e um intervalo mais largo; 100% de confiança exigiria um intervalo infinito.</p>
+</div>
+</section>
+<section class="slide level2" data-background-color="var(--superficie)">
+<h2>Calcule o seu intervalo</h2>
+<div class="quiz">
+<div class="qr">
+<p><img data-src="recursos/qr-amostra-ic.svg"></p>
+<div class="endereco">
+<p>jtrecenti.github.io/cdad2-202662/amostra/?etapa=ic</p>
+</div>
+</div>
+<h3>A mesma amostra, agora com o intervalo</h3>
+<ol type="1">
+<li>Digite o mesmo login: a amostra é a mesma.</li>
+<li>Rode a primeira célula: média, desvio-padrão e erro-padrão.</li>
+<li>Complete o z e rode a segunda.</li>
+<li>Envie para o painel.</li>
+</ol>
+</div>
+<div class="link-painel">
+<p><a href="https://jtrecenti.github.io/cdad2-202662/amostra/painel.html?vista=ic" target="_blank">abrir o painel ↗</a></p>
+</div>
+</section>
+<section class="slide level2">
+<h2>O que a sala calculou</h2>
+<div class="colunas">
+<div>
+<div class="caixa exercicio">
+<p><span class="rotulo">olhando o painel</span></p>
+<ol type="1">
+<li>Quantos intervalos não contêm a média dos 8.505?</li>
+<li>Quem ficou de fora fez alguma conta errada?</li>
+<li>Juntando mais intervalos, para onde vai a proporção dos que ficam de fora?</li>
+</ol>
+</div>
+</div>
+<div>
+<div class="caixa ideia">
+<p><span class="rotulo">o que significa 95%</span></p>
+<p>A confiança é propriedade do <strong>procedimento</strong>: repetido muitas vezes, ele acerta em cerca de 95% delas. O parâmetro é fixo, e cada intervalo o contém ou não o contém.</p>
+</div>
+</div>
+</div>
+<div class="link-painel">
+<p><a href="https://jtrecenti.github.io/cdad2-202662/amostra/painel.html?vista=ic" target="_blank">abrir o painel ↗</a></p>
+</div>
+</section>
+<section class="slide level2" data-background-color="var(--superficie)">
+<h2>Quiz</h2>
+<div class="quiz">
+<div class="qr">
+<p><img data-src="recursos/qr-quiz.svg"></p>
+<div class="endereco">
+<p>jtrecenti.github.io/cdad2-202662/quiz</p>
+</div>
+</div>
+<h3>Qual leitura do intervalo é a correta?</h3>
+</div>
+</section>
+<section class="slide level2">
+<h2>A frase certa</h2>
+<div class="colunas">
+<div>
+<div class="caixa atencao">
+<p><span class="rotulo">incorreto</span></p>
+<p>“Há 95% de probabilidade de o tempo médio dos 8.505 recursos estar entre 2,4 e 3,2 anos.”</p>
+<p>A média dos 8.505 não é sorteada. Ela já é o que é.</p>
+</div>
+</div>
+<div>
+<div class="caixa ideia">
+<p><span class="rotulo">correto</span></p>
+<p>“O tempo médio estimado é de 2,8 anos, com intervalo de confiança de 95% entre 2,4 e 3,2 anos.”</p>
+</div>
+</div>
+</div>
+<div class="miudo centro">
+<p>É a mesma troca de condicionais da aula 7: a chance de o procedimento acertar não é a chance de a média estar dentro deste intervalo.</p>
+</div>
+</section>
+<section class="slide level2 denso" data-background-color="var(--superficie)">
+<h2>Exercício 2</h2>
+<div class="caixa exercicio">
+<p><span class="rotulo">em duplas, 15 minutos</span></p>
+<p>Um escritório sorteou <strong>100</strong> das 2.400 apelações cíveis que acompanhou em 2025 e mediu o tempo até o julgamento: média de <strong>1,8 ano</strong>, desvio-padrão de <strong>1 ano</strong>.</p>
+</div>
+<div class="grade">
+<div class="item">
+<p><strong>a)</strong> Aponte a população, a amostra, o parâmetro e a estimativa.</p>
+</div>
+<div class="item">
+<p><strong>b)</strong> Outra equipe sorteia outras 100 dessas apelações e encontra 2 anos. Alguém errou? O que muda de uma amostra para a outra, e o que fica igual?</p>
+</div>
+<div class="item">
+<p><strong>c)</strong> Calcule o erro-padrão.</p>
+</div>
+<div class="item">
+<p><strong>d)</strong> Escreva o intervalo de 95% e a frase que vai no relatório.</p>
+</div>
+<div class="item">
+<p><strong>e)</strong> Quantas apelações seriam necessárias para a margem cair pela metade?</p>
+</div>
+<div class="item">
+<p><strong>f)</strong> O sócio lê o relatório e conclui: “então 95% das nossas apelações são julgadas entre 1,6 e 2 anos”. Está certo?</p>
+</div>
+</div>
+</section>
+<section class="slide level2 muito-denso">
+<h2>Resumo</h2>
+<div class="colunas">
+<div>
+<div class="caixa ideia">
+<p><span class="rotulo">cinco ideias</span></p>
+<ol type="1">
+<li><p>Parâmetro descreve a população e é fixo; estimativa vem da amostra e muda a cada sorteio.</p></li>
+<li><p>A distribuição das estimativas de muitas amostras é a distribuição amostral: foi o gráfico do painel.</p></li>
+<li><p><strong>Teorema central do limite:</strong> a média da amostra é aproximadamente normal, em torno da média da população, seja qual for a forma da população.</p></li>
+<li><p>Erro-padrão <span class="math inline">\(= \text{DP}/\sqrt{n}\)</span>, e o intervalo é <span class="math inline">\(\text{média} \pm z \times \text{EP}\)</span>, com <span class="math inline">\(z = 1{,}96\)</span> para 95%.</p></li>
+<li><p>Os 95% são do procedimento: foi a proporção de intervalos da sala que pegou a média dos 8.505.</p></li>
+</ol>
+</div>
+</div>
+<div>
+<div class="caixa caso">
+<p><span class="rotulo">quinta-feira, 17/09</span></p>
+<p><strong>Planejamento de pesquisa</strong>: pergunta, fontes de dados, variáveis e hipótese.</p>
+</div>
+</div>
+</div>
+</section>
+<section class="slide level2">
+<h2>Referências</h2>
+<div class="miudo">
+<p>MONTGOMERY, D.; RUNGER, G. <em>Estatística aplicada e probabilidade para engenheiros</em>, capítulos 7 e 8.</p>
+<p>BUSSAB, W.; MORETTIN, P. <em>Estatística básica</em>, capítulos 10 e 11.</p>
+<p>HOEKSTRA, R. et al.&nbsp;Robust misinterpretation of confidence intervals. <em>Psychonomic Bulletin &amp; Review</em>, 2014.</p>
+</div>
+<div class="cell hidden">
+<div class="sourceCode cell-code hidden" id="cb7" data-startfrom="526" data-source-offset="-621"><pre class="sourceCode js"><code class="sourceCode javascript" style="counter-reset: source-line 525;"><span id="cb7-526"><a href="" aria-hidden="true" tabindex="-1"></a>populacao <span class="op">=</span> ({</span>
+<span id="cb7-527"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="st">"assimétrica"</span><span class="op">:</span> () <span class="kw">=&gt;</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">min</span>(<span class="dv">1</span><span class="op">,</span> <span class="op">-</span><span class="bu">Math</span><span class="op">.</span><span class="fu">log</span>(<span class="dv">1</span> <span class="op">-</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">random</span>()) <span class="op">/</span> <span class="dv">5</span>)<span class="op">,</span></span>
+<span id="cb7-528"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="st">"duas modas"</span><span class="op">:</span> () <span class="kw">=&gt;</span></span>
+<span id="cb7-529"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="bu">Math</span><span class="op">.</span><span class="fu">random</span>() <span class="op">&lt;</span> <span class="fl">0.5</span></span>
+<span id="cb7-530"><a href="" aria-hidden="true" tabindex="-1"></a>      <span class="op">?</span> <span class="fl">0.2</span> <span class="op">+</span> (<span class="bu">Math</span><span class="op">.</span><span class="fu">random</span>() <span class="op">-</span> <span class="fl">0.5</span>) <span class="op">*</span> <span class="fl">0.16</span></span>
+<span id="cb7-531"><a href="" aria-hidden="true" tabindex="-1"></a>      <span class="op">:</span> <span class="fl">0.8</span> <span class="op">+</span> (<span class="bu">Math</span><span class="op">.</span><span class="fu">random</span>() <span class="op">-</span> <span class="fl">0.5</span>) <span class="op">*</span> <span class="fl">0.16</span><span class="op">,</span></span>
+<span id="cb7-532"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="st">"uniforme"</span><span class="op">:</span> () <span class="kw">=&gt;</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">random</span>()<span class="op">,</span></span>
+<span id="cb7-533"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="st">"moeda"</span><span class="op">:</span> () <span class="kw">=&gt;</span> (<span class="bu">Math</span><span class="op">.</span><span class="fu">random</span>() <span class="op">&lt;</span> <span class="fl">0.5</span> <span class="op">?</span> <span class="dv">0</span> <span class="op">:</span> <span class="dv">1</span>)</span>
+<span id="cb7-534"><a href="" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb7-535"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-536"><a href="" aria-hidden="true" tabindex="-1"></a>media_teorica <span class="op">=</span> ({</span>
+<span id="cb7-537"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="st">"assimétrica"</span><span class="op">:</span> <span class="fl">0.2</span><span class="op">,</span></span>
+<span id="cb7-538"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="st">"duas modas"</span><span class="op">:</span> <span class="fl">0.5</span><span class="op">,</span></span>
+<span id="cb7-539"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="st">"uniforme"</span><span class="op">:</span> <span class="fl">0.5</span><span class="op">,</span></span>
+<span id="cb7-540"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="st">"moeda"</span><span class="op">:</span> <span class="fl">0.5</span></span>
+<span id="cb7-541"><a href="" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb7-542"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-543"><a href="" aria-hidden="true" tabindex="-1"></a>medias <span class="op">=</span> <span class="kw">function</span> (n<span class="op">,</span> forma) {</span>
+<span id="cb7-544"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> f <span class="op">=</span> populacao[forma]<span class="op">;</span></span>
+<span id="cb7-545"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> s <span class="op">=</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb7-546"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (<span class="kw">let</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> n<span class="op">;</span> i<span class="op">++</span>) s <span class="op">+=</span> <span class="fu">f</span>()<span class="op">;</span></span>
+<span id="cb7-547"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> s <span class="op">/</span> n<span class="op">;</span></span>
+<span id="cb7-548"><a href="" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb7-549"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-550"><a href="" aria-hidden="true" tabindex="-1"></a>rotulo <span class="op">=</span> <span class="kw">function</span> (texto) {</span>
+<span id="cb7-551"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> d <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">createElement</span>(<span class="st">"div"</span>)<span class="op">;</span></span>
+<span id="cb7-552"><a href="" aria-hidden="true" tabindex="-1"></a>  d<span class="op">.</span><span class="at">style</span><span class="op">.</span><span class="at">cssText</span> <span class="op">=</span> <span class="st">"font-size:.55em;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--texto-fraco);margin:.2rem 0 0"</span><span class="op">;</span></span>
+<span id="cb7-553"><a href="" aria-hidden="true" tabindex="-1"></a>  d<span class="op">.</span><span class="at">textContent</span> <span class="op">=</span> texto<span class="op">;</span></span>
+<span id="cb7-554"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> d<span class="op">;</span></span>
+<span id="cb7-555"><a href="" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb7-556"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-557"><a href="" aria-hidden="true" tabindex="-1"></a>histograma <span class="op">=</span> <span class="kw">function</span> (valores<span class="op">,</span> marca<span class="op">,</span> altura<span class="op">,</span> cor) {</span>
+<span id="cb7-558"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> L <span class="op">=</span> <span class="dv">900</span><span class="op">,</span> A <span class="op">=</span> <span class="dv">300</span><span class="op">,</span> m <span class="op">=</span> <span class="dv">30</span><span class="op">,</span> faixas <span class="op">=</span> <span class="dv">50</span><span class="op">;</span></span>
+<span id="cb7-559"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> contagem <span class="op">=</span> <span class="kw">new</span> <span class="bu">Array</span>(faixas)<span class="op">.</span><span class="fu">fill</span>(<span class="dv">0</span>)<span class="op">;</span></span>
+<span id="cb7-560"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (<span class="kw">const</span> v <span class="kw">of</span> valores) {</span>
+<span id="cb7-561"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> i <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">min</span>(faixas <span class="op">-</span> <span class="dv">1</span><span class="op">,</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">max</span>(<span class="dv">0</span><span class="op">,</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">floor</span>(v <span class="op">*</span> faixas)))<span class="op">;</span></span>
+<span id="cb7-562"><a href="" aria-hidden="true" tabindex="-1"></a>    contagem[i] <span class="op">+=</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb7-563"><a href="" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb7-564"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> topo <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">max</span>(<span class="op">...</span>contagem)<span class="op">;</span></span>
+<span id="cb7-565"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> larg <span class="op">=</span> (L <span class="op">-</span> <span class="dv">2</span> <span class="op">*</span> m) <span class="op">/</span> faixas<span class="op">;</span></span>
+<span id="cb7-566"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> ns <span class="op">=</span> <span class="st">"http://www.w3.org/2000/svg"</span><span class="op">;</span></span>
+<span id="cb7-567"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> svg <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">createElementNS</span>(ns<span class="op">,</span> <span class="st">"svg"</span>)<span class="op">;</span></span>
+<span id="cb7-568"><a href="" aria-hidden="true" tabindex="-1"></a>  svg<span class="op">.</span><span class="fu">setAttribute</span>(<span class="st">"viewBox"</span><span class="op">,</span> <span class="st">"0 0 "</span> <span class="op">+</span> L <span class="op">+</span> <span class="st">" "</span> <span class="op">+</span> A)<span class="op">;</span></span>
+<span id="cb7-569"><a href="" aria-hidden="true" tabindex="-1"></a>  svg<span class="op">.</span><span class="fu">setAttribute</span>(<span class="st">"width"</span><span class="op">,</span> <span class="st">"100%"</span>)<span class="op">;</span></span>
+<span id="cb7-570"><a href="" aria-hidden="true" tabindex="-1"></a>  svg<span class="op">.</span><span class="fu">setAttribute</span>(<span class="st">"preserveAspectRatio"</span><span class="op">,</span> <span class="st">"none"</span>)<span class="op">;</span></span>
+<span id="cb7-571"><a href="" aria-hidden="true" tabindex="-1"></a>  svg<span class="op">.</span><span class="at">style</span><span class="op">.</span><span class="at">height</span> <span class="op">=</span> altura <span class="op">+</span> <span class="st">"px"</span><span class="op">;</span></span>
+<span id="cb7-572"><a href="" aria-hidden="true" tabindex="-1"></a>  svg<span class="op">.</span><span class="at">style</span><span class="op">.</span><span class="at">display</span> <span class="op">=</span> <span class="st">"block"</span><span class="op">;</span></span>
+<span id="cb7-573"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-574"><a href="" aria-hidden="true" tabindex="-1"></a>  contagem<span class="op">.</span><span class="fu">forEach</span>(<span class="kw">function</span> (c<span class="op">,</span> i) {</span>
+<span id="cb7-575"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> h <span class="op">=</span> topo <span class="op">?</span> (c <span class="op">/</span> topo) <span class="op">*</span> (A <span class="op">-</span> <span class="dv">2</span> <span class="op">*</span> m) <span class="op">:</span> <span class="dv">0</span><span class="op">;</span></span>
+<span id="cb7-576"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> r <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">createElementNS</span>(ns<span class="op">,</span> <span class="st">"rect"</span>)<span class="op">;</span></span>
+<span id="cb7-577"><a href="" aria-hidden="true" tabindex="-1"></a>    r<span class="op">.</span><span class="fu">setAttribute</span>(<span class="st">"x"</span><span class="op">,</span> m <span class="op">+</span> i <span class="op">*</span> larg <span class="op">+</span> <span class="fl">0.8</span>)<span class="op">;</span></span>
+<span id="cb7-578"><a href="" aria-hidden="true" tabindex="-1"></a>    r<span class="op">.</span><span class="fu">setAttribute</span>(<span class="st">"y"</span><span class="op">,</span> A <span class="op">-</span> m <span class="op">-</span> h)<span class="op">;</span></span>
+<span id="cb7-579"><a href="" aria-hidden="true" tabindex="-1"></a>    r<span class="op">.</span><span class="fu">setAttribute</span>(<span class="st">"width"</span><span class="op">,</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">max</span>(<span class="dv">1</span><span class="op">,</span> larg <span class="op">-</span> <span class="fl">1.6</span>))<span class="op">;</span></span>
+<span id="cb7-580"><a href="" aria-hidden="true" tabindex="-1"></a>    r<span class="op">.</span><span class="fu">setAttribute</span>(<span class="st">"height"</span><span class="op">,</span> h)<span class="op">;</span></span>
+<span id="cb7-581"><a href="" aria-hidden="true" tabindex="-1"></a>    r<span class="op">.</span><span class="fu">setAttribute</span>(<span class="st">"fill"</span><span class="op">,</span> cor)<span class="op">;</span></span>
+<span id="cb7-582"><a href="" aria-hidden="true" tabindex="-1"></a>    svg<span class="op">.</span><span class="fu">appendChild</span>(r)<span class="op">;</span></span>
+<span id="cb7-583"><a href="" aria-hidden="true" tabindex="-1"></a>  })<span class="op">;</span></span>
+<span id="cb7-584"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-585"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> eixo <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">createElementNS</span>(ns<span class="op">,</span> <span class="st">"line"</span>)<span class="op">;</span></span>
+<span id="cb7-586"><a href="" aria-hidden="true" tabindex="-1"></a>  eixo<span class="op">.</span><span class="fu">setAttribute</span>(<span class="st">"x1"</span><span class="op">,</span> m)<span class="op">;</span></span>
+<span id="cb7-587"><a href="" aria-hidden="true" tabindex="-1"></a>  eixo<span class="op">.</span><span class="fu">setAttribute</span>(<span class="st">"x2"</span><span class="op">,</span> L <span class="op">-</span> m)<span class="op">;</span></span>
+<span id="cb7-588"><a href="" aria-hidden="true" tabindex="-1"></a>  eixo<span class="op">.</span><span class="fu">setAttribute</span>(<span class="st">"y1"</span><span class="op">,</span> A <span class="op">-</span> m)<span class="op">;</span></span>
+<span id="cb7-589"><a href="" aria-hidden="true" tabindex="-1"></a>  eixo<span class="op">.</span><span class="fu">setAttribute</span>(<span class="st">"y2"</span><span class="op">,</span> A <span class="op">-</span> m)<span class="op">;</span></span>
+<span id="cb7-590"><a href="" aria-hidden="true" tabindex="-1"></a>  eixo<span class="op">.</span><span class="fu">setAttribute</span>(<span class="st">"stroke"</span><span class="op">,</span> <span class="st">"#8a8f98"</span>)<span class="op">;</span></span>
+<span id="cb7-591"><a href="" aria-hidden="true" tabindex="-1"></a>  svg<span class="op">.</span><span class="fu">appendChild</span>(eixo)<span class="op">;</span></span>
+<span id="cb7-592"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-593"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> x <span class="op">=</span> m <span class="op">+</span> marca <span class="op">*</span> (L <span class="op">-</span> <span class="dv">2</span> <span class="op">*</span> m)<span class="op">;</span></span>
+<span id="cb7-594"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> linha <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">createElementNS</span>(ns<span class="op">,</span> <span class="st">"line"</span>)<span class="op">;</span></span>
+<span id="cb7-595"><a href="" aria-hidden="true" tabindex="-1"></a>  linha<span class="op">.</span><span class="fu">setAttribute</span>(<span class="st">"x1"</span><span class="op">,</span> x)<span class="op">;</span></span>
+<span id="cb7-596"><a href="" aria-hidden="true" tabindex="-1"></a>  linha<span class="op">.</span><span class="fu">setAttribute</span>(<span class="st">"x2"</span><span class="op">,</span> x)<span class="op">;</span></span>
+<span id="cb7-597"><a href="" aria-hidden="true" tabindex="-1"></a>  linha<span class="op">.</span><span class="fu">setAttribute</span>(<span class="st">"y1"</span><span class="op">,</span> <span class="dv">4</span>)<span class="op">;</span></span>
+<span id="cb7-598"><a href="" aria-hidden="true" tabindex="-1"></a>  linha<span class="op">.</span><span class="fu">setAttribute</span>(<span class="st">"y2"</span><span class="op">,</span> A <span class="op">-</span> m)<span class="op">;</span></span>
+<span id="cb7-599"><a href="" aria-hidden="true" tabindex="-1"></a>  linha<span class="op">.</span><span class="fu">setAttribute</span>(<span class="st">"stroke"</span><span class="op">,</span> <span class="st">"#e50505"</span>)<span class="op">;</span></span>
+<span id="cb7-600"><a href="" aria-hidden="true" tabindex="-1"></a>  linha<span class="op">.</span><span class="fu">setAttribute</span>(<span class="st">"stroke-width"</span><span class="op">,</span> <span class="dv">3</span>)<span class="op">;</span></span>
+<span id="cb7-601"><a href="" aria-hidden="true" tabindex="-1"></a>  svg<span class="op">.</span><span class="fu">appendChild</span>(linha)<span class="op">;</span></span>
+<span id="cb7-602"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-603"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> svg<span class="op">;</span></span>
+<span id="cb7-604"><a href="" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb7-605"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-606"><a href="" aria-hidden="true" tabindex="-1"></a><span class="co">// Area da normal padrao entre -z e z e erf(z / raiz de 2). A aproximacao de</span></span>
+<span id="cb7-607"><a href="" aria-hidden="true" tabindex="-1"></a><span class="co">// Abramowitz e Stegun (7.1.26) erra menos que 1e-7, e o z sai por bissecao.</span></span>
+<span id="cb7-608"><a href="" aria-hidden="true" tabindex="-1"></a>erf <span class="op">=</span> <span class="kw">function</span> (x) {</span>
+<span id="cb7-609"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> s <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sign</span>(x)<span class="op">;</span></span>
+<span id="cb7-610"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> a <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">abs</span>(x)<span class="op">;</span></span>
+<span id="cb7-611"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> t <span class="op">=</span> <span class="dv">1</span> <span class="op">/</span> (<span class="dv">1</span> <span class="op">+</span> <span class="fl">0.3275911</span> <span class="op">*</span> a)<span class="op">;</span></span>
+<span id="cb7-612"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> y <span class="op">=</span> <span class="dv">1</span> <span class="op">-</span> (((((<span class="fl">1.061405429</span> <span class="op">*</span> t <span class="op">-</span> <span class="fl">1.453152027</span>) <span class="op">*</span> t) <span class="op">+</span> <span class="fl">1.421413741</span>) <span class="op">*</span> t</span>
+<span id="cb7-613"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="op">-</span> <span class="fl">0.284496736</span>) <span class="op">*</span> t <span class="op">+</span> <span class="fl">0.254829592</span>) <span class="op">*</span> t <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">exp</span>(<span class="op">-</span>a <span class="op">*</span> a)<span class="op">;</span></span>
+<span id="cb7-614"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> s <span class="op">*</span> y<span class="op">;</span></span>
+<span id="cb7-615"><a href="" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb7-616"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-617"><a href="" aria-hidden="true" tabindex="-1"></a>zDaConfianca <span class="op">=</span> <span class="kw">function</span> (c) {</span>
+<span id="cb7-618"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> lo <span class="op">=</span> <span class="dv">0</span><span class="op">,</span> hi <span class="op">=</span> <span class="dv">6</span><span class="op">;</span></span>
+<span id="cb7-619"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (<span class="kw">let</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> <span class="dv">60</span><span class="op">;</span> i<span class="op">++</span>) {</span>
+<span id="cb7-620"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> meio <span class="op">=</span> (lo <span class="op">+</span> hi) <span class="op">/</span> <span class="dv">2</span><span class="op">;</span></span>
+<span id="cb7-621"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (<span class="fu">erf</span>(meio <span class="op">/</span> <span class="bu">Math</span><span class="op">.</span><span class="cn">SQRT2</span>) <span class="op">&lt;</span> c) lo <span class="op">=</span> meio<span class="op">;</span> <span class="cf">else</span> hi <span class="op">=</span> meio<span class="op">;</span></span>
+<span id="cb7-622"><a href="" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb7-623"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> (lo <span class="op">+</span> hi) <span class="op">/</span> <span class="dv">2</span><span class="op">;</span></span>
+<span id="cb7-624"><a href="" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb7-625"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-626"><a href="" aria-hidden="true" tabindex="-1"></a><span class="co">// Numero com virgula e sem zeros sobrando: 95 -&gt; "95", 99.99 -&gt; "99,99",</span></span>
+<span id="cb7-627"><a href="" aria-hidden="true" tabindex="-1"></a><span class="co">// 0.005 -&gt; "0,005". Com confianca de 0,9999 o toFixed fixo mostrava "100%".</span></span>
+<span id="cb7-628"><a href="" aria-hidden="true" tabindex="-1"></a>enxuto <span class="op">=</span> <span class="kw">function</span> (v<span class="op">,</span> casas) {</span>
+<span id="cb7-629"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> v<span class="op">.</span><span class="fu">toFixed</span>(casas)<span class="op">.</span><span class="fu">replace</span>(<span class="ss">/</span><span class="sc">\.?</span><span class="ss">0</span><span class="sc">+$</span><span class="ss">/</span><span class="op">,</span> <span class="st">""</span>)<span class="op">.</span><span class="fu">replace</span>(<span class="st">"."</span><span class="op">,</span> <span class="st">","</span>)<span class="op">;</span></span>
+<span id="cb7-630"><a href="" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb7-631"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-632"><a href="" aria-hidden="true" tabindex="-1"></a>curvaNormal <span class="op">=</span> <span class="kw">function</span> (c) {</span>
+<span id="cb7-633"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> z <span class="op">=</span> <span class="fu">zDaConfianca</span>(c)<span class="op">;</span></span>
+<span id="cb7-634"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> L <span class="op">=</span> <span class="dv">900</span><span class="op">,</span> A <span class="op">=</span> <span class="dv">300</span><span class="op">,</span> m <span class="op">=</span> <span class="dv">34</span><span class="op">,</span> topo <span class="op">=</span> <span class="dv">30</span><span class="op">;</span></span>
+<span id="cb7-635"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> px <span class="op">=</span> (v) <span class="kw">=&gt;</span> m <span class="op">+</span> ((v <span class="op">+</span> <span class="dv">4</span>) <span class="op">/</span> <span class="dv">8</span>) <span class="op">*</span> (L <span class="op">-</span> <span class="dv">2</span> <span class="op">*</span> m)<span class="op">;</span></span>
+<span id="cb7-636"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> pdf <span class="op">=</span> (v) <span class="kw">=&gt;</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">exp</span>(<span class="op">-</span>v <span class="op">*</span> v <span class="op">/</span> <span class="dv">2</span>) <span class="op">/</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sqrt</span>(<span class="dv">2</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="cn">PI</span>)<span class="op">;</span></span>
+<span id="cb7-637"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> py <span class="op">=</span> (d) <span class="kw">=&gt;</span> A <span class="op">-</span> m <span class="op">-</span> (d <span class="op">/</span> <span class="fl">0.4</span>) <span class="op">*</span> (A <span class="op">-</span> m <span class="op">-</span> topo)<span class="op">;</span></span>
+<span id="cb7-638"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> ns <span class="op">=</span> <span class="st">"http://www.w3.org/2000/svg"</span><span class="op">;</span></span>
+<span id="cb7-639"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> svg <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">createElementNS</span>(ns<span class="op">,</span> <span class="st">"svg"</span>)<span class="op">;</span></span>
+<span id="cb7-640"><a href="" aria-hidden="true" tabindex="-1"></a>  svg<span class="op">.</span><span class="fu">setAttribute</span>(<span class="st">"viewBox"</span><span class="op">,</span> <span class="st">"0 0 "</span> <span class="op">+</span> L <span class="op">+</span> <span class="st">" "</span> <span class="op">+</span> A)<span class="op">;</span></span>
+<span id="cb7-641"><a href="" aria-hidden="true" tabindex="-1"></a>  svg<span class="op">.</span><span class="fu">setAttribute</span>(<span class="st">"width"</span><span class="op">,</span> <span class="st">"100%"</span>)<span class="op">;</span></span>
+<span id="cb7-642"><a href="" aria-hidden="true" tabindex="-1"></a>  svg<span class="op">.</span><span class="at">style</span><span class="op">.</span><span class="at">maxHeight</span> <span class="op">=</span> <span class="st">"330px"</span><span class="op">;</span></span>
+<span id="cb7-643"><a href="" aria-hidden="true" tabindex="-1"></a>  svg<span class="op">.</span><span class="at">style</span><span class="op">.</span><span class="at">display</span> <span class="op">=</span> <span class="st">"block"</span><span class="op">;</span></span>
+<span id="cb7-644"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> el <span class="op">=</span> (tag<span class="op">,</span> attrs<span class="op">,</span> texto) <span class="kw">=&gt;</span> {</span>
+<span id="cb7-645"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> n <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">createElementNS</span>(ns<span class="op">,</span> tag)<span class="op">;</span></span>
+<span id="cb7-646"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (<span class="kw">const</span> [k<span class="op">,</span> v] <span class="kw">of</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">entries</span>(attrs)) n<span class="op">.</span><span class="fu">setAttribute</span>(k<span class="op">,</span> v)<span class="op">;</span></span>
+<span id="cb7-647"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (texto) n<span class="op">.</span><span class="at">textContent</span> <span class="op">=</span> texto<span class="op">;</span></span>
+<span id="cb7-648"><a href="" aria-hidden="true" tabindex="-1"></a>    svg<span class="op">.</span><span class="fu">appendChild</span>(n)<span class="op">;</span></span>
+<span id="cb7-649"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> n<span class="op">;</span></span>
+<span id="cb7-650"><a href="" aria-hidden="true" tabindex="-1"></a>  }<span class="op">;</span></span>
+<span id="cb7-651"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-652"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> area <span class="op">=</span> <span class="st">"M"</span> <span class="op">+</span> <span class="fu">px</span>(<span class="op">-</span>z) <span class="op">+</span> <span class="st">","</span> <span class="op">+</span> <span class="fu">py</span>(<span class="dv">0</span>)<span class="op">;</span></span>
+<span id="cb7-653"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (<span class="kw">let</span> k <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> k <span class="op">&lt;=</span> <span class="dv">120</span><span class="op">;</span> k<span class="op">++</span>) {</span>
+<span id="cb7-654"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> v <span class="op">=</span> <span class="op">-</span>z <span class="op">+</span> (<span class="dv">2</span> <span class="op">*</span> z <span class="op">*</span> k) <span class="op">/</span> <span class="dv">120</span><span class="op">;</span></span>
+<span id="cb7-655"><a href="" aria-hidden="true" tabindex="-1"></a>    area <span class="op">+=</span> <span class="st">"L"</span> <span class="op">+</span> <span class="fu">px</span>(v)<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">1</span>) <span class="op">+</span> <span class="st">","</span> <span class="op">+</span> <span class="fu">py</span>(<span class="fu">pdf</span>(v))<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">1</span>)<span class="op">;</span></span>
+<span id="cb7-656"><a href="" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb7-657"><a href="" aria-hidden="true" tabindex="-1"></a>  area <span class="op">+=</span> <span class="st">"L"</span> <span class="op">+</span> <span class="fu">px</span>(z) <span class="op">+</span> <span class="st">","</span> <span class="op">+</span> <span class="fu">py</span>(<span class="dv">0</span>) <span class="op">+</span> <span class="st">"Z"</span><span class="op">;</span></span>
+<span id="cb7-658"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">el</span>(<span class="st">"path"</span><span class="op">,</span> {<span class="dt">d</span><span class="op">:</span> area<span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> <span class="st">"#12996f"</span><span class="op">,</span> <span class="st">"fill-opacity"</span><span class="op">:</span> <span class="fl">0.35</span>})<span class="op">;</span></span>
+<span id="cb7-659"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-660"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="kw">let</span> curva <span class="op">=</span> <span class="st">""</span><span class="op">;</span></span>
+<span id="cb7-661"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (<span class="kw">let</span> k <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> k <span class="op">&lt;=</span> <span class="dv">240</span><span class="op">;</span> k<span class="op">++</span>) {</span>
+<span id="cb7-662"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> v <span class="op">=</span> <span class="op">-</span><span class="dv">4</span> <span class="op">+</span> (<span class="dv">8</span> <span class="op">*</span> k) <span class="op">/</span> <span class="dv">240</span><span class="op">;</span></span>
+<span id="cb7-663"><a href="" aria-hidden="true" tabindex="-1"></a>    curva <span class="op">+=</span> (k <span class="op">?</span> <span class="st">"L"</span> <span class="op">:</span> <span class="st">"M"</span>) <span class="op">+</span> <span class="fu">px</span>(v)<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">1</span>) <span class="op">+</span> <span class="st">","</span> <span class="op">+</span> <span class="fu">py</span>(<span class="fu">pdf</span>(v))<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">1</span>)<span class="op">;</span></span>
+<span id="cb7-664"><a href="" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb7-665"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">el</span>(<span class="st">"path"</span><span class="op">,</span> {<span class="dt">d</span><span class="op">:</span> curva<span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> <span class="st">"none"</span><span class="op">,</span> <span class="dt">stroke</span><span class="op">:</span> <span class="st">"#8a8f98"</span><span class="op">,</span> <span class="st">"stroke-width"</span><span class="op">:</span> <span class="dv">3</span>})<span class="op">;</span></span>
+<span id="cb7-666"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">el</span>(<span class="st">"line"</span><span class="op">,</span> {<span class="dt">x1</span><span class="op">:</span> m<span class="op">,</span> <span class="dt">x2</span><span class="op">:</span> L <span class="op">-</span> m<span class="op">,</span> <span class="dt">y1</span><span class="op">:</span> <span class="fu">py</span>(<span class="dv">0</span>)<span class="op">,</span> <span class="dt">y2</span><span class="op">:</span> <span class="fu">py</span>(<span class="dv">0</span>)<span class="op">,</span> <span class="dt">stroke</span><span class="op">:</span> <span class="st">"#8a8f98"</span><span class="op">,</span> <span class="st">"stroke-width"</span><span class="op">:</span> <span class="fl">1.5</span>})<span class="op">;</span></span>
+<span id="cb7-667"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-668"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> f <span class="op">=</span> (v<span class="op">,</span> casas) <span class="kw">=&gt;</span> v<span class="op">.</span><span class="fu">toFixed</span>(casas)<span class="op">.</span><span class="fu">replace</span>(<span class="st">"."</span><span class="op">,</span> <span class="st">","</span>)<span class="op">;</span></span>
+<span id="cb7-669"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (<span class="kw">const</span> s <span class="kw">of</span> [<span class="op">-</span><span class="dv">1</span><span class="op">,</span> <span class="dv">1</span>]) {</span>
+<span id="cb7-670"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="fu">el</span>(<span class="st">"line"</span><span class="op">,</span> {<span class="dt">x1</span><span class="op">:</span> <span class="fu">px</span>(s <span class="op">*</span> z)<span class="op">,</span> <span class="dt">x2</span><span class="op">:</span> <span class="fu">px</span>(s <span class="op">*</span> z)<span class="op">,</span> <span class="dt">y1</span><span class="op">:</span> <span class="fu">py</span>(<span class="dv">0</span>)<span class="op">,</span> <span class="dt">y2</span><span class="op">:</span> <span class="fu">py</span>(<span class="fu">pdf</span>(z)) <span class="op">-</span> <span class="dv">14</span><span class="op">,</span></span>
+<span id="cb7-671"><a href="" aria-hidden="true" tabindex="-1"></a>                <span class="dt">stroke</span><span class="op">:</span> <span class="st">"#e50505"</span><span class="op">,</span> <span class="st">"stroke-width"</span><span class="op">:</span> <span class="dv">3</span>})<span class="op">;</span></span>
+<span id="cb7-672"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="fu">el</span>(<span class="st">"text"</span><span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="fu">px</span>(s <span class="op">*</span> z)<span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="fu">py</span>(<span class="dv">0</span>) <span class="op">+</span> <span class="dv">26</span><span class="op">,</span> <span class="st">"text-anchor"</span><span class="op">:</span> <span class="st">"middle"</span><span class="op">,</span> <span class="st">"font-size"</span><span class="op">:</span> <span class="dv">20</span><span class="op">,</span></span>
+<span id="cb7-673"><a href="" aria-hidden="true" tabindex="-1"></a>                <span class="st">"font-weight"</span><span class="op">:</span> <span class="dv">700</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> <span class="st">"#e50505"</span>}<span class="op">,</span> (s <span class="op">&lt;</span> <span class="dv">0</span> <span class="op">?</span> <span class="st">"-"</span> <span class="op">:</span> <span class="st">"+"</span>) <span class="op">+</span> <span class="fu">f</span>(z<span class="op">,</span> <span class="dv">2</span>))<span class="op">;</span></span>
+<span id="cb7-674"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="co">// a cauda fica perto da borda: com z perto de 4, a 3,2 ela bateria no traco</span></span>
+<span id="cb7-675"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="fu">el</span>(<span class="st">"text"</span><span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="fu">px</span>(s <span class="op">*</span> <span class="fl">3.6</span>)<span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="fu">py</span>(<span class="fl">0.07</span>)<span class="op">,</span> <span class="st">"text-anchor"</span><span class="op">:</span> <span class="st">"middle"</span><span class="op">,</span> <span class="st">"font-size"</span><span class="op">:</span> <span class="dv">17</span><span class="op">,</span></span>
+<span id="cb7-676"><a href="" aria-hidden="true" tabindex="-1"></a>                <span class="dt">fill</span><span class="op">:</span> <span class="st">"#8a8f98"</span>}<span class="op">,</span> <span class="fu">enxuto</span>((<span class="dv">1</span> <span class="op">-</span> c) <span class="op">*</span> <span class="dv">50</span><span class="op">,</span> <span class="dv">3</span>) <span class="op">+</span> <span class="st">"%"</span>)<span class="op">;</span></span>
+<span id="cb7-677"><a href="" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb7-678"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">el</span>(<span class="st">"text"</span><span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="fu">px</span>(<span class="dv">0</span>)<span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="fu">py</span>(<span class="fl">0.16</span>)<span class="op">,</span> <span class="st">"text-anchor"</span><span class="op">:</span> <span class="st">"middle"</span><span class="op">,</span> <span class="st">"font-size"</span><span class="op">:</span> <span class="dv">26</span><span class="op">,</span></span>
+<span id="cb7-679"><a href="" aria-hidden="true" tabindex="-1"></a>              <span class="st">"font-weight"</span><span class="op">:</span> <span class="dv">700</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> <span class="st">"#12996f"</span>}<span class="op">,</span> <span class="fu">enxuto</span>(c <span class="op">*</span> <span class="dv">100</span><span class="op">,</span> <span class="dv">2</span>) <span class="op">+</span> <span class="st">"% da área"</span>)<span class="op">;</span></span>
+<span id="cb7-680"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">el</span>(<span class="st">"text"</span><span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="fu">px</span>(<span class="dv">0</span>)<span class="op">,</span> <span class="dt">y</span><span class="op">:</span> topo <span class="op">-</span> <span class="dv">6</span><span class="op">,</span> <span class="st">"text-anchor"</span><span class="op">:</span> <span class="st">"middle"</span><span class="op">,</span> <span class="st">"font-size"</span><span class="op">:</span> <span class="dv">19</span><span class="op">,</span></span>
+<span id="cb7-681"><a href="" aria-hidden="true" tabindex="-1"></a>              <span class="dt">fill</span><span class="op">:</span> <span class="st">"#8a8f98"</span>}<span class="op">,</span> <span class="st">"z = "</span> <span class="op">+</span> <span class="fu">f</span>(z<span class="op">,</span> <span class="dv">2</span>) <span class="op">+</span> <span class="st">" erros-padrão a partir do centro"</span>)<span class="op">;</span></span>
+<span id="cb7-682"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> svg<span class="op">;</span></span>
+<span id="cb7-683"><a href="" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb7-684"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-685"><a href="" aria-hidden="true" tabindex="-1"></a><span class="co">// O intervalo do slide de construcao, num eixo parado de 0 a 6 anos: mexer na</span></span>
+<span id="cb7-686"><a href="" aria-hidden="true" tabindex="-1"></a><span class="co">// media so desloca a barra, e mexer no DP, no n e na confianca muda a largura.</span></span>
+<span id="cb7-687"><a href="" aria-hidden="true" tabindex="-1"></a><span class="co">// O que passa do eixo e cortado na borda, com uma ponta de seta.</span></span>
+<span id="cb7-688"><a href="" aria-hidden="true" tabindex="-1"></a>desenhaIC <span class="op">=</span> <span class="kw">function</span> ({media<span class="op">,</span> dp<span class="op">,</span> n<span class="op">,</span> conf}) {</span>
+<span id="cb7-689"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> z <span class="op">=</span> <span class="fu">zDaConfianca</span>(conf)<span class="op">;</span></span>
+<span id="cb7-690"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> ep <span class="op">=</span> dp <span class="op">/</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sqrt</span>(n)<span class="op">;</span></span>
+<span id="cb7-691"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> lo <span class="op">=</span> media <span class="op">-</span> z <span class="op">*</span> ep<span class="op">,</span> hi <span class="op">=</span> media <span class="op">+</span> z <span class="op">*</span> ep<span class="op">;</span></span>
+<span id="cb7-692"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> L <span class="op">=</span> <span class="dv">900</span><span class="op">,</span> A <span class="op">=</span> <span class="dv">250</span><span class="op">,</span> m <span class="op">=</span> <span class="dv">40</span><span class="op">,</span> x0 <span class="op">=</span> <span class="dv">0</span><span class="op">,</span> x1 <span class="op">=</span> <span class="dv">6</span><span class="op">,</span> yb <span class="op">=</span> <span class="dv">118</span><span class="op">,</span> base <span class="op">=</span> <span class="dv">178</span><span class="op">;</span></span>
+<span id="cb7-693"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> px <span class="op">=</span> (v) <span class="kw">=&gt;</span> m <span class="op">+</span> ((<span class="bu">Math</span><span class="op">.</span><span class="fu">min</span>(x1<span class="op">,</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">max</span>(x0<span class="op">,</span> v)) <span class="op">-</span> x0) <span class="op">/</span> (x1 <span class="op">-</span> x0)) <span class="op">*</span> (L <span class="op">-</span> <span class="dv">2</span> <span class="op">*</span> m)<span class="op">;</span></span>
+<span id="cb7-694"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> ns <span class="op">=</span> <span class="st">"http://www.w3.org/2000/svg"</span><span class="op">;</span></span>
+<span id="cb7-695"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> svg <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">createElementNS</span>(ns<span class="op">,</span> <span class="st">"svg"</span>)<span class="op">;</span></span>
+<span id="cb7-696"><a href="" aria-hidden="true" tabindex="-1"></a>  svg<span class="op">.</span><span class="fu">setAttribute</span>(<span class="st">"viewBox"</span><span class="op">,</span> <span class="st">"0 0 "</span> <span class="op">+</span> L <span class="op">+</span> <span class="st">" "</span> <span class="op">+</span> A)<span class="op">;</span></span>
+<span id="cb7-697"><a href="" aria-hidden="true" tabindex="-1"></a>  svg<span class="op">.</span><span class="fu">setAttribute</span>(<span class="st">"width"</span><span class="op">,</span> <span class="st">"100%"</span>)<span class="op">;</span></span>
+<span id="cb7-698"><a href="" aria-hidden="true" tabindex="-1"></a>  svg<span class="op">.</span><span class="at">style</span><span class="op">.</span><span class="at">maxHeight</span> <span class="op">=</span> <span class="st">"280px"</span><span class="op">;</span></span>
+<span id="cb7-699"><a href="" aria-hidden="true" tabindex="-1"></a>  svg<span class="op">.</span><span class="at">style</span><span class="op">.</span><span class="at">display</span> <span class="op">=</span> <span class="st">"block"</span><span class="op">;</span></span>
+<span id="cb7-700"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> el <span class="op">=</span> (tag<span class="op">,</span> attrs<span class="op">,</span> texto) <span class="kw">=&gt;</span> {</span>
+<span id="cb7-701"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> no <span class="op">=</span> <span class="bu">document</span><span class="op">.</span><span class="fu">createElementNS</span>(ns<span class="op">,</span> tag)<span class="op">;</span></span>
+<span id="cb7-702"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (<span class="kw">const</span> [k<span class="op">,</span> v] <span class="kw">of</span> <span class="bu">Object</span><span class="op">.</span><span class="fu">entries</span>(attrs)) no<span class="op">.</span><span class="fu">setAttribute</span>(k<span class="op">,</span> v)<span class="op">;</span></span>
+<span id="cb7-703"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (texto) no<span class="op">.</span><span class="at">textContent</span> <span class="op">=</span> texto<span class="op">;</span></span>
+<span id="cb7-704"><a href="" aria-hidden="true" tabindex="-1"></a>    svg<span class="op">.</span><span class="fu">appendChild</span>(no)<span class="op">;</span></span>
+<span id="cb7-705"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> no<span class="op">;</span></span>
+<span id="cb7-706"><a href="" aria-hidden="true" tabindex="-1"></a>  }<span class="op">;</span></span>
+<span id="cb7-707"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> f <span class="op">=</span> (v<span class="op">,</span> casas) <span class="kw">=&gt;</span> v<span class="op">.</span><span class="fu">toFixed</span>(casas)<span class="op">.</span><span class="fu">replace</span>(<span class="st">"."</span><span class="op">,</span> <span class="st">","</span>)<span class="op">;</span></span>
+<span id="cb7-708"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-709"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">el</span>(<span class="st">"line"</span><span class="op">,</span> {<span class="dt">x1</span><span class="op">:</span> m<span class="op">,</span> <span class="dt">x2</span><span class="op">:</span> L <span class="op">-</span> m<span class="op">,</span> <span class="dt">y1</span><span class="op">:</span> base<span class="op">,</span> <span class="dt">y2</span><span class="op">:</span> base<span class="op">,</span> <span class="dt">stroke</span><span class="op">:</span> <span class="st">"#8a8f98"</span><span class="op">,</span> <span class="st">"stroke-width"</span><span class="op">:</span> <span class="fl">1.5</span>})<span class="op">;</span></span>
+<span id="cb7-710"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (<span class="kw">let</span> v <span class="op">=</span> x0<span class="op">;</span> v <span class="op">&lt;=</span> x1<span class="op">;</span> v<span class="op">++</span>) {</span>
+<span id="cb7-711"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="fu">el</span>(<span class="st">"line"</span><span class="op">,</span> {<span class="dt">x1</span><span class="op">:</span> <span class="fu">px</span>(v)<span class="op">,</span> <span class="dt">x2</span><span class="op">:</span> <span class="fu">px</span>(v)<span class="op">,</span> <span class="dt">y1</span><span class="op">:</span> base<span class="op">,</span> <span class="dt">y2</span><span class="op">:</span> base <span class="op">+</span> <span class="dv">7</span><span class="op">,</span> <span class="dt">stroke</span><span class="op">:</span> <span class="st">"#8a8f98"</span><span class="op">,</span> <span class="st">"stroke-width"</span><span class="op">:</span> <span class="fl">1.5</span>})<span class="op">;</span></span>
+<span id="cb7-712"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="fu">el</span>(<span class="st">"text"</span><span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="fu">px</span>(v)<span class="op">,</span> <span class="dt">y</span><span class="op">:</span> base <span class="op">+</span> <span class="dv">30</span><span class="op">,</span> <span class="st">"text-anchor"</span><span class="op">:</span> <span class="st">"middle"</span><span class="op">,</span> <span class="st">"font-size"</span><span class="op">:</span> <span class="dv">19</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> <span class="st">"#8a8f98"</span>}<span class="op">,</span> <span class="bu">String</span>(v))<span class="op">;</span></span>
+<span id="cb7-713"><a href="" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb7-714"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">el</span>(<span class="st">"text"</span><span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> L <span class="op">-</span> m<span class="op">,</span> <span class="dt">y</span><span class="op">:</span> base <span class="op">+</span> <span class="dv">58</span><span class="op">,</span> <span class="st">"text-anchor"</span><span class="op">:</span> <span class="st">"end"</span><span class="op">,</span> <span class="st">"font-size"</span><span class="op">:</span> <span class="dv">17</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> <span class="st">"#8a8f98"</span>}<span class="op">,</span> <span class="st">"anos"</span>)<span class="op">;</span></span>
+<span id="cb7-715"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-716"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">el</span>(<span class="st">"line"</span><span class="op">,</span> {<span class="dt">x1</span><span class="op">:</span> <span class="fu">px</span>(lo)<span class="op">,</span> <span class="dt">x2</span><span class="op">:</span> <span class="fu">px</span>(hi)<span class="op">,</span> <span class="dt">y1</span><span class="op">:</span> yb<span class="op">,</span> <span class="dt">y2</span><span class="op">:</span> yb<span class="op">,</span> <span class="dt">stroke</span><span class="op">:</span> <span class="st">"#12996f"</span><span class="op">,</span> <span class="st">"stroke-width"</span><span class="op">:</span> <span class="dv">9</span><span class="op">,</span></span>
+<span id="cb7-717"><a href="" aria-hidden="true" tabindex="-1"></a>              <span class="st">"stroke-linecap"</span><span class="op">:</span> <span class="st">"butt"</span>})<span class="op">;</span></span>
+<span id="cb7-718"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (<span class="kw">const</span> [v<span class="op">,</span> lado] <span class="kw">of</span> [[lo<span class="op">,</span> <span class="op">-</span><span class="dv">1</span>]<span class="op">,</span> [hi<span class="op">,</span> <span class="dv">1</span>]]) {</span>
+<span id="cb7-719"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> cortado <span class="op">=</span> v <span class="op">&lt;</span> x0 <span class="op">||</span> v <span class="op">&gt;</span> x1<span class="op">;</span></span>
+<span id="cb7-720"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="kw">const</span> xp <span class="op">=</span> <span class="fu">px</span>(v)<span class="op">;</span></span>
+<span id="cb7-721"><a href="" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (cortado) {</span>
+<span id="cb7-722"><a href="" aria-hidden="true" tabindex="-1"></a>      <span class="fu">el</span>(<span class="st">"path"</span><span class="op">,</span> {<span class="dt">d</span><span class="op">:</span> <span class="vs">`M</span><span class="sc">${</span>xp<span class="sc">}</span><span class="vs">,</span><span class="sc">${</span>yb <span class="op">-</span> <span class="dv">13</span><span class="sc">}</span><span class="vs"> L</span><span class="sc">${</span>xp <span class="op">+</span> lado <span class="op">*</span> <span class="dv">16</span><span class="sc">}</span><span class="vs">,</span><span class="sc">${</span>yb<span class="sc">}</span><span class="vs"> L</span><span class="sc">${</span>xp<span class="sc">}</span><span class="vs">,</span><span class="sc">${</span>yb <span class="op">+</span> <span class="dv">13</span><span class="sc">}</span><span class="vs"> Z`</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> <span class="st">"#12996f"</span>})<span class="op">;</span></span>
+<span id="cb7-723"><a href="" aria-hidden="true" tabindex="-1"></a>    } <span class="cf">else</span> {</span>
+<span id="cb7-724"><a href="" aria-hidden="true" tabindex="-1"></a>      <span class="fu">el</span>(<span class="st">"line"</span><span class="op">,</span> {<span class="dt">x1</span><span class="op">:</span> xp<span class="op">,</span> <span class="dt">x2</span><span class="op">:</span> xp<span class="op">,</span> <span class="dt">y1</span><span class="op">:</span> yb <span class="op">-</span> <span class="dv">16</span><span class="op">,</span> <span class="dt">y2</span><span class="op">:</span> yb <span class="op">+</span> <span class="dv">16</span><span class="op">,</span> <span class="dt">stroke</span><span class="op">:</span> <span class="st">"#12996f"</span><span class="op">,</span> <span class="st">"stroke-width"</span><span class="op">:</span> <span class="dv">4</span>})<span class="op">;</span></span>
+<span id="cb7-725"><a href="" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb7-726"><a href="" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb7-727"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">el</span>(<span class="st">"circle"</span><span class="op">,</span> {<span class="dt">cx</span><span class="op">:</span> <span class="fu">px</span>(media)<span class="op">,</span> <span class="dt">cy</span><span class="op">:</span> yb<span class="op">,</span> <span class="dt">r</span><span class="op">:</span> <span class="dv">9</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> <span class="st">"#e50505"</span>})<span class="op">;</span></span>
+<span id="cb7-728"><a href="" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-729"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> meio <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">min</span>(L <span class="op">-</span> m <span class="op">-</span> <span class="dv">170</span><span class="op">,</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">max</span>(m <span class="op">+</span> <span class="dv">170</span><span class="op">,</span> <span class="fu">px</span>(media)))<span class="op">;</span></span>
+<span id="cb7-730"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">el</span>(<span class="st">"text"</span><span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> meio<span class="op">,</span> <span class="dt">y</span><span class="op">:</span> yb <span class="op">-</span> <span class="dv">38</span><span class="op">,</span> <span class="st">"text-anchor"</span><span class="op">:</span> <span class="st">"middle"</span><span class="op">,</span> <span class="st">"font-size"</span><span class="op">:</span> <span class="dv">30</span><span class="op">,</span> <span class="st">"font-weight"</span><span class="op">:</span> <span class="dv">700</span><span class="op">,</span></span>
+<span id="cb7-731"><a href="" aria-hidden="true" tabindex="-1"></a>              <span class="dt">style</span><span class="op">:</span> <span class="st">"fill: var(--texto)"</span>}<span class="op">,</span> <span class="vs">`de </span><span class="sc">${</span><span class="fu">f</span>(lo<span class="op">,</span> <span class="dv">2</span>)<span class="sc">}</span><span class="vs"> a </span><span class="sc">${</span><span class="fu">f</span>(hi<span class="op">,</span> <span class="dv">2</span>)<span class="sc">}</span><span class="vs"> anos`</span>)<span class="op">;</span></span>
+<span id="cb7-732"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="fu">el</span>(<span class="st">"text"</span><span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> L <span class="op">/</span> <span class="dv">2</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="dv">30</span><span class="op">,</span> <span class="st">"text-anchor"</span><span class="op">:</span> <span class="st">"middle"</span><span class="op">,</span> <span class="st">"font-size"</span><span class="op">:</span> <span class="dv">19</span><span class="op">,</span> <span class="dt">fill</span><span class="op">:</span> <span class="st">"#8a8f98"</span>}<span class="op">,</span></span>
+<span id="cb7-733"><a href="" aria-hidden="true" tabindex="-1"></a>     <span class="vs">`EP = </span><span class="sc">${</span><span class="fu">f</span>(dp<span class="op">,</span> <span class="dv">1</span>)<span class="sc">}</span><span class="vs"> ÷ √</span><span class="sc">${</span>n<span class="sc">}</span><span class="vs"> = </span><span class="sc">${</span><span class="fu">f</span>(ep<span class="op">,</span> <span class="dv">2</span>)<span class="sc">}</span><span class="vs">   ·   z = </span><span class="sc">${</span><span class="fu">f</span>(z<span class="op">,</span> <span class="dv">2</span>)<span class="sc">}</span><span class="vs">   ·   margem = z × EP = </span><span class="sc">${</span><span class="fu">f</span>(z <span class="op">*</span> ep<span class="op">,</span> <span class="dv">2</span>)<span class="sc">}</span><span class="vs">`</span>)<span class="op">;</span></span>
+<span id="cb7-734"><a href="" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> svg<span class="op">;</span></span>
+<span id="cb7-735"><a href="" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="cell-output cell-output-display hidden">
+<div>
+<div id="ojs-cell-7-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display hidden">
+<div>
+<div id="ojs-cell-7-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display hidden">
+<div>
+<div id="ojs-cell-7-3" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display hidden">
+<div>
+<div id="ojs-cell-7-4" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display hidden">
+<div>
+<div id="ojs-cell-7-5" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display hidden">
+<div>
+<div id="ojs-cell-7-6" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display hidden">
+<div>
+<div id="ojs-cell-7-7" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display hidden">
+<div>
+<div id="ojs-cell-7-8" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display hidden">
+<div>
+<div id="ojs-cell-7-9" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display hidden">
+<div>
+<div id="ojs-cell-7-10" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+</div>
+
+</section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="aula11_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="aula11_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="aula11_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="aula11_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="aula11_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="aula11_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="aula11_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="aula11_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="aula11_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="aula11_files/libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":false},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: false,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1280,
+
+        height: 760,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 6.0e-2,
+
+        // Bounds for smallest/largest possible scale to apply to content
+        minScale: 0.2,
+
+        maxScale: 1.6,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    <script type="ojs-module-contents">
+    eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6Ii8vIG9zIHRyw6pzIGNvbnRyb2xlcyBudW1hIGxpbmhhIHPDsywgcGFyYSBzb2JyYXIgYWx0dXJhIHBhcmEgb3MgaGlzdG9ncmFtYXNcbnZpZXdvZiB0Y2wgPSBJbnB1dHMuZm9ybSh7XG4gIGZvcm1hOiBJbnB1dHMucmFkaW8oW1wiYXNzaW3DqXRyaWNhXCIsIFwiZHVhcyBtb2Rhc1wiLCBcInVuaWZvcm1lXCIsIFwibW9lZGFcIl0sXG4gICAgICAgICAgICAgICAgICAgICAge3ZhbHVlOiBcImFzc2ltw6l0cmljYVwiLCBsYWJlbDogXCJwb3B1bGHDp8Ojb1wifSksXG4gIG46IElucHV0cy5yYW5nZShbMSwgMTAwXSwge3ZhbHVlOiAxLCBzdGVwOiAxLCBsYWJlbDogXCJ0YW1hbmhvIGRhIGFtb3N0cmFcIn0pLFxuICBrOiBJbnB1dHMucmFuZ2UoWzEwMCwgNTAwMF0sIHt2YWx1ZTogMTAwMCwgc3RlcDogMTAwLCBsYWJlbDogXCJxdWFudGFzIGFtb3N0cmFzXCJ9KVxufSwge3RlbXBsYXRlOiAoaSkgPT4gaHRsLmh0bWxgPGRpdiBjbGFzcz1cImNvbnRyb2xlcy10Y2xcIj4ke09iamVjdC52YWx1ZXMoaSl9PC9kaXY+YH0pXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTIiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJ7XG4gIGNvbnN0IHtmb3JtYSwgbiwga30gPSB0Y2w7XG4gIGNvbnN0IHBvcCA9IEFycmF5LmZyb20oe2xlbmd0aDogNDAwMH0sICgpID0+IHBvcHVsYWNhb1tmb3JtYV0oKSk7XG4gIGNvbnN0IG1lZHMgPSBBcnJheS5mcm9tKHtsZW5ndGg6IGt9LCAoKSA9PiBtZWRpYXMobiwgZm9ybWEpKTtcbiAgY29uc3QgY2FpeGEgPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KFwiZGl2XCIpO1xuICBjYWl4YS5hcHBlbmQoXG4gICAgcm90dWxvKFwiYSBwb3B1bGHDp8Ojb1wiKSxcbiAgICBoaXN0b2dyYW1hKHBvcCwgbWVkaWFfdGVvcmljYVtmb3JtYV0sIDE1MCwgXCIjOGE4Zjk4XCIpLFxuICAgIHJvdHVsbyhgYXMgbcOpZGlhcyBkZSAke2t9IGFtb3N0cmFzIGRlIHRhbWFuaG8gJHtufWApLFxuICAgIGhpc3RvZ3JhbWEobWVkcywgbWVkaWFfdGVvcmljYVtmb3JtYV0sIDI1MCwgXCIjMTI5OTZmXCIpXG4gICk7XG4gIHJldHVybiBjYWl4YTtcbn1cbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMyIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InZpZXdvZiBpYyA9IElucHV0cy5mb3JtKHtcbiAgbWVkaWE6IElucHV0cy5yYW5nZShbMSwgNV0sIHt2YWx1ZTogMi44LCBzdGVwOiAwLjEsIGxhYmVsOiBcIm3DqWRpYVwifSksXG4gIGRwOiBJbnB1dHMucmFuZ2UoWzAuNSwgNF0sIHt2YWx1ZTogMS45LCBzdGVwOiAwLjEsIGxhYmVsOiBcImRlc3Zpby1wYWRyw6NvXCJ9KSxcbiAgbjogSW5wdXRzLnJhbmdlKFs0LCAxMDAwXSwge3ZhbHVlOiAxMDAsIHN0ZXA6IDEsIGxhYmVsOiBcInRhbWFuaG8gZGEgYW1vc3RyYVwifSksXG4gIGNvbmY6IElucHV0cy5yYW5nZShbMCwgMC45OTk5XSwge3ZhbHVlOiAwLjk1LCBzdGVwOiAwLjAwMDEsIGxhYmVsOiBcImNvbmZpYW7Dp2FcIn0pXG59LCB7dGVtcGxhdGU6IChpKSA9PiBodGwuaHRtbGA8ZGl2IGNsYXNzPVwiY29udHJvbGVzLWljXCI+JHtPYmplY3QudmFsdWVzKGkpfTwvZGl2PmB9KVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC00IiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoiZGVzZW5oYUlDKGljKVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC01IiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoidmlld29mIGNvbmYgPSBJbnB1dHMucmFuZ2UoWzAuNSwgMC45OTk5XSwge3ZhbHVlOiAwLjk1LCBzdGVwOiAwLjAwMDEsIGxhYmVsOiBcImNvbmZpYW7Dp2FcIn0pXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTYiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJjdXJ2YU5vcm1hbChjb25mKVxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC03IiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoiXG4vLyAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS1cbi8vIEFzIGZ1bmNvZXMgZGFzIHNpbXVsYWNvZXMuXG4vL1xuLy8gVHVkbyBkZXNlbmhhZG8gZW0gU1ZHIG5hIG1hbywgc2VtIE9ic2VydmFibGUgUGxvdCBlIHNlbSBkMy4gTyBtb3Rpdm8gZVxuLy8gcHJhdGljbzogZXNzYXMgYmlibGlvdGVjYXMgZW50cmFtIHBvciBpbXBvcnQgcmVtb3RvLCBlIHVtIGRlY2sgZGUgYXVsYSB0ZW1cbi8vIHF1ZSBmdW5jaW9uYXIgY29tIG8gd2ktZmkgZGEgc2FsYSBjYWluZG8uXG4vLyAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS1cblxuLy8gQXMgcXVhdHJvIHBvcHVsYWNvZXMgZG8gc2xpZGUgZG8gVENMLiBDYWRhIHVtYSBkZXZvbHZlIFVNIHZhbG9yIHNvcnRlYWRvLCBlXG4vLyB0b2RhcyB2aXZlbSBlbnRyZSAwIGUgMSBwYXJhIG8gaGlzdG9ncmFtYSBwb2RlciB0ZXIgZWl4byBmaXhvOiBjb20gbyBlaXhvXG4vLyBwYXJhZG8sIG8gcXVlIG11ZGEgYW8gbWV4ZXIgbm8gdGFtYW5obyBkYSBhbW9zdHJhIGUgYSBsYXJndXJhIGRvIG1vbnRlLlxucG9wdWxhY2FvID0gKHtcbiAgXCJhc3NpbcOpdHJpY2FcIjogKCkgPT4gTWF0aC5taW4oMSwgLU1hdGgubG9nKDEgLSBNYXRoLnJhbmRvbSgpKSAvIDUpLFxuICBcImR1YXMgbW9kYXNcIjogKCkgPT5cbiAgICBNYXRoLnJhbmRvbSgpIDwgMC41XG4gICAgICA/IDAuMiArIChNYXRoLnJhbmRvbSgpIC0gMC41KSAqIDAuMTZcbiAgICAgIDogMC44ICsgKE1hdGgucmFuZG9tKCkgLSAwLjUpICogMC4xNixcbiAgXCJ1bmlmb3JtZVwiOiAoKSA9PiBNYXRoLnJhbmRvbSgpLFxuICBcIm1vZWRhXCI6ICgpID0+IChNYXRoLnJhbmRvbSgpIDwgMC41ID8gMCA6IDEpXG59KVxuXG5tZWRpYV90ZW9yaWNhID0gKHtcbiAgXCJhc3NpbcOpdHJpY2FcIjogMC4yLFxuICBcImR1YXMgbW9kYXNcIjogMC41LFxuICBcInVuaWZvcm1lXCI6IDAuNSxcbiAgXCJtb2VkYVwiOiAwLjVcbn0pXG5cbm1lZGlhcyA9IGZ1bmN0aW9uIChuLCBmb3JtYSkge1xuICBjb25zdCBmID0gcG9wdWxhY2FvW2Zvcm1hXTtcbiAgbGV0IHMgPSAwO1xuICBmb3IgKGxldCBpID0gMDsgaSA8IG47IGkrKykgcyArPSBmKCk7XG4gIHJldHVybiBzIC8gbjtcbn1cblxucm90dWxvID0gZnVuY3Rpb24gKHRleHRvKSB7XG4gIGNvbnN0IGQgPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50KFwiZGl2XCIpO1xuICBkLnN0eWxlLmNzc1RleHQgPSBcImZvbnQtc2l6ZTouNTVlbTtmb250LXdlaWdodDo2MDA7bGV0dGVyLXNwYWNpbmc6LjA4ZW07dGV4dC10cmFuc2Zvcm06dXBwZXJjYXNlO2NvbG9yOnZhcigtLXRleHRvLWZyYWNvKTttYXJnaW46LjJyZW0gMCAwXCI7XG4gIGQudGV4dENvbnRlbnQgPSB0ZXh0bztcbiAgcmV0dXJuIGQ7XG59XG5cbmhpc3RvZ3JhbWEgPSBmdW5jdGlvbiAodmFsb3JlcywgbWFyY2EsIGFsdHVyYSwgY29yKSB7XG4gIGNvbnN0IEwgPSA5MDAsIEEgPSAzMDAsIG0gPSAzMCwgZmFpeGFzID0gNTA7XG4gIGNvbnN0IGNvbnRhZ2VtID0gbmV3IEFycmF5KGZhaXhhcykuZmlsbCgwKTtcbiAgZm9yIChjb25zdCB2IG9mIHZhbG9yZXMpIHtcbiAgICBjb25zdCBpID0gTWF0aC5taW4oZmFpeGFzIC0gMSwgTWF0aC5tYXgoMCwgTWF0aC5mbG9vcih2ICogZmFpeGFzKSkpO1xuICAgIGNvbnRhZ2VtW2ldICs9IDE7XG4gIH1cbiAgY29uc3QgdG9wbyA9IE1hdGgubWF4KC4uLmNvbnRhZ2VtKTtcbiAgY29uc3QgbGFyZyA9IChMIC0gMiAqIG0pIC8gZmFpeGFzO1xuICBjb25zdCBucyA9IFwiaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmdcIjtcbiAgY29uc3Qgc3ZnID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudE5TKG5zLCBcInN2Z1wiKTtcbiAgc3ZnLnNldEF0dHJpYnV0ZShcInZpZXdCb3hcIiwgXCIwIDAgXCIgKyBMICsgXCIgXCIgKyBBKTtcbiAgc3ZnLnNldEF0dHJpYnV0ZShcIndpZHRoXCIsIFwiMTAwJVwiKTtcbiAgc3ZnLnNldEF0dHJpYnV0ZShcInByZXNlcnZlQXNwZWN0UmF0aW9cIiwgXCJub25lXCIpO1xuICBzdmcuc3R5bGUuaGVpZ2h0ID0gYWx0dXJhICsgXCJweFwiO1xuICBzdmcuc3R5bGUuZGlzcGxheSA9IFwiYmxvY2tcIjtcblxuICBjb250YWdlbS5mb3JFYWNoKGZ1bmN0aW9uIChjLCBpKSB7XG4gICAgY29uc3QgaCA9IHRvcG8gPyAoYyAvIHRvcG8pICogKEEgLSAyICogbSkgOiAwO1xuICAgIGNvbnN0IHIgPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50TlMobnMsIFwicmVjdFwiKTtcbiAgICByLnNldEF0dHJpYnV0ZShcInhcIiwgbSArIGkgKiBsYXJnICsgMC44KTtcbiAgICByLnNldEF0dHJpYnV0ZShcInlcIiwgQSAtIG0gLSBoKTtcbiAgICByLnNldEF0dHJpYnV0ZShcIndpZHRoXCIsIE1hdGgubWF4KDEsIGxhcmcgLSAxLjYpKTtcbiAgICByLnNldEF0dHJpYnV0ZShcImhlaWdodFwiLCBoKTtcbiAgICByLnNldEF0dHJpYnV0ZShcImZpbGxcIiwgY29yKTtcbiAgICBzdmcuYXBwZW5kQ2hpbGQocik7XG4gIH0pO1xuXG4gIGNvbnN0IGVpeG8gPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50TlMobnMsIFwibGluZVwiKTtcbiAgZWl4by5zZXRBdHRyaWJ1dGUoXCJ4MVwiLCBtKTtcbiAgZWl4by5zZXRBdHRyaWJ1dGUoXCJ4MlwiLCBMIC0gbSk7XG4gIGVpeG8uc2V0QXR0cmlidXRlKFwieTFcIiwgQSAtIG0pO1xuICBlaXhvLnNldEF0dHJpYnV0ZShcInkyXCIsIEEgLSBtKTtcbiAgZWl4by5zZXRBdHRyaWJ1dGUoXCJzdHJva2VcIiwgXCIjOGE4Zjk4XCIpO1xuICBzdmcuYXBwZW5kQ2hpbGQoZWl4byk7XG5cbiAgY29uc3QgeCA9IG0gKyBtYXJjYSAqIChMIC0gMiAqIG0pO1xuICBjb25zdCBsaW5oYSA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnROUyhucywgXCJsaW5lXCIpO1xuICBsaW5oYS5zZXRBdHRyaWJ1dGUoXCJ4MVwiLCB4KTtcbiAgbGluaGEuc2V0QXR0cmlidXRlKFwieDJcIiwgeCk7XG4gIGxpbmhhLnNldEF0dHJpYnV0ZShcInkxXCIsIDQpO1xuICBsaW5oYS5zZXRBdHRyaWJ1dGUoXCJ5MlwiLCBBIC0gbSk7XG4gIGxpbmhhLnNldEF0dHJpYnV0ZShcInN0cm9rZVwiLCBcIiNlNTA1MDVcIik7XG4gIGxpbmhhLnNldEF0dHJpYnV0ZShcInN0cm9rZS13aWR0aFwiLCAzKTtcbiAgc3ZnLmFwcGVuZENoaWxkKGxpbmhhKTtcblxuICByZXR1cm4gc3ZnO1xufVxuXG4vLyBBcmVhIGRhIG5vcm1hbCBwYWRyYW8gZW50cmUgLXogZSB6IGUgZXJmKHogLyByYWl6IGRlIDIpLiBBIGFwcm94aW1hY2FvIGRlXG4vLyBBYnJhbW93aXR6IGUgU3RlZ3VuICg3LjEuMjYpIGVycmEgbWVub3MgcXVlIDFlLTcsIGUgbyB6IHNhaSBwb3IgYmlzc2VjYW8uXG5lcmYgPSBmdW5jdGlvbiAoeCkge1xuICBjb25zdCBzID0gTWF0aC5zaWduKHgpO1xuICBjb25zdCBhID0gTWF0aC5hYnMoeCk7XG4gIGNvbnN0IHQgPSAxIC8gKDEgKyAwLjMyNzU5MTEgKiBhKTtcbiAgY29uc3QgeSA9IDEgLSAoKCgoKDEuMDYxNDA1NDI5ICogdCAtIDEuNDUzMTUyMDI3KSAqIHQpICsgMS40MjE0MTM3NDEpICogdFxuICAgIC0gMC4yODQ0OTY3MzYpICogdCArIDAuMjU0ODI5NTkyKSAqIHQgKiBNYXRoLmV4cCgtYSAqIGEpO1xuICByZXR1cm4gcyAqIHk7XG59XG5cbnpEYUNvbmZpYW5jYSA9IGZ1bmN0aW9uIChjKSB7XG4gIGxldCBsbyA9IDAsIGhpID0gNjtcbiAgZm9yIChsZXQgaSA9IDA7IGkgPCA2MDsgaSsrKSB7XG4gICAgY29uc3QgbWVpbyA9IChsbyArIGhpKSAvIDI7XG4gICAgaWYgKGVyZihtZWlvIC8gTWF0aC5TUVJUMikgPCBjKSBsbyA9IG1laW87IGVsc2UgaGkgPSBtZWlvO1xuICB9XG4gIHJldHVybiAobG8gKyBoaSkgLyAyO1xufVxuXG4vLyBOdW1lcm8gY29tIHZpcmd1bGEgZSBzZW0gemVyb3Mgc29icmFuZG86IDk1IC0+IFwiOTVcIiwgOTkuOTkgLT4gXCI5OSw5OVwiLFxuLy8gMC4wMDUgLT4gXCIwLDAwNVwiLiBDb20gY29uZmlhbmNhIGRlIDAsOTk5OSBvIHRvRml4ZWQgZml4byBtb3N0cmF2YSBcIjEwMCVcIi5cbmVueHV0byA9IGZ1bmN0aW9uICh2LCBjYXNhcykge1xuICByZXR1cm4gdi50b0ZpeGVkKGNhc2FzKS5yZXBsYWNlKC9cXC4/MCskLywgXCJcIikucmVwbGFjZShcIi5cIiwgXCIsXCIpO1xufVxuXG5jdXJ2YU5vcm1hbCA9IGZ1bmN0aW9uIChjKSB7XG4gIGNvbnN0IHogPSB6RGFDb25maWFuY2EoYyk7XG4gIGNvbnN0IEwgPSA5MDAsIEEgPSAzMDAsIG0gPSAzNCwgdG9wbyA9IDMwO1xuICBjb25zdCBweCA9ICh2KSA9PiBtICsgKCh2ICsgNCkgLyA4KSAqIChMIC0gMiAqIG0pO1xuICBjb25zdCBwZGYgPSAodikgPT4gTWF0aC5leHAoLXYgKiB2IC8gMikgLyBNYXRoLnNxcnQoMiAqIE1hdGguUEkpO1xuICBjb25zdCBweSA9IChkKSA9PiBBIC0gbSAtIChkIC8gMC40KSAqIChBIC0gbSAtIHRvcG8pO1xuICBjb25zdCBucyA9IFwiaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmdcIjtcbiAgY29uc3Qgc3ZnID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudE5TKG5zLCBcInN2Z1wiKTtcbiAgc3ZnLnNldEF0dHJpYnV0ZShcInZpZXdCb3hcIiwgXCIwIDAgXCIgKyBMICsgXCIgXCIgKyBBKTtcbiAgc3ZnLnNldEF0dHJpYnV0ZShcIndpZHRoXCIsIFwiMTAwJVwiKTtcbiAgc3ZnLnN0eWxlLm1heEhlaWdodCA9IFwiMzMwcHhcIjtcbiAgc3ZnLnN0eWxlLmRpc3BsYXkgPSBcImJsb2NrXCI7XG4gIGNvbnN0IGVsID0gKHRhZywgYXR0cnMsIHRleHRvKSA9PiB7XG4gICAgY29uc3QgbiA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnROUyhucywgdGFnKTtcbiAgICBmb3IgKGNvbnN0IFtrLCB2XSBvZiBPYmplY3QuZW50cmllcyhhdHRycykpIG4uc2V0QXR0cmlidXRlKGssIHYpO1xuICAgIGlmICh0ZXh0bykgbi50ZXh0Q29udGVudCA9IHRleHRvO1xuICAgIHN2Zy5hcHBlbmRDaGlsZChuKTtcbiAgICByZXR1cm4gbjtcbiAgfTtcblxuICBsZXQgYXJlYSA9IFwiTVwiICsgcHgoLXopICsgXCIsXCIgKyBweSgwKTtcbiAgZm9yIChsZXQgayA9IDA7IGsgPD0gMTIwOyBrKyspIHtcbiAgICBjb25zdCB2ID0gLXogKyAoMiAqIHogKiBrKSAvIDEyMDtcbiAgICBhcmVhICs9IFwiTFwiICsgcHgodikudG9GaXhlZCgxKSArIFwiLFwiICsgcHkocGRmKHYpKS50b0ZpeGVkKDEpO1xuICB9XG4gIGFyZWEgKz0gXCJMXCIgKyBweCh6KSArIFwiLFwiICsgcHkoMCkgKyBcIlpcIjtcbiAgZWwoXCJwYXRoXCIsIHtkOiBhcmVhLCBmaWxsOiBcIiMxMjk5NmZcIiwgXCJmaWxsLW9wYWNpdHlcIjogMC4zNX0pO1xuXG4gIGxldCBjdXJ2YSA9IFwiXCI7XG4gIGZvciAobGV0IGsgPSAwOyBrIDw9IDI0MDsgaysrKSB7XG4gICAgY29uc3QgdiA9IC00ICsgKDggKiBrKSAvIDI0MDtcbiAgICBjdXJ2YSArPSAoayA/IFwiTFwiIDogXCJNXCIpICsgcHgodikudG9GaXhlZCgxKSArIFwiLFwiICsgcHkocGRmKHYpKS50b0ZpeGVkKDEpO1xuICB9XG4gIGVsKFwicGF0aFwiLCB7ZDogY3VydmEsIGZpbGw6IFwibm9uZVwiLCBzdHJva2U6IFwiIzhhOGY5OFwiLCBcInN0cm9rZS13aWR0aFwiOiAzfSk7XG4gIGVsKFwibGluZVwiLCB7eDE6IG0sIHgyOiBMIC0gbSwgeTE6IHB5KDApLCB5MjogcHkoMCksIHN0cm9rZTogXCIjOGE4Zjk4XCIsIFwic3Ryb2tlLXdpZHRoXCI6IDEuNX0pO1xuXG4gIGNvbnN0IGYgPSAodiwgY2FzYXMpID0+IHYudG9GaXhlZChjYXNhcykucmVwbGFjZShcIi5cIiwgXCIsXCIpO1xuICBmb3IgKGNvbnN0IHMgb2YgWy0xLCAxXSkge1xuICAgIGVsKFwibGluZVwiLCB7eDE6IHB4KHMgKiB6KSwgeDI6IHB4KHMgKiB6KSwgeTE6IHB5KDApLCB5MjogcHkocGRmKHopKSAtIDE0LFxuICAgICAgICAgICAgICAgIHN0cm9rZTogXCIjZTUwNTA1XCIsIFwic3Ryb2tlLXdpZHRoXCI6IDN9KTtcbiAgICBlbChcInRleHRcIiwge3g6IHB4KHMgKiB6KSwgeTogcHkoMCkgKyAyNiwgXCJ0ZXh0LWFuY2hvclwiOiBcIm1pZGRsZVwiLCBcImZvbnQtc2l6ZVwiOiAyMCxcbiAgICAgICAgICAgICAgICBcImZvbnQtd2VpZ2h0XCI6IDcwMCwgZmlsbDogXCIjZTUwNTA1XCJ9LCAocyA8IDAgPyBcIi1cIiA6IFwiK1wiKSArIGYoeiwgMikpO1xuICAgIC8vIGEgY2F1ZGEgZmljYSBwZXJ0byBkYSBib3JkYTogY29tIHogcGVydG8gZGUgNCwgYSAzLDIgZWxhIGJhdGVyaWEgbm8gdHJhY29cbiAgICBlbChcInRleHRcIiwge3g6IHB4KHMgKiAzLjYpLCB5OiBweSgwLjA3KSwgXCJ0ZXh0LWFuY2hvclwiOiBcIm1pZGRsZVwiLCBcImZvbnQtc2l6ZVwiOiAxNyxcbiAgICAgICAgICAgICAgICBmaWxsOiBcIiM4YThmOThcIn0sIGVueHV0bygoMSAtIGMpICogNTAsIDMpICsgXCIlXCIpO1xuICB9XG4gIGVsKFwidGV4dFwiLCB7eDogcHgoMCksIHk6IHB5KDAuMTYpLCBcInRleHQtYW5jaG9yXCI6IFwibWlkZGxlXCIsIFwiZm9udC1zaXplXCI6IDI2LFxuICAgICAgICAgICAgICBcImZvbnQtd2VpZ2h0XCI6IDcwMCwgZmlsbDogXCIjMTI5OTZmXCJ9LCBlbnh1dG8oYyAqIDEwMCwgMikgKyBcIiUgZGEgw6FyZWFcIik7XG4gIGVsKFwidGV4dFwiLCB7eDogcHgoMCksIHk6IHRvcG8gLSA2LCBcInRleHQtYW5jaG9yXCI6IFwibWlkZGxlXCIsIFwiZm9udC1zaXplXCI6IDE5LFxuICAgICAgICAgICAgICBmaWxsOiBcIiM4YThmOThcIn0sIFwieiA9IFwiICsgZih6LCAyKSArIFwiIGVycm9zLXBhZHLDo28gYSBwYXJ0aXIgZG8gY2VudHJvXCIpO1xuICByZXR1cm4gc3ZnO1xufVxuXG4vLyBPIGludGVydmFsbyBkbyBzbGlkZSBkZSBjb25zdHJ1Y2FvLCBudW0gZWl4byBwYXJhZG8gZGUgMCBhIDYgYW5vczogbWV4ZXIgbmFcbi8vIG1lZGlhIHNvIGRlc2xvY2EgYSBiYXJyYSwgZSBtZXhlciBubyBEUCwgbm8gbiBlIG5hIGNvbmZpYW5jYSBtdWRhIGEgbGFyZ3VyYS5cbi8vIE8gcXVlIHBhc3NhIGRvIGVpeG8gZSBjb3J0YWRvIG5hIGJvcmRhLCBjb20gdW1hIHBvbnRhIGRlIHNldGEuXG5kZXNlbmhhSUMgPSBmdW5jdGlvbiAoe21lZGlhLCBkcCwgbiwgY29uZn0pIHtcbiAgY29uc3QgeiA9IHpEYUNvbmZpYW5jYShjb25mKTtcbiAgY29uc3QgZXAgPSBkcCAvIE1hdGguc3FydChuKTtcbiAgY29uc3QgbG8gPSBtZWRpYSAtIHogKiBlcCwgaGkgPSBtZWRpYSArIHogKiBlcDtcbiAgY29uc3QgTCA9IDkwMCwgQSA9IDI1MCwgbSA9IDQwLCB4MCA9IDAsIHgxID0gNiwgeWIgPSAxMTgsIGJhc2UgPSAxNzg7XG4gIGNvbnN0IHB4ID0gKHYpID0+IG0gKyAoKE1hdGgubWluKHgxLCBNYXRoLm1heCh4MCwgdikpIC0geDApIC8gKHgxIC0geDApKSAqIChMIC0gMiAqIG0pO1xuICBjb25zdCBucyA9IFwiaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmdcIjtcbiAgY29uc3Qgc3ZnID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudE5TKG5zLCBcInN2Z1wiKTtcbiAgc3ZnLnNldEF0dHJpYnV0ZShcInZpZXdCb3hcIiwgXCIwIDAgXCIgKyBMICsgXCIgXCIgKyBBKTtcbiAgc3ZnLnNldEF0dHJpYnV0ZShcIndpZHRoXCIsIFwiMTAwJVwiKTtcbiAgc3ZnLnN0eWxlLm1heEhlaWdodCA9IFwiMjgwcHhcIjtcbiAgc3ZnLnN0eWxlLmRpc3BsYXkgPSBcImJsb2NrXCI7XG4gIGNvbnN0IGVsID0gKHRhZywgYXR0cnMsIHRleHRvKSA9PiB7XG4gICAgY29uc3Qgbm8gPSBkb2N1bWVudC5jcmVhdGVFbGVtZW50TlMobnMsIHRhZyk7XG4gICAgZm9yIChjb25zdCBbaywgdl0gb2YgT2JqZWN0LmVudHJpZXMoYXR0cnMpKSBuby5zZXRBdHRyaWJ1dGUoaywgdik7XG4gICAgaWYgKHRleHRvKSBuby50ZXh0Q29udGVudCA9IHRleHRvO1xuICAgIHN2Zy5hcHBlbmRDaGlsZChubyk7XG4gICAgcmV0dXJuIG5vO1xuICB9O1xuICBjb25zdCBmID0gKHYsIGNhc2FzKSA9PiB2LnRvRml4ZWQoY2FzYXMpLnJlcGxhY2UoXCIuXCIsIFwiLFwiKTtcblxuICBlbChcImxpbmVcIiwge3gxOiBtLCB4MjogTCAtIG0sIHkxOiBiYXNlLCB5MjogYmFzZSwgc3Ryb2tlOiBcIiM4YThmOThcIiwgXCJzdHJva2Utd2lkdGhcIjogMS41fSk7XG4gIGZvciAobGV0IHYgPSB4MDsgdiA8PSB4MTsgdisrKSB7XG4gICAgZWwoXCJsaW5lXCIsIHt4MTogcHgodiksIHgyOiBweCh2KSwgeTE6IGJhc2UsIHkyOiBiYXNlICsgNywgc3Ryb2tlOiBcIiM4YThmOThcIiwgXCJzdHJva2Utd2lkdGhcIjogMS41fSk7XG4gICAgZWwoXCJ0ZXh0XCIsIHt4OiBweCh2KSwgeTogYmFzZSArIDMwLCBcInRleHQtYW5jaG9yXCI6IFwibWlkZGxlXCIsIFwiZm9udC1zaXplXCI6IDE5LCBmaWxsOiBcIiM4YThmOThcIn0sIFN0cmluZyh2KSk7XG4gIH1cbiAgZWwoXCJ0ZXh0XCIsIHt4OiBMIC0gbSwgeTogYmFzZSArIDU4LCBcInRleHQtYW5jaG9yXCI6IFwiZW5kXCIsIFwiZm9udC1zaXplXCI6IDE3LCBmaWxsOiBcIiM4YThmOThcIn0sIFwiYW5vc1wiKTtcblxuICBlbChcImxpbmVcIiwge3gxOiBweChsbyksIHgyOiBweChoaSksIHkxOiB5YiwgeTI6IHliLCBzdHJva2U6IFwiIzEyOTk2ZlwiLCBcInN0cm9rZS13aWR0aFwiOiA5LFxuICAgICAgICAgICAgICBcInN0cm9rZS1saW5lY2FwXCI6IFwiYnV0dFwifSk7XG4gIGZvciAoY29uc3QgW3YsIGxhZG9dIG9mIFtbbG8sIC0xXSwgW2hpLCAxXV0pIHtcbiAgICBjb25zdCBjb3J0YWRvID0gdiA8IHgwIHx8IHYgPiB4MTtcbiAgICBjb25zdCB4cCA9IHB4KHYpO1xuICAgIGlmIChjb3J0YWRvKSB7XG4gICAgICBlbChcInBhdGhcIiwge2Q6IGBNJHt4cH0sJHt5YiAtIDEzfSBMJHt4cCArIGxhZG8gKiAxNn0sJHt5Yn0gTCR7eHB9LCR7eWIgKyAxM30gWmAsIGZpbGw6IFwiIzEyOTk2ZlwifSk7XG4gICAgfSBlbHNlIHtcbiAgICAgIGVsKFwibGluZVwiLCB7eDE6IHhwLCB4MjogeHAsIHkxOiB5YiAtIDE2LCB5MjogeWIgKyAxNiwgc3Ryb2tlOiBcIiMxMjk5NmZcIiwgXCJzdHJva2Utd2lkdGhcIjogNH0pO1xuICAgIH1cbiAgfVxuICBlbChcImNpcmNsZVwiLCB7Y3g6IHB4KG1lZGlhKSwgY3k6IHliLCByOiA5LCBmaWxsOiBcIiNlNTA1MDVcIn0pO1xuXG4gIGNvbnN0IG1laW8gPSBNYXRoLm1pbihMIC0gbSAtIDE3MCwgTWF0aC5tYXgobSArIDE3MCwgcHgobWVkaWEpKSk7XG4gIGVsKFwidGV4dFwiLCB7eDogbWVpbywgeTogeWIgLSAzOCwgXCJ0ZXh0LWFuY2hvclwiOiBcIm1pZGRsZVwiLCBcImZvbnQtc2l6ZVwiOiAzMCwgXCJmb250LXdlaWdodFwiOiA3MDAsXG4gICAgICAgICAgICAgIHN0eWxlOiBcImZpbGw6IHZhcigtLXRleHRvKVwifSwgYGRlICR7ZihsbywgMil9IGEgJHtmKGhpLCAyKX0gYW5vc2ApO1xuICBlbChcInRleHRcIiwge3g6IEwgLyAyLCB5OiAzMCwgXCJ0ZXh0LWFuY2hvclwiOiBcIm1pZGRsZVwiLCBcImZvbnQtc2l6ZVwiOiAxOSwgZmlsbDogXCIjOGE4Zjk4XCJ9LFxuICAgICBgRVAgPSAke2YoZHAsIDEpfSDDtyDiiJoke259ID0gJHtmKGVwLCAyKX0gICDCtyAgIHogPSAke2YoeiwgMil9ICAgwrcgICBtYXJnZW0gPSB6IMOXIEVQID0gJHtmKHogKiBlcCwgMil9YCk7XG4gIHJldHVybiBzdmc7XG59XG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InNoaW55SW5wdXQoJ3RjbCcpIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCdpYycpIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCdjb25mJykifV19
+    </script>
+    <script type="module">
+    if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
+    window._ojs.paths.runtimeToDoc = "../../..";
+    window._ojs.paths.runtimeToRoot = "../../..";
+    window._ojs.paths.docToRoot = "";
+    window._ojs.selfContained = false;
+    window._ojs.runtime.interpretFromScriptTags();
+    </script>
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>

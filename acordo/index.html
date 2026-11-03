@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Simulador de estratégia de acordo · CDAD II</title>
+<link rel="icon" href="../_shared/img/logo-insper-preto.png">
+<script src="../_shared/tema.js"></script>
+<link rel="stylesheet" href="../_shared/styles.css">
+<style>
+  .controles { display: grid; gap: .9rem; }
+  .controle label { display: flex; justify-content: space-between; align-items: baseline;
+                    gap: .6rem; font-size: .9rem; font-weight: 600; }
+  .controle .valor { font-family: var(--fonte-mono); font-size: 1rem; color: var(--vermelho);
+                     white-space: nowrap; }
+  .controle .ajuda { font-size: .78rem; color: var(--cinza-800); margin-top: .1rem; }
+  input[type=range] { width: 100%; accent-color: var(--vermelho); margin: .35rem 0 0; }
+  details.avancado { border-top: var(--borda); padding-top: .7rem; }
+  details.avancado summary { cursor: pointer; font-size: .86rem; font-weight: 600;
+                             color: var(--grafite); margin-bottom: .6rem; }
+
+  .indicadores { display: grid; gap: .6rem; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .indicador { background: var(--branco); border: var(--borda); border-radius: var(--raio);
+               padding: .65rem .75rem; border-top: 3px solid var(--cinza-400); }
+  .indicador.bom { border-top-color: var(--turquesa); }
+  .indicador.ruim { border-top-color: var(--vermelho); }
+  .indicador.neutro { border-top-color: var(--laranja); }
+  .indicador .rotulo { font-family: var(--fonte-mono); font-size: .66rem; letter-spacing: .08em;
+                       text-transform: uppercase; color: var(--cinza-800); }
+  .indicador .numero { font-family: var(--fonte-mono); font-size: 1.45rem; font-weight: 700;
+                       line-height: 1.2; margin-top: .15rem; }
+  .indicador .nota { font-size: .76rem; color: var(--cinza-800); }
+
+  .grafico { width: 100%; overflow-x: auto; }
+  .grafico svg { max-width: 100%; height: auto; }
+  .legenda-linhas { display: flex; gap: 1rem; flex-wrap: wrap; font-size: .82rem;
+                    margin: .2rem 0 .4rem; }
+  .legenda-linhas span::before { content: ""; display: inline-block; width: 14px; height: 3px;
+                                 vertical-align: middle; margin-right: .35rem; background: var(--c); }
+  .marcos { display: grid; gap: .5rem; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+            margin-top: .6rem; }
+  .marco { border-left: 3px solid var(--c); padding: .3rem .6rem; background: var(--cinza-100);
+           font-size: .86rem; }
+  .marco strong { display: block; font-size: .8rem; text-transform: uppercase;
+                  letter-spacing: .05em; color: var(--c); }
+
+  #tabela { overflow-x: auto; }
+  table.processos { border-collapse: collapse; width: 100%; min-width: 560px; font-size: .86rem; }
+  table.processos th, table.processos td { padding: .35rem .5rem; border-bottom: var(--borda);
+                                           text-align: right; }
+  table.processos th:first-child, table.processos td:first-child { text-align: left; }
+  table.processos th { font-family: var(--fonte-mono); font-size: .66rem; letter-spacing: .06em;
+                       text-transform: uppercase; color: var(--cinza-800); }
+  .barra-p { display: inline-block; height: 8px; background: var(--vermelho); border-radius: 2px;
+             vertical-align: middle; margin-right: .4rem; opacity: .75; }
+  .oculto { display: none; }
+  .carregando { opacity: .55; transition: opacity .15s; }
+</style>
+</head>
+<body>
+
+<main>
+  <div class="abertura">
+    <h2>Simulador de estratégia de acordo</h2>
+    <p class="enunciado">
+      Uma empresa tem uma carteira de <strong>300 processos</strong> em que é ré. Para cada um,
+      um modelo preditivo estima a <strong>probabilidade de perda</strong>; o processo também
+      tem um <strong>valor em risco</strong> (o que se paga se perder) e um prazo até a decisão
+      final. A estratégia: propor acordo nos processos com maior chance de perda, oferecendo
+      uma fração do valor em risco, a <strong>alçada</strong>.
+    </p>
+    <p class="miudo">
+      Carteira e resultados simulados. Cada processo recebe no máximo uma proposta, e os
+      resultados são a média de muitas repetições da carteira com sorteios diferentes.
+    </p>
+  </div>
+
+  <section class="secao">
+    <header>
+      <span class="n">01</span>
+      <h2>Parâmetros da estratégia</h2>
+      <span class="dica">mexa e veja o resultado mudar</span>
+    </header>
+    <div class="corpo grade lado-largo">
+      <div class="controles" id="controles"></div>
+      <div>
+        <div class="indicadores" id="indicadores"></div>
+        <h3 style="margin-top:1rem">Chance de a outra parte aceitar, pela alçada</h3>
+        <div class="grafico" id="g-aceite"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="secao">
+    <header>
+      <span class="n">02</span>
+      <h2>Economia acumulada da estratégia, mês a mês</h2>
+      <span class="dica">gasto sem acordo menos gasto com acordo</span>
+    </header>
+    <div class="corpo">
+      <div class="grafico" id="g-economia"></div>
+      <div class="marcos" id="marcos"></div>
+      <h3 style="margin-top:1.2rem">Gasto acumulado com e sem a estratégia</h3>
+      <div class="legenda-linhas">
+        <span style="--c:#9aa0a8">sem acordo</span>
+        <span style="--c:#e50505">com a estratégia de acordo</span>
+      </div>
+      <div class="grafico" id="g-gastos"></div>
+    </div>
+  </section>
+
+  <section class="secao">
+    <header>
+      <span class="n">03</span>
+      <h2>Qual alçada dá a maior economia em 60 meses?</h2>
+      <span class="dica">tente achar antes de abrir</span>
+    </header>
+    <div class="corpo">
+      <p class="enunciado">
+        Alçada baixa: quase ninguém aceita. Alçada alta: muitos aceitam, mas cada acordo custa
+        caro e o orçamento acaba antes. Com os outros parâmetros como estão, procure a alçada
+        que dá a maior economia final mexendo só no controle de alçada.
+      </p>
+      <button class="secundario" id="b-varredura">Mostrar a economia para todas as alçadas</button>
+      <div class="grafico oculto" id="g-varredura" style="margin-top:.8rem"></div>
+    </div>
+  </section>
+
+  <section class="secao">
+    <header>
+      <span class="n">04</span>
+      <h2>Processos que entram na estratégia</h2>
+      <span class="dica" id="dica-processos"></span>
+    </header>
+    <div class="corpo">
+      <p class="miudo">Ordenados pela probabilidade de perda: é a ordem em que as propostas
+      são feitas, até o limite de tentativas por mês.</p>
+      <div id="tabela"></div>
+      <div class="acoes" style="margin-top:.8rem">
+        <button class="secundario" id="b-csv">Baixar a lista em CSV</button>
+        <button class="secundario" id="b-carteira">Sortear outra carteira</button>
+        <span class="miudo" id="semente"></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="secao">
+    <header>
+      <span class="n">05</span>
+      <h2>O que o simulador supõe</h2>
+    </header>
+    <div class="corpo">
+      <ul class="enunciado">
+        <li><strong>A probabilidade de perda está certa.</strong> Ela vem de um modelo de
+        previsão treinado com processos passados, que só descreve o que aconteceu com a política
+        de acordos que já existia.</li>
+        <li><strong>A curva de aceite é conhecida.</strong> Saber quantos aceitariam com
+        outra alçada é uma pergunta de intervenção. Os acordos que o banco já fez não respondem,
+        porque os casos que foram a acordo foram escolhidos. O jeito limpo de estimar a curva é
+        sortear alçadas diferentes numa parte da carteira.</li>
+        <li><strong>O autor não sabe mais do que o modelo.</strong> Em "Parâmetros avançados",
+        aumente o quanto o autor conhece o próprio caso: quem ganharia passa a recusar, quem
+        perderia passa a aceitar, e a economia cai. É viés de seleção dentro da própria
+        estratégia.</li>
+      </ul>
+    </div>
+  </section>
+</main>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>

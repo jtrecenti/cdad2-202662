@@ -1,0 +1,410 @@
+{
+  "_leia": [
+    "Temas escolhidos a partir do que a turma já cursou até o 4º semestre: Obrigações e",
+    "Contratos, Teoria Geral do Processo, Política Criminal e Direito Penal, Microeconomia,",
+    "Responsabilidade Civil, Direito e Processo Penal, Propriedade Urbana e Rural, Atuação",
+    "Administrativa do Estado e Organização da Sociedade Civil.",
+    "O aluno escolhe o tema de uma lista (antes era sorteado).",
+    "",
+    "Reprogramação de 13/09: o projeto acontece antes da prova intermediária, e a turma",
+    "ainda não viu testes de hipóteses. O campo 'metodo' passou a pedir a análise que a",
+    "turma já sabe fazer: tabela, gráfico e intervalo de confiança. O id 'metodo' foi",
+    "mantido para não quebrar o critério correspondente da rubrica.",
+    "",
+    "Ajuste de 22/09, na véspera da aula: os textos de ajuda ganharam exemplos concretos,",
+    "o campo da fonte deixou de pedir 'o que ela não vê' (a turma não entendia o que se",
+    "queria ali, e o que a fonte deixa de fora continua cobrado no campo de limites), o",
+    "tipo 'data' saiu da lista, e entraram dois campos: 'populacao' (população, estudo",
+    "amostral ou populacional, parâmetro e estimativa) e 'hipotese_formalizada' (H0 e H1",
+    "com os parâmetros). Escrever H0 e H1 não é fazer teste: não se cobra p-valor."
+  ],
+  "temas": [
+    {
+      "id": "responsabilidade",
+      "area": "Responsabilidade Civil",
+      "titulo": "Dano moral em acidente de consumo",
+      "contexto": "Ações de indenização por acidente de consumo (produto com defeito, serviço mal prestado, acidente em estabelecimento). Discute-se a dispersão dos valores de indenização entre juízos e o efeito de precedentes.",
+      "fontes_possiveis": "Banco de sentenças do TJSP (cjpg), jurisprudência de 2º grau (cjsg), dados do Consumidor.gov.br, reclamações do Procon.",
+      "armadilha": "Valor pedido, valor sentenciado e valor efetivamente pago são três coisas diferentes, e a base costuma ter só uma delas.",
+      "base_legal": "O acidente de consumo está no art. 12 do Código de Defesa do Consumidor (defeito do produto) e no art. 14 (defeito do serviço): o fornecedor responde independentemente de culpa, e só se livra provando que não colocou o produto no mercado, que o defeito não existe ou que a culpa foi exclusiva do consumidor ou de terceiro. O valor da indenização por dano moral não tem tabela legal: o juiz o fixa caso a caso, olhando gravidade, capacidade econômica do réu e caráter pedagógico. É justamente essa ausência de tarifação que faz a dispersão de valores virar objeto de pesquisa empírica.",
+      "glossario": [
+        {
+          "termo": "acidente de consumo",
+          "definicao": "Dano causado por defeito de produto ou serviço, chamado de fato do produto ou do serviço nos arts. 12 a 14 do CDC."
+        },
+        {
+          "termo": "responsabilidade objetiva",
+          "definicao": "Dever de indenizar que não depende de culpa: basta o defeito, o dano e o nexo entre eles."
+        },
+        {
+          "termo": "dano moral",
+          "definicao": "Lesão a direito da personalidade, indenizada em dinheiro sem que exista prejuízo patrimonial."
+        },
+        {
+          "termo": "tarifação",
+          "definicao": "Fixação do valor da indenização por tabela legal. No dano moral ela não existe, e o valor fica com o juiz."
+        },
+        {
+          "termo": "valor da causa",
+          "definicao": "Valor que o autor atribui à ação na petição inicial, que não coincide com o valor da condenação."
+        }
+      ]
+    },
+    {
+      "id": "trafico",
+      "area": "Política Criminal e Direito Penal",
+      "titulo": "Tráfico privilegiado e quantidade de droga",
+      "contexto": "O art. 33, §4º, da Lei 11.343/2006 permite reduzir a pena do réu primário que não integre organização criminosa. Interessa saber o que na prática distingue quem recebe o benefício de quem não recebe.",
+      "fontes_possiveis": "Sentenças criminais do TJSP (cjpg), acórdãos (cjsg), painéis do CNJ, dados do Depen sobre população prisional.",
+      "armadilha": "Quantidade de droga aparece em unidades diferentes (gramas, porções, invólucros, tabletes) e nem sempre aparece.",
+      "base_legal": "O art. 33 da Lei 11.343/2006 pune o tráfico com 5 a 15 anos. O §4º permite reduzir a pena de um sexto a dois terços quando o réu é primário, tem bons antecedentes, não se dedica a atividades criminosas e não integra organização criminosa. Os quatro requisitos são cumulativos, e é o juiz que declara, na sentença, se estão presentes. O art. 42 manda considerar a natureza e a quantidade da droga antes das circunstâncias do art. 59 do Código Penal, o que faz a quantidade apreendida ser um dos poucos números que aparecem de forma sistemática nesses processos.",
+      "glossario": [
+        {
+          "termo": "tráfico privilegiado",
+          "definicao": "Redução de 1/6 a 2/3 da pena do art. 33, prevista no §4º, para o réu primário que não se dedique ao crime nem integre organização criminosa."
+        },
+        {
+          "termo": "primariedade",
+          "definicao": "Condição do réu que não tem condenação anterior transitada em julgado no período legal."
+        },
+        {
+          "termo": "organização criminosa",
+          "definicao": "Associação estruturada de quatro ou mais pessoas para obter vantagem com infrações penais graves (Lei 12.850/2013)."
+        },
+        {
+          "termo": "dosimetria",
+          "definicao": "Cálculo da pena em três fases: pena-base, atenuantes e agravantes, causas de aumento e de diminuição."
+        },
+        {
+          "termo": "regime inicial",
+          "definicao": "Modo de começar o cumprimento da pena: fechado, semiaberto ou aberto."
+        }
+      ]
+    },
+    {
+      "id": "possessorias",
+      "area": "Propriedade Urbana e Rural",
+      "titulo": "Ações possessórias e prova da posse",
+      "contexto": "Em reintegração e manutenção de posse, a prova da posse anterior decide o caso. Interessa saber que tipo de prova prevalece e quanto tempo essas ações levam.",
+      "fontes_possiveis": "Consulta pública do TJSP, dados do IBGE por setor censitário, relatórios de secretarias de habitação, cartórios de registro.",
+      "armadilha": "O número de pessoas afetadas por uma reintegração coletiva raramente está no sistema processual.",
+      "base_legal": "Possuidor, no art. 1.196 do Código Civil, é quem exerce de fato algum poder próprio do proprietário. O art. 1.210 dá a ele proteção contra esbulho, turbação e ameaça, e o procedimento está nos arts. 554 a 568 do CPC. Proposta a ação em até ano e dia da agressão (posse nova), cabe liminar de reintegração antes de ouvir o réu. Em conflito coletivo, o art. 565 exige audiência de mediação e a participação da Defensoria e do Ministério Público, o que muda bastante o tempo de tramitação.",
+      "glossario": [
+        {
+          "termo": "esbulho",
+          "definicao": "Perda da posse por ato de terceiro, com violência, clandestinidade ou abuso de confiança."
+        },
+        {
+          "termo": "turbação",
+          "definicao": "Perturbação da posse sem que o possuidor a perca."
+        },
+        {
+          "termo": "reintegração de posse",
+          "definicao": "Ação para retomar a posse perdida por esbulho."
+        },
+        {
+          "termo": "liminar",
+          "definicao": "Decisão provisória concedida no início do processo, antes da sentença."
+        },
+        {
+          "termo": "posse nova",
+          "definicao": "Agressão à posse ocorrida há menos de ano e dia, o que permite o procedimento especial com liminar."
+        },
+        {
+          "termo": "litígio coletivo",
+          "definicao": "Ação possessória sobre imóvel ocupado por muitas pessoas, com audiência de mediação obrigatória (art. 565 do CPC)."
+        }
+      ]
+    },
+    {
+      "id": "contratos",
+      "area": "Obrigações e Contratos",
+      "titulo": "Revisão de contrato por onerosidade excessiva",
+      "contexto": "Pedidos de revisão ou resolução contratual por fato superveniente (arts. 317 e 478 do Código Civil). Interessa saber em que situações o Judiciário aceita revisar e o que ele exige como prova do desequilíbrio.",
+      "fontes_possiveis": "Banco de sentenças do TJSP, jurisprudência de 2º grau, séries do Banco Central e do IBGE (índices de preços, câmbio).",
+      "armadilha": "Contrato de adesão e contrato negociado são realidades diferentes, e a sentença não sempre diz qual é qual.",
+      "base_legal": "Dois caminhos convivem no Código Civil. O art. 317 permite ao juiz corrigir o valor da prestação quando um fato imprevisível cria desproporção manifesta entre o momento da contratação e o do pagamento. O art. 478 vai além e permite resolver o contrato quando a prestação se torna excessivamente onerosa, com vantagem extrema para a outra parte, por acontecimento extraordinário e imprevisível. Nas relações de consumo o padrão é mais brando: o art. 6º, V, do CDC permite revisar cláusula que se tornou excessivamente onerosa por fato superveniente, sem exigir imprevisibilidade.",
+      "glossario": [
+        {
+          "termo": "onerosidade excessiva",
+          "definicao": "Desequilíbrio superveniente que torna a prestação muito mais pesada para uma das partes (art. 478 do Código Civil)."
+        },
+        {
+          "termo": "fato superveniente",
+          "definicao": "Acontecimento posterior à celebração do contrato, que altera as condições em que ele foi feito."
+        },
+        {
+          "termo": "teoria da imprevisão",
+          "definicao": "Doutrina que permite revisar o contrato quando o evento é extraordinário e imprevisível, exigência do Código Civil e não do CDC."
+        },
+        {
+          "termo": "contrato de adesão",
+          "definicao": "Contrato cujas cláusulas foram redigidas por uma das partes, sem que a outra possa discuti-las."
+        },
+        {
+          "termo": "pacta sunt servanda",
+          "definicao": "Princípio de que o contrato faz lei entre as partes, e que a revisão judicial excepciona."
+        }
+      ]
+    },
+    {
+      "id": "prisao",
+      "area": "Direito e Processo Penal",
+      "titulo": "Audiência de custódia e prisão preventiva",
+      "contexto": "Na audiência de custódia o juiz decide entre liberdade, medidas cautelares e prisão preventiva. Interessa saber o que está associado a cada desfecho e como isso varia entre comarcas.",
+      "fontes_possiveis": "Painéis do CNJ sobre audiência de custódia, dados da SSP, relatórios da Defensoria, decisões de habeas corpus.",
+      "armadilha": "A decisão da custódia costuma estar em documento separado do processo principal, e nem sempre é pública.",
+      "base_legal": "A audiência de custódia está no art. 310 do Código de Processo Penal e na Resolução 213/2015 do CNJ: em até 24 horas da prisão em flagrante, o juiz ouve a pessoa presa e decide entre relaxar a prisão ilegal, conceder liberdade provisória com ou sem medidas cautelares, ou converter em preventiva. A preventiva só cabe nas hipóteses do art. 312 (garantia da ordem pública, da instrução ou da aplicação da lei penal) e exige os requisitos do art. 313. O art. 319 lista as medidas cautelares alternativas, que a lei manda preferir à prisão.",
+      "glossario": [
+        {
+          "termo": "audiência de custódia",
+          "definicao": "Apresentação da pessoa presa em flagrante ao juiz em até 24 horas, para controle da legalidade e da necessidade da prisão."
+        },
+        {
+          "termo": "prisão preventiva",
+          "definicao": "Prisão sem condenação, decretada quando presentes os requisitos dos arts. 312 e 313 do CPP."
+        },
+        {
+          "termo": "liberdade provisória",
+          "definicao": "Soltura da pessoa presa em flagrante, com ou sem medidas cautelares e fiança."
+        },
+        {
+          "termo": "medidas cautelares diversas da prisão",
+          "definicao": "Alternativas do art. 319 do CPP: comparecimento periódico, monitoramento eletrônico, proibição de contato, entre outras."
+        },
+        {
+          "termo": "relaxamento",
+          "definicao": "Soltura determinada porque a prisão foi ilegal, diferente da liberdade provisória, que pressupõe prisão legal."
+        }
+      ]
+    },
+    {
+      "id": "licitacao",
+      "area": "Atuação Administrativa do Estado",
+      "titulo": "Contratação direta por dispensa de licitação",
+      "contexto": "A Lei 14.133/2021 mudou os limites e as hipóteses de dispensa. Interessa saber o perfil dos contratos por dispensa e a relação com apontamentos do controle externo.",
+      "fontes_possiveis": "Portal Nacional de Contratações Públicas, portais de transparência municipais, decisões dos tribunais de contas, cadastro de CNPJ da Receita.",
+      "armadilha": "Fracionamento faz um mesmo objeto virar vários contratos pequenos, o que distorce qualquer contagem ingênua.",
+      "base_legal": "A Lei 14.133/2021 manda licitar como regra e lista as exceções. A dispensa está no art. 75 e abrange, entre outras hipóteses, a contratação de pequeno valor, a emergência e a licitação deserta; a inexigibilidade está no art. 74 e vale quando a competição é inviável, como no fornecedor exclusivo. O §1º do art. 75 proíbe fracionar a despesa para caber no limite de dispensa, e é exatamente esse fracionamento que distorce qualquer contagem ingênua de contratos. Todo contrato tem que ser publicado no Portal Nacional de Contratações Públicas (art. 174).",
+      "glossario": [
+        {
+          "termo": "dispensa de licitação",
+          "definicao": "Hipótese em que a competição seria possível, mas a lei permite contratar diretamente (art. 75 da Lei 14.133/2021)."
+        },
+        {
+          "termo": "inexigibilidade",
+          "definicao": "Contratação direta porque a competição é inviável, por exemplo com fornecedor exclusivo (art. 74)."
+        },
+        {
+          "termo": "fracionamento",
+          "definicao": "Divisão artificial de uma despesa em contratos menores para caber no limite da dispensa. É proibido."
+        },
+        {
+          "termo": "PNCP",
+          "definicao": "Portal Nacional de Contratações Públicas, onde a publicação dos contratos é obrigatória."
+        },
+        {
+          "termo": "controle externo",
+          "definicao": "Fiscalização feita pelo Legislativo com auxílio dos tribunais de contas."
+        }
+      ]
+    },
+    {
+      "id": "terceiro_setor",
+      "area": "Organização da Sociedade Civil",
+      "titulo": "Parcerias com organizações da sociedade civil",
+      "contexto": "Termos de fomento e de colaboração sob a Lei 13.019/2014. Interessa saber que tipo de organização acessa recursos públicos e o que acontece na prestação de contas.",
+      "fontes_possiveis": "Portais de transparência, cadastro de OSCs do governo federal, decisões de tribunais de contas, dados de CNPJ.",
+      "armadilha": "Repasse previsto, repasse empenhado e repasse pago são etapas diferentes, e a série pública mistura as três.",
+      "base_legal": "A Lei 13.019/2014, o Marco Regulatório das Organizações da Sociedade Civil, criou três instrumentos: termo de colaboração (proposto pela administração), termo de fomento (proposto pela organização) e acordo de cooperação (sem repasse de dinheiro). A regra é selecionar por chamamento público, com as exceções dos arts. 30 e 31. A prestação de contas está nos arts. 63 a 72, e o descumprimento pode levar à devolução dos valores e à declaração de inidoneidade. Repasse previsto, empenhado e pago são etapas distintas da execução orçamentária, e as bases públicas costumam misturá-las.",
+      "glossario": [
+        {
+          "termo": "OSC",
+          "definicao": "Organização da sociedade civil: entidade privada sem fins lucrativos que pode firmar parceria com o poder público."
+        },
+        {
+          "termo": "termo de fomento",
+          "definicao": "Parceria com repasse de recursos em que o plano de trabalho é proposto pela organização."
+        },
+        {
+          "termo": "termo de colaboração",
+          "definicao": "Parceria com repasse de recursos em que o plano de trabalho é proposto pela administração pública."
+        },
+        {
+          "termo": "chamamento público",
+          "definicao": "Procedimento competitivo para escolher a organização parceira, regra da Lei 13.019/2014."
+        },
+        {
+          "termo": "prestação de contas",
+          "definicao": "Demonstração do uso dos recursos, analisada pela administração ao final ou durante a parceria."
+        },
+        {
+          "termo": "empenho",
+          "definicao": "Etapa orçamentária que reserva o valor para a despesa, anterior à liquidação e ao pagamento."
+        }
+      ]
+    },
+    {
+      "id": "violencia",
+      "area": "Direito e Processo Penal",
+      "titulo": "Medidas protetivas de urgência",
+      "contexto": "Pedidos de medida protetiva na Lei 11.340/2006. Interessa o tempo entre o pedido e a decisão, o percentual de concessão e o que acontece depois do descumprimento.",
+      "fontes_possiveis": "Painéis do CNJ sobre violência doméstica, dados da SSP, Ligue 180, relatórios da Defensoria.",
+      "armadilha": "O caso mais grave é justamente o que menos aparece no registro, e ligar processos da mesma pessoa não é possível com dado público.",
+      "base_legal": "A Lei 11.340/2006 prevê medidas protetivas de urgência que obrigam o agressor (art. 22: afastamento do lar, proibição de aproximação e de contato, suspensão do porte de arma) e medidas dirigidas à ofendida (arts. 23 e 24). O juiz decide em até 48 horas do recebimento do pedido (art. 18), e desde a Lei 13.827/2019 a autoridade policial pode conceder o afastamento em algumas situações. O descumprimento virou crime autônomo em 2018, com o art. 24-A. A medida protetiva independe de inquérito ou de processo penal, o que separa esse fluxo do processo criminal comum.",
+      "glossario": [
+        {
+          "termo": "medida protetiva de urgência",
+          "definicao": "Ordem judicial de proteção imediata à mulher em situação de violência doméstica, independente de processo penal."
+        },
+        {
+          "termo": "violência doméstica e familiar",
+          "definicao": "Ação ou omissão baseada no gênero que cause dano à mulher no âmbito doméstico, familiar ou de relação íntima de afeto."
+        },
+        {
+          "termo": "descumprimento de medida protetiva",
+          "definicao": "Crime do art. 24-A da Lei 11.340/2006, com pena de detenção de 3 meses a 2 anos."
+        },
+        {
+          "termo": "afastamento do lar",
+          "definicao": "Medida que retira o agressor da residência comum, prevista no art. 22, II."
+        },
+        {
+          "termo": "subnotificação",
+          "definicao": "Diferença entre os casos que existem e os que chegam ao registro oficial, problema central nesse tema."
+        }
+      ]
+    }
+  ],
+  "campos_antes": [
+    {
+      "id": "pergunta",
+      "rotulo": "Pergunta de pesquisa",
+      "placeholder": "uma pergunta, terminando com ?",
+      "ajuda": "Uma pergunta só, que se responde com dados. Deixe claro sobre quem (a população), em que período, e o que você vai medir. Exemplo: 'Entre as sentenças de dano moral por acidente de consumo do TJSP em 2023 e 2024, o valor da indenização varia conforme a comarca?'",
+      "sugestao_palavras": 15,
+      "max_caracteres": 400,
+      "linhas": 3,
+      "exige_interrogacao": true
+    },
+    {
+      "id": "relevancia",
+      "rotulo": "Por que essa pergunta importa",
+      "placeholder": "quem decide o quê com a resposta",
+      "ajuda": "Nomeie quem usaria a resposta, em vez de dizer 'a sociedade': advogados, magistrados, defensoria, ministério público, órgãos de controle, gestores de tribunal, o cidadão que vai a juízo. Depois diga que decisão muda conforme a resposta.",
+      "sugestao_palavras": 30,
+      "max_caracteres": 800,
+      "linhas": 3
+    },
+    {
+      "id": "fontes",
+      "rotulo": "Fonte de dados",
+      "placeholder": "qual base do Judiciário, e de que ponto você parte",
+      "ajuda": "Use as fontes do Judiciário que você viu na aula 12: a busca de processos do juscraper-app, o DataJud, o Banco de Sentenças, a jurisprudência de 2º grau e a consulta processual do e-SAJ. Diga qual delas responde à sua pergunta e de que ponto você parte: dos processos que entraram (distribuídos) ou das decisões já proferidas.",
+      "sugestao_palavras": 30,
+      "max_caracteres": 800,
+      "linhas": 4
+    }
+  ],
+  "campos_depois": [
+    {
+      "id": "populacao",
+      "rotulo": "População, tipo de estudo, parâmetro e estimativa",
+      "placeholder": "quatro frases curtas, uma para cada item",
+      "ajuda": "(1) População: quem entra no estudo, com lugar e período. (2) Tipo de estudo: 'populacional' se você olha todos os casos, 'amostral' se olha uma parte, e nesse caso como essa parte seria escolhida. (3) Parâmetro: o número da população que você gostaria de conhecer, como a proporção de pedidos concedidos. (4) Estimativa: o número que você calcula nos seus dados para chegar perto dele.",
+      "sugestao_palavras": 40,
+      "max_caracteres": 1000,
+      "linhas": 5
+    },
+    {
+      "id": "hipoteses",
+      "rotulo": "Hipótese nula e hipótese alternativa, em palavras",
+      "placeholder": "H0: ...   H1: ...",
+      "ajuda": "Duas afirmações, em português, com os nomes das variáveis que você declarou. H0 diz que não há diferença nem associação. H1 é o que você espera, e precisa ter direção (maior, menor, mais frequente). Exemplo: 'H0: a proporção de pedidos concedidos é a mesma no interior e na capital. H1: é maior na capital.'",
+      "sugestao_palavras": 30,
+      "max_caracteres": 800,
+      "linhas": 4
+    },
+    {
+      "id": "hipotese_formalizada",
+      "rotulo": "Hipótese formalizada (H0 e H1 com os parâmetros)",
+      "placeholder": "H0: p_capital = p_interior    H1: p_capital > p_interior",
+      "ajuda": "As mesmas duas afirmações, agora com símbolos. Use p para proporção e mu para média, com um índice dizendo de qual grupo. Não é para calcular nada, nem para fazer o teste.",
+      "exemplo_html": "<span class=\"rotulo\">três formas, para copiar e trocar o conteúdo</span><div class=\"formas\"><div>duas proporções: \\(H_0: p_{capital} = p_{interior}\\) e \\(H_1: p_{capital} \\gt p_{interior}\\)</div><div>duas médias: \\(H_0: \\mu_{com} = \\mu_{sem}\\) e \\(H_1: \\mu_{com} \\lt \\mu_{sem}\\)</div><div>uma proporção contra um valor: \\(H_0: p = 0{,}5\\) e \\(H_1: p \\gt 0{,}5\\)</div></div><div class=\"miudo\">\\(p\\) é proporção, \\(\\mu\\) é média, e o índice diz de qual grupo.</div>",
+      "sugestao_palavras": 20,
+      "max_caracteres": 600,
+      "linhas": 4
+    },
+    {
+      "id": "metodo",
+      "rotulo": "Análise",
+      "placeholder": "que tabela ou resumo, e que gráfico",
+      "ajuda": "Que tabela ou resumo responde à pergunta, e que gráfico mostra o resultado. A escolha sai dos tipos que você declarou: desfecho categórico entre grupos pede a proporção do desfecho em cada grupo, com tabela de dupla entrada e barras empilhadas em proporção; desfecho numérico entre grupos pede média ou mediana por grupo e boxplot; duas numéricas pedem gráfico de dispersão. Diga também como vai mostrar a incerteza da estimativa.",
+      "sugestao_palavras": 30,
+      "max_caracteres": 800,
+      "linhas": 4
+    },
+    {
+      "id": "limites",
+      "rotulo": "Limites: o que essa pesquisa não vai concluir",
+      "placeholder": "o que fica de fora, e que outra explicação caberia",
+      "ajuda": "O que esta pesquisa não vai concluir, ligado à sua fonte e às suas variáveis. Inclua o limite entre associação e causalidade: se você encontrar a diferença que espera, que outra explicação produziria o mesmo resultado?",
+      "sugestao_palavras": 30,
+      "max_caracteres": 800,
+      "linhas": 4
+    }
+  ],
+  "tipos_variavel": [
+    {
+      "id": "identificador",
+      "rotulo": "Identificador"
+    },
+    {
+      "id": "categorica_nominal",
+      "rotulo": "Categórica nominal"
+    },
+    {
+      "id": "categorica_ordinal",
+      "rotulo": "Categórica ordinal"
+    },
+    {
+      "id": "categorica_binaria",
+      "rotulo": "Categórica binária"
+    },
+    {
+      "id": "numerica_discreta",
+      "rotulo": "Numérica discreta"
+    },
+    {
+      "id": "numerica_continua",
+      "rotulo": "Numérica contínua"
+    }
+  ],
+  "papeis_variavel": [
+    {
+      "id": "identificador",
+      "rotulo": "Identifica o caso",
+      "ajuda": "serve para achar o processo depois, não entra na comparação"
+    },
+    {
+      "id": "dependente",
+      "rotulo": "O que eu quero explicar",
+      "ajuda": "o desfecho da pergunta; em estatística, variável resposta ou dependente"
+    },
+    {
+      "id": "independente",
+      "rotulo": "O que pode explicar",
+      "ajuda": "o que pode estar associado ao desfecho; em estatística, variável explicativa ou independente"
+    },
+    {
+      "id": "filtro",
+      "rotulo": "Define quais casos entram",
+      "ajuda": "delimita a base: só sentenças de mérito, só um período, só uma comarca"
+    }
+  ],
+  "limites": {
+    "min_variaveis": 4,
+    "max_variaveis": 10,
+    "max_avaliacoes": 3
+  }
+}

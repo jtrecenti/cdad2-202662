@@ -1,0 +1,572 @@
+{
+ "base": {
+  "arquivo": "../_shared/dados/camaras.csv",
+  "variavel": "camaras",
+  "meta": "../_shared/dados/camaras.json"
+ },
+ "_leia": [
+  "Cada desafio tem blocos de pandas e de plotnine. `usar: true` entra na solução;",
+  "`usar: false` é distrator, e `porque_nao` é o que o app explica quando o aluno usa.",
+  "`descricao` é o que o bloco faz, em português: é ela que aparece em destaque na",
+  "tela, com o código embaixo. Sem isso o exercício vira quebra-cabeça de sintaxe.",
+  "`peso` é quanto o desafio vale. O primeiro vale 1 e os outros 2, somando 11; cada",
+  "tentativa errada custa 0,25 e a nota fica limitada a 10.",
+  "",
+  "ORDEM DOS BLOCOS DE PANDAS, e são três casos:",
+  "  - `ordem: n` fixa a posição relativa. Blocos com o MESMO n podem vir em qualquer",
+  "    sequência entre si, porque produzem a mesma tabela (os dois filtros do desafio 2).",
+  "  - `livre: true` aceita o bloco em QUALQUER posição do encadeamento. É o caso de um",
+  "    filtro por uma coluna que também é chave do agrupamento: filtrar antes ou depois",
+  "    do groupby dá exatamente a mesma tabela.",
+  "  - sem nenhum dos dois, o bloco é distrator e não entra na solução.",
+  "No plotnine não há ordem: o app só exige o bloco marcado com `primeiro` na frente.",
+  "",
+  "REGRA para escrever distrator: ele tem que mudar o que aparece na tela, seja o",
+  "gráfico, seja uma mensagem de erro. Um bloco que produz o mesmo gráfico e mesmo",
+  "assim reprova é falso negativo, e manda o aluno procurar erro onde não há. Pelo",
+  "mesmo motivo, não entram no gabarito filtros que o pandas ou o plotnine já fazem",
+  "sozinhos: um dropna antes de um groupby pela mesma coluna não muda nada, e o",
+  "plotnine descarta NaN sem dizer.",
+  "",
+  "As imagens do gráfico esperado ficam em esperado/ e são geradas por",
+  "scripts/gerar_graficos_esperados.py, rodando a própria solução declarada aqui."
+ ],
+ "desafios": [
+  {
+   "id": "d1",
+   "titulo": "Qual assunto tem mais recursos negados",
+   "peso": 1,
+   "contexto": "A Câmara julga recursos sobre assuntos criminais diferentes, e o número de recursos varia muito de um assunto para outro. Por isso comparar quantas decisões negativas cada assunto teve seria enganoso: o assunto mais frequente teria mais negativas só por ser mais frequente. O que dá para comparar é a proporção.",
+   "pergunta": "Entre os assuntos criminais, qual proporção dos recursos é integralmente negada? Considere só os assuntos com pelo menos 40 recursos: abaixo disso a proporção oscila demais para comparar.",
+   "grafico_esperado": "Barras horizontais, uma por assunto, com a proporção de recursos negados de cada um.",
+   "reflexao": "Olhando o gráfico: as diferenças entre os assuntos são grandes? O assunto com a maior proporção de negativas é o que você esperava? Repare que as barras estão em ordem alfabética, o que não ajuda a comparar: existe como ordená-las pelo valor, e isso está no notebook.",
+   "imagem": "esperado/d1.png",
+   "blocos_pandas": [
+    {
+     "id": "p1",
+     "codigo": ".assign(negou=camaras['decisao'] == 'Negaram')",
+     "descricao": "Cria uma coluna que vale verdadeiro quando o recurso foi negado. É ela que permite contar e tirar média depois.",
+     "usar": true,
+     "ordem": 1
+    },
+    {
+     "id": "p2",
+     "codigo": ".groupby('assunto', as_index=False)",
+     "descricao": "Junta os recursos em pilhas, uma por assunto.",
+     "usar": true,
+     "ordem": 2
+    },
+    {
+     "id": "p3",
+     "codigo": ".agg(prop_negou=('negou', 'mean'), n=('negou', 'size'))",
+     "descricao": "Resume cada pilha em duas colunas: a proporção de negados (a média de uma coluna de verdadeiro/falso) e quantos recursos ela tem.",
+     "usar": true,
+     "ordem": 3
+    },
+    {
+     "id": "p4",
+     "codigo": ".query('n >= 40')",
+     "descricao": "Descarta os assuntos com menos de 40 recursos, onde a proporção oscila demais para ser comparável.",
+     "usar": true,
+     "ordem": 4
+    },
+    {
+     "id": "p5",
+     "codigo": ".query(\"decisao == 'Negaram'\")",
+     "descricao": "Fica só com os recursos negados.",
+     "usar": false,
+     "porque_nao": "Ficando só com os negados, a proporção vira 1 em todo assunto: você jogou fora o denominador."
+    }
+   ],
+   "blocos_plotnine": [
+    {
+     "id": "g1",
+     "codigo": "ggplot(dados, aes(x='assunto', y='prop_negou'))",
+     "descricao": "Diz de qual tabela o gráfico sai e o que vai em cada eixo: o assunto na horizontal e a proporção na altura.",
+     "usar": true,
+     "primeiro": true
+    },
+    {
+     "id": "g2",
+     "codigo": "+ geom_col(fill='#e50505')",
+     "descricao": "Desenha uma barra por assunto, com a altura que já está calculada na coluna y.",
+     "usar": true
+    },
+    {
+     "id": "g3",
+     "codigo": "+ coord_flip()",
+     "descricao": "Deita o gráfico. Sem isso, os nomes dos assuntos não cabem embaixo das barras.",
+     "usar": true
+    },
+    {
+     "id": "g4",
+     "codigo": "+ labs(x='Assunto', y='Proporção de recursos negados')",
+     "descricao": "Troca os nomes das colunas por rótulos escritos para gente ler.",
+     "usar": true
+    },
+    {
+     "id": "g5",
+     "codigo": "+ geom_bar()",
+     "descricao": "Desenha uma barra por categoria, contando as linhas.",
+     "usar": false,
+     "porque_nao": "geom_bar conta linhas. Aqui a altura da barra já está calculada na tabela, então o geom certo é geom_col."
+    },
+    {
+     "id": "g6",
+     "codigo": "+ geom_histogram(bins=10)",
+     "descricao": "Corta uma variável numérica em faixas e conta quantos casos caem em cada uma.",
+     "usar": false,
+     "porque_nao": "Histograma mostra a distribuição de uma variável numérica. Aqui o eixo x é categórico."
+    }
+   ],
+   "verificacao": "'prop_negou' in dados.columns and dados['n'].min() >= 40 and 3 <= dados.shape[0] <= 10"
+  },
+  {
+   "id": "d2",
+   "titulo": "Tempo de tramitação por assunto",
+   "peso": 2,
+   "contexto": "Recursos sobre assuntos diferentes podem levar tempos diferentes até o julgamento. Aqui não queremos um número por assunto, e sim ver como os tempos se espalham dentro de cada um: se são parecidos entre si ou se variam muito.",
+   "pergunta": "Entre os recursos julgados de 2018 em diante, e descartando os tempos acima de 15 anos (que são erros de registro), o tempo até o julgamento difere entre os assuntos criminais?",
+   "grafico_esperado": "Um boxplot por assunto, com o tempo em anos, deitado para os nomes caberem. Os dois filtros do enunciado precisam ser aplicados antes.",
+   "reflexao": "Quais assuntos levam mais tempo? E em quais o tempo varia mais, ou seja, a caixa é mais comprida? Repare que as duas perguntas são diferentes, e um gráfico de médias só responderia a primeira.",
+   "imagem": "esperado/d2.png",
+   "blocos_pandas": [
+    {
+     "id": "p1",
+     "codigo": ".query('tempo <= 15')",
+     "descricao": "Descarta os tempos acima de 15 anos, que nesta base são erro de registro.",
+     "usar": true,
+     "ordem": 1
+    },
+    {
+     "id": "p2",
+     "codigo": ".query('ano_publicacao >= 2018')",
+     "descricao": "Fica só com os recursos julgados de 2018 em diante.",
+     "usar": true,
+     "ordem": 1
+    },
+    {
+     "id": "p3",
+     "codigo": ".groupby('assunto', as_index=False).agg(tempo=('tempo', 'mean'))",
+     "descricao": "Resume cada assunto a um único número: o tempo médio.",
+     "usar": false,
+     "porque_nao": "Resumindo para a média você perde a distribuição, e o boxplot fica sem o que mostrar. Boxplot precisa das observações uma por uma."
+    },
+    {
+     "id": "p4",
+     "codigo": ".drop_duplicates('relator')",
+     "descricao": "Fica com uma linha por relator, jogando fora todos os outros recursos dele.",
+     "usar": false,
+     "porque_nao": "Isso deixaria um recurso por relator e mudaria a unidade de análise, que a pergunta não pediu."
+    },
+    {
+     "id": "p5",
+     "codigo": ".dropna(subset=['rel_idade'])",
+     "descricao": "Descarta os recursos em que a idade do relator não foi encontrada.",
+     "usar": false,
+     "porque_nao": "A pergunta não usa a idade do relator, e este filtro joga fora quase 200 recursos que serviam. Descarte o vazio da coluna que a sua pergunta usa, e só dela."
+    }
+   ],
+   "blocos_plotnine": [
+    {
+     "id": "g1",
+     "codigo": "ggplot(dados, aes(x='assunto', y='tempo'))",
+     "descricao": "Diz de qual tabela o gráfico sai e o que vai em cada eixo.",
+     "usar": true,
+     "primeiro": true
+    },
+    {
+     "id": "g2",
+     "codigo": "+ geom_boxplot(fill='#dcdcdc')",
+     "descricao": "Resume a distribuição de cada assunto numa caixa: mediana, quartis e os pontos fora do padrão.",
+     "usar": true
+    },
+    {
+     "id": "g3",
+     "codigo": "+ coord_flip()",
+     "descricao": "Deita o gráfico, para os nomes dos assuntos caberem.",
+     "usar": true
+    },
+    {
+     "id": "g4",
+     "codigo": "+ labs(x='Assunto', y='Tempo até o julgamento (anos)')",
+     "descricao": "Troca os nomes das colunas por rótulos escritos para gente ler.",
+     "usar": true
+    },
+    {
+     "id": "g5",
+     "codigo": "+ geom_col()",
+     "descricao": "Desenha uma barra por categoria, com a altura que está na coluna y.",
+     "usar": false,
+     "porque_nao": "geom_col somaria o tempo de todos os recursos do assunto, o que não significa nada. A pergunta é sobre distribuição."
+    },
+    {
+     "id": "g6",
+     "codigo": "+ geom_bar()",
+     "descricao": "Desenha uma barra por categoria, contando as linhas.",
+     "usar": false,
+     "porque_nao": "geom_bar conta recursos, e a pergunta é sobre tempo. A coluna y que você mapeou seria ignorada."
+    }
+   ],
+   "verificacao": "dados['tempo'].max() <= 15 and dados['ano_publicacao'].min() >= 2018 and dados.shape[0] > 400"
+  },
+  {
+   "id": "d3",
+   "titulo": "Idade do relator e tempo de tramitação",
+   "peso": 2,
+   "contexto": "O tempo de tramitação varia de relator para relator. Queremos investigar se parte dessa variação está associada à idade do magistrado. Repare que a unidade de análise muda: cada ponto do gráfico é um relator, e não um recurso.",
+   "pergunta": "Entre os relatores da base, magistrados mais velhos julgam em mais ou em menos tempo? Considere só os relatores com pelo menos 5 recursos: com menos que isso o tempo médio é instável demais.",
+   "grafico_esperado": "Um gráfico de dispersão com um ponto por relator: idade no eixo x, tempo médio de tramitação no eixo y, com uma reta de tendência.",
+   "reflexao": "A reta sobe, desce ou fica plana? E os pontos estão perto dela ou espalhados? Uma reta com inclinação pequena e pontos muito espalhados diz pouca coisa, mesmo quando a inclinação existe.",
+   "imagem": "esperado/d3.png",
+   "blocos_pandas": [
+    {
+     "id": "p1",
+     "codigo": ".groupby(['relator', 'rel_idade'], as_index=False)",
+     "descricao": "Junta os recursos em pilhas, uma por relator. A idade entra junto no agrupamento para continuar disponível depois.",
+     "usar": true,
+     "ordem": 1
+    },
+    {
+     "id": "p2",
+     "codigo": ".agg(tempo_medio=('tempo', 'mean'), n=('tempo', 'size'))",
+     "descricao": "Resume cada relator em duas colunas: o tempo médio dos recursos dele e quantos recursos são.",
+     "usar": true,
+     "ordem": 2
+    },
+    {
+     "id": "p3",
+     "codigo": ".query('n >= 5')",
+     "descricao": "Descarta os relatores com menos de 5 recursos, onde o tempo médio é instável demais.",
+     "usar": true,
+     "ordem": 3
+    },
+    {
+     "id": "p4",
+     "codigo": ".drop_duplicates('relator')",
+     "descricao": "Fica com uma linha por relator, mantendo o primeiro recurso de cada um.",
+     "usar": false,
+     "porque_nao": "Isso dá um recurso por relator, e não a média dos recursos dele. O eixo y viraria o tempo de um caso sorteado, não o tempo médio."
+    },
+    {
+     "id": "p5",
+     "codigo": ".groupby('rel_idade', as_index=False)",
+     "descricao": "Junta os recursos por idade do relator.",
+     "usar": false,
+     "porque_nao": "Agrupando só por idade, dois relatores da mesma idade viram um ponto só, e o nome do relator se perde. A pergunta é sobre relatores."
+    },
+    {
+     "id": "p6",
+     "codigo": ".dropna(subset=['rel_genero'])",
+     "descricao": "Descarta os recursos em que o gênero do relator não foi informado.",
+     "usar": false,
+     "porque_nao": "Não existe coluna rel_genero nesta base: rode e o pandas devolve KeyError com o nome que ele não encontrou. Antes de filtrar o vazio de uma coluna, confira se ela existe na ficha da base, ali em cima."
+    }
+   ],
+   "blocos_plotnine": [
+    {
+     "id": "g1",
+     "codigo": "ggplot(dados, aes(x='rel_idade', y='tempo_medio'))",
+     "descricao": "Diz de qual tabela o gráfico sai e o que vai em cada eixo.",
+     "usar": true,
+     "primeiro": true
+    },
+    {
+     "id": "g2",
+     "codigo": "+ geom_point(size=2.5, alpha=.7)",
+     "descricao": "Desenha um ponto por relator. O alpha deixa os pontos translúcidos, para a sobreposição aparecer.",
+     "usar": true
+    },
+    {
+     "id": "g3",
+     "codigo": "+ geom_smooth(method='lm', color='#e50505')",
+     "descricao": "Acrescenta a reta de tendência que resume a direção da nuvem.",
+     "usar": true
+    },
+    {
+     "id": "g4",
+     "codigo": "+ labs(x='Idade do relator (anos)', y='Tempo médio até o julgamento (anos)')",
+     "descricao": "Troca os nomes das colunas por rótulos escritos para gente ler.",
+     "usar": true
+    },
+    {
+     "id": "g5",
+     "codigo": "+ geom_col()",
+     "descricao": "Desenha uma barra por valor do eixo x.",
+     "usar": false,
+     "porque_nao": "Barras tratam o eixo x como categoria. A idade é numérica e contínua, e a pergunta é sobre a relação entre duas variáveis numéricas."
+    },
+    {
+     "id": "g6",
+     "codigo": "+ geom_boxplot()",
+     "descricao": "Resume a distribuição em caixas.",
+     "usar": false,
+     "porque_nao": "Boxplot compara a distribuição de uma numérica entre categorias. Aqui as duas variáveis são numéricas, e não há categoria nenhuma."
+    },
+    {
+     "id": "g7",
+     "codigo": "+ geom_line()",
+     "descricao": "Liga os pontos com uma linha.",
+     "usar": false,
+     "porque_nao": "Linha só faz sentido quando o eixo x tem uma ordem que liga um ponto ao seguinte, como o tempo. Ligar relatores por idade desenha um ziguezague sem significado."
+    }
+   ],
+   "verificacao": "'tempo_medio' in dados.columns and 'rel_idade' in dados.columns and dados['n'].min() >= 5 and dados.shape[0] > 30"
+  },
+  {
+   "id": "d4",
+   "titulo": "Negativa ao longo do tempo, por polo do MP",
+   "peso": 2,
+   "contexto": "A proporção de recursos negados pode mudar de um ano para outro. E essa mudança pode não ser a mesma conforme quem recorre: o Ministério Público no polo ativo é o MP recorrendo, e no polo passivo é a defesa recorrendo contra a posição dele.",
+   "pergunta": "De 2017 em diante, a proporção de recursos negados mudou ao longo dos anos, e o padrão é o mesmo quando o Ministério Público está no polo ativo e no polo passivo?",
+   "grafico_esperado": "Uma linha por polo do MP, de 2017 em diante, com o ano no eixo x e a proporção de negados no eixo y, com os pontos marcados.",
+   "reflexao": "As duas linhas andam juntas ou se separam? Onde elas se afastam mais, e o que isso diria sobre quem consegue o que pede no tribunal?",
+   "imagem": "esperado/d4.png",
+   "blocos_pandas": [
+    {
+     "id": "p1",
+     "codigo": ".assign(negou=camaras['decisao'] == 'Negaram')",
+     "descricao": "Cria uma coluna que vale verdadeiro quando o recurso foi negado.",
+     "usar": true,
+     "ordem": 1
+    },
+    {
+     "id": "p2",
+     "codigo": ".groupby(['ano_publicacao', 'polo_mp'], as_index=False).agg(prop_negou=('negou', 'mean'), n=('negou', 'size'))",
+     "descricao": "Junta os recursos em pilhas por ano E por polo do MP, e resume cada pilha na proporção de negados e no total.",
+     "usar": true,
+     "ordem": 2
+    },
+    {
+     "id": "p3",
+     "codigo": ".query('ano_publicacao >= 2017')",
+     "descricao": "Fica só com os anos de 2017 em diante. Este filtro cabe em qualquer ponto do encadeamento: o ano é chave do agrupamento, então filtrar antes ou depois dá a mesma tabela.",
+     "usar": true,
+     "livre": true
+    },
+    {
+     "id": "p4",
+     "codigo": ".groupby('ano_publicacao', as_index=False).agg(prop_negou=('negou', 'mean'))",
+     "descricao": "Junta os recursos por ano, ignorando o polo do MP.",
+     "usar": false,
+     "porque_nao": "Agrupando só por ano você perde o polo do MP, que é justamente a comparação que a pergunta pede."
+    },
+    {
+     "id": "p5",
+     "codigo": ".query('n >= 30')",
+     "descricao": "Descarta os anos com menos de 30 recursos.",
+     "usar": false,
+     "porque_nao": "Parece razoável, mas o MP no polo ativo aparece em poucos recursos por ano: esse filtro apaga quase toda a série do polo ativo e impede a comparação que a pergunta pede."
+    }
+   ],
+   "blocos_plotnine": [
+    {
+     "id": "g1",
+     "codigo": "ggplot(dados, aes(x='ano_publicacao', y='prop_negou', color='polo_mp'))",
+     "descricao": "Diz de qual tabela o gráfico sai, o que vai em cada eixo, e que a cor separa os dois polos do MP.",
+     "usar": true,
+     "primeiro": true
+    },
+    {
+     "id": "g2",
+     "codigo": "+ geom_line(size=1)",
+     "descricao": "Liga os pontos de cada cor, mostrando a trajetória ao longo dos anos.",
+     "usar": true
+    },
+    {
+     "id": "g3",
+     "codigo": "+ geom_point(size=2.5)",
+     "descricao": "Marca cada valor observado, para não confundir a linha com dados que não existem.",
+     "usar": true
+    },
+    {
+     "id": "g4",
+     "codigo": "+ labs(x='Ano de publicação', y='Proporção de negados', color='Polo do MP')",
+     "descricao": "Troca os nomes das colunas por rótulos escritos para gente ler, inclusive o título da legenda.",
+     "usar": true
+    },
+    {
+     "id": "g5",
+     "codigo": "ggplot(dados, aes(x='ano_publicacao', y='prop_negou'))",
+     "descricao": "Diz de qual tabela o gráfico sai e o que vai em cada eixo, sem separar os polos do MP.",
+     "usar": false,
+     "porque_nao": "Sem mapear o polo em cor, as duas séries viram uma linha só, em ziguezague, com dois pontos por ano."
+    },
+    {
+     "id": "g6",
+     "codigo": "+ geom_col(position='stack')",
+     "descricao": "Desenha barras empilhadas, uma sobre a outra.",
+     "usar": false,
+     "porque_nao": "Somar proporções de dois grupos não produz nada interpretável: a soma de duas proporções não é uma proporção."
+    },
+    {
+     "id": "g7",
+     "codigo": "+ geom_boxplot()",
+     "descricao": "Resume a distribuição em caixas.",
+     "usar": false,
+     "porque_nao": "A tabela já tem um valor por ano e por polo: não há distribuição para resumir. Boxplot precisa de várias observações por categoria."
+    }
+   ],
+   "verificacao": "'polo_mp' in dados.columns and dados['ano_publicacao'].min() >= 2017 and dados['polo_mp'].nunique() == 2"
+  },
+  {
+   "id": "d5",
+   "titulo": "O resultado muda conforme quem recorre",
+   "peso": 2,
+   "contexto": "Todo recurso tem um resultado: negado, parcialmente provido ou provido. E tem alguém que recorreu. Quando o Ministério Público está no polo ativo, é ele quem pede a reforma da sentença; quando está no passivo, quem pede é a defesa. Os dois polos aparecem em quantidades muito diferentes, então comparar contagem não serve: o que se compara é a divisão interna de cada um.",
+   "pergunta": "Entre os recursos julgados de 2018 em diante, a divisão dos resultados é diferente conforme o polo em que o Ministério Público está?",
+   "grafico_esperado": "Duas barras, uma para cada polo do MP, ambas do mesmo tamanho, repartidas pela cor conforme o resultado do recurso. Cada barra vai de 0 a 1, mostrando a proporção de cada resultado dentro do polo.",
+   "reflexao": "Em qual polo a fatia de provimento é maior? Antes de concluir que um lado é mais bem sucedido, lembre que os dois pedem coisas diferentes, e que o polo ativo tem menos de 100 recursos aqui.",
+   "imagem": "esperado/d5.png",
+   "blocos_pandas": [
+    {
+     "id": "p1",
+     "codigo": ".query('ano_publicacao >= 2018')",
+     "descricao": "Fica só com os recursos julgados de 2018 em diante.",
+     "usar": true,
+     "ordem": 1
+    },
+    {
+     "id": "p2",
+     "codigo": ".groupby('polo_mp', as_index=False).agg(n=('decisao', 'size'))",
+     "descricao": "Resume cada polo a um número: quantos recursos ele tem.",
+     "usar": false,
+     "porque_nao": "Resumindo, você fica com uma linha por polo e perde a coluna decisao, que é justamente o que a cor precisa mapear."
+    },
+    {
+     "id": "p3",
+     "codigo": ".query(\"decisao != 'Parcialmente'\")",
+     "descricao": "Descarta os recursos parcialmente providos.",
+     "usar": false,
+     "porque_nao": "O parcial é quase metade da base e é um resultado como os outros. Jogá-lo fora muda a divisão de cada barra e responde outra pergunta."
+    },
+    {
+     "id": "p4",
+     "codigo": ".dropna(subset=['unanimidade'])",
+     "descricao": "Descarta os recursos em que não se sabe se a decisão foi unânime.",
+     "usar": false,
+     "porque_nao": "A pergunta não usa a unanimidade. Descarte o vazio da coluna que a sua pergunta usa, e só dela."
+    }
+   ],
+   "blocos_plotnine": [
+    {
+     "id": "g1",
+     "codigo": "ggplot(dados, aes(x='polo_mp', fill='decisao'))",
+     "descricao": "Diz de qual tabela o gráfico sai, que o polo vai no eixo x e que a cor de preenchimento mapeia o resultado do recurso.",
+     "usar": true,
+     "primeiro": true
+    },
+    {
+     "id": "g2",
+     "codigo": "+ geom_bar(position='fill')",
+     "descricao": "Conta os recursos e normaliza cada barra para a mesma altura, deixando à vista só a divisão interna de cada polo.",
+     "usar": true
+    },
+    {
+     "id": "g3",
+     "codigo": "+ labs(x='Polo do MP', y='Proporção dos recursos', fill='Resultado')",
+     "descricao": "Troca os nomes das colunas por rótulos escritos para gente ler, inclusive o título da legenda.",
+     "usar": true
+    },
+    {
+     "id": "g4",
+     "codigo": "+ geom_bar()",
+     "descricao": "Conta os recursos e empilha as cores numa barra por polo.",
+     "usar": false,
+     "porque_nao": "Empilhado em contagem, a barra do polo ativo fica dez vezes menor que a do passivo e não dá para comparar a divisão interna, que é o que a pergunta pede."
+    },
+    {
+     "id": "g5",
+     "codigo": "+ geom_bar(position='dodge')",
+     "descricao": "Conta os recursos e põe as cores lado a lado.",
+     "usar": false,
+     "porque_nao": "Lado a lado em contagem, o polo ativo continua esmagado pelo passivo. A comparação de proporção exige normalizar cada barra."
+    },
+    {
+     "id": "g6",
+     "codigo": "+ geom_col()",
+     "descricao": "Desenha uma barra com a altura que está na coluna y.",
+     "usar": false,
+     "porque_nao": "Não existe coluna y nesta tabela: a altura é a contagem, e quem conta é o geom_bar."
+    }
+   ],
+   "verificacao": "dados['ano_publicacao'].min() >= 2018 and dados['polo_mp'].nunique() == 2 and dados['decisao'].nunique() == 3 and dados.shape[0] > 900"
+  },
+  {
+   "id": "d6",
+   "titulo": "A idade dos relatores",
+   "peso": 2,
+   "contexto": "As perguntas anteriores foram sobre recursos. Esta é sobre quem julga: como se distribui a idade dos magistrados que relataram os recursos desta base, que vem das Câmaras Criminais do TJSP. Cuidado com a unidade de análise, porque a base tem uma linha por recurso, e um relator que julgou cem recursos apareceria cem vezes.",
+   "pergunta": "Como se distribui a idade dos relatores que aparecem nesta base? Cada relator deve contar uma vez, e não uma vez por recurso.",
+   "grafico_esperado": "Um histograma da idade dos relatores, com uma observação por relator. São pouco mais de cem relatores no total.",
+   "reflexao": "A distribuição tem um pico só, ou mais de um? Onde está a maior concentração? Compare com o que você imaginava sobre a idade de um desembargador antes de ver o gráfico.",
+   "imagem": "esperado/d6.png",
+   "blocos_pandas": [
+    {
+     "id": "p1",
+     "codigo": ".drop_duplicates('relator')",
+     "descricao": "Fica com uma linha por relator, que é a unidade de análise desta pergunta.",
+     "usar": true,
+     "ordem": 1
+    },
+    {
+     "id": "p3",
+     "codigo": ".query('rel_idade >= 60')",
+     "descricao": "Fica só com os relatores de 60 anos ou mais.",
+     "usar": false,
+     "porque_nao": "A pergunta é como a idade se distribui, e cortar as idades menores apaga metade da distribuição que se quer ver."
+    },
+    {
+     "id": "p4",
+     "codigo": ".query('tempo <= 15')",
+     "descricao": "Descarta os tempos acima de 15 anos.",
+     "usar": false,
+     "porque_nao": "Este filtro é sobre o tempo de tramitação, que esta pergunta não usa. Ele descarta relatores inteiros conforme o primeiro recurso de cada um."
+    }
+   ],
+   "blocos_plotnine": [
+    {
+     "id": "g1",
+     "codigo": "ggplot(dados, aes(x='rel_idade'))",
+     "descricao": "Diz de qual tabela o gráfico sai e qual variável vai no eixo x. Não existe y: quem calcula a altura é a geometria.",
+     "usar": true,
+     "primeiro": true
+    },
+    {
+     "id": "g2",
+     "codigo": "+ geom_histogram(bins=12)",
+     "descricao": "Corta a idade em 12 faixas e conta quantos relatores caem em cada uma.",
+     "usar": true
+    },
+    {
+     "id": "g3",
+     "codigo": "+ labs(x='Idade do relator (anos)', y='Relatores')",
+     "descricao": "Troca os nomes das colunas por rótulos escritos para gente ler.",
+     "usar": true
+    },
+    {
+     "id": "g4",
+     "codigo": "+ geom_bar()",
+     "descricao": "Conta quantas linhas há em cada valor do eixo x.",
+     "usar": false,
+     "porque_nao": "A idade é numérica e quase não se repete: geom_bar desenharia uma barra fininha para cada idade distinta, e não a distribuição. Numérica pede faixas, e faixa é o que o histograma faz."
+    },
+    {
+     "id": "g5",
+     "codigo": "+ geom_boxplot()",
+     "descricao": "Resume a distribuição numa caixa.",
+     "usar": false,
+     "porque_nao": "O boxplot resume a distribuição em cinco números e apaga a forma. A pergunta é justamente sobre a forma: onde estão os picos."
+    },
+    {
+     "id": "g6",
+     "codigo": "+ geom_col()",
+     "descricao": "Desenha uma barra com a altura que está na coluna y.",
+     "usar": false,
+     "porque_nao": "Não existe coluna y aqui, e nem poderia: a altura de cada faixa é uma contagem que a geometria faz."
+    }
+   ],
+   "verificacao": "'rel_idade' in dados.columns and 100 <= dados.shape[0] <= 140"
+  }
+ ]
+}

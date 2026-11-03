@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Projeto 5 (reposição) · Testes de hipóteses em acórdãos criminais · CDAD II</title>
+<link rel="icon" href="../_shared/img/logo-insper-preto.png">
+<script src="../_shared/tema.js"></script>
+<link rel="stylesheet" href="../_shared/styles.css">
+<style>
+  /* abas: as da base (descrição e primeiras linhas) e as das cinco perguntas */
+  .abas { display: flex; flex-wrap: wrap; gap: .3rem; border-bottom: var(--borda); margin-bottom: .8rem; }
+  .abas button {
+    background: none; border: var(--borda); border-bottom: none; border-radius: var(--raio) var(--raio) 0 0;
+    padding: .45rem .8rem; cursor: pointer; font: inherit; font-size: .85rem; color: inherit;
+    margin-bottom: -1px; text-align: left;
+  }
+  .abas button.ativa { background: var(--branco); border-color: var(--vermelho); box-shadow: inset 0 3px 0 var(--vermelho); font-weight: 600; }
+  .abas button .estado { font-family: var(--fonte-mono); font-size: .7rem; margin-left: .35rem; opacity: .75; }
+  .abas button .estado.completa { color: var(--verde-ok); opacity: 1; }
+  .pergunta-ativa { font-size: 1.02rem; margin: 0 0 .2rem; }
+  /* largura fixa: sem isso a figura sai do tamanho do PNG e encolhe quando a
+     saída do modelo é larga */
+  .quadro-grafico {
+    border: var(--borda); border-radius: var(--raio); background: var(--branco);
+    padding: .4rem; width: 100%; min-height: 20rem;
+    display: flex; align-items: center; justify-content: center;
+  }
+  #figura { width: 100%; max-width: 640px; height: auto; display: block; }
+  .rolagem-dicionario { max-height: 30rem; }
+  .primeiras-linhas td, .primeiras-linhas th { white-space: nowrap; }
+  #campos-interpretacao .campo { margin-bottom: .7rem; }
+  #campos-interpretacao .miudo { margin: 0 0 .25rem; }
+</style>
+</head>
+<body>
+
+<main>
+  <div class="abertura">
+    <h2>Testes de hipóteses em acórdãos criminais do TJSP</h2>
+    <p class="enunciado">
+      Esta é a reposição do Projeto 5, individual, para quem não esteve na aula de 13/10. A base
+      <code>criminal</code> reúne 475 acórdãos criminais do TJSP, um por linha, com a comarca, o
+      assunto, o regime inicial, a pena e marcas extraídas do texto (reincidência, confissão,
+      tráfico). Abaixo estão <strong>cinco perguntas de pesquisa</strong> sobre esses acórdãos, e
+      você deve responder a todas. Para cada pergunta:
+    </p>
+    <ol class="enunciado">
+      <li>escolha a variável resposta, a variável explicativa e o método de análise;</li>
+      <li>rode a análise, e o app mostra o código e a saída do Python;</li>
+      <li>interprete o resultado para uma pessoa do Direito que não fez esta disciplina,
+        respondendo aos itens da etapa 04.</li>
+    </ol>
+    <p class="enunciado">
+      Não há avaliação automática nesta versão: a rubrica está na etapa 04 para você saber o que
+      vai ser avaliado. O que você escreve fica salvo neste navegador enquanto você trabalha.
+    </p>
+    <div class="aviso atencao" id="aviso-violacoes"></div>
+    <div class="entrega">
+      <strong>O que entregar no BlackBoard:</strong> o arquivo markdown gerado no final, com as
+      cinco análises e as respostas.
+      <br>
+      <span class="miudo">Trabalho individual, com cópia e cola bloqueados.</span>
+    </div>
+  </div>
+  <section class="secao" id="s-ambiente">
+    <header>
+      <span class="n">00</span>
+      <h2>Ambiente e base</h2>
+      <span class="dica">pandas, scipy e statsmodels no navegador</span>
+    </header>
+    <div class="corpo">
+      <div class="fileira">
+        <button class="principal" id="b-carregar">Carregar o ambiente</button>
+        <span id="status-ambiente" class="miudo">o primeiro carregamento leva alguns segundos</span>
+      </div>
+      <div class="barra" style="margin-top:.7rem"><i id="barra-ambiente"></i></div>
+      <div id="resumo-base" style="margin-top:.8rem"></div>
+    </div>
+  </section>
+
+  <section class="secao travada" id="s-pergunta">
+    <header>
+      <span class="n">01</span>
+      <h2>Perguntas</h2>
+      <span class="dica" id="progresso-perguntas"></span>
+    </header>
+    <div class="corpo">
+      <div class="abas" id="abas-perguntas" role="tablist"></div>
+      <p class="pergunta-ativa" id="texto-pergunta"></p>
+    </div>
+  </section>
+
+  <section class="secao travada" id="s-analise">
+    <header>
+      <span class="n">02</span>
+      <h2>Variáveis e método</h2>
+    </header>
+    <div class="corpo">
+      <p class="enunciado">
+        Escolha a variável resposta, a variável explicativa e o método que respondem à pergunta.
+      </p>
+      <div class="grade tres">
+        <div class="campo">
+          <label class="rotulo" for="sel-y">Variável resposta</label>
+          <select id="sel-y"></select>
+        </div>
+        <div class="campo">
+          <label class="rotulo" for="sel-x">Variável explicativa</label>
+          <select id="sel-x"></select>
+        </div>
+        <div class="campo">
+          <label class="rotulo" for="sel-metodo">Método</label>
+          <select id="sel-metodo"></select>
+          <div id="ajuda-metodo" class="miudo"></div>
+        </div>
+      </div>
+      <div class="acoes">
+        <button class="principal" id="b-rodar">Rodar a análise</button>
+        <span id="status-analise" class="miudo"></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="secao travada" id="s-saida">
+    <header>
+      <span class="n">03</span>
+      <h2>Código e resultado</h2>
+      <span class="dica">a saída é a mesma que apareceria no Colab</span>
+    </header>
+    <div class="corpo">
+      <div class="grade lado-largo">
+        <div>
+          <span class="rotulo">gráfico de apoio</span>
+          <div class="quadro-grafico">
+            <img id="figura" alt="gráfico da relação analisada">
+          </div>
+          <div id="saida-texto" style="margin-top:.8rem"></div>
+        </div>
+        <div>
+          <span class="rotulo">código executado</span>
+          <pre><code id="codigo"></code></pre>
+          <span class="rotulo" style="margin-top:.7rem">saída do Python</span>
+          <pre style="height:26rem"><code id="saida-bruta"></code></pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="secao travada" id="s-interpretacao">
+    <header>
+      <span class="n">04</span>
+      <h2>Interpretar o resultado</h2>
+      <span class="dica" id="salvo"></span>
+    </header>
+    <div class="corpo">
+      <p class="enunciado">
+        Responda a cada item em poucas frases, para <strong>uma pessoa do Direito</strong> que não
+        fez esta disciplina. Todo número citado vai ser conferido com a saída da etapa 03.
+      </p>
+      <div id="painel-rubrica"></div>
+      <div id="campos-interpretacao"></div>
+    </div>
+  </section>
+
+  <section class="secao travada" id="s-entrega">
+    <header>
+      <span class="n">05</span>
+      <h2>Entrega</h2>
+    </header>
+    <div class="corpo">
+      <div id="resumo-entrega"></div>
+      <div class="acoes" style="margin-top:.6rem">
+        <button class="principal" id="b-fechar">Fechar e gerar a entrega</button>
+      </div>
+      <div id="painel-entrega" style="margin-top:1rem"></div>
+    </div>
+  </section>
+</main>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>

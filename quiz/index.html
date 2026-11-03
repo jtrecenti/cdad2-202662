@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#e50505">
+<title>Quiz · CDAD II</title>
+<link rel="icon" href="../_shared/img/logo-insper-preto.png">
+<style>
+/* ==========================================================================
+   Quiz ao vivo, na tela do celular.
+
+   Esta página não usa a folha compartilhada dos outros apps. Os outros são
+   feitos para notebook, com barra de etapas, painéis lado a lado e texto de
+   leitura. Aqui a pessoa está de pé, olhando para o telão, e volta ao celular
+   por cinco segundos para tocar numa opção. O que importa é alvo grande,
+   contraste alto e nenhuma rolagem para chegar às alternativas.
+   ========================================================================== */
+
+:root {
+  --marca: #e50505;
+  --verde: #12996f;
+  --fundo: #ffffff;
+  --superficie: #f4f5f7;
+  --borda: #d8dbe0;
+  --texto: #14161a;
+  --fraco: #4a4f57;
+  --raio: 12px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --marca: #ff6b6b;
+    --verde: #5ad8a6;
+    --fundo: #0d0f12;
+    --superficie: #1c1f25;
+    --borda: #3a3f48;
+    --texto: #ffffff;
+    --fraco: #d3d7de;
+  }
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: 0 1rem calc(1.4rem + env(safe-area-inset-bottom));
+  background: var(--fundo);
+  color: var(--texto);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 17px;
+  line-height: 1.45;
+  -webkit-text-size-adjust: 100%;
+}
+
+header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: .6rem;
+  padding: .9rem 0 .7rem;
+  border-bottom: 3px solid var(--marca);
+  margin-bottom: 1rem;
+}
+
+header b { font-size: 1rem; letter-spacing: -0.01em; }
+header span { font-size: .74rem; color: var(--fraco); }
+
+h1 {
+  font-size: 1.28rem;
+  line-height: 1.25;
+  margin: .2rem 0 .8rem;
+  letter-spacing: -0.01em;
+}
+
+.contexto {
+  background: var(--superficie);
+  border-left: 4px solid var(--borda);
+  border-radius: 0 var(--raio) var(--raio) 0;
+  padding: .6rem .75rem;
+  font-size: .85rem;
+  color: var(--fraco);
+  margin-bottom: .9rem;
+}
+
+/* ---- alternativas ------------------------------------------------------- */
+
+/*
+ * Alvo de toque com no mínimo 52px de altura e a letra num círculo à esquerda.
+ * A letra existe porque é por ela que o professor fala: "quem votou na C".
+ */
+.opcoes { display: flex; flex-direction: column; gap: .55rem; }
+
+.opcao {
+  display: flex;
+  align-items: flex-start;
+  gap: .7rem;
+  width: 100%;
+  min-height: 52px;
+  padding: .7rem .8rem;
+  text-align: left;
+  font: inherit;
+  color: var(--texto);
+  background: var(--fundo);
+  border: 2px solid var(--borda);
+  border-radius: var(--raio);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: border-color .12s, background .12s;
+}
+
+.opcao:active { background: var(--superficie); }
+
+.opcao .letra {
+  flex: none;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--superficie);
+  border: 1px solid var(--borda);
+  color: var(--fraco);
+  font-size: .8rem;
+  font-weight: 700;
+  display: grid;
+  place-items: center;
+  margin-top: 1px;
+}
+
+.opcao.escolhida { border-color: var(--marca); background: color-mix(in srgb, var(--marca) 8%, transparent); }
+.opcao.escolhida .letra { background: var(--marca); border-color: var(--marca); color: #fff; }
+
+.opcao.certa { border-color: var(--verde); background: color-mix(in srgb, var(--verde) 12%, transparent); }
+.opcao.certa .letra { background: var(--verde); border-color: var(--verde); color: #fff; }
+
+.opcao.errada { border-color: var(--marca); opacity: .72; }
+
+.opcao[disabled] { cursor: default; }
+
+/* a barrinha com a proporção de votos, só depois de revelada */
+.barra {
+  margin-top: .3rem;
+  height: 5px;
+  border-radius: 3px;
+  background: var(--borda);
+  overflow: hidden;
+}
+.barra i { display: block; height: 100%; background: var(--fraco); }
+.opcao.certa .barra i { background: var(--verde); }
+.votos { font-size: .72rem; color: var(--fraco); margin-top: .18rem; }
+
+/* ---- pergunta de data (o quiz dos aniversários) ------------------------- */
+
+/* Dois seletores nativos, e não um input de data: o input de data pede o ano,
+   que a gente não quer, e cada celular o desenha de um jeito. */
+.data-escolha {
+  display: flex;
+  gap: .5rem;
+  flex-wrap: wrap;
+  align-items: stretch;
+}
+
+.data-campo {
+  flex: 1 1 7rem;
+  min-height: 52px;
+  padding: .7rem .8rem;
+  font: inherit;
+  color: var(--texto);
+  background: var(--fundo);
+  border: 2px solid var(--borda);
+  border-radius: var(--raio);
+}
+
+.data-campo:focus { outline: none; border-color: var(--marca); }
+
+.opcao.enviar {
+  flex: 1 1 100%;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700;
+  border-color: var(--marca);
+  color: var(--marca);
+}
+
+.opcao.enviar[disabled] { opacity: .5; }
+
+/* ---- bloco: várias perguntas na mesma tela ------------------------------ */
+.item {
+  border: 2px solid var(--borda);
+  border-radius: var(--raio);
+  padding: .7rem .8rem .8rem;
+  margin-bottom: .7rem;
+}
+.item.feito { border-color: color-mix(in srgb, var(--marca) 45%, var(--borda)); }
+.item-titulo { font-size: .78rem; font-weight: 700; color: var(--fraco); text-transform: uppercase; letter-spacing: .03em; }
+.item-enunciado { font-size: 1rem; line-height: 1.3; margin: .2rem 0 .6rem; }
+.fileira { display: grid; grid-template-columns: repeat(3, 1fr); gap: .4rem; }
+.curta {
+  min-height: 46px;
+  padding: .45rem .3rem;
+  font: inherit;
+  font-size: .86rem;
+  font-weight: 600;
+  color: var(--texto);
+  background: var(--fundo);
+  border: 2px solid var(--borda);
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  -webkit-tap-highlight-color: transparent;
+}
+.curta.escolhida { border-color: var(--marca); background: var(--marca); color: #fff; }
+.curta.certa { border-color: var(--verde); background: color-mix(in srgb, var(--verde) 14%, transparent); color: var(--texto); }
+.curta.escolhida.certa { background: var(--verde); color: #fff; }
+.curta.errada { opacity: .75; }
+.curta .votos { margin-top: .1rem; font-weight: 400; color: inherit; }
+.curta[disabled] { cursor: default; }
+.item-porque { font-size: .82rem; color: var(--fraco); margin-top: .55rem; }
+/* ---- avisos ------------------------------------------------------------- */
+
+.painel {
+  border-radius: var(--raio);
+  padding: .8rem .9rem;
+  margin: .9rem 0;
+  font-size: .9rem;
+  background: var(--superficie);
+  border-left: 4px solid var(--borda);
+}
+.painel.ok { border-left-color: var(--verde); }
+.painel.aviso { border-left-color: var(--marca); }
+.painel b { display: block; margin-bottom: .2rem; }
+
+.espera {
+  text-align: center;
+  padding: 3.5rem 1rem;
+  color: var(--fraco);
+}
+.espera .ponto {
+  width: 12px; height: 12px; border-radius: 50%;
+  background: var(--marca); margin: 0 auto 1rem;
+  animation: pulsa 1.5s ease-in-out infinite;
+}
+@keyframes pulsa { 0%, 100% { opacity: .25; } 50% { opacity: 1; } }
+
+.rodape {
+  margin-top: 1.6rem;
+  padding-top: .7rem;
+  border-top: 1px solid var(--borda);
+  font-size: .72rem;
+  color: var(--fraco);
+}
+</style>
+</head>
+<body>
+
+<header>
+  <b>Quiz · CDAD II</b>
+  <span id="estado-conexao">conectando</span>
+</header>
+
+<main id="tela">
+  <div class="espera">
+    <div class="ponto"></div>
+    Carregando as perguntas...
+  </div>
+</main>
+
+<p class="rodape">
+  Sem login e sem nota: o quiz é para a sala pensar junto. A sua resposta é
+  anônima, e dá para trocar enquanto a votação estiver aberta.
+</p>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>

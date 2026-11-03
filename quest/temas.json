@@ -1,0 +1,64 @@
+{
+ "_leia": [
+  "Gerado por scripts/preparar_quest.py a partir de dados-privados/quest_temas.json.",
+  "Não edite aqui: edite o arquivo privado e rode o script de novo."
+ ],
+ "temas": [
+  {
+   "id": "busca-apreensao-alienacao-fiduciaria",
+   "area": "Obrigações e Contratos",
+   "titulo": "Busca e apreensão de veículos financiados",
+   "problema": "Quem financia um carro com alienação fiduciária e atrasa as parcelas pode ter o veículo apreendido por ordem liminar do juiz (Decreto-Lei 911/1969, art. 3º). Para isso o banco precisa comprovar a mora (Súmula 72 do STJ), e basta ter enviado a notificação ao endereço do contrato, mesmo que ninguém a tenha recebido (Tema 1.132 do STJ). Depois da apreensão, o devedor tem 5 dias para pagar a dívida inteira ou perde o bem (art. 3º, §§ 1º e 2º; Tema 722 do STJ). Na prática, muitas ações terminam com o banco desistindo, depois de um acordo ou do pagamento.",
+   "pergunta_errada": "A busca e apreensão de veículos funciona?"
+  },
+  {
+   "id": "usucapiao-tempo-ate-sentenca",
+   "area": "Propriedade",
+   "titulo": "Usucapião e o tempo até a sentença",
+   "problema": "Quem possui um imóvel por muitos anos, como se fosse dono, pode pedir ao juiz que declare a propriedade por usucapião (Código Civil, arts. 1.238, 1.240 e 1.242; Constituição, art. 183). A ação exige citar pessoalmente os confrontantes e publicar edital para interessados incertos (CPC, arts. 246, § 3º, e 259, I), e costuma ser demorada. Desde o CPC de 2015 também existe a usucapião extrajudicial, no cartório (Lei 6.015/1973, art. 216-A). Interessa saber quanto tempo as ações judiciais levam até a sentença e como terminam.",
+   "pergunta_errada": "Quanto tempo, em média, levaram as ações de usucapião que foram sentenciadas em 2025?"
+  },
+  {
+   "id": "execucao-fiscal-prescricao-intercorrente",
+   "area": "Tributário e Processo",
+   "titulo": "Execução fiscal e prescrição intercorrente",
+   "problema": "Os municípios cobram o IPTU atrasado em execuções fiscais que muitas vezes ficam anos paradas, sem achar o devedor ou bens para penhorar. Pela Lei 6.830/1980 (art. 40), a execução é suspensa por um ano, depois arquivada, e após cinco anos de arquivo o juiz reconhece a prescrição intercorrente (Súmula 314 do STJ; REsp 1.340.553/RS, Temas 566 a 571). Desde 2024, a Resolução CNJ 547/2024, editada após o Tema 1.184 do STF, também manda extinguir execuções de menos de R$ 10 mil sem movimentação útil há mais de um ano, sem citação ou sem bens penhoráveis. Interessa saber quantas execuções terminam e por qual motivo.",
+   "pergunta_errada": "Quantas execuções fiscais terminam por prescrição intercorrente?"
+  },
+  {
+   "id": "concurso-publico-mandado-de-seguranca",
+   "area": "Direito Administrativo",
+   "titulo": "Concurso público e mandado de segurança",
+   "problema": "Candidatos eliminados de concursos públicos, no teste físico, na avaliação psicológica, na investigação social ou na correção da prova, costumam ir ao Judiciário por mandado de segurança, com pedido de liminar (Lei 12.016/2009, art. 7º, III) e prazo de 120 dias (art. 23). O STF só admite exame psicotécnico previsto em lei (Súmula Vinculante 44), não aceita eliminar alguém só por responder a inquérito ou ação penal sem previsão legal adequada (Tema 22) e não deixa o juiz substituir a banca na correção das questões (Tema 485). Interessa saber quantos mandados são concedidos e em que fases a eliminação é mais revertida.",
+   "pergunta_errada": "Ter a liminar concedida faz o candidato ganhar o mandado de segurança?"
+  },
+  {
+   "id": "roubo-reconhecimento-pessoal",
+   "area": "Direito Penal e Processo Penal",
+   "titulo": "Roubo e o reconhecimento pessoal",
+   "problema": "Muitas condenações por roubo (Código Penal, art. 157) se apoiam no reconhecimento do réu pela vítima, feito por fotografia ou pessoalmente. O art. 226 do CPP prevê um procedimento, com descrição prévia e o suspeito colocado ao lado de pessoas parecidas. Desde o HC 598.886/SC (STJ, 2020), e agora pelo Tema 1.258 do STJ (2025), essas regras são obrigatórias, e o reconhecimento viciado só não derruba a condenação se houver provas independentes. Interessa saber como o TJSP decide as apelações em que o reconhecimento é contestado.",
+   "pergunta_errada": "Quantos inocentes são condenados por roubo por causa do reconhecimento fotográfico?"
+  },
+  {
+   "id": "planos-de-saude-negativa-cobertura",
+   "area": "Consumidor",
+   "titulo": "Planos de saúde e a negativa de cobertura",
+   "problema": "Beneficiários processam a operadora quando um tratamento prescrito pelo médico é negado, muitas vezes por não constar no rol de procedimentos da ANS. A Lei 14.454/2022 incluiu na Lei 9.656/1998 (art. 10, §§ 12 e 13) a cobertura de tratamentos fora do rol, e o STF, na ADI 7.265 (setembro de 2025), manteve a regra, mas exigiu cinco critérios cumulativos, como eficácia comprovada por evidência científica e registro na Anvisa. O CDC se aplica aos planos, salvo os de autogestão (Súmula 608 do STJ). Interessa saber em que proporção o TJSP manda custear o tratamento e o que está associado a isso.",
+   "pergunta_errada": "Quantos pacientes tiveram tratamento negado pelos planos de saúde em São Paulo em 2025?"
+  },
+  {
+   "id": "golpe-falsa-central-responsabilidade-banco",
+   "area": "Responsabilidade Civil",
+   "titulo": "Golpe da falsa central e a responsabilidade do banco",
+   "problema": "No golpe da falsa central, alguém se passa pelo banco por telefone ou mensagem e convence o cliente a fazer transferências, pagar boletos ou contratar empréstimos, e depois o cliente processa o banco. A Súmula 479 do STJ diz que o banco responde objetivamente por fraudes de terceiros ligadas às operações bancárias (fortuito interno), mas o CDC afasta a responsabilidade quando a culpa é exclusiva do consumidor ou de terceiro (art. 14, § 3º, II). O STJ também decidiu que o banco deve identificar e barrar transações fora do perfil do cliente (REsp 2.052.228/DF, 2023). Interessa saber quando o TJSP responsabiliza o banco.",
+   "pergunta_errada": "Qual é a indenização justa para quem cai no golpe da falsa central?"
+  },
+  {
+   "id": "desconsideracao-personalidade-juridica",
+   "area": "Empresarial",
+   "titulo": "Desconsideração da personalidade jurídica",
+   "problema": "Quando a empresa devedora não tem bens, o credor pode pedir que a dívida alcance os sócios, pela desconsideração da personalidade jurídica. O Código Civil (art. 50, com a redação da Lei 13.874/2019) exige abuso, por desvio de finalidade ou confusão patrimonial, e diz que a simples existência de grupo econômico não basta; nas relações de consumo, basta que a personalidade seja obstáculo ao ressarcimento (CDC, art. 28, § 5º). O pedido corre em um incidente com contraditório (CPC, arts. 133 a 137), resolvido por decisão interlocutória, que se ataca por agravo de instrumento (art. 1.015, IV). Interessa saber quando o TJSP mantém ou afasta a desconsideração.",
+   "pergunta_errada": "Entre os acórdãos que mencionam confusão patrimonial, qual a proporção de desconsiderações deferidas?"
+  }
+ ]
+}

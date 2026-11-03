@@ -1,0 +1,43 @@
+{
+ "id": "ex02_graficos",
+ "titulo": "Projeto 2 - Montar o gráfico que responde à pergunta",
+ "exercicio": "Projeto 2 (aula 06)",
+ "instrucoes": "Este projeto é corrigido pelo próprio app, comparando o que o seu código produz com o que a pergunta pede. São seis desafios: o primeiro vale 1 ponto e os outros cinco valem 2, somando 11 pontos. Cada tentativa errada desconta 0,25 ponto, e a nota final para em 10: fazendo os seis desafios, dá para errar quatro vezes e ainda tirar 10. O placar no alto de cada desafio mostra pontos, descontos e nota em tempo real. Se você achar que uma solução sua estava certa e o app não aceitou, use o campo de observações na entrega: ele é lido na correção. Os critérios abaixo são os que o app usa, e são os mesmos que valem quando você fizer um gráfico fora daqui.",
+ "criterios": [
+  {
+   "id": "preparo",
+   "nome": "A tabela chega no formato que o gráfico precisa",
+   "descricao": "Antes de desenhar, os dados têm que estar na forma certa: uma linha por barra quando o gráfico é de barras calculadas, todas as observações quando o gráfico é de distribuição. Agrupar quando não devia (ou deixar de agrupar quando devia) é o erro mais comum.",
+   "penalizar": "resumir para a média quando o gráfico precisa da distribuição inteira"
+  },
+  {
+   "id": "ordem",
+   "nome": "A ordem das operações preserva a informação",
+   "descricao": "Em pandas a sequência muda o resultado: filtrar antes ou depois de agrupar dá números diferentes. Uma operação só pode usar a coluna que outra já criou.",
+   "penalizar": "filtrar de um jeito que apaga o grupo que a pergunta quer comparar"
+  },
+  {
+   "id": "geom",
+   "nome": "O geom corresponde ao tipo de resposta",
+   "descricao": "Barra para valor já calculado (geom_col) ou para contagem (geom_bar), boxplot para distribuição entre grupos, linha para série no tempo, ponto para comparar valores por categoria.",
+   "penalizar": "usar geom_bar quando a altura já está calculada, ou linha para ligar categorias que não têm sequência"
+  },
+  {
+   "id": "mapeamento",
+   "nome": "O aes() mapeia as variáveis que a pergunta compara",
+   "descricao": "O que varia na pergunta tem que variar no gráfico: se a comparação é entre dois grupos, o grupo precisa aparecer em cor, forma ou faceta. Ordem de categoria se resolve no aes(), com reorder().",
+   "penalizar": "deixar de mapear o grupo que está sendo comparado, transformando duas séries em uma"
+  },
+  {
+   "id": "legibilidade",
+   "nome": "O gráfico se explica sozinho",
+   "descricao": "Eixos com nome em português, sem nome de coluna cru, e rótulos legíveis (girar o gráfico quando o texto da categoria é longo)."
+  }
+ ],
+ "observacoes": "No plotnine, a ordem das camadas depois do ggplot() quase nunca muda o gráfico: labs() antes ou depois de coord_flip() dá o mesmo resultado, e o app aceita as duas formas. Em pandas, a ordem importa quase sempre.",
+ "escala": {
+  "insuficiente": "não atende (nota 0)",
+  "abaixo_do_esperado": "atende em parte (nota 0,5)",
+  "esperado": "atende (nota 1,0)"
+ }
+}

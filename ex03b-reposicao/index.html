@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Projeto 3 (reposição) · Probabilidade e variável aleatória · CDAD II</title>
+<link rel="icon" href="../_shared/img/logo-insper-preto.png">
+<script src="../_shared/tema.js"></script>
+<link rel="stylesheet" href="../_shared/styles.css">
+<style>
+  .dados { border-collapse: collapse; margin: .6rem 0 .9rem; font-size: .9rem; }
+  .dados th, .dados td { border: var(--borda); padding: .35rem .7rem; text-align: center; }
+  .dados th { background: var(--cinza-100); }
+  .dados td:first-child, .dados th:first-child { text-align: left; }
+
+  .item { margin: 1.1rem 0 .4rem; }
+  .item .pontos { font-family: var(--fonte-mono); font-size: .75rem; color: var(--cinza-600); }
+
+  .notacao td input { width: 11rem; font-family: var(--fonte-mono); }
+  .notacao td.exemplo { font-family: var(--fonte-mono); color: var(--cinza-600); }
+  .paleta { display: flex; flex-wrap: wrap; gap: .3rem; align-items: center; margin: .3rem 0 .6rem; }
+  .paleta button { font-family: var(--fonte-mono); padding: .15rem .55rem; }
+
+  .probs { display: grid; gap: .4rem .9rem; grid-template-columns: 1fr; }
+  @media (min-width: 720px) { .probs { grid-template-columns: 1fr 1fr 1fr; } }
+  .probs label { display: flex; align-items: center; gap: .4rem; font-size: .88rem; }
+  .probs input { width: 9rem; font-family: var(--fonte-mono); }
+
+  .distribuicao td input { width: 9rem; font-family: var(--fonte-mono); }
+  .distribuicao .dada { font-family: var(--fonte-mono); }
+  .distribuicao .conta { font-size: .75rem; color: var(--cinza-600); }
+
+  .dados-caixa { border-left: 3px solid var(--cinza-400); padding: .3rem .8rem; margin: .5rem 0; }
+  .salvo { font-family: var(--fonte-mono); font-size: .72rem; color: var(--cinza-600); }
+</style>
+</head>
+<body>
+
+<main>
+  <div class="abertura">
+    <h2>Probabilidade e variável aleatória</h2>
+    <p class="enunciado">
+      Esta é a versão para fazer em casa da prova do projeto 3, combinada com o professor. Os
+      conteúdos e os pesos são os mesmos da prova de 10/09 (condicional, independência, teorema
+      de Bayes, valor esperado e risco), com casos novos. Soma <strong>10 pontos</strong>.
+    </p>
+    <ul class="enunciado">
+      <li><strong>Individual.</strong> Pode consultar os seus slides, notebooks e listas. Não vale
+        pedir ajuda a colegas nem usar ferramentas de inteligência artificial.</li>
+      <li><strong>Conta armada vale:</strong> pode deixar o resultado em fração, como 7/20.
+        Mostre a conta e o raciocínio sempre que aplicável.</li>
+      <li>Onde o item pedir uma frase, escreva <strong>uma frase</strong>.</li>
+      <li>Colar está bloqueado nos campos de resposta. As respostas ficam salvas neste navegador
+        enquanto você escreve, então dá para parar e voltar depois, no mesmo computador.</li>
+    </ul>
+    <div class="entrega">
+      <strong>Como entregar:</strong> ao terminar, clique em <em>enviar as respostas</em>, no fim da
+      página, e baixe o arquivo que aparece. <span id="prazo">O prazo é o combinado com o
+      professor.</span>
+      <br>
+      <span class="miudo">Pode enviar mais de uma vez: vale o último envio.</span>
+    </div>
+  </div>
+
+  <div id="prova"><p class="miudo">carregando…</p></div>
+
+  <section class="secao" id="s-envio">
+    <header>
+      <span class="n">03</span>
+      <h2>Enviar</h2>
+      <span class="dica" id="status-envio"></span>
+    </header>
+    <div class="corpo">
+      <p class="enunciado">
+        Confira as respostas antes de enviar. O envio registra tudo no seu nome, com data e hora,
+        e gera o arquivo para você guardar e entregar.
+      </p>
+      <div id="avisos-envio"></div>
+      <div class="acoes">
+        <button class="principal" id="b-enviar" type="button">enviar as respostas</button>
+        <span class="salvo" id="salvo"></span>
+      </div>
+      <div id="painel-envio"></div>
+    </div>
+  </section>
+</main>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>

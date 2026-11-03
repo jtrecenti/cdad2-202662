@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Slides do grupo · Quest do planejamento · CDAD II</title>
+<link rel="icon" href="../_shared/img/logo-insper-preto.png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/reveal.min.css">
+<link rel="stylesheet" href="../slides/recursos/fontes.css">
+<style>
+/* ==========================================================================
+   Os slides de um grupo que terminou a quest. O conteúdo vem do Worker (as
+   respostas aprovadas, enxugadas pela IA) e o desenho imita o dos slides da
+   disciplina: fundo claro, título na fonte das aulas, régua vermelha, texto
+   em Inter. Nada é renderizado fora do navegador.
+   ========================================================================== */
+:root { --marca: #e50505; --texto: #14161a; --fraco: #4a4f57; --regua: #e3e5e8; }
+html, body { background: #ffffff; }
+.reveal { font-family: "Inter", -apple-system, "Segoe UI", sans-serif; color: var(--texto); font-size: 30px; }
+.reveal .slides section { text-align: left; }
+.reveal h1, .reveal h2 { font-family: "GT Ultra Fine", Georgia, serif; font-weight: 700; color: var(--texto);
+                         text-transform: none; letter-spacing: -0.01em; margin: 0 0 .5rem; }
+.reveal h1 { font-size: 1.9em; line-height: 1.1; }
+.reveal h2 { font-size: 1.45em; padding-bottom: .35rem; border-bottom: 1px solid var(--regua); }
+.reveal .rotulo { font-size: .55em; font-weight: 700; letter-spacing: .12em; text-transform: uppercase;
+                  color: var(--marca); margin-bottom: .6rem; display: block; }
+.reveal ul { margin: .6rem 0 0 1.1em; }
+.reveal li { margin-bottom: .45rem; line-height: 1.35; }
+.reveal li::marker { color: var(--fraco); }
+.reveal .capa { border-left: 6px solid var(--marca); padding-left: 1.2rem; }
+.reveal .miudo { font-size: .6em; color: var(--fraco); margin-top: 1rem; }
+.reveal .progress { color: var(--marca); }
+.erro { font-family: "Inter", sans-serif; padding: 2rem; color: var(--marca); }
+</style>
+</head>
+<body>
+<div class="reveal"><div class="slides" id="slides"><section><p class="miudo">carregando os slides…</p></section></div></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/5.1.0/reveal.min.js"></script>
+<script type="module">
+import { CONFIG } from "../_shared/config.js";
+import { senhaProfessor } from "../_shared/liberacao.js";
+import { respostasExemplo, slidesDoPlano } from "./exemplo.js";
+
+const PARAMS = new URLSearchParams(location.search);
+const grupo = Number(PARAMS.get("grupo"));
+// ?previa=1&tema=ID: os slides de exemplo da prévia do professor, montados das
+// respostas do gabarito do tema, sem IA. Precisam da senha da sessão.
+const previa = PARAMS.get("previa") === "1";
+const alvo = document.getElementById("slides");
+
+async function carregar() {
+  if (previa) {
+    const senha = senhaProfessor();
+    if (!senha) throw new Error("abram a prévia com ?prof=1 e a senha da equipe, e cliquem no botão de novo");
+    const r = await fetch(`${CONFIG.proxy}/quest/gabarito`, { headers: { "X-Prof-Token": senha } });
+    const g = await r.json().catch(() => ({}));
+    if (!r.ok) throw new Error(g.erro || `erro ${r.status}`);
+    const t = (g.temas || []).find((x) => x.id === PARAMS.get("tema"));
+    if (!t) throw new Error("tema não encontrado");
+    return { tema: { titulo: t.titulo, area: t.area }, ...slidesDoPlano(t, respostasExemplo(t)) };
+  }
+  const r = await fetch(`${CONFIG.proxy}/quest/slides?grupo=${grupo}`);
+  const d = await r.json();
+  if (!r.ok) throw new Error(d.erro || `erro ${r.status}`);
+  return d;
+}
+
+function el(tag, attrs = {}, filhos = []) {
+  const n = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs)) {
+    if (k === "texto") n.textContent = v;
+    else n.setAttribute(k, v);
+  }
+  for (const f of [].concat(filhos)) if (f != null) n.append(f);
+  return n;
+}
+
+async function montar() {
+  try {
+    const d = await carregar();
+    document.title = `${previa ? "Exemplo" : `Grupo ${grupo}`} · ${d.tema?.titulo || "quest"}`;
+    const secoes = [
+      el("section", {}, el("div", { class: "capa" }, [
+        el("span", { class: "rotulo", texto: `${previa ? "exemplo do gabarito" : `grupo ${grupo}`} · ${d.tema?.area || ""}` }),
+        el("h1", { texto: d.titulo || d.tema?.titulo || "" }),
+        el("p", { class: "miudo", texto: d.tema?.titulo || "" }),
+      ])),
+      ...(d.slides || []).map((s) => el("section", {}, [
+        el("h2", { texto: s.titulo }),
+        el("ul", {}, (s.itens || []).map((t) => el("li", { texto: t }))),
+      ])),
+    ];
+    alvo.replaceChildren(...secoes);
+  } catch (erro) {
+    alvo.replaceChildren(el("section", {}, el("p", { class: "erro", texto: `Não deu para montar os slides: ${erro.message}` })));
+  }
+  Reveal.initialize({ hash: true, width: 1280, height: 760, margin: 0.06, controls: true, progress: true, slideNumber: "c/t", transition: "fade" });
+}
+
+montar();
+</script>
+</body>
+</html>

@@ -1,0 +1,1188 @@
+/* ==========================================================================
+   CDAD II - 2026/2 | folha de estilo compartilhada dos apps dos exercícios
+   --------------------------------------------------------------------------
+   Identidade Insper (guia de marca, abril/2024): vermelho como acento agudo,
+   preto e cinzas como estrutura, secundárias só para sinalizar estado.
+   A linguagem visual é de instrumento de medição: régua fina, numerais
+   tabulares, régua de seções, nada de gradiente decorativo.
+   ========================================================================== */
+
+@font-face {
+  font-family: "GT Ultra Fine";
+  src: url("fonts/GTUltraFine-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-display: swap;
+}
+
+:root {
+  /* marca */
+  --vermelho: #e50505;
+  --vermelho-escuro: #7a1020;
+  --preto: #000;
+  --tinta: #1a1a1a;
+  --grafite: #3f3f3f;
+  --cinza-800: #5b5b5b;
+  --cinza-600: #808080;
+  --cinza-400: #ababab;
+  --cinza-200: #dcdcdc;
+  --cinza-100: #f2f2f0;
+  --papel: #fbfbf9;
+  --branco: #fff;
+
+  /* secundárias: só para estado */
+  --turquesa: #3acc9f;
+  --verde: #92d053;
+  --amarelo: #ffcc00;
+  --laranja: #f89d49;
+  --rosa: #f47dcd;
+  --roxo: #730d9f;
+
+  --fonte-display: "GT Ultra Fine", Georgia, "Times New Roman", serif;
+  --fonte-texto: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --fonte-mono: ui-monospace, "Cascadia Mono", "Segoe UI Mono", Consolas, "Liberation Mono", monospace;
+
+  --borda: 1px solid var(--cinza-200);
+  --borda-forte: 1px solid var(--grafite);
+  --raio: 3px;
+  --sombra: 0 1px 2px rgba(0, 0, 0, 0.06), 0 8px 24px -16px rgba(0, 0, 0, 0.25);
+  --largura: 1120px;
+
+  /* Cores de contraste fixo: o cabeçalho escuro, os botões, os blocos de
+     código. No claro elas coincidem com tinta e branco; no escuro não, porque
+     tinta e branco trocam de papel (tinta vira texto claro, branco vira fundo
+     de cartão). */
+  --topo-fundo: var(--tinta);
+  --topo-texto: #fff;
+  --botao-fundo: var(--tinta);
+  --botao-texto: #fff;
+  --pre-fundo: var(--tinta);
+  --notas-fundo: var(--grafite);
+  --pre-texto: #f3f3ef;
+  --grade-papel: rgba(0, 0, 0, 0.022);
+  --aviso-atencao: #fffbe8;
+  --aviso-erro: #fdeceb;
+  --aviso-ok: #e9f9f3;
+  --linha-hover: #fffdf5;
+  --rubrica-fundo: #fdfbff;
+  --azul-num: #0a6ea8;
+  --verde-ok: #1a8c68;
+  --laranja-txt: #a15c10;
+  --marca-texto: rgba(229, 5, 5, 0.14);
+  --tom-verde: #eafaf4;
+  --tom-vermelho: #fdf2f2;
+  --tom-laranja: #fff4e6;
+  --tom-amarelo: #fff8e6;
+  --tom-roxo: #faf6fd;
+  --tom-neutro: #f7f7f5;
+  color-scheme: light;
+}
+
+/* ---------- modo escuro ----------------------------------------------------
+   Vale quando a pessoa escolhe no botão (data-theme="dark", ver
+   _shared/tema.js) ou quando o sistema está escuro e ela não escolheu o claro.
+   As mesmas variáveis do :root, com a escala de cinzas invertida: o resto da
+   folha não precisa saber em que modo está. */
+
+:root[data-theme="dark"] {
+  --vermelho: #ff4d4d;
+  --vermelho-escuro: #ff8a8a;
+  --tinta: #ecece8;
+  --grafite: #cfcfca;
+  --cinza-800: #b4b4ae;
+  --cinza-600: #93938e;
+  --cinza-400: #64666b;
+  --cinza-200: #373a3f;
+  --cinza-100: #26292e;
+  --papel: #131416;
+  --branco: #1c1e22;
+  --roxo: #c08ae8;
+  --topo-fundo: #08090a;
+  --botao-fundo: #3b3e45;
+  --pre-fundo: #0b0c0e;
+  --notas-fundo: #50535b;
+  --grade-papel: rgba(255, 255, 255, 0.025);
+  --aviso-atencao: #3a3218;
+  --aviso-erro: #3d1d1d;
+  --aviso-ok: #163328;
+  --linha-hover: #25282d;
+  --rubrica-fundo: #221d29;
+  --azul-num: #6cb8ec;
+  --verde-ok: #5ad8a6;
+  --laranja-txt: #f8b46e;
+  --marca-texto: rgba(255, 77, 77, 0.28);
+  --tom-verde: #17332a;
+  --tom-vermelho: #3a1d1f;
+  --tom-laranja: #3a2a18;
+  --tom-amarelo: #362e17;
+  --tom-roxo: #2a2133;
+  --tom-neutro: #23262b;
+  --sombra: 0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 24px -16px rgba(0, 0, 0, 0.8);
+  color-scheme: dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --vermelho: #ff4d4d;
+    --vermelho-escuro: #ff8a8a;
+    --tinta: #ecece8;
+    --grafite: #cfcfca;
+    --cinza-800: #b4b4ae;
+    --cinza-600: #93938e;
+    --cinza-400: #64666b;
+    --cinza-200: #373a3f;
+    --cinza-100: #26292e;
+    --papel: #131416;
+    --branco: #1c1e22;
+    --roxo: #c08ae8;
+    --topo-fundo: #08090a;
+    --botao-fundo: #3b3e45;
+    --pre-fundo: #0b0c0e;
+  --notas-fundo: #50535b;
+    --grade-papel: rgba(255, 255, 255, 0.025);
+    --aviso-atencao: #3a3218;
+    --aviso-erro: #3d1d1d;
+    --aviso-ok: #163328;
+    --linha-hover: #25282d;
+    --rubrica-fundo: #221d29;
+    --azul-num: #6cb8ec;
+    --verde-ok: #5ad8a6;
+    --laranja-txt: #f8b46e;
+    --marca-texto: rgba(255, 77, 77, 0.28);
+    --tom-verde: #17332a;
+    --tom-vermelho: #3a1d1f;
+    --tom-laranja: #3a2a18;
+    --tom-amarelo: #362e17;
+    --tom-roxo: #2a2133;
+    --tom-neutro: #23262b;
+    --sombra: 0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 24px -16px rgba(0, 0, 0, 0.8);
+    color-scheme: dark;
+  }
+}
+
+/* botão de alternância de tema (injetado por _shared/tema.js) */
+.tema-botao {
+  position: fixed;
+  left: 1rem;
+  bottom: 1rem;
+  z-index: 8400;
+  width: 2.3rem;
+  height: 2.3rem;
+  padding: 0;
+  justify-content: center;
+  border-radius: 999px;
+  background: var(--branco);
+  color: var(--tinta);
+  border: var(--borda);
+  box-shadow: var(--sombra);
+  font-size: 1.05rem;
+  line-height: 1;
+}
+button.tema-botao:hover:not(:disabled) {
+  background: var(--cinza-100);
+  border-color: var(--cinza-400);
+  color: var(--tinta);
+}
+@media print {
+  .tema-botao { display: none; }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--papel);
+  color: var(--tinta);
+  font-family: var(--fonte-texto);
+  font-size: 16px;
+  line-height: 1.55;
+  font-variant-numeric: tabular-nums;
+  /* textura de papel milimetrado bem discreta */
+  background-image:
+    linear-gradient(to right, var(--grade-papel) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grade-papel) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+/* ---------- cabeçalho ---------------------------------------------------- */
+
+.topo {
+  background: var(--topo-fundo);
+  color: var(--topo-texto);
+  border-bottom: 3px solid var(--vermelho);
+}
+
+.topo-interno {
+  max-width: var(--largura);
+  margin: 0 auto;
+  padding: 0.9rem 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.topo img.logo {
+  height: 24px;
+  width: auto;
+  flex: none;
+}
+
+.topo .trilha {
+  font-family: var(--fonte-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #ababab;
+}
+
+.topo h1 {
+  font-family: var(--fonte-display);
+  font-weight: 700;
+  font-size: 1.35rem;
+  line-height: 1.15;
+  margin: 0.1rem 0 0;
+  color: var(--topo-texto);
+}
+
+.topo .topo-dir {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.82rem;
+  color: #dcdcdc;
+}
+
+/* No cabeçalho escuro, o botão secundário (borda cinza, texto escuro) sumia.
+   Aqui ele ganha contraste próprio. */
+.topo .topo-dir .etiqueta {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: #808080;
+  color: #dcdcdc;
+}
+
+.topo .topo-dir button {
+  background: transparent;
+  border: 1px solid #ababab;
+  color: #fff;
+}
+
+.topo .topo-dir button:hover:not(:disabled) {
+  background: var(--vermelho);
+  border-color: var(--vermelho);
+  color: #fff;
+}
+
+/* ---------- estrutura ---------------------------------------------------- */
+
+main {
+  max-width: var(--largura);
+  margin: 0 auto;
+  padding: 1.75rem 1.25rem 5rem;
+}
+
+.secao {
+  background: var(--branco);
+  border: var(--borda);
+  border-radius: var(--raio);
+  box-shadow: var(--sombra);
+  margin-bottom: 1.25rem;
+  overflow: hidden;
+}
+
+.secao > header {
+  display: flex;
+  align-items: baseline;
+  gap: 0.7rem;
+  padding: 0.85rem 1.15rem;
+  border-bottom: var(--borda);
+  background: linear-gradient(to bottom, var(--branco), var(--cinza-100));
+}
+
+.secao > header .n {
+  font-family: var(--fonte-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  color: var(--vermelho);
+  font-weight: 700;
+  flex: none;
+}
+
+.secao > header h2 {
+  font-family: var(--fonte-display);
+  font-size: 1.05rem;
+  margin: 0;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+.secao > header .dica {
+  margin-left: auto;
+  font-size: 0.78rem;
+  color: var(--cinza-600);
+}
+
+.secao .corpo {
+  padding: 1.15rem;
+}
+
+.secao.travada .corpo {
+  opacity: 0.55;
+  pointer-events: none;
+  filter: grayscale(0.4);
+}
+
+.secao.concluida > header .n::after {
+  content: " ✓";
+  color: var(--turquesa);
+}
+
+.grade {
+  display: grid;
+  gap: 1.15rem;
+}
+
+/*
+ * minmax(0, ...) em toda coluna: sem isso, um <pre> com linha longa (a saída de
+ * um modelo, por exemplo) empurra a coluna e muda a largura de tudo ao lado
+ * quando o conteúdo chega.
+ */
+@media (min-width: 900px) {
+  .grade.duas {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+  .grade.tres {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  .grade.lado-largo {
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  }
+}
+
+/* ---------- tipografia --------------------------------------------------- */
+
+h3 {
+  font-size: 0.95rem;
+  margin: 1.2rem 0 0.5rem;
+  letter-spacing: 0.01em;
+}
+
+h3:first-child {
+  margin-top: 0;
+}
+
+p {
+  margin: 0 0 0.8rem;
+}
+
+.enunciado {
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+.enunciado strong {
+  background: linear-gradient(transparent 62%, var(--marca-texto) 62%);
+}
+
+.miudo {
+  font-size: 0.82rem;
+  color: var(--cinza-800);
+}
+
+.rotulo {
+  font-family: var(--fonte-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cinza-600);
+  display: block;
+  margin-bottom: 0.3rem;
+}
+
+code,
+kbd,
+.mono {
+  font-family: var(--fonte-mono);
+  font-size: 0.86em;
+}
+
+code {
+  background: var(--cinza-100);
+  border: 1px solid var(--cinza-200);
+  border-radius: 2px;
+  padding: 0.05em 0.3em;
+  color: var(--vermelho-escuro);
+}
+
+pre {
+  margin: 0;
+  padding: 0.9rem 1rem;
+  background: var(--pre-fundo);
+  color: var(--pre-texto);
+  border-radius: var(--raio);
+  overflow-x: auto;
+  font-family: var(--fonte-mono);
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+
+pre code {
+  background: none;
+  border: none;
+  color: inherit;
+  padding: 0;
+}
+
+/* ---------- formulários -------------------------------------------------- */
+
+input[type="text"],
+input[type="email"],
+input[type="number"],
+select,
+textarea {
+  font-family: inherit;
+  font-size: 0.92rem;
+  color: var(--tinta);
+  background: var(--branco);
+  border: var(--borda-forte);
+  border-radius: var(--raio);
+  padding: 0.5rem 0.6rem;
+  width: 100%;
+  transition: box-shadow 0.15s, border-color 0.15s;
+}
+
+textarea {
+  min-height: 7rem;
+  line-height: 1.6;
+  resize: vertical;
+}
+
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+button:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--vermelho);
+  outline-offset: 1px;
+  box-shadow: none;
+}
+
+input:disabled,
+select:disabled,
+textarea:disabled {
+  background: var(--cinza-100);
+  color: var(--cinza-600);
+  border-color: var(--cinza-200);
+}
+
+fieldset {
+  border: var(--borda);
+  border-radius: var(--raio);
+  padding: 0.8rem 0.9rem;
+  margin: 0 0 0.9rem;
+}
+
+legend {
+  font-family: var(--fonte-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cinza-800);
+  padding: 0 0.35rem;
+}
+
+.campo {
+  margin-bottom: 0.9rem;
+}
+
+.linha-campos {
+  display: flex;
+  gap: 0.7rem;
+  flex-wrap: wrap;
+}
+
+.linha-campos > * {
+  flex: 1 1 12rem;
+}
+
+/* ---------- botões ------------------------------------------------------- */
+
+button,
+.botao {
+  font-family: var(--fonte-texto);
+  font-size: 0.86rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  padding: 0.55rem 1.05rem;
+  border-radius: var(--raio);
+  border: 1px solid var(--botao-fundo);
+  background: var(--botao-fundo);
+  color: var(--botao-texto);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  text-decoration: none;
+  transition: transform 0.08s ease, background 0.15s, color 0.15s, border-color 0.15s;
+}
+
+button:hover:not(:disabled),
+.botao:hover {
+  background: var(--vermelho);
+  border-color: var(--vermelho);
+}
+
+button:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+button.principal {
+  background: var(--vermelho);
+  border-color: var(--vermelho);
+}
+
+button.principal:hover:not(:disabled) {
+  background: var(--vermelho-escuro);
+  border-color: var(--vermelho-escuro);
+}
+
+button.secundario {
+  background: transparent;
+  color: var(--tinta);
+  border-color: var(--cinza-400);
+}
+
+button.secundario:hover:not(:disabled) {
+  background: var(--cinza-100);
+  color: var(--vermelho);
+  border-color: var(--vermelho);
+}
+
+button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.acoes {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.acoes .espaco {
+  margin-left: auto;
+}
+
+/* ---------- avisos ------------------------------------------------------- */
+
+.aviso {
+  border-left: 3px solid var(--cinza-400);
+  background: var(--cinza-100);
+  padding: 0.7rem 0.9rem;
+  border-radius: 0 var(--raio) var(--raio) 0;
+  font-size: 0.88rem;
+  margin: 0 0 1rem;
+}
+
+.aviso.atencao {
+  border-left-color: var(--amarelo);
+  background: var(--aviso-atencao);
+}
+
+.aviso.erro {
+  border-left-color: var(--vermelho);
+  background: var(--aviso-erro);
+}
+
+.aviso.ok {
+  border-left-color: var(--turquesa);
+  background: var(--aviso-ok);
+}
+
+/*
+ * Só o título do aviso vira bloco. Antes a regra pegava qualquer <strong>, e
+ * qualquer palavra em negrito no meio do texto quebrava a linha em dois.
+ */
+.aviso > strong:first-child {
+  display: block;
+  margin-bottom: 0.15rem;
+}
+
+/* ---------- etiquetas e medidores ---------------------------------------- */
+
+.etiqueta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-family: var(--fonte-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.18rem 0.45rem;
+  border: 1px solid var(--cinza-400);
+  border-radius: 2px;
+  color: var(--cinza-800);
+  background: var(--branco);
+  white-space: nowrap;
+}
+
+.etiqueta.tipo-cat {
+  border-color: var(--roxo);
+  color: var(--roxo);
+}
+
+.etiqueta.tipo-num {
+  border-color: var(--azul-num);
+  color: var(--azul-num);
+}
+
+.etiqueta.tipo-id {
+  border-color: var(--grafite);
+  color: var(--grafite);
+}
+
+.etiqueta.ok {
+  border-color: var(--verde-ok);
+  color: var(--verde-ok);
+}
+
+.etiqueta.alerta {
+  border-color: var(--laranja);
+  color: var(--laranja-txt);
+}
+
+.etiqueta.erro {
+  border-color: var(--vermelho);
+  color: var(--vermelho);
+}
+
+.numerao {
+  font-family: var(--fonte-mono);
+  font-size: 1.9rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.ficha {
+  border: var(--borda);
+  border-top: 3px solid var(--grafite);
+  border-radius: var(--raio);
+  padding: 0.8rem 0.9rem;
+  background: var(--branco);
+}
+
+.ficha .rotulo {
+  margin-bottom: 0.35rem;
+}
+
+.ficha.destaque {
+  border-top-color: var(--vermelho);
+}
+
+/* ---------- tabelas ------------------------------------------------------ */
+
+.rolagem {
+  overflow-x: auto;
+  border: var(--borda);
+  border-radius: var(--raio);
+  background: var(--branco);
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 0.84rem;
+}
+
+th,
+td {
+  text-align: left;
+  padding: 0.42rem 0.6rem;
+  border-bottom: 1px solid var(--cinza-200);
+  vertical-align: top;
+}
+
+thead th {
+  position: sticky;
+  top: 0;
+  background: var(--cinza-100);
+  font-family: var(--fonte-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--grafite);
+  border-bottom: var(--borda-forte);
+  z-index: 1;
+}
+
+tbody tr:hover {
+  background: var(--linha-hover);
+}
+
+td.num {
+  text-align: right;
+  font-family: var(--fonte-mono);
+}
+
+/* ---------- passos ------------------------------------------------------- */
+
+.passos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  padding: 0.6rem 1.25rem;
+  max-width: var(--largura);
+  margin: 0 auto;
+  font-family: var(--fonte-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.passos span {
+  padding: 0.2rem 0.5rem;
+  border-bottom: 2px solid var(--cinza-200);
+  color: var(--cinza-600);
+}
+
+.passos span.atual {
+  color: var(--vermelho);
+  border-bottom-color: var(--vermelho);
+}
+
+.passos span.feito {
+  color: var(--grafite);
+  border-bottom-color: var(--grafite);
+}
+
+/* ---------- carregando -------------------------------------------------- */
+
+.carregando {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--cinza-800);
+}
+
+.carregando::before {
+  content: "";
+  width: 0.75rem;
+  height: 0.75rem;
+  border: 2px solid var(--cinza-400);
+  border-top-color: var(--vermelho);
+  border-radius: 50%;
+  animation: girar 0.7s linear infinite;
+}
+
+@keyframes girar {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.barra {
+  height: 4px;
+  background: var(--cinza-200);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.barra > i {
+  display: block;
+  height: 100%;
+  background: var(--vermelho);
+  width: 0;
+  transition: width 0.2s;
+}
+
+/* ---------- feedback do LLM --------------------------------------------- */
+
+.feedback {
+  border: var(--borda);
+  border-left: 3px solid var(--roxo);
+  border-radius: 0 var(--raio) var(--raio) 0;
+  background: var(--branco);
+  padding: 1rem 1.1rem;
+}
+
+.feedback h4 {
+  font-family: var(--fonte-display);
+  font-size: 1rem;
+  margin: 0 0 0.5rem;
+}
+
+.feedback .criterio {
+  border-top: 1px dashed var(--cinza-200);
+  padding: 0.6rem 0;
+}
+
+.feedback .criterio:first-of-type {
+  border-top: none;
+}
+
+.feedback .criterio .cabeca {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  margin-bottom: 0.2rem;
+}
+
+.feedback .criterio .cabeca strong {
+  font-size: 0.9rem;
+}
+
+.feedback ul {
+  margin: 0.3rem 0 0;
+  padding-left: 1.1rem;
+}
+
+.feedback li {
+  margin-bottom: 0.25rem;
+}
+
+/* ---------- rubrica visível --------------------------------------------- */
+
+.caixa-rubrica {
+  border: var(--borda);
+  border-left: 3px solid var(--roxo);
+  border-radius: 0 var(--raio) var(--raio) 0;
+  background: var(--rubrica-fundo);
+  padding: .8rem .9rem;
+  margin: 0 0 1rem;
+}
+
+.caixa-rubrica .criterio-rubrica {
+  border-top: 1px dashed var(--cinza-200);
+  padding: .6rem 0;
+  font-size: .88rem;
+}
+
+.caixa-rubrica .criterio-rubrica:first-of-type {
+  border-top: none;
+}
+
+.caixa-rubrica .cabeca {
+  display: flex;
+  align-items: baseline;
+  gap: .5rem;
+  margin-bottom: .15rem;
+}
+
+.caixa-rubrica summary {
+  cursor: pointer;
+  margin-top: .3rem;
+}
+
+.caixa-rubrica ul {
+  margin: .3rem 0 0;
+  padding-left: 1.1rem;
+}
+
+/* ---------- enunciado de abertura --------------------------------------- */
+
+.abertura {
+  border: var(--borda);
+  border-top: 3px solid var(--vermelho);
+  border-radius: var(--raio);
+  background: var(--branco);
+  padding: 1.1rem 1.2rem;
+  margin-bottom: 1.25rem;
+  box-shadow: var(--sombra);
+}
+
+.abertura h2 {
+  font-family: var(--fonte-display);
+  font-size: 1.25rem;
+  margin: 0 0 .5rem;
+}
+
+.abertura ol {
+  margin: .4rem 0 0;
+  padding-left: 1.3rem;
+}
+
+.abertura ol li {
+  margin-bottom: .35rem;
+}
+
+.abertura .entrega {
+  margin-top: .9rem;
+  padding-top: .7rem;
+  border-top: 1px dashed var(--cinza-200);
+  font-size: .9rem;
+}
+
+/* ---------- identificação ----------------------------------------------- */
+
+.cortina {
+  position: fixed;
+  inset: 0;
+  z-index: 9500;
+  background: rgba(26, 26, 26, 0.94);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+  overflow: auto;
+}
+
+.cortina .caixa {
+  background: var(--papel);
+  border-radius: var(--raio);
+  border-top: 4px solid var(--vermelho);
+  max-width: 560px;
+  width: 100%;
+  padding: 1.5rem;
+  box-shadow: 0 24px 60px -20px rgba(0, 0, 0, 0.7);
+}
+
+.cortina h2 {
+  font-family: var(--fonte-display);
+  margin: 0 0 0.3rem;
+  font-size: 1.3rem;
+}
+
+/* ---------- utilidades -------------------------------------------------- */
+
+.oculto {
+  display: none !important;
+}
+
+.pilha {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.fileira {
+  display: flex;
+  gap: 0.55rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.regua {
+  border: none;
+  border-top: var(--borda);
+  margin: 1.1rem 0;
+}
+
+.sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001s !important;
+    transition-duration: 0.001s !important;
+  }
+}
+
+
+/* ---------- modal (texto largo, registro de eventos, confirmações) ------- */
+
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9700;
+  background: rgba(26, 26, 26, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+
+.modal .quadro {
+  background: var(--papel);
+  border-radius: var(--raio);
+  border-top: 4px solid var(--vermelho);
+  width: min(72rem, 100%);
+  max-height: 88vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 24px 60px -20px rgba(0, 0, 0, 0.7);
+}
+
+.modal .quadro > header {
+  display: flex;
+  align-items: baseline;
+  gap: 0.7rem;
+  padding: 0.9rem 1.2rem;
+  border-bottom: var(--borda);
+}
+
+.modal .quadro > header h3 {
+  font-family: var(--fonte-display);
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+.modal .quadro > header button {
+  margin-left: auto;
+}
+
+.modal .conteudo {
+  padding: 1.2rem;
+  overflow: auto;
+}
+
+.modal .conteudo.leitura {
+  font-size: 1rem;
+  line-height: 1.7;
+  max-width: 70ch;
+  margin: 0 auto;
+}
+
+/* ---------- glossário (termos jurídicos explicados) --------------------- */
+
+.termo {
+  border-bottom: 1px dotted var(--vermelho);
+  cursor: help;
+}
+
+.termo::after {
+  content: "?";
+  font-size: 0.62em;
+  vertical-align: super;
+  color: var(--vermelho);
+  margin-left: 0.1em;
+}
+
+details.ficha > summary {
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+  list-style-position: outside;
+}
+
+details.ficha > summary::marker {
+  color: var(--vermelho);
+}
+
+details.ficha .corpo-ficha {
+  margin-top: 0.7rem;
+  font-size: 0.9rem;
+}
+
+details.ficha .corpo-ficha > p:first-child {
+  margin-top: 0;
+}
+
+dl.glossario {
+  margin: 0.3rem 0 0.6rem;
+  display: grid;
+  grid-template-columns: minmax(9rem, max-content) 1fr;
+  gap: 0.25rem 0.8rem;
+  font-size: 0.85rem;
+}
+
+dl.glossario dt {
+  font-weight: 600;
+  color: var(--grafite);
+}
+
+dl.glossario dd {
+  margin: 0;
+  color: var(--cinza-600);
+}
+
+@media (max-width: 640px) {
+  dl.glossario {
+    grid-template-columns: 1fr;
+  }
+  dl.glossario dd {
+    margin-bottom: 0.4rem;
+  }
+}
+
+/* ---------- bloco de anotações (ver _shared/notas.js) --------------------
+   Flutua no canto para não empurrar o enunciado, e fica abaixo do modal
+   (9500) e do banner de guardrails (9000): a sentença aberta continua sendo
+   a coisa mais importante da tela. */
+
+.notas-botao {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 8500;
+  background: var(--notas-fundo);
+  color: var(--botao-texto);
+  border: 1px solid var(--notas-fundo);
+  border-radius: 999px;
+  padding: 0.45rem 0.95rem;
+  font-size: 0.82rem;
+  font-family: var(--fonte-texto);
+  cursor: pointer;
+  box-shadow: var(--sombra);
+}
+
+/* `button:hover` da folha é mais específico que `.notas-botao` sozinho, então o
+   estado aberto precisa da tag junto para não depender do mouse estar em cima */
+button.notas-botao.aberto {
+  background: var(--botao-fundo);
+}
+
+.notas {
+  position: fixed;
+  right: 1rem;
+  bottom: 3.6rem;
+  z-index: 8500;
+  width: min(23rem, calc(100vw - 2rem));
+  max-height: min(28rem, 65vh);
+  display: flex;
+  flex-direction: column;
+  background: var(--branco);
+  border: var(--borda);
+  border-top: 3px solid var(--grafite);
+  border-radius: var(--raio);
+  box-shadow: var(--sombra);
+}
+
+.notas[hidden] {
+  display: none;
+}
+
+.notas > header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  padding: 0.55rem 0.75rem;
+  border-bottom: var(--borda);
+}
+
+.notas > header strong {
+  font-size: 0.88rem;
+}
+
+.notas-corpo {
+  padding: 0.6rem 0.75rem 0.75rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.notas-corpo textarea {
+  width: 100%;
+  min-height: 9rem;
+  resize: vertical;
+  font-size: 0.86rem;
+}

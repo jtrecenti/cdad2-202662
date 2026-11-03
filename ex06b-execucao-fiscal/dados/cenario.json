@@ -1,0 +1,26 @@
+{
+ "cenario": "Execuções fiscais na PGE - quais recebem investigação patrimonial aprofundada",
+ "simulado": true,
+ "aviso": "Dados simulados. Não existe base pública de investigações patrimoniais com rótulo verdadeiro; a simulação foi calibrada para reproduzir a prevalência baixa e a discriminação típicas do problema.",
+ "n_concluidas": 6000,
+ "n_processos_mes": 1000,
+ "capacidade_analise_mes": 150,
+ "prevalencia": 0.09,
+ "acuracia_modelo_trivial": 0.91,
+ "auc_modelo": 0.8081,
+ "variaveis": {
+  "id": "Identificador da execução fiscal",
+  "precisa_investigacao": "1 se a investigação aprofundada encontraria bens que a pesquisa automática não achou, 0 se não",
+  "valor_divida": "Valor da dívida executada, em R$ mil",
+  "debito_icms": "1 se a dívida é de ICMS (e não de IPVA ou ITCMD)",
+  "indicio_fraude": "1 se a autuação apontou indício de fraude ou sonegação",
+  "divida_alta": "1 se a dívida passa de R$ 100 mil",
+  "grupo_economico": "1 se o devedor pertence a um grupo econômico",
+  "citacao_frustrada": "1 se a citação no endereço cadastrado foi frustrada",
+  "sem_atividade": "1 se o devedor não tem atividade econômica registrada nos últimos dois anos",
+  "prescricao_proxima": "1 se falta menos de um ano para a prescrição intercorrente",
+  "devedor_pessoa_fisica": "1 se o devedor é pessoa física (e não empresa)",
+  "setor_combustiveis": "1 se o devedor é do setor de combustíveis",
+  "anos_divida": "Anos desde a inscrição em dívida ativa"
+ }
+}

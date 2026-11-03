@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Projeto 1 · Da sentença para a tabela · CDAD II</title>
+<link rel="icon" href="../_shared/img/logo-insper-preto.png">
+<script src="../_shared/tema.js"></script>
+<link rel="stylesheet" href="../_shared/styles.css">
+<style>
+  .var-linha {
+    display: grid; gap: .5rem; grid-template-columns: 1fr;
+    border: var(--borda); border-left: 3px solid var(--cinza-400);
+    border-radius: 0 var(--raio) var(--raio) 0;
+    padding: .7rem .8rem; margin-bottom: .6rem; background: var(--branco);
+  }
+  @media (min-width: 900px) {
+    .var-linha { grid-template-columns: 1.1fr 1fr 1.1fr 1.7fr auto; align-items: start; }
+  }
+  .var-linha .formato-saida {
+    font-family: var(--fonte-mono); font-size: .68rem; letter-spacing: .04em;
+    text-transform: uppercase; color: var(--cinza-600);
+  }
+  .var-linha.dependente { border-left-color: var(--vermelho); }
+  .var-linha.identificacao { border-left-color: var(--grafite); }
+  .var-linha.independente { border-left-color: var(--azul-num); }
+  .var-linha .apagar { align-self: center; }
+
+  .diag { display: grid; gap: .4rem; }
+  .diag .item { display: flex; align-items: center; gap: .5rem; font-size: .82rem; }
+  .diag .item .nome { font-family: var(--fonte-mono); min-width: 9rem; }
+  .diag .item .barra { flex: 1; min-width: 4rem; }
+
+  .cartao-tema {
+    display: block; border: var(--borda); border-radius: var(--raio);
+    padding: .8rem .9rem; margin-bottom: .6rem; cursor: pointer; background: var(--branco);
+    transition: border-color .15s, box-shadow .15s;
+  }
+  .cartao-tema:hover { border-color: var(--cinza-400); }
+  .cartao-tema.marcado { border-color: var(--vermelho); box-shadow: inset 3px 0 0 var(--vermelho); }
+  .cartao-tema input { width: auto; margin-right: .4rem; }
+  .cartao-tema h4 { margin: 0 0 .2rem; font-size: .95rem; }
+  .cartao-tema .area { font-family: var(--fonte-mono); font-size: .68rem; letter-spacing: .08em;
+                       text-transform: uppercase; color: var(--cinza-600); }
+  .cartao-tema .pergunta { font-size: .92rem; }
+  .cartao-tema .problema { font-size: .88rem; color: var(--grafite); margin: .15rem 0 .4rem; }
+  .var-linha .apagar { font-size: .74rem; padding: .2rem .5rem; }
+
+  .destaque-principal { border-top-width: 4px; border-top-color: var(--vermelho); }
+  .destaque-principal > header { background: linear-gradient(to bottom, var(--branco), var(--tom-vermelho)); }
+
+  /* O exemplo fictício da etapa 3 fica em ficha, e não em parágrafo corrido,
+     para o aluno enxergar de longe que aquilo não é um dos cinco temas. */
+  .exemplo-var { margin: .2rem 0 1.1rem; }
+  .exemplo-var p { margin: .35rem 0 .5rem; font-size: .92rem; }
+  .exemplo-var ul { margin: 0; padding-left: 1.1rem; }
+  .exemplo-var li { margin-bottom: .22rem; font-size: .9rem; }
+
+  .lista-casos { max-height: 24rem; }
+  .lista-casos tbody tr:hover { background: var(--cinza-100); }
+  .marca-lida { color: var(--verde, #1a7f37); text-align: center; }
+</style>
+</head>
+<body>
+
+<main>
+  <div class="abertura">
+    <h2>Da sentença para a tabela</h2>
+    <p class="enunciado">
+      Uma pesquisa empírica em Direito começa com uma pilha de documentos e termina com uma
+      tabela. Mas quem decide o que se torna uma coluna dessa tabela é você. Nesta atividade,
+      o seu trabalho é transformar sentenças judiciais em dados estruturados,
+      <strong>escolhendo e definindo as variáveis</strong> necessárias para responder a uma
+      pergunta de pesquisa.
+    </p>
+    <p class="enunciado">
+      Ao longo do exercício, você vai explorar as sentenças para entender quais informações
+      estão disponíveis, definir como elas serão representadas na tabela e usar um modelo de
+      linguagem (LLM) para extraí-las dos documentos. Depois, avalia os resultados, ajusta as
+      escolhas e documenta as decisões que tomou.
+    </p>
+    <p class="enunciado">
+      <strong>A atividade é de uma hora</strong>, aqui na aula. Isso cabe bem, desde que você
+      não gaste a primeira metade lendo tudo: as sete etapas abaixo dizem onde vale investir
+      o tempo. Durante a atividade, consulte o professor, tire dúvidas e faça os ajustes que
+      achar necessários. Você pode pedir até cinco avaliações e usar o retorno de cada uma para
+      melhorar o trabalho.
+    </p>
+    <p class="enunciado">O caminho é este:</p>
+    <ol class="enunciado">
+      <li><strong>Escolher um tema</strong>, entre cinco, cada um com uma pergunta de pesquisa e 10 sentenças reais do TJSP.</li>
+      <li><strong>Explorar algumas sentenças</strong>, para entender quais informações os documentos trazem e quais delas podem ser úteis para responder à pergunta.</li>
+      <li><strong>Definir as variáveis</strong> da tabela: nome, tipo, papel na pergunta e de onde tirar.</li>
+      <li><strong>Rodar o modelo de linguagem (LLM)</strong>, que lê cada sentença e preenche as variáveis que você definiu.</li>
+      <li><strong>Dizer que estatísticas</strong> você calcularia com essa tabela.</li>
+      <li><strong>Avaliar os resultados e ajustar.</strong> São até 5 avaliações automáticas.</li>
+      <li><strong>Finalizar e entregar</strong> os arquivos.</li>
+    </ol>
+    <div class="entrega">
+      <strong>O que entregar no BlackBoard:</strong> dois arquivos gerados aqui no final, a tabela
+      preenchida (CSV) e a documentação das escolhas (JSON). O app mostra o código de verificação
+      (hash) dos dois.
+      <br>
+      <span class="miudo">
+        Trabalho em grupo, com cópia e cola bloqueados: o texto tem que ser escrito aqui.
+      </span>
+    </div>
+  </div>
+
+  <section class="secao" id="s-tema">
+    <header>
+      <span class="n">01</span>
+      <h2>Escolher o tema</h2>
+      <span class="dica" id="aviso-corpus"></span>
+    </header>
+    <div class="corpo">
+      <p class="enunciado">
+        Cada tema traz uma pergunta de pesquisa e 10 sentenças de primeiro grau. Dá para trocar de
+        tema enquanto você não tiver rodado o modelo de linguagem.
+      </p>
+      <div id="lista-temas"></div>
+      <div id="tema-escolhido"></div>
+    </div>
+  </section>
+
+  <section class="secao travada" id="s-casos">
+    <header>
+      <span class="n">02</span>
+      <h2>Explorar algumas sentenças</h2>
+      <span class="dica" id="contador-lidas"></span>
+    </header>
+    <div class="corpo">
+      <p class="enunciado">
+        Antes de definir as variáveis, leia três ou quatro sentenças para conhecer melhor os
+        documentos. Repare em quais informações aparecem, como elas são apresentadas e se
+        permitem responder à pergunta de pesquisa. É essa leitura que ajuda a decidir quais
+        variáveis fazem sentido e como defini-las.
+      </p>
+      <p class="enunciado">
+        <strong>Não é preciso ler as dez.</strong> Três ou quatro já mostram o padrão do
+        documento, e é o modelo de linguagem que vai ler todas na etapa 4. O que você quer
+        descobrir aqui é onde, no texto, está a informação que a pergunta pede: variável que
+        não está no documento vira coluna vazia.
+      </p>
+      <p class="miudo">
+        Clique na linha para abrir a sentença inteira. Os termos do glossário do tema aparecem
+        sublinhados: passe o mouse para ver a definição.
+      </p>
+      <span class="rotulo">as 10 sentenças do tema</span>
+      <div class="rolagem lista-casos" id="lista-casos"></div>
+      <div id="aviso-leitura" style="margin-top:.7rem"></div>
+    </div>
+  </section>
+
+  <section class="secao travada destaque-principal" id="s-variaveis">
+    <header>
+      <span class="n">03</span>
+      <h2>Definir as variáveis</h2>
+      <span class="dica" id="contador-variaveis"></span>
+    </header>
+    <div class="corpo">
+      <p class="enunciado">
+        Esta é a parte principal do projeto. Agora você vai transformar a pergunta de pesquisa
+        em variáveis que possam ser identificadas nas sentenças: cada variável vira uma coluna
+        da tabela, e cada sentença vira uma linha.
+      </p>
+      <p class="enunciado">
+        Para decidir quais variáveis criar, pense: que informação eu precisaria registrar em
+        cada sentença para conseguir responder à pergunta? Não é preciso registrar tudo o que
+        aparece no documento, só o que a análise vai usar.
+      </p>
+
+      <details class="ficha exemplo-var">
+        <summary>como fica uma variável definida</summary>
+        <div class="corpo-ficha">
+          <p>
+            O exemplo abaixo é de uma pesquisa fictícia, que não é nenhum dos cinco temas: imagine
+            que a pergunta fosse sobre o que está associado à <em>duração</em> dos processos. Uma
+            das variáveis poderia ser <code>duracao_processo</code>, definida assim:
+          </p>
+          <ul>
+            <li><strong>nome</strong>: <code>duracao_processo</code>;</li>
+            <li><strong>tipo</strong>: numérica contínua, porque o que se registra é uma quantidade de dias;</li>
+            <li><strong>papel</strong>: o que eu quero explicar, porque a duração é o resultado que a pesquisa investiga;</li>
+            <li><strong>de onde tirar</strong>: <em>número de dias entre a data de distribuição e a
+                data da sentença, as duas no cabeçalho do documento</em>.</li>
+          </ul>
+        </div>
+      </details>
+
+      <p class="enunciado">Para cada variável do seu tema, preencha os quatro campos:</p>
+      <ul class="enunciado">
+        <li><strong>nome</strong>: curto e sem espaço, como o cabeçalho de uma coluna de planilha;</li>
+        <li><strong>tipo</strong>: o que a variável mede. Numérica (discreta ou contínua),
+            categórica (nominal, ordinal ou binária) ou identificador;</li>
+        <li><strong>papel</strong>: como ela ajuda a responder à pergunta. Se é o resultado que
+            você quer explicar, algo que pode explicar esse resultado, um critério que define
+            quais casos entram, ou apenas a identificação do processo;</li>
+        <li><strong>de onde tirar</strong>: onde a informação está na sentença e com que valores
+            registrar. A instrução precisa ser clara o bastante para que duas pessoas, seguindo
+            a mesma regra, cheguem ao mesmo resultado. Se for categórica, diga quais são as
+            categorias. É esta instrução que o modelo de linguagem vai seguir.</li>
+      </ul>
+      <p class="enunciado">
+        O tipo não é enfeite: ele determina <strong>o formato do valor que sai</strong>. Variável
+        numérica devolve número (<code>15000.5</code>, e não <code>R$ 15.000,50</code>); categórica
+        devolve uma das categorias que você listou; identificador devolve o código do caso, copiado
+        como está. Se o tipo não bate com o que a sentença traz, a coluna vem torta.
+      </p>
+      <p class="enunciado">
+        <strong>Trecho de texto copiado da sentença não é variável.</strong> Uma coluna com um
+        pedaço da fundamentação não mede nada e não entra em nenhuma conta: é matéria-prima, não
+        dado. Se a informação daquele trecho importa para a pergunta, transforme-a em categoria
+        (quais valores ela pode assumir?) ou em número (o que exatamente se conta ou se mede?).
+      </p>
+      <p class="enunciado">
+        <strong>Mais variáveis não é trabalho melhor.</strong> Uma lista curta, relevante e bem
+        definida vale mais do que uma lista longa de informações que não ajudam a responder à
+        pergunta de pesquisa.
+      </p>
+      <div id="painel-rubrica"></div>
+      <div id="editor-variaveis"></div>
+      <div class="acoes">
+        <button class="secundario" id="b-add-variavel">Adicionar variável</button>
+        <span class="espaco"></span>
+        <button class="principal" id="b-confirmar-variaveis">Confirmar as variáveis</button>
+      </div>
+      <div id="erros-variaveis"></div>
+    </div>
+  </section>
+
+  <section class="secao travada" id="s-extracao">
+    <header>
+      <span class="n">04</span>
+      <h2>Preencher a tabela</h2>
+      <span class="dica">uma leitura por sentença, 10 no total</span>
+    </header>
+    <div class="corpo">
+      <p class="enunciado">
+        O modelo de linguagem (LLM) lê uma sentença por vez e preenche as suas colunas, seguindo as suas instruções de
+        medição. Ele foi orientado a escrever <code>não informado</code> quando a informação não
+        estiver no texto: <strong>coluna muito vazia diz algo sobre a variável</strong>, não sobre o
+        modelo.
+      </p>
+      <div class="fileira">
+        <button class="principal" id="b-extrair">Preencher a tabela</button>
+        <span id="status-extracao" class="miudo"></span>
+      </div>
+      <div class="barra" style="margin-top:.7rem"><i id="barra-extracao"></i></div>
+      <div id="resultado-extracao" style="margin-top:1rem"></div>
+    </div>
+  </section>
+
+  <section class="secao travada" id="s-estatisticas">
+    <header>
+      <span class="n">05</span>
+      <h2>Que estatísticas você calcularia</h2>
+      <span class="dica" id="contador-estatisticas"></span>
+    </header>
+    <div class="corpo">
+      <p class="enunciado">
+        A tabela está pronta, mas ainda não respondeu nada. Olhando para as variáveis que você
+        declarou, e para os tipos que deu a elas, escreva quais estatísticas você calcularia para
+        chegar à resposta da pergunta de pesquisa.
+      </p>
+      <ul class="enunciado">
+        <li>O tipo manda na conta: média, mediana e desvio padrão só fazem sentido em variável
+            numérica; em categórica o que existe é contagem e proporção.</li>
+        <li>Diga também <strong>com o que comparar com o quê</strong>: qual estatística, calculada
+            em qual variável, separada por qual outra.</li>
+        <li>Se alguma conta que você gostaria de fazer não é possível com as variáveis declaradas,
+            diga qual e o que faltou.</li>
+        <li>O repertório aqui é o desta altura do curso: <strong>média, mediana, desvio padrão,
+            contagem e proporção</strong>. Não é esperado falar em correlação, regressão ou teste
+            de hipótese, e a avaliação não cobra isso.</li>
+      </ul>
+      <div class="campo">
+        <label class="rotulo" for="estatisticas">as estatísticas que o grupo calcularia</label>
+        <textarea id="estatisticas" maxlength="1200" rows="6"
+          placeholder="Ex.: proporção de sentenças procedentes no total e separada por comarca; mediana do valor da indenização entre as procedentes (mediana, e não média, porque alguns valores são muito altos); contagem de casos por fundamento invocado."></textarea>
+      </div>
+      <div class="acoes">
+        <button class="principal" id="b-confirmar-estatisticas">Registrar as estatísticas</button>
+      </div>
+      <div id="erros-estatisticas"></div>
+    </div>
+  </section>
+
+  <section class="secao travada" id="s-feedback">
+    <header>
+      <span class="n">06</span>
+      <h2>Avaliar os resultados e ajustar</h2>
+      <span class="dica" id="contador-feedback"></span>
+    </header>
+    <div class="corpo">
+      <p class="enunciado">
+        O feedback segue a rubrica que está na etapa 3. Ele aponta problemas e faz perguntas; não
+        escreve a lista de variáveis por você. São até <strong>5 avaliações</strong>, então vale
+        revisar com o grupo, e conversar com o professor, antes de gastar uma.
+      </p>
+      <p class="enunciado">
+        Depois de cada avaliação você pode voltar às etapas anteriores, mudar as variáveis e
+        preencher a tabela de novo. É para isso que servem as cinco.
+      </p>
+      <div class="acoes" style="margin-top:0">
+        <button class="principal" id="b-feedback">Avaliar as minhas variáveis</button>
+        <span id="status-feedback" class="miudo"></span>
+      </div>
+      <div id="painel-feedback" style="margin-top:1rem"></div>
+    </div>
+  </section>
+
+  <section class="secao travada" id="s-submissao">
+    <header>
+      <span class="n">07</span>
+      <h2>Finalizar e entregar</h2>
+    </header>
+    <div class="corpo">
+      <div class="campo">
+        <label class="rotulo" for="comentario-final">Observações</label>
+        <textarea id="comentario-final" maxlength="900" rows="4"
+          placeholder="Coloque aqui suas observações, dificuldades e limitações da análise considerando os dados fornecidos. Você pode aproveitar o espaço para justificar avaliações incorretas das rubricas."></textarea>
+      </div>
+      <div class="acoes">
+        <button class="principal" id="b-fechar">Gerar os arquivos da entrega</button>
+        <span id="status-submissao" class="miudo"></span>
+      </div>
+      <div id="painel-submissao" style="margin-top:1rem"></div>
+    </div>
+  </section>
+</main>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>

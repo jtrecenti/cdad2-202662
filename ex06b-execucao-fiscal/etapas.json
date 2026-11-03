@@ -1,0 +1,124 @@
+{
+ "limites": {
+  "max_avaliacoes_por_etapa": 3,
+  "max_caracteres_campo": 1500
+ },
+ "etapas": [
+  {
+   "id": "linear",
+   "n": "01",
+   "titulo": "Regressão linear múltipla",
+   "dica": "o valor da dívida executada",
+   "pergunta": "O que está associado ao valor da dívida executada? Os dois modelos abaixo foram ajustados nas 6.000 execuções já concluídas. O primeiro explica o valor só pelo grupo econômico. O segundo acrescenta outras características da execução. No fim da saída, uma tabela compara as execuções com e sem grupo econômico.",
+   "saida": "linear",
+   "campos": [
+    {
+     "id": "coef_grupo",
+     "criterio": "linear_coeficiente",
+     "rotulo": "a) Interprete o coeficiente de grupo_economico no segundo modelo.",
+     "ajuda": "Diga quanto o valor da dívida muda, em média, entre execuções com e sem grupo econômico, em que unidade e com o intervalo de 95%. Lembre que, no segundo modelo, a comparação é entre execuções iguais nas outras características."
+    },
+    {
+     "id": "mudanca",
+     "criterio": "linear_confundimento",
+     "rotulo": "b) O coeficiente de grupo_economico é maior no primeiro modelo do que no segundo. Por que ele muda?",
+     "ajuda": "Use a tabela de médias no fim da saída: veja qual característica é bem mais comum nas execuções contra grupo econômico e explique o que isso faz com o primeiro modelo."
+    },
+    {
+     "id": "anos",
+     "criterio": "linear_valor_p",
+     "rotulo": "c) O tempo desde a inscrição em dívida ativa está associado ao valor da dívida?",
+     "ajuda": "Interprete o coeficiente de anos_divida no segundo modelo (o tempo está em anos) e diga o que o valor-p e o intervalo de 95% permitem concluir. O efeito é grande ou pequeno, em reais?"
+    },
+    {
+     "id": "r2",
+     "criterio": "linear_r2",
+     "rotulo": "d) Compare o R² dos dois modelos.",
+     "ajuda": "Explique o que o R² mede e o que a diferença entre os dois modelos indica."
+    }
+   ]
+  },
+  {
+   "id": "logistica",
+   "n": "02",
+   "titulo": "Regressão logística",
+   "dica": "quem precisa de investigação aprofundada",
+   "pergunta": "Que características da execução estão associadas à necessidade de investigação patrimonial aprofundada? O modelo foi ajustado nas 6.000 execuções já concluídas, nas quais já se sabe em quais a investigação acharia bens. A saída traz os coeficientes, as razões de chances e a probabilidade prevista para dois perfis de execução. São probabilidades como essas que você vai usar para escolher o corte na etapa 03.",
+   "saida": "logistica",
+   "campos": [
+    {
+     "id": "or_icms",
+     "criterio": "logit_razao",
+     "rotulo": "a) Interprete a razão de chances de debito_icms.",
+     "ajuda": "Diga quantas vezes a chance de precisar de investigação aprofundada muda quando a dívida é de ICMS, com o intervalo de 95%, comparando execuções iguais nas demais características. Chance não é probabilidade."
+    },
+    {
+     "id": "or_pf",
+     "criterio": "logit_direcao",
+     "rotulo": "b) Interprete a razão de chances de devedor_pessoa_fisica.",
+     "ajuda": "Ela está abaixo de 1. O que isso quer dizer, e de quanto é a diferença?"
+    },
+    {
+     "id": "or_comb",
+     "criterio": "logit_sem_evidencia",
+     "rotulo": "c) Ser do setor de combustíveis está associado à necessidade de investigação aprofundada?",
+     "ajuda": "Olhe a razão de chances de setor_combustiveis, o valor-p e o intervalo de 95%. O que dá para concluir, e com que cautela?"
+    },
+    {
+     "id": "perfis",
+     "criterio": "logit_probabilidade",
+     "rotulo": "d) Interprete as probabilidades previstas dos perfis A e B.",
+     "ajuda": "Diga o que cada número significa, quais características separam os dois perfis e o que ainda falta para decidir se a execução vai à investigação aprofundada."
+    }
+   ]
+  },
+  {
+   "id": "corte",
+   "n": "03",
+   "titulo": "Ponto de corte e métricas",
+   "dica": "a probabilidade vira decisão",
+   "contexto": [
+    "Agora a probabilidade vira decisão. Todo mês, a Procuradoria vai usar o modelo da etapa 02 para separar as execuções que vão para a investigação patrimonial aprofundada. As demais ficam só com a pesquisa automática. Nenhuma regra acerta sempre, e os dois erros possíveis têm custos diferentes.",
+    "**Uma execução que precisava da investigação e ficou só com a pesquisa automática** (um **falso negativo**) segue sem bens encontrados. O processo fica parado, a dívida caminha para a prescrição e o Estado deixa de recuperar um dinheiro que existia.",
+    "**Uma execução que não precisava e foi à investigação** (um **falso positivo**) consome horas de analista sem achar nada que a pesquisa automática já não tivesse achado, e ocupa uma das **150 vagas** do mês. Se a regra mandar mais execuções do que isso, forma-se uma fila, e as do fim da fila esperam meses.",
+    "A coordenação da dívida ativa pediu uma regra que caiba na equipe que existe hoje e que deixe escapar o menor número possível de execuções com patrimônio escondido."
+   ],
+   "pergunta": "A partir de que probabilidade a execução vai para a investigação aprofundada? Escolha o corte no slider abaixo, olhando a matriz de confusão nas 1.000 execuções novas do mês, e responda aos itens.",
+   "saida": null,
+   "campos": [
+    {
+     "id": "acc_trivial",
+     "criterio": "acuracia_trivial_calculo",
+     "rotulo": "a) Calcule a acurácia do modelo trivial.",
+     "ajuda": "O modelo trivial é uma regra que não olha nenhuma característica da execução: deixa todas só com a pesquisa automática, sempre. Para vê-lo, arraste o slider até o maior valor possível (1,00): nenhuma execução vai à investigação. Calcule a acurácia no bloco do Python abaixo e escreva a conta na resposta. Depois, volte o slider para o corte que você escolher.",
+     "calculadora": true
+    },
+    {
+     "id": "trivial",
+     "criterio": "acuracia_desbalanceada",
+     "rotulo": "b) Por que a acurácia do modelo trivial não serve para avaliar a triagem?",
+     "ajuda": "Mesmo sem olhar nada, essa regra acerta a maior parte das execuções. De onde vem essa acurácia, e o que ela deixa de fora?"
+    },
+    {
+     "id": "metricas",
+     "criterio": "matriz_e_metricas",
+     "rotulo": "c) Descreva o resultado do corte que você escolheu.",
+     "ajuda": "Diga o corte e quantas execuções vão à investigação, quantos são falsos positivos e falsos negativos, e calcule a precisão e a sensibilidade (recall) no bloco do Python abaixo, escrevendo as contas na resposta. Explique cada número com as palavras do caso.",
+     "calculadora": true
+    },
+    {
+     "id": "justificativa",
+     "criterio": "capacidade_e_erro",
+     "rotulo": "d) Justifique o corte escolhido.",
+     "ajuda": "Qual dos dois erros você considera mais grave, e quem arca com ele? Como o seu corte respeita a capacidade de 150 investigações por mês?"
+    },
+    {
+     "id": "limites",
+     "criterio": "limites_metricas",
+     "rotulo": "e) O que essas métricas não mostram?",
+     "ajuda": "Aponte um limite concreto: algo que importa para a decisão e que a matriz de confusão não registra."
+    }
+   ]
+  }
+ ]
+}

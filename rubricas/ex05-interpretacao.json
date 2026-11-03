@@ -1,0 +1,76 @@
+{
+ "id": "ex05_interpretacao",
+ "titulo": "Projeto 5 - Interpretação de resultado de teste de hipóteses",
+ "exercicio": "Projeto 5 (aula 18)",
+ "instrucoes": "O grupo respondeu a cinco perguntas de pesquisa. Você avalia UMA delas: o grupo escolheu a variável resposta, a explicativa e o método, o app rodou a análise e mostrou o código e a saída, e o grupo respondeu em itens curtos, um para cada ponto da rubrica. Avalie cada critério pelo item correspondente, e o critério de correspondência com a saída por todos os itens juntos. Você recebe também o resultado numérico: use-o para checar se o que o grupo afirma corresponde ao que saiu.",
+ "criterios": [
+  {
+   "id": "adequacao_metodo",
+   "nome": "Adequação do método aos tipos de variável",
+   "descricao": "O teste escolhido tem que ser compatível com os tipos das variáveis selecionadas: duas binárias pedem teste de duas proporções (o qui-quadrado também serve), duas categóricas pedem qui-quadrado, categórica binária com numérica pede teste t, categórica com três ou mais níveis com numérica pede anova, duas numéricas pedem correlação ou regressão linear simples.",
+   "niveis": {
+    "insuficiente": "método incompatível e o grupo não percebe",
+    "abaixo_do_esperado": "método compatível, mas o grupo não sabe dizer por quê",
+    "esperado": "método compatível e justificado pelos tipos das variáveis"
+   }
+  },
+  {
+   "id": "leitura_pvalor",
+   "nome": "Leitura correta do valor-p",
+   "descricao": "O valor-p é a probabilidade de observar um resultado tão extremo quanto o obtido, se a hipótese nula fosse verdadeira. Não é a probabilidade de a hipótese nula ser verdadeira, nem a probabilidade de a hipótese alternativa ser falsa, nem tamanho de efeito.",
+   "niveis": {
+    "insuficiente": "trata o valor-p como probabilidade de a hipótese ser verdadeira ou falsa",
+    "abaixo_do_esperado": "conclusão certa, mas com formulação imprecisa do que o valor-p mede",
+    "esperado": "interpreta o valor-p corretamente e conclui de acordo com o nível de significância"
+   },
+   "penalizar": "escrever que 'a hipótese nula tem 3% de chance de ser verdadeira'; concluir que 'não há diferença' a partir de p alto (ausência de evidência não é evidência de ausência)"
+  },
+  {
+   "id": "hipoteses_explicitas",
+   "nome": "Hipótese nula e alternativa",
+   "descricao": "Avalie só a parte técnica das hipóteses, e não as implicações jurídicas. A hipótese nula afirma que não há diferença ou associação na população (proporções iguais, médias iguais, independência, coeficiente igual a zero), e a alternativa afirma o contrário. As duas precisam nomear as variáveis da pergunta e a medida comparada.",
+   "niveis": {
+    "insuficiente": "não diz o que foi testado, ou troca a hipótese nula com a alternativa",
+    "abaixo_do_esperado": "hipóteses genéricas ou imprecisas: sem dizer a medida comparada, ou falando da amostra e não da população",
+    "esperado": "hipótese nula e alternativa corretas, com as variáveis e a medida comparada"
+   }
+  },
+  {
+   "id": "tamanho_efeito",
+   "nome": "Magnitude do efeito e direção",
+   "descricao": "Além de significância, o texto deve dizer de quanto é a diferença ou a associação, na unidade do problema (pontos percentuais, dias, anos, reais), e em que direção.",
+   "niveis": {
+    "insuficiente": "só reporta se deu significativo",
+    "abaixo_do_esperado": "menciona a direção mas não a magnitude, ou vice-versa",
+    "esperado": "direção e magnitude na unidade do problema"
+   }
+  },
+  {
+   "id": "correspondencia",
+   "nome": "Correspondência com a saída do app",
+   "descricao": "Compare os itens com os números da saída. Qualquer número citado errado, sinal invertido, ou conclusão que a saída não sustenta é erro grave.",
+   "niveis": {
+    "insuficiente": "afirma coisas que a saída não mostra, ou inverte o sinal do efeito",
+    "abaixo_do_esperado": "números certos mas alguma conclusão vai além do que a saída sustenta",
+    "esperado": "tudo o que afirma está na saída"
+   },
+   "penalizar": "citar valores que não aparecem na saída"
+  },
+  {
+   "id": "consequencia",
+   "nome": "Consequência para o problema jurídico",
+   "descricao": "O texto deve dizer o que esse resultado muda para alguém: parte, advogado, gestor do tribunal, política pública.",
+   "niveis": {
+    "insuficiente": "termina no número, sem consequência",
+    "abaixo_do_esperado": "consequência genérica",
+    "esperado": "consequência concreta e ligada ao resultado"
+   }
+  }
+ ],
+ "observacoes": "Não reescreva as respostas do grupo. Se houver erro de leitura do valor-p, aponte o erro pelo nome e pergunte como o grupo enunciaria a hipótese nula em palavras.",
+ "escala": {
+  "insuficiente": "não atende (nota 0)",
+  "abaixo_do_esperado": "atende em parte (nota 0,5)",
+  "esperado": "atende (nota 1,0)"
+ }
+}

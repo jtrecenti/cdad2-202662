@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gincana do Pipeline · Aula 5 · CDAD II</title>
+<link rel="icon" href="../_shared/img/logo-insper-preto.png">
+<script src="../_shared/tema.js"></script>
+<link rel="stylesheet" href="../_shared/styles.css">
+<style>
+  /* ---- cronômetro: é o elemento lido do fundo da sala ------------------- */
+  .cronometro {
+    font-variant-numeric: tabular-nums;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -.02em;
+  }
+  .painel-tempo .cronometro { font-size: clamp(3rem, 12vw, 7rem); }
+  .painel-tempo.acabando .cronometro { color: var(--vermelho); }
+  .painel-tempo.acabou .cronometro { color: var(--cinza-600); }
+
+  /* pisca só no último terço, e devagar: piscar cedo vira ruído */
+  @keyframes pulsar { 50% { opacity: .35; } }
+  .painel-tempo.acabando .cronometro { animation: pulsar 1s ease-in-out infinite; }
+  @media (prefers-reduced-motion: reduce) {
+    .painel-tempo.acabando .cronometro { animation: none; }
+  }
+
+  .barra-tempo {
+    height: .5rem; border-radius: 999px; background: var(--cinza-200);
+    overflow: hidden; margin-top: .5rem;
+  }
+  .barra-tempo > i { display: block; height: 100%; background: var(--vermelho); }
+
+  /* ---- caixinhas dos códigos ------------------------------------------- */
+  .cartas-entrada { display: flex; flex-wrap: wrap; gap: .45rem; align-items: center; }
+  .cartas-entrada input {
+    width: 4.6rem; text-align: center; text-transform: uppercase;
+    font-family: var(--mono, ui-monospace, monospace);
+    font-weight: 700; font-size: 1rem; letter-spacing: .04em;
+    padding: .45rem .2rem;
+  }
+  .cartas-entrada input.ok { border-color: var(--verde-ok); background: var(--tom-verde); }
+  .cartas-entrada input.ruim { border-color: var(--vermelho); background: var(--tom-vermelho); }
+  .ordinal { font-size: .7rem; color: var(--cinza-600); display: block; text-align: center; }
+
+  .previa {
+    background: var(--cinza-100); border: var(--borda); border-radius: var(--raio);
+    padding: .7rem .85rem; overflow-x: auto;
+  }
+  .previa pre { margin: 0; font-size: .82rem; line-height: 1.5; }
+  .previa .vazio { color: var(--cinza-600); font-size: .85rem; }
+
+  .glossario { display: grid; gap: .3rem; margin-top: .6rem; }
+  .glossario div { font-size: .78rem; color: var(--cinza-700); }
+  .glossario code { font-weight: 700; }
+
+  /* ---- painel do professor --------------------------------------------- */
+  .grade-rodadas { display: flex; flex-wrap: wrap; gap: .35rem; }
+  .grade-rodadas button.atual { background: var(--grafite); color: #fff; }
+
+  .resposta {
+    border: var(--borda); border-left: 3px solid var(--cinza-400);
+    border-radius: 0 var(--raio) var(--raio) 0;
+    padding: .5rem .65rem; margin-bottom: .45rem;
+  }
+  .resposta.certa { border-left-color: var(--verde-ok); }
+  .resposta.errada { border-left-color: var(--vermelho); }
+  .resposta .linha1 { display: flex; align-items: center; gap: .5rem; flex-wrap: wrap; }
+  .resposta code { font-size: .82rem; font-weight: 700; letter-spacing: .03em; }
+  .resposta .tempo { margin-left: auto; font-size: .75rem; color: var(--cinza-600); }
+
+  .contador { font-size: .82rem; color: var(--cinza-600); font-variant-numeric: tabular-nums; }
+  .contador.acabou { color: var(--vermelho); font-weight: 700; }
+
+  .saida-execucao:empty { display: none; }
+  .saida-execucao { margin-top: .7rem; }
+  .saida-execucao img { max-width: 100%; border: var(--borda); border-radius: var(--raio); }
+  /* o styles.css já dá a `pre` fundo escuro com texto claro. Sobrescrever só
+     o fundo, como estava aqui antes, deixava texto claro sobre fundo claro:
+     o código sumia. Aqui só o tamanho muda. */
+  .saida-execucao pre { font-size: .76rem; max-height: 16rem; }
+
+  .oculto { display: none !important; }
+</style>
+</head>
+<body>
+
+<main class="conteudo" id="app">
+  <p class="carregando">carregando a gincana…</p>
+</main>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>

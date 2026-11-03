@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Projeto 8 · Competição de modelo preditivo · CDAD II</title>
+<link rel="icon" href="../_shared/img/logo-insper-preto.png">
+<script src="../_shared/tema.js"></script>
+<link rel="stylesheet" href="../_shared/styles.css">
+<style>
+  .placar-linha { display: flex; gap: .6rem; align-items: baseline; padding: .35rem .5rem;
+                  border-bottom: 1px solid var(--cinza-200); font-size: .88rem; }
+  .placar-linha.eu { background: var(--tom-vermelho); font-weight: 600; }
+  .placar-linha .pos { font-family: var(--fonte-mono); min-width: 2rem; color: var(--cinza-600); }
+  .placar-linha .auc { margin-left: auto; font-family: var(--fonte-mono); font-weight: 700; }
+  .escala { position: relative; height: 2.2rem; border-bottom: 1px solid var(--grafite);
+            margin: 1.2rem 0 .5rem; }
+  .escala .marca { position: absolute; bottom: 0; transform: translateX(-50%);
+                   font-size: .7rem; font-family: var(--fonte-mono); color: var(--cinza-800);
+                   text-align: center; }
+  .escala .marca::after { content: ""; display: block; width: 1px; height: .5rem;
+                          background: var(--cinza-400); margin: .15rem auto 0; }
+  .escala .marca.voce { color: var(--vermelho); font-weight: 700; }
+  .escala .marca.voce::after { background: var(--vermelho); height: .8rem; }
+
+  .zona-upload {
+    border: 2px dashed var(--cinza-400); border-radius: var(--raio);
+    padding: 1.4rem 1rem; text-align: center; background: var(--branco);
+    transition: border-color .15s, background .15s;
+  }
+  .zona-upload.sobre { border-color: var(--vermelho); background: var(--tom-vermelho); }
+  .zona-upload input[type=file] { width: auto; }
+  .conferencia { display: grid; gap: .35rem; margin-top: .8rem; }
+  .conferencia .item { display: flex; gap: .5rem; align-items: baseline; font-size: .86rem; }
+  .conferencia .item .marca { font-family: var(--fonte-mono); width: 1.2rem; }
+  .conferencia .item.ok .marca { color: var(--verde-ok); }
+  .conferencia .item.erro .marca { color: var(--vermelho); }
+  pre.exemplo { font-size: .78rem; }
+</style>
+</head>
+<body>
+
+<main>
+  <div class="abertura">
+    <h2>Competição: prever recurso negado</h2>
+    <p class="enunciado">
+      Você recebe uma base de treino com o resultado e uma base de teste sem ele. A tarefa é
+      <strong>estimar a probabilidade de o recurso ser integralmente negado</strong> em cada
+      processo do teste. O modelo você treina onde quiser (Colab, sua máquina); aqui você só
+      <strong>sobe o arquivo de predições</strong> e recebe a métrica.
+    </p>
+    <ol class="enunciado">
+      <li>Baixar <code>p08_treino.csv</code> e <code>p08_teste.csv</code>, e ler o dicionário de dados.</li>
+      <li>Treinar o modelo no Colab, escolhendo o que usar com validação cruzada no treino.</li>
+      <li>Gerar um CSV com duas colunas, <code>id</code> e <code>prob</code>.</li>
+      <li>Subir aqui. O app confere o arquivo antes de deixar você submeter.</li>
+      <li>Ver a sua AUC e o ranking. São <strong>3 submissões por pessoa</strong>.</li>
+    </ol>
+    <p class="enunciado">
+      O painel abaixo mostra a AUC de um <strong>modelo baseline</strong>: uma regressão logística
+      com as variáveis como vieram, sem seleção nem ajuste. Ele é o piso da tarefa, e a
+      expectativa é que o seu modelo fique acima dele. Ficar abaixo do baseline costuma indicar
+      erro de montagem, e não falta de sofisticação: coluna trocada, probabilidade invertida ou
+      variável que não existe no teste.
+    </p>
+    <div class="entrega">
+      <strong>A entrega é a submissão aqui</strong>, não há arquivo para o BlackBoard. O que conta
+      é a sua melhor AUC entre as 3 submissões.
+      <br>
+      <span class="miudo">Projeto individual, para fazer em casa. Você pode usar o que quiser
+      para modelar.</span>
+    </div>
+  </div>
+
+  <section class="secao" id="s-regras">
+    <header>
+      <span class="n">01</span>
+      <h2>Os dados e a métrica</h2>
+      <span class="dica" id="info-dados"></span>
+    </header>
+    <div class="corpo">
+      <div class="grade tres" id="fichas-competicao"></div>
+      <div class="aviso atencao" style="margin-top:1rem">
+        <strong>Por que só 3 submissões</strong>
+        Os rótulos do teste ficam no servidor e cada submissão devolve a sua AUC. Com submissão
+        ilimitada, dá para ir ajustando o modelo ao conjunto de teste por tentativa e erro, e o
+        número deixa de significar desempenho fora da amostra. É exatamente o vício que este
+        projeto quer ensinar a evitar: <strong>escolha o modelo com validação cruzada no
+        treino</strong> e use as submissões para confirmar.
+      </div>
+      <div class="aviso" style="margin-top:1rem">
+        <strong>Base adaptada para fins didáticos</strong>
+        A base parte de dados reais do TJSP: os recursos das Câmaras de Direito Criminal e a
+        consulta de cada processo na 1ª instância. Para o projeto, o resultado e algumas colunas
+        foram modificados. Ela serve para treinar modelagem, e não para tirar conclusões sobre as
+        câmaras, os relatores ou os processos.
+      </div>
+      <details style="margin-top:1rem" open>
+        <summary class="rotulo" style="cursor:pointer">dicionário de dados</summary>
+        <p class="miudo">Uma linha por recurso de apelação. As colunas da 1ª instância ficam vazias
+        quando a consulta do processo não estava disponível (cerca de 14% dos casos).</p>
+        <table>
+          <thead><tr><th>coluna</th><th>o que é</th></tr></thead>
+          <tbody>
+          <tr><td><code>id</code></td><td>Identificador do recurso. É a coluna que liga as predições ao teste.</td></tr>
+          <tr><td><code>assunto</code></td><td>Assunto do processo (crime principal).</td></tr>
+          <tr><td><code>camara</code></td><td>Câmara de Direito Criminal do TJSP que julga o recurso.</td></tr>
+          <tr><td><code>relator_codigo</code></td><td>Código do desembargador relator. O mesmo código é sempre a mesma pessoa.</td></tr>
+          <tr><td><code>comarca</code></td><td>Comarca de origem do processo.</td></tr>
+          <tr><td><code>polo_mp</code></td><td>Quem recorreu: <code>Ativo</code> quando o Ministério Público recorreu, <code>Passivo</code> quando foi a defesa.</td></tr>
+          <tr><td><code>rel_idade</code>, <code>rel_faculdade</code>, <code>rel_tempo_magistratura</code>, <code>rel_tipo</code>, <code>rel_quinto</code></td><td>Perfil do relator: idade, faculdade de Direito, anos de magistratura, cargo e se entrou pelo quinto constitucional.</td></tr>
+          <tr><td><code>vara_tipo</code></td><td>Tipo da vara de 1ª instância (criminal, cumulativa, única etc.).</td></tr>
+          <tr><td><code>defesa_tipo</code></td><td>Defesa do réu na 1ª instância: advogado, Defensoria Pública ou advogado dativo.</td></tr>
+          <tr><td><code>n_reus</code></td><td>Número de réus no processo (5 = cinco ou mais).</td></tr>
+          <tr><td><code>sentenca_tipo</code></td><td>Tipo da sentença de 1ª instância, pelo último registro codificado antes da remessa ao TJ (<code>sem_registro</code> quando o cartório não codificou).</td></tr>
+          <tr><td><code>flagrante</code>, <code>mandado_prisao</code>, <code>liberdade_provisoria</code></td><td>1 se a movimentação aparece no processo antes da remessa ao TJ.</td></tr>
+          <tr><td><code>inicio_1grau</code>, <code>data_denuncia</code>, <code>data_sentenca</code>, <code>data_remessa_tj</code></td><td>Ano e mês (AAAA-MM) da primeira movimentação, do recebimento da denúncia, da sentença e da remessa dos autos ao TJ.</td></tr>
+          <tr><td><code>marcos</code></td><td>Movimentações relevantes da 1ª instância até a remessa ao TJ, em ordem, separadas por <code> | </code>.</td></tr>
+          <tr><td><code>n_movimentacoes</code></td><td>Número total de movimentações do processo na 1ª instância, contado na data em que os dados foram extraídos.</td></tr>
+          <tr><td><code>unanimidade</code></td><td>Resultado da votação do acórdão: <code>Unânime</code> ou <code>Maioria</code>.</td></tr>
+          <tr><td><code>negou</code></td><td>O alvo, só no treino: 1 se o recurso foi integralmente negado.</td></tr>
+          </tbody>
+        </table>
+      </details>
+      <div class="acoes">
+        <a class="botao secundario" id="link-treino" download>baixar p08_treino.csv</a>
+        <a class="botao secundario" id="link-teste" download>baixar p08_teste.csv</a>
+        <a class="botao secundario" id="link-colab" target="_blank" rel="noopener">abrir um Colab em branco</a>
+      </div>
+      <details style="margin-top:1rem">
+        <summary class="rotulo" style="cursor:pointer">como gerar o arquivo de predições</summary>
+        <pre class="exemplo"><code># no fim do seu notebook, com o modelo já treinado:
+predicoes = modelo.predict_proba(X_teste)[:, 1]
+
+import pandas as pd
+saida = pd.DataFrame({"id": teste["id"], "prob": predicoes})
+saida.to_csv("predicoes.csv", index=False)
+
+# no Colab, isto baixa o arquivo:
+from google.colab import files
+files.download("predicoes.csv")</code></pre>
+      </details>
+    </div>
+  </section>
+
+  <section class="secao" id="s-upload">
+    <header>
+      <span class="n">02</span>
+      <h2>Subir o arquivo de predições</h2>
+      <span class="dica">duas colunas: id e prob</span>
+    </header>
+    <div class="corpo">
+      <div class="zona-upload" id="zona-upload">
+        <p class="miudo" style="margin:0 0 .6rem">
+          Arraste o CSV aqui, ou escolha o arquivo.
+        </p>
+        <input type="file" id="arquivo-predicoes" accept=".csv,text/csv">
+      </div>
+      <div id="conferencia" style="margin-top:1rem"></div>
+    </div>
+  </section>
+
+  <section class="secao travada" id="s-submeter">
+    <header>
+      <span class="n">03</span>
+      <h2>Submeter</h2>
+      <span class="dica" id="contador-submissoes"></span>
+    </header>
+    <div class="corpo">
+      <div class="linha-campos">
+        <div class="campo">
+          <label class="rotulo" for="apelido">Apelido no ranking (a turma vê isto)</label>
+          <input type="text" id="apelido" maxlength="24" placeholder="ex.: floresta-do-caos">
+        </div>
+        <div class="campo">
+          <label class="rotulo" for="descricao">O que você fez (uma linha)</label>
+          <input type="text" id="descricao" maxlength="200"
+            placeholder="ex.: gradient boosting com dummies, 200 árvores, escolhido por validação cruzada">
+        </div>
+      </div>
+      <div class="campo">
+        <label class="rotulo" for="auc-validacao">AUC que você obteve na validação do treino (opcional)</label>
+        <input type="number" id="auc-validacao" step="0.001" min="0" max="1" placeholder="0.735"
+          style="max-width:12rem">
+        <p class="miudo" style="margin:.3rem 0 0">
+          Serve para você comparar com a AUC do teste. Diferença grande entre as duas é sinal de
+          sobreajuste, e é uma conversa que vale ter.
+        </p>
+      </div>
+      <div class="acoes">
+        <button class="principal" id="b-submeter">Submeter as predições</button>
+        <span id="status-submissao" class="miudo"></span>
+      </div>
+      <div id="painel-resultado" style="margin-top:1rem"></div>
+    </div>
+  </section>
+
+  <section class="secao" id="s-placar">
+    <header>
+      <span class="n">04</span>
+      <h2>Ranking</h2>
+      <span class="dica">melhor submissão de cada pessoa</span>
+    </header>
+    <div class="corpo">
+      <div class="acoes" style="margin-top:0">
+        <button class="secundario" id="b-placar">Atualizar ranking</button>
+        <span id="status-placar" class="miudo"></span>
+      </div>
+      <div class="escala" id="escala"></div>
+      <div id="painel-placar"></div>
+    </div>
+  </section>
+</main>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>

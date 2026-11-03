@@ -1,0 +1,476 @@
+processo,comarca,classe,assunto,regime_inicial,pena_anos,houve_reincidencia,houve_confissao,eh_trafico,n_palavras_ementa
+1510097-90.2025.8.26.0395,Urupês,Apelação Criminal,Tráfico de Drogas e Condutas Afins,fechado,6.5,False,False,True,433
+1508727-85.2025.8.26.0392,Agudos,Apelação Criminal,Tráfico de Drogas e Condutas Afins,,8.166666666666666,False,False,True,289
+1500537-64.2022.8.26.0546,Itapira,Apelação Criminal,Receptação,aberto,1.0,False,False,False,202
+1501325-46.2023.8.26.0028,Aparecida,Apelação Criminal,Violência Psicológica contra a Mulher,aberto,,False,False,False,202
+1508424-16.2025.8.26.0378,Itapeva,Apelação Criminal,Tráfico de Drogas e Condutas Afins,fechado,6.75,True,True,True,280
+1506195-34.2024.8.26.0050,São Paulo,Apelação Criminal,Roubo Majorado,semiaberto,5.333333333333333,False,False,False,335
+1503822-59.2025.8.26.0320,Limeira,Apelação Criminal,Roubo,fechado,2.333333333333333,True,False,False,440
+1500364-23.2024.8.26.0626,Caraguatatuba,Apelação Criminal,Tráfico de Drogas e Condutas Afins,fechado,6.75,True,True,True,414
+1500288-80.2026.8.26.0544,Francisco Morato,Apelação Criminal,Roubo Majorado,fechado,12.5,True,False,False,577
+1529002-62.2025.8.26.0228,São Paulo,Apelação Criminal,Tráfico de Drogas e Condutas Afins,fechado,6.75,True,True,True,553
+1526933-57.2025.8.26.0228,São Paulo,Apelação Criminal,Roubo Majorado,fechado,5.916666666666667,False,False,False,493
+1514117-43.2025.8.26.0228,São Paulo,Apelação Criminal,Roubo Majorado,fechado,5.333333333333333,False,False,False,589
+1501038-96.2025.8.26.0292,Jacareí,Apelação Criminal,Perseguição,aberto,0.6666666666666666,False,False,False,452
+1500621-94.2025.8.26.0567,São Roque,Apelação Criminal,Tráfico de Drogas e Condutas Afins,semiaberto,5.0,False,True,True,806
+1500247-80.2025.8.26.0146,Cordeirópolis,Apelação Criminal,Tráfico de Drogas e Condutas Afins,aberto,1.6666666666666663,False,False,True,329
+1500204-76.2025.8.26.0621,Cruzeiro,Apelação Criminal,Tráfico de Drogas e Condutas Afins,semiaberto,4.166666666666667,False,False,True,412
+1500511-40.2024.8.26.0144,Conchal,Apelação Criminal,Latrocínio,fechado,20.0,False,True,False,898
+1500337-83.2026.8.26.0395,Paulo de Faria,Apelação Criminal,Tráfico de Drogas e Condutas Afins,semiaberto,5.0,False,True,True,495
+1507617-24.2026.8.26.0228,São Paulo,Apelação Criminal,Tráfico de Drogas e Condutas Afins,fechado,5.833333333333333,False,False,True,200
+1504918-61.2026.8.26.0454,São Paulo,Apelação Criminal,Furto Qualificado,semiaberto,4.666666666666667,True,False,False,430
+1502181-82.2025.8.26.0628,Embu das Artes,Apelação Criminal,Receptação,semiaberto,1.0,False,False,False,394
+1501382-09.2024.8.26.0617,São José dos Campos,Apelação Criminal,Crimes de Trânsito,aberto,1.1666666666666667,False,False,False,494
+1500003-04.2025.8.26.0486,Quatá,Apelação Criminal,Coação no curso do processo,semiaberto,1.1666666666666667,True,False,False,284
+1500019-04.2022.8.26.0052,São Paulo,Apelação Criminal,Homicídio Simples,fechado,8.166666666666666,False,False,False,349
+1502189-86.2026.8.26.0446,Rio das Pedras,Apelação Criminal,Ameaça,semiaberto,,True,False,False,206
+1520684-90.2025.8.26.0228,São Paulo,Apelação Criminal,Posse de Drogas para Consumo Pessoal,,0.8333333333333334,True,False,True,199
+1533748-56.2024.8.26.0050,São Paulo,Apelação Criminal,Estelionato,,,False,False,False,198
+1500296-25.2026.8.26.0393,Franca,Apelação Criminal,Tráfico de Drogas e Condutas Afins,fechado,4.0,True,True,True,243
+1507086-60.2025.8.26.0425,Bastos,Apelação Criminal,Crimes de Trânsito,semiaberto,0.75,True,True,False,266
+1505749-12.2022.8.26.0079,Botucatu,Apelação Criminal,Furto Qualificado,fechado,,True,True,False,855
+1500978-08.2025.8.26.0201,Garça,Apelação Criminal,Crime de Descumprimento de Medida Protetiva de Urgência,,,False,False,False,183
+0002712-44.2026.8.26.0521,Sorocaba,Agravo de Execução Penal,Contagem de Prazo para os Benefícios,,,False,False,True,232
+2085150-07.2026.8.26.0000,São José do Rio Preto,Habeas Corpus Criminal,Furto,,,False,False,False,229
+1529890-61.2021.8.26.0037,Araraquara,Apelação Criminal,Furto Qualificado,,,False,False,False,202
+1507047-86.2025.8.26.0385,São Vicente,Apelação Criminal,Roubo Majorado,,,False,False,False,100
+1506682-32.2025.8.26.0385,Itanhaém,Apelação Criminal,Tráfico de Drogas e Condutas Afins,fechado,,True,True,True,162
+1526766-31.2021.8.26.0050,São Paulo,Apelação Criminal,Furto Qualificado,fechado,,True,True,False,124
+1524496-43.2025.8.26.0228,São Paulo,Apelação Criminal,Furto,fechado,,True,True,False,129
+1503926-70.2024.8.26.0228,São Paulo,Apelação Criminal,Adulteração de Sinal Identificador de Veículo Automotor,aberto,,False,False,False,146
+1503170-49.2025.8.26.0544,Jundiaí,Apelação Criminal,Furto,semiaberto,,True,True,False,629
+1501810-06.2025.8.26.0536,Praia Grande,Apelação Criminal,Furto Qualificado,aberto,,True,True,False,298
+1502228-62.2021.8.26.0542,Osasco,Apelação Criminal,Tráfico de Drogas e Condutas Afins,fechado,,False,False,True,304
+1502311-11.2025.8.26.0228,São Paulo,Apelação Criminal,Tráfico de Drogas e Condutas Afins,aberto,3.333333333333333,False,False,True,540
+1502520-31.2022.8.26.0536,Praia Grande,Apelação Criminal,Tráfico de Drogas e Condutas Afins,semiaberto,,False,False,True,182
+1501788-67.2024.8.26.0637,Tupã,Apelação Criminal,Furto Qualificado,,,False,False,False,218
+1500806-88.2024.8.26.0205,Getulina,Apelação Criminal,Furto Qualificado,fechado,,True,False,False,184
+1500367-45.2025.8.26.0560,Votuporanga,Apelação Criminal,Adulteração de Sinal Identificador de Veículo Automotor,,,True,True,False,116
+1500725-19.2024.8.26.0536,São Vicente,Apelação Criminal,Tráfico de Drogas e Condutas Afins,,,False,False,True,193
+0032418-20.2025.8.26.0000,São Paulo,Revisão Criminal,Tráfico de Drogas e Condutas Afins,fechado,6.75,False,False,True,356
+1500727-91.2024.8.26.0599,Capivari,Apelação Criminal,Tráfico de Drogas e Condutas Afins,aberto,,False,False,True,81
+1501091-61.2024.8.26.0535,Guarulhos,Apelação Criminal,Adulteração de Sinal Identificador de Veículo Automotor,aberto,,False,False,False,145
+1501093-50.2023.8.26.0540,Santo André,Apelação Criminal,Roubo Majorado,semiaberto,,False,False,False,197
+1500238-09.2024.8.26.0129,Casa Branca,Apelação Criminal,Furto,,,False,False,False,107
+1500695-85.2023.8.26.0546,Itapira,Apelação Criminal,Furto Qualificado,aberto,2.5,False,False,False,607
+0042963-52.2025.8.26.0000,Orlândia,Revisão Criminal,Tráfico de Drogas e Condutas Afins,fechado,16.75,False,False,True,316
+0041262-56.2025.8.26.0000,São Paulo,Revisão Criminal,Tráfico de Drogas e Condutas Afins,fechado,6.0,False,False,True,529
+0033151-83.2025.8.26.0000,São Paulo,Revisão Criminal,Adulteração de Sinal Identificador de Veículo Automotor,,,False,False,False,475
+1500777-29.2023.8.26.0575,São José do Rio Pardo,Apelação Criminal,Leve,semiaberto,,True,False,False,668
+1501077-48.2021.8.26.0320,Limeira,Apelação Criminal,Estelionato,aberto,1.25,True,True,False,564
+1517605-89.2024.8.26.0050,São Paulo,Apelação Criminal,Apropriação indébita,aberto,1.3333333333333333,False,True,False,516
+1536314-89.2025.8.26.0228,São Paulo,Apelação Criminal,Tráfico de Drogas e Condutas Afins,semiaberto,5.833333333333333,False,False,True,430
+1500055-05.2024.8.26.0431,Pederneiras,Apelação Criminal,Furto,semiaberto,,True,False,False,146
+2079451-35.2026.8.26.0000,São Paulo,Revisão Criminal,Roubo,semiaberto,6.666666666666667,False,False,False,553
+2089692-68.2026.8.26.0000,Araçatuba,Revisão Criminal,Tráfico de Drogas e Condutas Afins,,,False,False,True,472
+2087398-43.2026.8.26.0000,Leme,Revisão Criminal,Tráfico de Drogas e Condutas Afins,,,False,False,True,489
+2053811-30.2026.8.26.0000,Campinas,Revisão Criminal,Tráfico de Drogas e Condutas Afins,fechado,6.666666666666667,False,False,True,530
+1504257-48.2023.8.26.0564,São Bernardo do Campo,Apelação Criminal,Estelionato,aberto,1.25,False,False,False,372
+1502795-75.2025.8.26.0535,Arujá,Apelação Criminal,Furto Qualificado,semiaberto,3.083333333333333,True,True,False,744
+1505129-35.2025.8.26.0389,São José dos Campos,Apelação Criminal,Dano Qualificado contra a Administração Pública,semiaberto,0.6666666666666666,True,False,False,624
+1509613-28.2024.8.26.0228,São Paulo,Embargos de Declaração Criminal,Receptação,aberto,,False,False,False,47
+1500327-29.2023.8.26.0594,Bauru,Apelação Criminal,Homicídio Privilegiado,semiaberto,7.833333333333333,True,True,False,879
+1500625-28.2025.8.26.0472,Porto Ferreira,Apelação Criminal,Lesão Cometida em Razão da Condição de Mulher,aberto,,False,False,False,786
+1500134-62.2025.8.26.0620,Taquarituba,Apelação Criminal,Tráfico de Drogas e Condutas Afins,fechado,,True,True,True,420
+1500487-14.2024.8.26.0596,Serrana,Apelação Criminal,Roubo Majorado,fechado,,True,False,False,426
+1502218-62.2025.8.26.0385,São Vicente,Apelação Criminal,Roubo Majorado,,8.833333333333334,False,True,False,304
+0019314-92.2024.8.26.0000,São Paulo,Revisão Criminal,Tráfico de Drogas e Condutas Afins,fechado,5.0,False,False,True,301
+0011255-18.2024.8.26.0000,Araraquara,Revisão Criminal,Tráfico de Drogas e Condutas Afins,,,False,False,False,489
+1504567-24.2025.8.26.0228,São Paulo,Apelação Criminal,Tráfico de Drogas e Condutas Afins,,,False,False,True,419
+1516920-63.2026.8.26.0454,São Paulo,Apelação Criminal,Furto Qualificado,fechado,6.0,False,True,False,297
+1511867-04.2026.8.26.0454,São Paulo,Apelação Criminal,Tráfico de Drogas e Condutas Afins,,8.75,False,False,True,274
+1512011-25.2025.8.26.0385,Praia Grande,Apelação Criminal,Falsificação de documento público,semiaberto,5.0,False,False,False,323
+1506508-76.2023.8.26.0002,São Paulo,Apelação Criminal,Desacato,aberto,2.1666666666666665,False,False,False,442
+1507647-31.2025.8.26.0378,Indaiatuba,Apelação Criminal,Roubo,aberto,2.6666666666666665,False,False,False,466
+1504422-75.2025.8.26.0548,Campinas,Apelação Criminal,Tráfico de Drogas e Condutas Afins,,1.6666666666666663,False,False,True,233
+1504092-63.2024.8.26.0047,Assis,Apelação Criminal,Tráfico de Drogas e Condutas Afins,fechado,,False,False,True,259
+1506579-04.2025.8.26.0392,Avaré,Apelação Criminal,Estelionato contra Idoso,,,False,False,False,220
+1510013-95.2025.8.26.0393,Cravinhos,Apelação Criminal,Furto Qualificado,semiaberto,,True,True,False,261
+1516309-81.2025.8.26.0378,Itararé,Apelação Criminal,Tráfico de Drogas e Condutas Afins,fechado,5.0,True,False,True,589
+1520257-60.2026.8.26.0454,São Paulo,Apelação Criminal,Crimes de Trânsito,,,False,True,False,276
+1510771-77.2025.8.26.0392,Agudos,Apelação Criminal,Furto,semiaberto,3.583333333333333,True,False,False,444
+1512172-85.2026.8.26.0454,São Paulo,Apelação Criminal,Tráfico de Drogas e Condutas Afins,,,True,True,True,268
+1500790-78.2025.8.26.0568,São João da Boa Vista,Apelação Criminal,Furto Qualificado,semiaberto,1.5,True,False,False,217
+1539590-31.2025.8.26.0228,São Paulo,Apelação Criminal,Furto Qualificado,aberto,2.0,False,False,False,335
+1502096-98.2026.8.26.0228,São Paulo,Apelação Criminal,Adulteração de Sinal Identificador de Veículo Automotor,aberto,4.583333333333333,False,False,False,353
+0000263-84.2025.8.26.0348,Mauá,Apelação Criminal,Tráfico de Drogas e Condutas Afins,semiaberto,5.833333333333333,False,True,True,714
+1501924-58.2023.8.26.0618,Taubaté,Apelação Criminal,Crimes do Sistema Nacional de Armas,aberto,,False,True,False,104
+1501713-05.2022.8.26.0344,Marília,Apelação Criminal,Furto,semiaberto,,True,False,False,144
+1502839-36.2025.8.26.0425,Tupã,Apelação Criminal,Tráfico de Drogas e Condutas Afins,aberto,,False,True,True,388
+1502099-81.2023.8.26.0576,São José do Rio Preto,Apelação Criminal,Furto Qualificado,semiaberto,,True,False,False,544
+1707218-28.2023.8.26.0224,Guarulhos,Apelação Criminal,Estelionato contra Idoso,,70.0,False,False,False,206
+1501162-70.2019.8.26.0363,Mogi-Mirim,Apelação Criminal,Roubo Majorado,,,False,False,False,141
+1519712-09.2024.8.26.0050,São Paulo,Apelação Criminal,Associação para a Produção e Tráfico e Condutas Afins,,,False,False,True,123
+1500090-47.2025.8.26.0263,Itaí,Apelação Criminal,"Crimes cometidos contra autoridade ou agente descrito nos arts. 142 e 143 da Constituição Federal, integrantes do sistema prisiona",,,False,False,False,75
+1500466-30.2025.8.26.0555,São Carlos,Apelação Criminal,Lesão Cometida em Razão da Condição de Mulher,,,False,False,False,73
+1501157-94.2025.8.26.0603,Araçatuba,Apelação Criminal,Tráfico de Drogas e Condutas Afins,,,False,False,True,129
+1514147-45.2026.8.26.0454,São Paulo,Apelação Criminal,Furto,aberto,,True,False,False,122
+0000413-84.2022.8.26.0602,Sorocaba,Apelação Criminal,Homicídio Qualificado,,,False,False,False,78
+1506873-53.2025.8.26.0393,Araraquara,Apelação Criminal,Tráfico de Drogas e Condutas Afins,,,False,False,True,110
+1500645-73.2025.8.26.0551,Limeira,Apelação Criminal,Tráfico de Drogas e Condutas Afins,,,False,False,True,230
+2142925-77.2026.8.26.0000,Osasco,Revisão Criminal,Tráfico de Drogas e Condutas Afins,,,False,False,True,81
+2113276-67.2026.8.26.0000,São Paulo,Revisão Criminal,Latrocínio,,,False,False,False,118
+1503423-34.2022.8.26.0482,Presidente Prudente,Apelação Criminal,Estelionato,aberto,,False,False,False,89
+0005167-90.2026.8.26.0000,São Paulo,Revisão Criminal,Roubo Majorado,,,False,False,False,64
+0041787-38.2025.8.26.0000,São Paulo,Revisão Criminal,Roubo,,,False,False,False,132
+2096840-33.2026.8.26.0000,Taubaté,Revisão Criminal,Extorsão mediante seqüestro,,,False,False,False,81
+0019700-88.2025.8.26.0000,São Paulo,Revisão Criminal,Roubo Majorado,,,False,False,False,74
+1500397-63.2025.8.26.0598,Jaú,Apelação Criminal,Tráfico de Drogas e Condutas Afins,aberto,,True,False,True,790
+1503915-17.2025.8.26.0548,Campinas,Apelação Criminal,Tráfico de Drogas e Condutas Afins,fechado,5.0,False,False,True,533
+1500138-61.2026.8.26.0395,Catanduva,Apelação Criminal,Tráfico de Drogas e Condutas Afins,,,False,False,True,204
+1530702-73.2025.8.26.0228,São Paulo,Apelação Criminal,Tráfico de Drogas e Condutas Afins,aberto,2.6666666666666665,False,False,True,628
+1502767-60.2025.8.26.0389,Caraguatatuba,Apelação Criminal,Tráfico de Drogas e Condutas Afins,aberto,1.6666666666666663,False,False,True,323
+0051664-90.2018.8.26.0050,São Paulo,Apelação Criminal,Receptação,semiaberto,,False,True,False,295
+1501333-64.2023.8.26.0079,Botucatu,Apelação Criminal,Furto Qualificado,fechado,4.5,True,False,False,227
+1501412-43.2024.8.26.0197,Francisco Morato,Apelação Criminal,Latrocínio,fechado,20.0,False,True,False,338
+1502795-53.2022.8.26.0544,Francisco Morato,Apelação Criminal,Receptação,,,False,False,False,212
+1502833-97.2023.8.26.0037,Araraquara,Apelação Criminal,(Fato até 10/01/2023) Injúria Preconceituosa em Razão de Raça,aberto,,False,False,False,233
+1502117-30.2025.8.26.0545,Nazaré Paulista,Embargos de Declaração Criminal,Tráfico de Drogas e Condutas Afins,,,False,False,True,654
+1500836-82.2020.8.26.0361,Mogi das Cruzes,Apelação Criminal,Furto Qualificado,,,False,False,False,423
+1501084-69.2023.8.26.0417,Paraguaçu Paulista,Apelação Criminal,Tráfico de Drogas e Condutas Afins,fechado,1.6666666666666663,False,False,True,320
+1500654-21.2024.8.26.0470,Porangaba,Apelação Criminal,Crime de Descumprimento de Medida Protetiva de Urgência,,,False,False,False,330
+1500490-51.2024.8.26.0213,Guará,Apelação Criminal,Maus Tratos,semiaberto,1.5,False,False,False,299
+1500599-93.2024.8.26.0430,Paulo de Faria,Apelação Criminal,Crimes do Sistema Nacional de Armas,semiaberto,,False,True,False,665
+1500597-22.2025.8.26.0032,Araçatuba,Apelação Criminal,Tráfico de Drogas e Condutas Afins,fechado,,True,True,True,369
+1508257-51.2025.8.26.0393,Itápolis,Apelação Criminal,Tráfico de Drogas e Condutas Afins,fechado,,True,False,True,295
+1500124-66.2025.8.26.0604,Sumaré,Apelação Criminal,Furto Qualificado,,,False,False,False,287
+1500352-76.2025.8.26.0560,Votuporanga,Apelação Criminal,Roubo Majorado,fechado,,True,True,False,539
+1503616-35.2025.8.26.0388,Penápolis,Apelação Criminal,Tráfico de Drogas e Condutas Afins,,,False,False,True,228
+1500401-77.2025.8.26.0541,Santa Fé do Sul,Apelação Criminal,Ameaça,semiaberto,0.6666666666666666,True,True,False,546
+1524450-40.2024.8.26.0050,São Paulo,Apelação Criminal,Furto Qualificado,semiaberto,2.6666666666666665,True,False,False,285
+1513048-75.2025.8.26.0389,São José dos Campos,Apelação Criminal,Furto Qualificado,aberto,,False,False,False,303
+1501208-43.2025.8.26.0559,Votuporanga,Apelação Criminal,Furto Qualificado,fechado,,False,False,False,226
+1505552-15.2025.8.26.0544,Franco da Rocha,Apelação Criminal,Tráfico de Drogas e Condutas Afins,fechado,5.833333333333333,True,False,True,184
+1500449-48.2020.8.26.0626,Caraguatatuba,Apelação Criminal,Crimes do Sistema Nacional de Armas,semiaberto,2.333333333333333,False,False,False,297
+1513938-65.2025.8.26.0566,São Carlos,Apelação Criminal,Ameaça,aberto,2.1666666666666665,False,False,False,210
+1518115-19.2025.8.26.0228,São Paulo,Apelação Criminal,Receptação,,,False,False,False,216
+1525559-57.2025.8.26.0114,Campinas,Apelação Criminal,Leve,semiaberto,4.416666666666667,True,False,False,241
+1504222-68.2025.8.26.0548,Campinas,Apelação Criminal,Roubo Majorado,fechado,,True,True,False,1020
+1506368-21.2024.8.26.0224,Guarulhos,Apelação Criminal,Roubo Majorado,fechado,10.333333333333334,False,False,False,238
+0000651-18.2025.8.26.0370,Monte Azul Paulista,Apelação Criminal,Restituição de Coisas Apreendidas,,,False,False,False,277
+1500679-26.2024.8.26.0311,Junqueirópolis,Apelação Criminal,Tráfico de Drogas e Condutas Afins,fechado,,True,False,True,829
+2135329-42.2026.8.26.0000,Taquarituba,Revisão Criminal,Crimes contra a Flora,,,False,False,False,54
+2067681-45.2026.8.26.0000,Palmital,Embargos de Declaração Criminal,Leve,semiaberto,,False,False,False,301
+0003646-18.2016.8.26.0338,Mairiporã,Apelação Criminal,Homicídio Qualificado,,,False,True,False,105
+1503353-42.2023.8.26.0624,Tatuí,Apelação Criminal,Receptação,semiaberto,,False,True,False,160
+0024504-85.2021.8.26.0050,São Paulo,Apelação Criminal,"Promoção, constituição, financiamento ou integração de Organização Criminosa",fechado,,False,False,True,184
+1501294-47.2024.8.26.0236,Ibitinga,Apelação Criminal,Crimes do Sistema Nacional de Armas,aberto,,True,True,False,167
+1500441-50.2022.8.26.0578,Ourinhos,Apelação Criminal,Tráfico de Drogas e Condutas Afins,aberto,,False,False,True,164
+1525705-18.2023.8.26.0228,São Paulo,Apelação Criminal,Roubo,aberto,1.1666666666666667,False,False,False,509
+1500304-07.2025.8.26.0144,Conchal,Apelação Criminal,Crimes do Sistema Nacional de Armas,,,False,False,False,169
+1512162-41.2026.8.26.0454,São Paulo,Apelação Criminal,Tráfico de Drogas e Condutas Afins,,,False,False,True,143
+1506328-80.2025.8.26.0393,São Carlos,Apelação Criminal,Tráfico de Drogas e Condutas Afins,,,False,False,True,268
+1511173-06.2025.8.26.0378,Sorocaba,Apelação Criminal,Adulteração de Sinal Identificador de Veículo Automotor,semiaberto,,False,True,False,623
+1502579-36.2023.8.26.0616,Poá,Apelação Criminal,Tráfico de Drogas e Condutas Afins,,,True,False,True,194
+1500572-84.2024.8.26.0083,Aguaí,Apelação Criminal,Crimes do Sistema Nacional de Armas,aberto,,False,False,False,268
+1500839-53.2024.8.26.0666,Artur Nogueira,Apelação Criminal,Lesão Cometida em Razão da Condição de Mulher,aberto,1.1666666666666667,False,False,False,460
+1591608-46.2022.8.26.0224,Guarulhos,Apelação Criminal,Roubo Majorado,,,False,False,False,64
+1501635-26.2023.8.26.0360,Mococa,Apelação Criminal,Lesão Cometida em Razão da Condição de Mulher,aberto,1.0,False,False,False,438
+1500198-42.2025.8.26.0048,Atibaia,Apelação Criminal,Furto Qualificado,,,False,False,False,56
+1500703-46.2026.8.26.0388,Jales,Apelação Criminal,Furto,,,False,False,False,49
+1529478-71.2023.8.26.0228,São Paulo,Apelação Criminal,Receptação,,,False,False,False,226
+1532289-33.2025.8.26.0228,São Paulo,Apelação Criminal,Tráfico de Drogas e Condutas Afins,fechado,,False,True,True,337
+0000634-84.2024.8.26.0606,Suzano,Apelação Criminal,Furto Qualificado,fechado,2.6666666666666665,False,False,False,381
+1502497-25.2025.8.26.0425,Garça,Apelação Criminal,Tráfico de Drogas e Condutas Afins,aberto,,False,False,True,160
+1501746-93.2025.8.26.0536,Guarujá,Apelação Criminal,Tráfico de Drogas e Condutas Afins,,,True,False,True,110
+1500706-91.2025.8.26.0628,Itapevi,Apelação Criminal,Tráfico de Drogas e Condutas Afins,aberto,,False,False,True,157
+0001669-24.2025.8.26.0322,Lins,Apelação Criminal,Homicídio Qualificado,fechado,21.666666666666668,False,False,False,315
+1508299-38.2020.8.26.0050,São Paulo,Apelação Criminal,Receptação,aberto,1.0,False,False,False,267
+1505093-72.2025.8.26.0395,Fernandópolis,Apelação Criminal,Furto,fechado,,True,False,False,482
+1503801-90.2020.8.26.0536,São Vicente,Apelação Criminal,Tráfico de Drogas e Condutas Afins,,,True,True,True,110
+1504216-03.2025.8.26.0535,Guarulhos,Apelação Criminal,Tráfico de Drogas e Condutas Afins,aberto,,False,False,True,111
+1500669-44.2025.8.26.0570,Cananéia,Apelação Criminal,Tráfico de Drogas e Condutas Afins,,,False,False,True,197
+1500511-36.2025.8.26.0037,Araraquara,Apelação Criminal,Furto Qualificado,semiaberto,,True,True,False,105
+1500754-87.2025.8.26.0454,São Paulo,Apelação Criminal,Furto,aberto,0.6666666666666666,True,True,False,502
+1501984-12.2025.8.26.0537,Diadema,Apelação Criminal,Receptação,semiaberto,,True,False,False,191
+1501688-54.2025.8.26.0548,Campinas,Apelação Criminal,Jogo de azar,,,False,False,False,134
+1502085-52.2025.8.26.0536,Cubatão,Apelação Criminal,Furto Qualificado,fechado,,True,True,False,808
+1500608-27.2025.8.26.0622,Itaberá,Apelação Criminal,Tráfico de Drogas e Condutas Afins,,,False,False,True,221
+1500033-05.2025.8.26.0368,Monte Alto,Apelação Criminal,Furto,,,False,False,False,158
+1501010-20.2024.8.26.0210,Guaíra,Apelação Criminal,Furto Qualificado,aberto,1.5,False,True,False,675
+1502548-11.2026.8.26.0228,São Paulo,Apelação Criminal,Tráfico de Drogas e Condutas Afins,fechado,,True,False,True,124
+1504588-03.2026.8.26.0442,Franco da Rocha,Apelação Criminal,Tráfico de Drogas e Condutas Afins,semiaberto,,False,False,True,135
+1500348-15.2025.8.26.0568,São João da Boa Vista,Apelação Criminal,Tráfico de Drogas e Condutas Afins,semiaberto,,True,False,True,278
+1535752-80.2025.8.26.0228,São Paulo,Apelação Criminal,Tráfico de Drogas e Condutas Afins,fechado,5.0,True,False,True,662
+1502513-55.2023.8.26.0196,Franca,Apelação Criminal,Furto Qualificado,semiaberto,2.0,False,True,False,334
+1500362-96.2026.8.26.0395,Guaíra,Apelação Criminal,Tráfico de Drogas e Condutas Afins,fechado,,False,True,True,129
+1507799-44.2025.8.26.0228,São Paulo,Apelação Criminal,Receptação,,,False,False,False,330
+1500740-92.2024.8.26.0372,Monte Mor,Apelação Criminal,Tráfico de Drogas e Condutas Afins,fechado,,False,False,True,83
+1504524-72.2023.8.26.0482,Presidente Prudente,Apelação Criminal,"Intolerância e/ou Injúria Racial, de Cor e/ou Etnia",,,False,True,False,104
+1528848-78.2024.8.26.0228,São Paulo,Apelação Criminal,Receptação,aberto,,True,True,False,115
+1502396-11.2025.8.26.0385,Praia Grande,Apelação Criminal,Tráfico de Drogas e Condutas Afins,semiaberto,,False,False,True,237
+1501190-22.2025.8.26.0559,Monte Aprazível,Apelação Criminal,Furto,aberto,,True,True,False,534
+1502938-76.2025.8.26.0628,Cotia,Apelação Criminal,Tráfico de Drogas e Condutas Afins,fechado,,False,False,True,213
+1500399-24.2025.8.26.0601,Socorro,Apelação Criminal,Receptação,,,True,False,False,72
+1500399-73.2025.8.26.0617,São José dos Campos,Apelação Criminal,Furto Qualificado,aberto,,False,True,False,103
+1511680-43.2025.8.26.0385,Praia Grande,Apelação Criminal,Roubo Majorado,fechado,,True,True,False,99
+1510995-06.2025.8.26.0395,Novo Horizonte,Apelação Criminal,Tráfico de Drogas e Condutas Afins,fechado,,False,True,True,148
+0004946-68.2014.8.26.0052,São Paulo,Apelação Criminal,Homicídio Qualificado,fechado,,False,True,False,107
+1501578-20.2024.8.26.0571,Capão Bonito,Apelação Criminal,Tráfico de Drogas e Condutas Afins,fechado,,False,True,True,97
+1500446-23.2025.8.26.0140,Chavantes,Apelação Criminal,Crime de Descumprimento de Medida Protetiva de Urgência,,,True,False,False,199
+1500263-14.2024.8.26.0552,Porto Ferreira,Apelação Criminal,Furto Qualificado,fechado,,True,False,False,219
+0000136-58.2025.8.26.0442,Campinas,Apelação Criminal,Tráfico de Drogas e Condutas Afins,fechado,,False,True,True,194
+1500366-06.2024.8.26.0654,Vargem Grande Paulista,Apelação Criminal,Maus Tratos,aberto,,False,False,False,537
+1511467-93.2024.8.26.0604,Sumaré,Apelação Criminal,Receptação,aberto,1.0833333333333333,True,True,False,706
+1503716-82.2025.8.26.0228,São Paulo,Apelação Criminal,Adulteração de Sinal Identificador de Veículo Automotor,aberto,4.5,False,True,False,788
+1509884-93.2022.8.26.0038,Araras,Apelação Criminal,Tráfico de Drogas e Condutas Afins,fechado,6.75,False,False,True,279
+1501883-55.2024.8.26.0360,Mococa,Apelação Criminal,Furto,fechado,1.25,True,False,False,289
+1505958-19.2025.8.26.0388,Andradina,Apelação Criminal,Furto Qualificado,fechado,5.166666666666667,True,True,False,752
+1500473-45.2025.8.26.0612,Guariba,Apelação Criminal,Tráfico de Drogas e Condutas Afins,fechado,5.833333333333333,True,False,True,870
+1507355-62.2021.8.26.0127,Carapicuíba,Apelação Criminal,Grave,aberto,1.3333333333333333,False,False,False,255
+1500300-75.2025.8.26.0594,Bauru,Apelação Criminal,Tráfico de Drogas e Condutas Afins,fechado,9.5,False,False,True,821
+1502827-22.2025.8.26.0425,Garça,Apelação Criminal,Roubo,aberto,,False,False,False,289
+1503590-89.2025.8.26.0597,Sertãozinho,Apelação Criminal,Desacato,aberto,0.5833333333333334,False,False,False,690
+1500109-68.2025.8.26.0452,Piraju,Apelação Criminal,Furto,aberto,75.33333333333333,False,True,False,593
+1508722-56.2020.8.26.0451,Piracicaba,Apelação Criminal,Furto Qualificado,,,False,False,False,286
+1505745-18.2025.8.26.0548,Campinas,Apelação Criminal,Roubo,fechado,6.166666666666667,True,True,False,761
+1518923-49.2020.8.26.0050,Itaquaquecetuba,Apelação Criminal,Receptação,semiaberto,1.3333333333333333,False,False,False,315
+1500553-15.2024.8.26.0589,São Simão,Apelação Criminal,Gravíssima,,,False,False,False,219
+1506113-98.2025.8.26.0395,Guaíra,Apelação Criminal,Tráfico de Drogas e Condutas Afins,,6.75,True,True,True,271
+1502663-33.2026.8.26.0454,São Paulo,Apelação Criminal,Roubo Majorado,fechado,9.333333333333334,False,False,False,478
+1502531-52.2025.8.26.0537,Diadema,Apelação Criminal,Incêndio,fechado,5.583333333333333,False,False,False,280
+1501703-48.2025.8.26.0378,São Roque,Apelação Criminal,Receptação,fechado,4.916666666666667,True,True,False,805
+1502711-88.2026.8.26.0228,São Paulo,Apelação Criminal,Furto Qualificado,fechado,2.9166666666666665,True,False,False,290
+1504115-41.2025.8.26.0510,Rio Claro,Apelação Criminal,Receptação,fechado,5.0,True,False,False,343
+1709105-47.2023.8.26.0224,Guarulhos,Apelação Criminal,"Intolerância e/ou Injúria Racial, de Cor e/ou Etnia",,,False,False,False,329
+1528369-08.2022.8.26.0050,São Paulo,Apelação Criminal,Roubo Majorado,semiaberto,5.333333333333333,False,False,False,309
+1538505-10.2025.8.26.0228,São Paulo,Apelação Criminal,Roubo,fechado,4.666666666666667,True,True,False,620
+1501373-54.2025.8.26.0571,Tatuí,Apelação Criminal,Ameaça,aberto,0.1666666666666666,False,False,False,255
+1501291-37.2023.8.26.0201,Garça,Apelação Criminal,Crimes de Trânsito,aberto,0.75,False,False,False,602
+1501447-35.2023.8.26.0618,Caçapava,Apelação Criminal,Furto Qualificado,semiaberto,,True,False,False,255
+1501189-64.2022.8.26.0196,Franca,Apelação Criminal,Receptação,aberto,1.0,False,False,False,487
+1501201-57.2023.8.26.0515,Rosana,Apelação Criminal,Maus Tratos,,,False,False,False,238
+1501026-66.2024.8.26.0535,Guarulhos,Apelação Criminal,Receptação,aberto,4.5,False,False,False,798
+1501094-73.2025.8.26.0537,São Bernardo do Campo,Apelação Criminal,Receptação,fechado,4.666666666666667,True,False,False,376
+1500867-18.2020.8.26.0583,Presidente Prudente,Apelação Criminal,Furto Qualificado,fechado,,True,True,False,352
+1500324-46.2026.8.26.0537,Diadema,Apelação Criminal,Furto Qualificado,fechado,2.083333333333333,True,True,False,513
+1500444-66.2024.8.26.0535,Santa Isabel,Apelação Criminal,Adulteração de Sinal Identificador de Veículo Automotor,,5.25,True,False,False,372
+1500471-48.2026.8.26.0448,Santo André,Apelação Criminal,Roubo Majorado,fechado,5.333333333333333,True,True,False,460
+1500538-47.2024.8.26.0233,Ibaté,Apelação Criminal,Receptação,semiaberto,1.1666666666666667,True,False,False,242
+0000161-88.2025.8.26.0598,Macatuba,Apelação Criminal,Crime de Descumprimento de Medida Protetiva de Urgência,fechado,2.1666666666666665,False,False,False,270
+1500004-94.2022.8.26.0097,Buritama,Apelação Criminal,Furto Qualificado,fechado,,True,True,False,710
+1517742-79.2023.8.26.0576,São José do Rio Preto,Apelação Criminal,"Intolerância e/ou Injúria Racial, de Cor e/ou Etnia",aberto,2.0,False,False,False,275
+1511792-26.2021.8.26.0361,Mogi das Cruzes,Apelação Criminal,Estelionato,semiaberto,1.5,True,False,False,417
+1531110-64.2025.8.26.0228,São Paulo,Apelação Criminal,Roubo,semiaberto,4.0,False,False,False,186
+1531337-54.2025.8.26.0228,São Paulo,Apelação Criminal,Adulteração de Sinal Identificador de Veículo Automotor,fechado,3.0,True,True,False,582
+1501036-13.2025.8.26.0168,Dracena,Apelação Criminal,Apropriação indébita,fechado,1.5833333333333337,True,True,False,318
+1501361-91.2025.8.26.0554,Santo André,Apelação Criminal,"Intolerância e/ou Injúria Racial, de Cor e/ou Etnia",aberto,,False,False,False,276
+1500280-05.2023.8.26.0352,Miguelópolis,Apelação Criminal,Ameaça,aberto,0.4166666666666667,False,False,False,349
+1504100-38.2025.8.26.0392,Pederneiras,Apelação Criminal,Tráfico de Drogas e Condutas Afins,fechado,6.75,True,True,True,591
+1508199-72.2025.8.26.0385,Itanhaém,Apelação Criminal,Furto,semiaberto,1.1666666666666667,False,False,False,174
+1509060-11.2026.8.26.0454,São Paulo,Apelação Criminal,Roubo Majorado,fechado,9.416666666666666,True,True,False,457
+1500200-71.2024.8.26.0557,Barretos,Apelação Criminal,Furto,semiaberto,1.3333333333333333,True,False,False,391
+1503928-28.2025.8.26.0544,Jundiaí,Apelação Criminal,Tráfico de Drogas e Condutas Afins,fechado,5.833333333333333,True,True,True,602
+1500309-50.2023.8.26.0095,Brotas,Apelação Criminal,Grave,aberto,1.5,False,False,False,227
+1502217-10.2022.8.26.0506,Ribeirão Preto,Apelação Criminal,Crimes de Trânsito,aberto,2.333333333333333,False,False,False,814
+1501371-23.2024.8.26.0441,Peruíbe,Apelação Criminal,Furto,aberto,,False,False,False,787
+1502785-78.2025.8.26.0196,Franca,Apelação Criminal,Furto Qualificado,,,False,True,False,701
+0000503-77.2025.8.26.0282,Itatinga,Apelação Criminal,Tráfico de Drogas e Condutas Afins,semiaberto,5.666666666666667,False,False,True,274
+1502106-72.2025.8.26.0392,São Manuel,Apelação Criminal,Tráfico de Drogas e Condutas Afins,fechado,7.75,True,False,True,368
+1500050-13.2026.8.26.0560,Votuporanga,Apelação Criminal,Latrocínio,fechado,,False,False,False,498
+1502068-13.2025.8.26.0537,Diadema,Apelação Criminal,Tráfico de Drogas e Condutas Afins,fechado,7.25,True,True,True,283
+1511878-33.2026.8.26.0454,São Paulo,Apelação Criminal,Tráfico de Drogas e Condutas Afins,fechado,6.833333333333333,False,False,True,318
+1505797-06.2025.8.26.0389,Caraguatatuba,Apelação Criminal,Furto Qualificado,fechado,2.333333333333333,False,False,False,271
+1500266-46.2026.8.26.0536,Praia Grande,Apelação Criminal,Tráfico de Drogas e Condutas Afins,fechado,9.0,True,True,True,418
+1502333-37.2026.8.26.0389,São José dos Campos,Apelação Criminal,Furto Qualificado,fechado,,True,True,False,476
+1504639-90.2021.8.26.0344,Marília,Apelação Criminal,Crimes contra as Relações de Consumo,,,False,False,False,285
+1500577-51.2021.8.26.0103,Caconde,Apelação Criminal,Apropriação indébita,,60.0,True,False,False,415
+1503178-17.2023.8.26.0408,Ourinhos,Apelação Criminal,Roubo Majorado,,,True,True,False,1001
+1541086-81.2024.8.26.0050,São Paulo,Apelação Criminal,Roubo Majorado,,,False,True,False,333
+1509688-33.2025.8.26.0228,São Paulo,Apelação Criminal,Crimes do Sistema Nacional de Armas,semiaberto,,True,True,False,438
+1500015-34.2025.8.26.0319,Lençóis Paulista,Apelação Criminal,Tráfico de Drogas e Condutas Afins,fechado,,True,False,True,332
+1521579-51.2025.8.26.0228,São Paulo,Apelação Criminal,Furto Qualificado,fechado,4.083333333333333,True,False,False,239
+1509675-98.2026.8.26.0454,São Paulo,Apelação Criminal,Furto Qualificado,semiaberto,2.6666666666666665,False,False,False,237
+1502824-61.2026.8.26.0448,Guarulhos,Apelação Criminal,Adulteração de Sinal Identificador de Veículo Automotor,fechado,11.833333333333334,False,False,False,294
+0040911-83.2025.8.26.0000,Itaquaquecetuba,Revisão Criminal,Homicídio Qualificado,,12.0,False,True,False,398
+1500554-64.2025.8.26.0621,Aparecida,Apelação Criminal,Tráfico de Drogas e Condutas Afins,aberto,,False,False,True,193
+0002212-86.2026.8.26.0000,Fartura,Revisão Criminal,Tráfico de Drogas e Condutas Afins,fechado,4.75,False,False,True,479
+0043920-53.2025.8.26.0000,Itaquaquecetuba,Revisão Criminal,Roubo,fechado,,False,True,False,487
+0043933-52.2025.8.26.0000,Embu-Guaçu,Revisão Criminal,Roubo,,13.75,False,False,False,285
+0003945-97.2024.8.26.0278,Itaquaquecetuba,Apelação Criminal,Associação para a Produção e Tráfico e Condutas Afins,fechado,5.083333333333333,False,False,True,360
+1501533-41.2025.8.26.0616,Mogi das Cruzes,Apelação Criminal,Furto,fechado,1.5,True,True,False,419
+1519500-02.2025.8.26.0228,São Paulo,Apelação Criminal,Furto Qualificado,aberto,1.5,True,False,False,665
+1518707-49.2024.8.26.0050,São Paulo,Apelação Criminal,Crimes de Trânsito,aberto,2.6666666666666665,False,True,False,574
+1514014-03.2026.8.26.0454,São Paulo,Apelação Criminal,Furto,fechado,1.1666666666666667,True,True,False,335
+1519912-30.2025.8.26.0228,São Paulo,Apelação Criminal,Tráfico de Drogas e Condutas Afins,fechado,5.833333333333333,False,True,True,2151
+1500922-88.2025.8.26.0616,Mogi das Cruzes,Apelação Criminal,Tráfico de Drogas e Condutas Afins,fechado,6.75,True,False,True,745
+1501226-65.2026.8.26.0224,Guarulhos,Apelação Criminal,Tráfico de Drogas e Condutas Afins,fechado,5.666666666666667,False,True,True,724
+1504741-97.2026.8.26.0454,São Paulo,Apelação Criminal,Tráfico de Drogas e Condutas Afins,semiaberto,5.0,False,True,True,419
+1500831-54.2024.8.26.0156,Cruzeiro,Apelação Criminal,Estelionato,,,False,False,False,244
+1500188-58.2025.8.26.0610,Orlândia,Apelação Criminal,Adulteração de Sinal Identificador de Veículo Automotor,fechado,,True,False,False,140
+1500009-35.2022.8.26.0415,Palmital,Apelação Criminal,Ameaça,,,True,False,False,158
+1500209-93.2023.8.26.0322,Lins,Apelação Criminal,Pesca Ilegal,,,False,False,False,81
+1506761-78.2025.8.26.0395,Estrela D Oeste,Apelação Criminal,Tráfico de Drogas e Condutas Afins,fechado,8.0,False,True,True,836
+1500208-98.2024.8.26.0120,Cândido Mota,Apelação Criminal,"Intolerância e/ou Injúria Racial, de Cor e/ou Etnia",,,False,False,False,240
+1500494-50.2025.8.26.0570,Registro,Apelação Criminal,Ameaça,,,False,False,False,144
+1511250-15.2025.8.26.0378,Itapetininga,Apelação Criminal,Tráfico de Drogas e Condutas Afins,fechado,8.0,False,False,True,520
+1504761-34.2025.8.26.0548,Campinas,Apelação Criminal,Tráfico de Drogas e Condutas Afins,fechado,8.0,True,False,True,435
+1516431-19.2024.8.26.0576,São José do Rio Preto,Apelação Criminal,Tráfico de Drogas e Condutas Afins,,,False,False,True,134
+1529967-40.2025.8.26.0228,São Paulo,Apelação Criminal,Adulteração de Sinal Identificador de Veículo Automotor,,,False,False,False,45
+1502523-59.2022.8.26.0156,Cruzeiro,Apelação Criminal,Furto Qualificado,fechado,,True,True,False,139
+1516689-07.2025.8.26.0378,Sorocaba,Apelação Criminal,Tráfico de Drogas e Condutas Afins,fechado,,True,True,True,118
+1501580-55.2021.8.26.0066,Barretos,Apelação Criminal,Crimes do Sistema Nacional de Armas,,,False,True,False,77
+1500377-51.2025.8.26.0605,Andradina,Apelação Criminal,Tráfico de Drogas e Condutas Afins,,,False,False,True,127
+1500121-91.2026.8.26.0567,Salto de Pirapora,Apelação Criminal,Tráfico de Drogas e Condutas Afins,,,False,False,True,145
+1502548-80.2025.8.26.0378,Angatuba,Apelação Criminal,Furto Qualificado,,,False,True,False,212
+1500937-64.2024.8.26.0431,Pederneiras,Apelação Criminal,Adulteração de Sinal Identificador de Veículo Automotor,semiaberto,,False,True,False,204
+1500339-45.2025.8.26.0603,Birigüi,Apelação Criminal,Falsificação / Corrupção / Adulteração / Alteração de produto destinado a fins terapêuticos ou medicinais,semiaberto,1.0833333333333333,False,True,False,284
+1500526-43.2024.8.26.0456,Pirapozinho,Apelação Criminal,"Intolerância e/ou Injúria Racial, de Cor e/ou Etnia",,2.6666666666666665,False,False,False,210
+1501411-55.2022.8.26.0544,Francisco Morato,Apelação Criminal,Furto,,,False,False,False,201
+1500190-61.2020.8.26.0300,Jardinópolis,Apelação Criminal,Crimes do Sistema Nacional de Armas,aberto,2.0,False,False,False,263
+1500432-86.2024.8.26.0653,Vargem Grande do Sul,Apelação Criminal,Ameaça,aberto,,False,False,False,232
+1517846-14.2024.8.26.0228,São Paulo,Apelação Criminal,Receptação,,,False,True,False,223
+1531500-20.2024.8.26.0050,São Paulo,Apelação Criminal,Maus Tratos,,,False,False,False,226
+1501134-63.2024.8.26.0481,Presidente Epitácio,Apelação Criminal,Ameaça,,,False,False,False,202
+0000332-76.2016.8.26.0140,Chavantes,Apelação Criminal,Homicídio Qualificado,,9.333333333333334,False,False,False,275
+1527601-28.2025.8.26.0228,São Paulo,Apelação Criminal,Tráfico de Drogas e Condutas Afins,fechado,7.0,True,False,True,253
+1500104-64.2025.8.26.0446,Assis,Apelação Criminal,Furto,fechado,3.083333333333333,True,False,False,211
+1501902-54.2025.8.26.0545,Atibaia,Apelação Criminal,Furto,,,False,True,False,210
+1500293-34.2024.8.26.0557,Barretos,Apelação Criminal,Tráfico de Drogas e Condutas Afins,semiaberto,3.8333333333333335,False,False,True,287
+1503350-09.2026.8.26.0228,São Paulo,Apelação Criminal,Tráfico de Drogas e Condutas Afins,semiaberto,2.5,False,False,True,338
+1503648-68.2019.8.26.0576,São José do Rio Preto,Apelação Criminal,Estelionato,aberto,,False,False,False,177
+1505651-80.2019.8.26.0451,Piracicaba,Apelação Criminal,Crimes contra a Ordem Tributária,aberto,,False,False,False,270
+1500014-71.2025.8.26.0150,Cosmópolis,Apelação Criminal,Ameaça,aberto,2.1666666666666665,False,True,False,789
+1501498-39.2023.8.26.0297,Jales,Apelação Criminal,Furto,semiaberto,1.25,True,True,False,568
+1527116-28.2025.8.26.0228,São Paulo,Apelação Criminal,Tráfico de Drogas e Condutas Afins,fechado,8.0,False,True,True,753
+1501888-86.2025.8.26.0378,Ibiúna,Apelação Criminal,Tráfico de Drogas e Condutas Afins,aberto,5.666666666666667,False,True,True,799
+1503450-47.2025.8.26.0535,Guarulhos,Apelação Criminal,Tráfico de Drogas e Condutas Afins,fechado,7.75,True,False,True,473
+1515818-74.2025.8.26.0378,Sorocaba,Apelação Criminal,Tráfico de Drogas e Condutas Afins,semiaberto,5.833333333333333,False,False,True,797
+1506303-29.2025.8.26.0050,Guarulhos,Apelação Criminal,Associação para a Produção e Tráfico e Condutas Afins,fechado,4.5,False,True,True,985
+1500448-68.2025.8.26.0600,Promissão,Apelação Criminal,Furto Qualificado,semiaberto,2.6666666666666665,True,True,False,913
+1507800-85.2023.8.26.0038,Araras,Apelação Criminal,Receptação,semiaberto,3.5,True,True,False,583
+1500105-56.2020.8.26.0177,Taboão da Serra,Apelação Criminal,Estelionato,semiaberto,1.5,True,False,False,586
+1500241-85.2024.8.26.0315,Laranjal Paulista,Apelação Criminal,Furto Qualificado,fechado,3.5,True,True,False,715
+1503437-59.2022.8.26.0242,Igarapava,Embargos de Declaração Criminal,Tráfico de Drogas e Condutas Afins,,,False,False,False,97
+1500448-21.2024.8.26.0530,Ribeirão Preto,Embargos de Declaração Criminal,Tráfico de Drogas e Condutas Afins,fechado,,False,False,False,113
+1502777-37.2023.8.26.0628,Cotia,Apelação Criminal,Tráfico de Drogas e Condutas Afins,fechado,,False,False,True,104
+1502687-07.2025.8.26.0548,Campinas,Apelação Criminal,Crimes do Sistema Nacional de Armas,,,True,False,False,175
+1503229-96.2025.8.26.0395,Neves Paulista,Apelação Criminal,Tráfico de Drogas e Condutas Afins,fechado,,False,True,True,190
+1501705-80.2025.8.26.0616,Ferraz de Vasconcelos,Apelação Criminal,Estelionato,,,False,False,False,151
+1500577-36.2025.8.26.0095,Brotas,Apelação Criminal,Tráfico de Drogas e Condutas Afins,fechado,,True,False,True,184
+1500535-32.2021.8.26.0578,Chavantes,Apelação Criminal,Tráfico de Drogas e Condutas Afins,fechado,,False,False,True,79
+1500084-98.2025.8.26.0567,Sorocaba,Apelação Criminal,Furto Qualificado,semiaberto,,False,True,False,164
+1500127-34.2024.8.26.0611,Miguelópolis,Apelação Criminal,Furto de Veículo Automotor a ser Transportado para outro Estado ou Exterior,semiaberto,,False,True,False,207
+1500174-88.2025.8.26.0573,Botucatu,Apelação Criminal,Tráfico de Drogas e Condutas Afins,fechado,,True,False,True,141
+1502188-76.2026.8.26.0228,São Paulo,Apelação Criminal,Tráfico de Drogas e Condutas Afins,fechado,,False,False,True,197
+1502642-95.2025.8.26.0388,Lins,Apelação Criminal,Tráfico de Drogas e Condutas Afins,fechado,,False,True,True,150
+1537467-51.2021.8.26.0050,São Paulo,Apelação Criminal,Estelionato,,,False,False,False,138
+1504846-15.2025.8.26.0388,Andradina,Apelação Criminal,Furto,fechado,,True,True,False,88
+1501130-84.2023.8.26.0279,Itararé,Apelação Criminal,Homicídio Qualificado,fechado,9.333333333333334,False,False,False,829
+1523601-82.2025.8.26.0228,São Paulo,Apelação Criminal,Adulteração de Sinal Identificador de Veículo Automotor,aberto,3.5,False,False,False,244
+1506004-85.2026.8.26.0448,Santo André,Apelação Criminal,Tráfico de Drogas e Condutas Afins,semiaberto,6.416666666666667,True,False,True,198
+1502848-70.2026.8.26.0228,São Paulo,Apelação Criminal,Roubo,semiaberto,3.083333333333333,False,False,False,303
+1500414-26.2024.8.26.0666,Artur Nogueira,Apelação Criminal,Crimes do Sistema Nacional de Armas,aberto,3.0,False,True,False,236
+1508550-95.2026.8.26.0454,São Paulo,Apelação Criminal,Tráfico de Drogas e Condutas Afins,fechado,7.5,False,False,True,263
+0022901-97.2016.8.26.0002,São Paulo,Apelação Criminal,Desacato,aberto,0.5,False,False,False,510
+1514752-24.2025.8.26.0228,São Paulo,Apelação Criminal,Adulteração de Sinal Identificador de Veículo Automotor,aberto,4.5,False,False,False,511
+1507264-70.2019.8.26.0602,Sorocaba,Apelação Criminal,Maus Tratos,aberto,1.0833333333333333,False,True,False,612
+1535737-97.2024.8.26.0050,São Paulo,Apelação Criminal,Roubo Majorado,fechado,,False,False,False,158
+1506369-94.2021.8.26.0358,Mirassol,Apelação Criminal,Estelionato,semiaberto,,False,False,False,242
+1526922-19.2021.8.26.0050,São Paulo,Apelação Criminal,Maus Tratos,aberto,14.0,False,False,False,468
+1513541-75.2022.8.26.0577,São José dos Campos,Apelação Criminal,Estelionato Majorado,semiaberto,,False,False,False,147
+1547979-88.2024.8.26.0050,São Paulo,Apelação Criminal,Crimes de Trânsito,,,False,False,False,161
+1502913-08.2024.8.26.0302,Jaú,Apelação Criminal,Furto,fechado,,True,False,False,180
+1500225-33.2023.8.26.0456,Pirapozinho,Apelação Criminal,Crimes do Sistema Nacional de Armas,semiaberto,1.1666666666666667,False,False,False,363
+1500389-28.2023.8.26.0058,Agudos,Apelação Criminal,Seguida de Morte,fechado,4.666666666666667,True,True,False,707
+1500681-98.2025.8.26.0395,Monte Aprazível,Apelação Criminal,Crimes de Trânsito,semiaberto,,True,True,False,255
+0000880-88.2016.8.26.0306,José Bonifácio,Apelação Criminal,Crimes de Trânsito,aberto,0.5,False,True,False,427
+1500800-65.2019.8.26.0073,Avaré,Apelação Criminal,Estelionato,aberto,1.0,False,False,False,537
+1502671-70.2025.8.26.0510,Rio Claro,Apelação Criminal,Furto Qualificado,fechado,2.9166666666666665,True,True,False,266
+1506645-78.2025.8.26.0393,Sertãozinho,Apelação Criminal,Tráfico de Drogas e Condutas Afins,fechado,,True,False,True,283
+1502801-86.2026.8.26.0393,Jardinópolis,Apelação Criminal,Tráfico de Drogas e Condutas Afins,aberto,,True,False,True,270
+1504714-17.2026.8.26.0454,São Paulo,Apelação Criminal,Roubo,fechado,,True,True,True,222
+1515725-66.2025.8.26.0393,Ribeirão Preto,Apelação Criminal,Tráfico de Drogas e Condutas Afins,,,False,True,True,169
+1503560-19.2025.8.26.0544,Jundiaí,Apelação Criminal,Tráfico de Drogas e Condutas Afins,fechado,,True,False,True,259
+1508442-92.2025.8.26.0392,Jaú,Apelação Criminal,Tráfico de Drogas e Condutas Afins,fechado,10.25,True,True,True,367
+1509830-04.2026.8.26.0454,São Paulo,Apelação Criminal,Tráfico de Drogas e Condutas Afins,semiaberto,5.333333333333333,True,True,True,340
+1501250-22.2021.8.26.0660,Viradouro,Apelação Criminal,Homicídio Qualificado,fechado,,False,True,False,246
+1500144-38.2025.8.26.0578,Piraju,Apelação Criminal,Tráfico de Drogas e Condutas Afins,fechado,,False,True,True,267
+1500380-79.2025.8.26.0613,São José do Rio Pardo,Apelação Criminal,Furto,fechado,,True,False,False,225
+1506615-19.2026.8.26.0228,São Paulo,Apelação Criminal,Tráfico de Drogas e Condutas Afins,,,False,False,True,89
+1500358-58.2025.8.26.0633,Itanhaém,Apelação Criminal,Tráfico de Drogas e Condutas Afins,semiaberto,,False,False,True,262
+1502847-86.2020.8.26.0037,Araraquara,Apelação Criminal,Roubo,fechado,8.0,False,False,False,272
+0005688-38.2025.8.26.0269,Itapetininga,Apelação Criminal,Roubo Majorado,,,False,False,False,90
+1504748-47.2025.8.26.0544,Francisco Morato,Embargos de Declaração Criminal,Tráfico de Drogas e Condutas Afins,,5.833333333333333,False,False,True,213
+1504838-47.2025.8.26.0385,Praia Grande,Apelação Criminal,Receptação,semiaberto,4.166666666666667,False,False,False,288
+1520754-64.2022.8.26.0050,São Paulo,Apelação Criminal,Maus Tratos,aberto,,False,True,False,514
+1505104-25.2025.8.26.0388,Araçatuba,Apelação Criminal,Tráfico de Drogas e Condutas Afins,fechado,,False,True,True,447
+1500368-22.2024.8.26.0574,Cerqueira César,Apelação Criminal,Furto,aberto,1.0,False,False,False,198
+1501233-97.2024.8.26.0201,Garça,Apelação Criminal,Tráfico de Drogas e Condutas Afins,,,True,True,True,249
+1500552-14.2025.8.26.0389,Jacareí,Apelação Criminal,Adulteração de Sinal Identificador de Veículo Automotor,,,False,False,False,258
+1501497-87.2026.8.26.0446,Americana,Apelação Criminal,Tráfico de Drogas e Condutas Afins,,,True,True,True,58
+1500368-88.2025.8.26.0573,Itatinga,Apelação Criminal,Crimes de Trânsito,semiaberto,,True,False,False,47
+1501057-22.2025.8.26.0545,Jarinu,Apelação Criminal,Tráfico de Drogas e Condutas Afins,,,False,False,True,55
+1503069-78.2026.8.26.0446,Limeira,Apelação Criminal,Adulteração de Sinal Identificador de Veículo Automotor,semiaberto,,False,False,False,54
+1500593-60.2024.8.26.0083,Aguaí,Apelação Criminal,Tráfico de Drogas e Condutas Afins,,,False,False,True,58
+1526128-90.2024.8.26.0050,São Paulo,Apelação Criminal,Roubo Majorado,,,False,True,False,522
+2124696-69.2026.8.26.0000,Tremembé,Agravo Interno Criminal,Tráfico de Drogas e Condutas Afins,,,False,False,True,622
+2092120-23.2026.8.26.0000,Paulínia,Embargos de Declaração Criminal,Tráfico de Drogas e Condutas Afins,fechado,5.0,False,False,True,1010
+1503610-22.2023.8.26.0542,Osasco,Apelação Criminal,Receptação,semiaberto,5.5,False,False,False,921
+1500466-72.2025.8.26.0541,Santa Fé do Sul,Apelação Criminal,"Intolerância e/ou Injúria Racial, de Cor e/ou Etnia",aberto,4.0,False,False,False,451
+1502489-68.2024.8.26.0559,São José do Rio Preto,Apelação Criminal,Lesão Cometida em Razão da Condição de Mulher,,,False,True,False,65
+0008095-36.2010.8.26.0368,Monte Alto,Apelação Criminal,Furto Qualificado,,,False,False,False,68
+1507472-92.2025.8.26.0392,Bauru,Apelação Criminal,Tráfico de Drogas e Condutas Afins,,,False,False,True,43
+1500587-45.2021.8.26.0637,Tupã,Apelação Criminal,Tráfico de Drogas e Condutas Afins,,,False,False,True,43
+1500860-85.2025.8.26.0442,Campinas,Apelação Criminal,Maus Tratos,,,False,False,False,84
+1503997-84.2024.8.26.0224,Guarulhos,Apelação Criminal,Leve,,,False,False,False,122
+1504496-71.2025.8.26.0535,Guarulhos,Apelação Criminal,Tráfico de Drogas e Condutas Afins,fechado,,True,False,True,165
+1501787-93.2022.8.26.0559,São José do Rio Preto,Apelação Criminal,Roubo Majorado,semiaberto,6.0,False,False,False,330
+1513378-84.2025.8.26.0385,Bertioga,Apelação Criminal,Tráfico de Drogas e Condutas Afins,fechado,,False,False,True,184
+1500457-77.2025.8.26.0552,Leme,Apelação Criminal,Tráfico de Drogas e Condutas Afins,,,True,False,True,83
+1500993-14.2024.8.26.0297,Jales,Apelação Criminal,Tráfico de Drogas e Condutas Afins,semiaberto,,True,True,True,431
+1510875-78.2025.8.26.0389,São José dos Campos,Apelação Criminal,Roubo Majorado,fechado,,False,True,False,422
+1503820-04.2025.8.26.0510,Rio Claro,Apelação Criminal,Tráfico de Drogas e Condutas Afins,,,False,False,True,290
+1500318-13.2022.8.26.0300,Jardinópolis,Apelação Criminal,Estelionato,,,False,False,False,98
+1501669-07.2025.8.26.0594,Bauru,Apelação Criminal,Tráfico de Drogas e Condutas Afins,,,True,False,True,141
+1500210-57.2023.8.26.0038,Araras,Apelação Criminal,Furto Qualificado,,,False,True,False,264
+1500408-36.2024.8.26.0531,Santa Adélia,Apelação Criminal,Maus Tratos,semiaberto,2.333333333333333,False,False,False,232
+1501343-02.2023.8.26.0567,Votorantim,Apelação Criminal,Tráfico de Drogas e Condutas Afins,semiaberto,2.5,False,False,True,256
+1509778-94.2025.8.26.0566,São Carlos,Embargos Infringentes e de Nulidade,Tráfico de Drogas e Condutas Afins,fechado,7.833333333333333,False,False,True,382
+1500798-97.2024.8.26.0630,Americana,Apelação Criminal,Furto Qualificado,fechado,0.75,True,True,False,208
+1500569-94.2025.8.26.0536,São Vicente,Apelação Criminal,Furto,aberto,1.0,False,True,False,543
+1541138-91.2025.8.26.0228,São Paulo,Embargos de Declaração Criminal,Roubo,fechado,4.0,False,False,False,363
+0002083-39.2017.8.26.0019,Americana,Apelação Criminal,Crimes de Trânsito,,,False,False,False,350
+0001348-90.2021.8.26.0075,Santos,Apelação Criminal,Homicídio Qualificado,,28.5,True,False,False,324
+1503051-57.2025.8.26.0425,Assis,Apelação Criminal,Furto,semiaberto,1.0,True,False,False,174
+1500525-30.2026.8.26.0378,Tatuí,Apelação Criminal,Tráfico de Drogas e Condutas Afins,,,False,False,True,162
+1500647-28.2023.8.26.0417,Paraguaçu Paulista,Apelação Criminal,Estelionato,fechado,,True,True,False,264
+1531959-36.2025.8.26.0228,São Paulo,Apelação Criminal,Tráfico de Drogas e Condutas Afins,aberto,,False,True,True,206
+1525745-15.2024.8.26.0050,São Paulo,Apelação Criminal,Associação para a Produção e Tráfico e Condutas Afins,,,False,False,True,221
+1504002-87.2025.8.26.0510,Rio Claro,Apelação Criminal,Tráfico de Drogas e Condutas Afins,,,False,False,True,94
+1503960-60.2025.8.26.0535,Guarulhos,Apelação Criminal,Furto,semiaberto,,True,True,False,169
+1503036-28.2025.8.26.0542,Osasco,Apelação Criminal,Tráfico de Drogas e Condutas Afins,fechado,,True,False,True,294
+1500746-58.2025.8.26.0536,Guarujá,Apelação Criminal,Roubo Majorado,fechado,5.333333333333333,False,False,False,190
+1500762-70.2024.8.26.0431,Pederneiras,Apelação Criminal,Crimes do Sistema Nacional de Armas,,2.75,False,False,False,162
+1500077-91.2025.8.26.0378,Tatuí,Apelação Criminal,"Crimes cometidos contra autoridade ou agente descrito nos arts. 142 e 143 da Constituição Federal, integrantes do sistema prisiona",semiaberto,,True,False,False,152
+0013501-37.2025.8.26.0554,Santo André,Apelação Criminal,Roubo Majorado,,11.75,False,False,False,177
+0007137-82.2015.8.26.0624,Tatuí,Apelação Criminal,Furto,,,False,False,False,155
+1501614-25.2025.8.26.0378,Porto Feliz,Apelação Criminal,Tráfico de Drogas e Condutas Afins,fechado,8.5,True,False,True,961
+1502164-80.2019.8.26.0038,Araras,Apelação Criminal,Disposição de coisa alheia como própria,aberto,1.0,False,False,False,675
+1502084-32.2024.8.26.0559,São José do Rio Preto,Apelação Criminal,Tráfico de Drogas e Condutas Afins,semiaberto,21.166666666666668,False,True,True,487
+1501280-09.2023.8.26.0621,Cruzeiro,Apelação Criminal,Tráfico de Drogas e Condutas Afins,,,True,False,True,87
+1500335-72.2022.8.26.0551,Araras,Apelação Criminal,Tráfico de Drogas e Condutas Afins,,,False,False,True,220
+1501905-71.2025.8.26.0395,Monte Azul Paulista,Apelação Criminal,Tráfico de Drogas e Condutas Afins,,,False,False,True,41
+1502178-66.2025.8.26.0228,São Paulo,Apelação Criminal,Roubo,aberto,2.0,False,False,False,172
+1500176-45.2025.8.26.0545,Atibaia,Apelação Criminal,Crimes contra as Relações de Consumo,semiaberto,,True,True,False,550
+1505309-51.2022.8.26.0132,Catanduva,Apelação Criminal,Receptação,semiaberto,1.3333333333333333,True,True,False,484
+1506368-74.2025.8.26.0389,Jacareí,Apelação Criminal,Tráfico de Drogas e Condutas Afins,fechado,5.833333333333333,False,False,True,694
+1509194-85.2025.8.26.0385,Itanhaém,Apelação Criminal,Crimes de Trânsito,aberto,1.1666666666666667,False,True,False,687
+1500088-81.2025.8.26.0585,Presidente Epitácio,Apelação Criminal,Crimes do Sistema Nacional de Armas,aberto,1.25,False,True,False,626
+1502852-34.2025.8.26.0393,São Carlos,Apelação Criminal,Roubo Majorado,semiaberto,8.0,True,True,False,832
+1502723-03.2025.8.26.0628,Itapecerica da Serra,Apelação Criminal,Roubo,,13.75,False,True,False,476
+1502310-48.2025.8.26.0544,Franco da Rocha,Embargos de Declaração Criminal,Tráfico de Drogas e Condutas Afins,,,True,True,True,492
+1510251-11.2025.8.26.0395,Tanabi,Apelação Criminal,Furto,fechado,3.5,True,True,False,421
+1500518-41.2025.8.26.0550,Rio Claro,Apelação Criminal,Furto Qualificado,fechado,4.5,True,False,False,603
+1503581-36.2026.8.26.0228,São Paulo,Apelação Criminal,Furto,,,False,True,False,53
+1528729-83.2025.8.26.0228,São Paulo,Apelação Criminal,Roubo Majorado,fechado,6.166666666666667,False,True,False,612
+0001032-06.2015.8.26.0587,São Sebastião,Apelação Criminal,Roubo Majorado,,,False,False,False,479
+1502120-02.2025.8.26.0604,Sumaré,Apelação Criminal,Tráfico de Drogas e Condutas Afins,,,True,False,True,240
+1564045-12.2025.8.26.0050,São Paulo,Apelação Criminal,Furto Qualificado,,,True,True,False,148
+1513812-73.2025.8.26.0385,Peruíbe,Apelação Criminal,Tráfico de Drogas e Condutas Afins,semiaberto,,False,False,True,453
+1502109-02.2023.8.26.0617,São José dos Campos,Apelação Criminal,Furto,semiaberto,4.75,False,True,False,337
+1502003-23.2021.8.26.0322,Lins,Apelação Criminal,Furto Qualificado,aberto,,False,False,False,382
+1500729-66.2025.8.26.0392,Botucatu,Apelação Criminal,Tráfico de Drogas e Condutas Afins,fechado,,True,False,True,390
+1500082-56.2025.8.26.0591,Panorama,Apelação Criminal,Tráfico de Drogas e Condutas Afins,fechado,,True,False,True,301
+0011683-15.2024.8.26.0577,São José dos Campos,Apelação Criminal,Receptação,aberto,,False,False,False,209
+1506677-52.2022.8.26.0114,Campinas,Apelação Criminal,Roubo,fechado,,True,False,False,263

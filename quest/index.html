@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quest do planejamento · CDAD II</title>
+<link rel="icon" href="../_shared/img/logo-insper-preto.png">
+<script src="../_shared/tema.js"></script>
+<link rel="stylesheet" href="../_shared/styles.css">
+<style>
+  /* O problema fica sempre à vista: toda etapa volta a ele. */
+  .problema {
+    border: var(--borda); border-left: 4px solid var(--vermelho);
+    border-radius: 0 var(--raio) var(--raio) 0; background: var(--branco);
+    padding: .9rem 1rem; margin-bottom: 1rem;
+  }
+  .problema .area { font-family: var(--fonte-mono); font-size: .68rem; letter-spacing: .08em;
+                    text-transform: uppercase; color: var(--cinza-600); }
+  .problema h3 { margin: .15rem 0 .45rem; font-size: 1.1rem; }
+  .pergunta-ruim { margin-top: .7rem; padding: .55rem .75rem; background: var(--tom-vermelho);
+                   border-radius: var(--raio); font-style: italic; }
+  .pergunta-ruim b { font-style: normal; }
+
+  .etapas-quest { display: flex; flex-wrap: wrap; gap: .35rem; align-items: center; margin: 0 0 1rem; }
+  .etapas-quest span { font-size: .74rem; padding: .18rem .65rem; border-radius: 999px;
+                 border: var(--borda); color: var(--cinza-600); background: var(--branco); }
+  .etapas-quest span.feita { background: var(--tom-verde); border-color: #9fd3bd; color: var(--verde-ok); }
+  .etapas-quest span.agora { background: var(--vermelho); border-color: var(--vermelho); color: #fff; font-weight: 700; }
+  .etapas-quest .placar { margin-left: auto; font-family: var(--fonte-mono); font-size: .74rem; color: var(--cinza-600); }
+
+  .veredito { margin-top: .9rem; padding: .7rem .85rem; border-radius: var(--raio); border: 1px solid; }
+  .veredito b { display: block; margin-bottom: .2rem; }
+  .veredito.ok { background: var(--tom-verde); border-color: #9fd3bd; }
+  .veredito.barrado { background: var(--tom-vermelho); border-color: #f0b4b4; }
+
+  .cartao-tema { display: block; border: var(--borda); border-radius: var(--raio);
+                 padding: .75rem .9rem; margin-bottom: .55rem; cursor: pointer; background: var(--branco); }
+  .cartao-tema:hover { border-color: var(--cinza-400); }
+  .cartao-tema.marcado { border-color: var(--vermelho); box-shadow: inset 3px 0 0 var(--vermelho); }
+  .cartao-tema.cheio { opacity: .45; cursor: not-allowed; }
+  .cartao-tema input { width: auto; margin-right: .4rem; }
+  .cartao-tema h4 { margin: 0 0 .2rem; font-size: .95rem; }
+  .cartao-tema .area { font-family: var(--fonte-mono); font-size: .68rem; letter-spacing: .08em;
+                       text-transform: uppercase; color: var(--cinza-600); }
+  .cartao-tema .vagas { float: right; font-family: var(--fonte-mono); font-size: .7rem; color: var(--cinza-600); }
+
+  .var-linha { display: grid; gap: .45rem; grid-template-columns: 1fr; margin-bottom: .5rem;
+               border: var(--borda); border-radius: var(--raio); padding: .55rem .6rem; background: var(--branco); }
+  @media (min-width: 950px) { .var-linha { grid-template-columns: 1fr .9fr .9fr 1.8fr auto; } }
+
+  /* O conceito vem antes da tarefa, aberto: é para ler antes de responder. */
+  .conceito { background: var(--tom-neutro); border: var(--borda); border-left: 4px solid var(--azul-num);
+              border-radius: 0 var(--raio) var(--raio) 0; padding: .8rem 1rem; margin-bottom: 1rem; }
+  .conceito > .rotulo { color: var(--azul-num); }
+  .conceito h4 { margin: .8rem 0 .25rem; font-size: .95rem; }
+  .conceito h4:first-of-type { margin-top: .2rem; }
+  .conceito p, .conceito li { font-size: .9rem; line-height: 1.5; }
+  .conceito ul, .conceito ol { margin: .2rem 0 .4rem 1.1rem; padding: 0; }
+  .conceito table { border-collapse: collapse; font-size: .85rem; margin: .3rem 0 .5rem; }
+  .conceito th, .conceito td { border-bottom: 1px solid var(--cinza-200); padding: .3rem .5rem; text-align: left; vertical-align: top; }
+  .conceito code, .tarefa code { font-family: var(--fonte-mono); font-size: .82rem; background: var(--tom-neutro);
+                                 padding: 0 .25rem; border-radius: 4px; }
+  /* a tarefa vem logo depois da explicação, separada por uma régua, sem título */
+  .tarefa { border-top: 2px solid var(--vermelho); padding-top: .75rem; margin-top: .2rem; }
+  .tarefa h3 { margin: .2rem 0 .4rem; font-size: 1rem; }
+  .tarefa ol { margin: .2rem 0 .6rem 1.1rem; padding: 0; }
+  .tarefa li { font-size: .9rem; line-height: 1.5; margin-bottom: .2rem; }
+  textarea.codigo { font-family: var(--fonte-mono); font-size: .8rem; white-space: pre; }
+  /* cor explícita: o `pre` do CSS compartilhado vem com texto claro, para fundo
+     escuro, e sobre este fundo claro o código sumia */
+  pre.codigo-colado { font-family: var(--fonte-mono); font-size: .75rem; background: var(--tom-neutro);
+                      color: var(--tinta); padding: .5rem .6rem; border-radius: 6px; overflow-x: auto;
+                      white-space: pre; }
+
+  /* As respostas já aprovadas, uma por etapa, dobradas. */
+  .historico { margin: 0 0 1rem; }
+  .historico > .rotulo { margin-bottom: .3rem; }
+  .historico details { border: var(--borda); border-radius: var(--raio); background: var(--branco);
+                       margin-bottom: .35rem; }
+  .historico summary { cursor: pointer; padding: .45rem .75rem; font-size: .88rem; }
+  .historico details[open] summary { border-bottom: 1px solid var(--cinza-200); }
+  .historico .resposta { padding: .55rem .75rem; font-size: .88rem; }
+
+  /* Prévia do professor: a barra de navegação e o quadro do gabarito. */
+  .barra-previa { position: sticky; top: 0; z-index: 5; background: var(--branco); border: var(--borda);
+                  border-radius: var(--raio); padding: .6rem .8rem; margin-bottom: 1rem;
+                  box-shadow: 0 4px 12px rgba(0, 0, 0, .06); }
+  .barra-previa .linha { display: flex; flex-wrap: wrap; gap: .35rem; align-items: center; margin-bottom: .4rem; }
+  .barra-previa select { width: auto; max-width: 28rem; }
+  .barra-previa .linha button { font-size: .75rem; padding: .2rem .6rem; }
+  .barra-previa button.atual { background: var(--vermelho); border-color: var(--vermelho); color: #fff; }
+  .gabarito { background: var(--tom-amarelo); border: 1px solid #f0d58a; border-left: 4px solid #d99a00;
+              border-radius: 0 var(--raio) var(--raio) 0; padding: .8rem 1rem; margin-top: 1rem; font-size: .88rem; }
+  .gabarito > .rotulo { color: var(--laranja-txt); }
+  .gabarito h4 { margin: .7rem 0 .2rem; font-size: .9rem; }
+  .gabarito table { border-collapse: collapse; font-size: .82rem; }
+  .gabarito th, .gabarito td { border-bottom: 1px solid #f0e2b8; padding: .25rem .45rem; text-align: left; vertical-align: top; }
+  .gabarito ul { margin: .2rem 0 .3rem 1.1rem; padding: 0; }
+
+  .plano-alvo { border: var(--borda); border-radius: var(--raio); padding: .8rem .9rem;
+                background: var(--branco); margin-bottom: 1rem; }
+  .plano-alvo h4 { margin: .7rem 0 .2rem; font-size: .9rem; }
+  .criterio { display: grid; grid-template-columns: 1fr; gap: .3rem; padding: .45rem 0;
+              border-bottom: 1px solid var(--cinza-200); }
+  @media (min-width: 800px) { .criterio { grid-template-columns: 1.5fr auto; align-items: center; } }
+  .criterio .opcoes { display: flex; gap: .8rem; font-size: .85rem; }
+  .criterio .opcoes input { width: auto; margin-right: .25rem; }
+  .recebida { border-left: 3px solid var(--cinza-400); padding: .4rem .7rem; margin: .5rem 0; }
+</style>
+</head>
+<body>
+
+<main>
+  <div class="abertura">
+    <h2>Quest do planejamento</h2>
+    <p class="enunciado">
+      Vocês recebem um problema e uma pergunta ruim, e constroem a pesquisa em sete etapas. Em
+      cada uma, primeiro leiam a explicação, depois respondam: a IA lê a resposta e decide se ela
+      passa. <strong>Ganha o grupo que for barrado
+      menos vezes</strong>, e não o mais rápido: leiam o que a etapa pede antes de mandar.
+    </p>
+  </div>
+  <div id="palco"><p class="miudo">carregando…</p></div>
+</main>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>

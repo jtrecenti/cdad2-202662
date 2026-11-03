@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gincana para estudar · Aula 5 · CDAD II</title>
+<link rel="icon" href="../_shared/img/logo-insper-preto.png">
+<script src="../_shared/tema.js"></script>
+<link rel="stylesheet" href="../_shared/styles.css">
+<style>
+  /* ---- escolha da rodada ------------------------------------------------ */
+  .grade-rodadas { display: flex; flex-wrap: wrap; gap: .35rem; margin-top: .6rem; }
+  .grade-rodadas button.atual { background: var(--grafite); color: #fff; }
+  .grade-rodadas button.aquecimento { font-style: italic; }
+
+  /* ---- caixinhas dos códigos, iguais às da aula ------------------------- */
+  .cartas-entrada { display: flex; flex-wrap: wrap; gap: .45rem; align-items: center; }
+  .cartas-entrada input {
+    width: 4.6rem; text-align: center; text-transform: uppercase;
+    font-family: var(--mono, ui-monospace, monospace);
+    font-weight: 700; font-size: 1rem; letter-spacing: .04em;
+    padding: .45rem .2rem;
+  }
+  .cartas-entrada input.ok { border-color: var(--verde-ok); background: var(--tom-verde); }
+  .cartas-entrada input.ruim { border-color: var(--vermelho); background: var(--tom-vermelho); }
+  .ordinal { font-size: .7rem; color: var(--cinza-600); display: block; text-align: center; }
+
+  .previa {
+    background: var(--cinza-100); border: var(--borda); border-radius: var(--raio);
+    padding: .7rem .85rem; overflow-x: auto;
+  }
+  .previa pre { margin: 0; font-size: .82rem; line-height: 1.5; }
+  .previa .vazio { color: var(--cinza-600); font-size: .85rem; }
+
+  /* ---- o baralho de consulta -------------------------------------------
+     Quem estuda em casa não tem as cartas de papel na mesa. Sem esta lista a
+     página seria impossível de usar fora da sala. */
+  .baralho { display: grid; gap: .4rem; margin-top: .7rem; }
+  .baralho .naipe { font-size: .78rem; text-transform: uppercase;
+    letter-spacing: .06em; color: var(--cinza-600); margin-top: .5rem; }
+  .carta-consulta {
+    display: grid; grid-template-columns: 3.2rem 1fr; gap: .6rem;
+    align-items: baseline; width: 100%; text-align: left;
+    background: none; border: var(--borda); border-radius: var(--raio);
+    padding: .45rem .6rem; cursor: pointer; font: inherit;
+  }
+  .carta-consulta:hover { background: var(--cinza-100); }
+  .carta-consulta .id { font-family: var(--mono, ui-monospace, monospace);
+    font-weight: 700; font-size: .8rem; letter-spacing: .04em; }
+  .carta-consulta .codigo { font-family: var(--mono, ui-monospace, monospace);
+    font-size: .8rem; }
+  .carta-consulta .verso { font-size: .75rem; color: var(--cinza-700);
+    grid-column: 2; margin-top: .15rem; }
+
+  /* ---- comparação lado a lado -------------------------------------------
+     Nas rodadas de gráfico não há impressão digital para conferir, então o
+     feedback é o próprio par de imagens: o aluno enxerga a diferença. */
+  .lado-a-lado { display: grid; gap: .8rem; margin-top: .7rem; }
+  @media (min-width: 720px) { .lado-a-lado { grid-template-columns: 1fr 1fr; } }
+  .lado-a-lado figure { margin: 0; }
+  .lado-a-lado figcaption { font-size: .72rem; text-transform: uppercase;
+    letter-spacing: .06em; color: var(--cinza-600); margin-bottom: .3rem; }
+  .lado-a-lado img { width: 100%; border: var(--borda); border-radius: var(--raio); }
+
+  .saida-execucao:empty { display: none; }
+  .saida-execucao { margin-top: .9rem; }
+  .saida-execucao img { max-width: 100%; border: var(--borda); border-radius: var(--raio); }
+  /* o styles.css já dá a `pre` fundo escuro com texto claro: aqui só o tamanho muda */
+  .saida-execucao pre { font-size: .76rem; max-height: 16rem; }
+
+  .oculto { display: none !important; }
+</style>
+</head>
+<body>
+
+<main class="conteudo" id="app">
+  <p class="carregando">carregando a gincana…</p>
+</main>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>

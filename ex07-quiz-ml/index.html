@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Projeto 7 · Provinha de machine learning · CDAD II</title>
+<link rel="icon" href="../_shared/img/logo-insper-preto.png">
+<script src="../_shared/tema.js"></script>
+<link rel="stylesheet" href="../_shared/styles.css">
+<style>
+  .questao { border: var(--borda); border-left: 3px solid var(--grafite);
+             border-radius: 0 var(--raio) var(--raio) 0; padding: .9rem 1rem;
+             margin-bottom: .8rem; background: var(--branco); }
+  .questao.respondida { border-left-color: var(--turquesa); }
+  .questao .cabeca { display: flex; gap: .6rem; align-items: baseline; margin-bottom: .5rem; }
+  .questao .numero { font-family: var(--fonte-mono); font-weight: 700; color: var(--vermelho); }
+  .questao .enunciado { font-size: .95rem; }
+  .alternativa { display: block; border: 1px solid var(--cinza-200); border-radius: var(--raio);
+                 padding: .5rem .6rem; margin-top: .4rem; cursor: pointer; font-size: .9rem; }
+  .alternativa:hover { border-color: var(--cinza-400); background: var(--cinza-100); }
+  .alternativa.marcada { border-color: var(--vermelho); background: var(--tom-vermelho); }
+  .alternativa input { width: auto; margin-right: .45rem; }
+  .alternativa .letra { font-family: var(--fonte-mono); font-weight: 700; margin-right: .3rem; }
+  .alternativa.certa { border-color: var(--verde-ok); background: var(--tom-verde); }
+  .alternativa.errada { border-color: var(--vermelho); background: var(--tom-vermelho); }
+  .cronometro { font-family: var(--fonte-mono); font-size: 1.05rem; font-weight: 700; }
+  .cronometro.pouco { color: var(--vermelho); }
+  #barra-progresso { position: sticky; top: 0; z-index: 50; }
+  .explicacao { margin-top: .5rem; font-size: .85rem; border-left: 3px solid var(--roxo);
+                padding: .4rem .6rem; background: var(--tom-roxo); }
+</style>
+</head>
+<body>
+
+<main>
+  <section class="secao" id="s-instrucoes">
+    <header>
+      <span class="n">00</span>
+      <h2>Antes de começar</h2>
+      <span class="dica" id="info-prova"></span>
+    </header>
+    <div class="corpo">
+      <div id="instrucoes"></div>
+      <div class="aviso atencao">
+        <strong>Como esta provinha é protegida</strong>
+        A prova roda <strong>em tela cheia</strong>, e as questões e as alternativas aparecem
+        <strong>em ordem diferente para cada aluno</strong>. As respostas certas não estão no seu
+        navegador: a correção é feita no servidor quando você entrega. Cópia e cola estão
+        bloqueados, o tempo é cronometrado e sair da aba é registrado. A sua nota aparece na hora,
+        e o <strong>gabarito comentado abre depois da aula</strong>.
+      </div>
+      <div class="acoes">
+        <button class="principal" id="b-comecar">Começar a provinha</button>
+        <span id="status-inicio" class="miudo"></span>
+      </div>
+    </div>
+  </section>
+
+  <div class="secao oculto" id="barra-progresso">
+    <div class="corpo" style="padding:.55rem 1.15rem">
+      <div class="fileira">
+        <span class="rotulo" style="margin:0">tempo restante</span>
+        <span class="cronometro" id="cronometro">--:--</span>
+        <span class="miudo" id="progresso-respostas"></span>
+        <span class="espaco"></span>
+        <button class="principal" id="b-entregar">Entregar</button>
+      </div>
+      <div class="barra" style="margin-top:.45rem"><i id="barra-tempo"></i></div>
+    </div>
+  </div>
+
+  <section class="secao travada oculto" id="s-questoes">
+    <header>
+      <span class="n">01</span>
+      <h2>Questões</h2>
+    </header>
+    <div class="corpo">
+      <div id="questoes"></div>
+      <div class="acoes">
+        <button class="principal" id="b-entregar-fim">Entregar a provinha</button>
+        <span id="status-entrega" class="miudo"></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="secao oculto" id="s-resultado">
+    <header>
+      <span class="n">02</span>
+      <h2>Resultado</h2>
+    </header>
+    <div class="corpo">
+      <div id="painel-resultado"></div>
+      <div id="gabarito-comentado" style="margin-top:1rem"></div>
+    </div>
+  </section>
+</main>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>

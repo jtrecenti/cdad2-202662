@@ -1,0 +1,387 @@
+{
+ "cartas": [
+  {
+   "id": "P01",
+   "codigo": "criminal",
+   "naipe": "pandas",
+   "verso": "A tabela inteira, com os 475 acórdãos. Todo encadeamento começa pelo nome de uma tabela, sozinho na primeira linha."
+  },
+  {
+   "id": "P02",
+   "codigo": ".dropna(subset=[\"regime_inicial\"])",
+   "naipe": "pandas",
+   "verso": "Descarta as linhas em que o regime não foi encontrado na ementa. As outras colunas vazias não são afetadas."
+  },
+  {
+   "id": "P03",
+   "codigo": ".dropna(subset=[\"pena_anos\"])",
+   "naipe": "pandas",
+   "verso": "Descarta as linhas em que a pena não foi encontrada na ementa. São mais da metade da base."
+  },
+  {
+   "id": "P04",
+   "codigo": ".dropna()",
+   "naipe": "pandas",
+   "verso": "Descarta toda linha que tenha QUALQUER coluna vazia. Quase sempre joga fora muito mais do que você queria."
+  },
+  {
+   "id": "P05",
+   "codigo": ".query(\"eh_trafico\")",
+   "naipe": "pandas",
+   "verso": "Fica só com os acórdãos de tráfico. A coluna já é verdadeiro ou falso, então basta escrever o nome dela."
+  },
+  {
+   "id": "P06",
+   "codigo": ".query(\"eh_trafico == 'True'\")",
+   "naipe": "pandas",
+   "verso": "Tenta comparar a coluna com o TEXTO 'True'. A coluna é de verdadeiro e falso, e não de texto: não sobra nenhuma linha."
+  },
+  {
+   "id": "P07",
+   "codigo": ".query(\"pena_anos <= 30\")",
+   "naipe": "pandas",
+   "verso": "Fica só com as penas de até 30 anos, jogando fora as leituras implausíveis da ementa."
+  },
+  {
+   "id": "P08",
+   "codigo": ".groupby(\"regime_inicial\")",
+   "naipe": "pandas",
+   "verso": "Faz uma pilha por regime. Sozinho não calcula nada: prepara o terreno para o .agg() que vem depois."
+  },
+  {
+   "id": "P09",
+   "codigo": ".groupby(\"eh_capital\")",
+   "naipe": "pandas",
+   "verso": "Faz duas pilhas: capital e interior. Só funciona se a coluna eh_capital já existir, e ela não vem na base."
+  },
+  {
+   "id": "P10",
+   "codigo": ".agg(n=(\"processo\", \"size\"))",
+   "naipe": "pandas",
+   "verso": "Conta quantas linhas há em cada pilha e chama o resultado de n."
+  },
+  {
+   "id": "P11",
+   "codigo": ".agg(prop_reincidencia=(\"houve_reincidencia\", \"mean\"))",
+   "naipe": "pandas",
+   "verso": "A média de uma coluna de verdadeiro e falso é a proporção de verdadeiros. Aqui, a proporção de acórdãos com reincidência."
+  },
+  {
+   "id": "P12",
+   "codigo": ".agg(\n    n=(\"processo\", \"size\"),\n    pena_mediana=(\"pena_anos\", \"median\"),\n    prop_reincidencia=(\"houve_reincidencia\", \"mean\"),\n)",
+   "naipe": "pandas",
+   "verso": "Três resultados por pilha de uma vez: quantos acórdãos, a pena mediana e a proporção com reincidência."
+  },
+  {
+   "id": "P13",
+   "codigo": ".agg(\n    n=(\"processo\", \"size\"),\n    pena_media=(\"pena_anos\", \"mean\"),\n    prop_reincidencia=(\"houve_reincidencia\", \"mean\"),\n)",
+   "naipe": "pandas",
+   "verso": "Igual ao anterior, mas com a MÉDIA da pena no lugar da mediana. A distribuição da pena é torta, então os dois números não coincidem."
+  },
+  {
+   "id": "P14",
+   "codigo": ".reset_index()",
+   "naipe": "pandas",
+   "verso": "Depois de um groupby, a coluna de agrupamento vira índice e sai da tabela. Esta operação traz ela de volta para dentro."
+  },
+  {
+   "id": "P15",
+   "codigo": ".sort_values(\"pena_anos\", ascending=False)",
+   "naipe": "pandas",
+   "verso": "Enfileira os acórdãos da maior pena para a menor."
+  },
+  {
+   "id": "P16",
+   "codigo": ".sort_values(\"pena_mediana\", ascending=False)",
+   "naipe": "pandas",
+   "verso": "Enfileira as linhas da maior pena mediana para a menor. Só existe depois de um .agg() que tenha criado essa coluna."
+  },
+  {
+   "id": "P18",
+   "codigo": "[[\"processo\", \"comarca\", \"pena_anos\"]]",
+   "naipe": "pandas",
+   "verso": "Fica só com estas três colunas, nesta ordem. São dois pares de colchetes, e o resultado continua sendo uma tabela."
+  },
+  {
+   "id": "P19",
+   "codigo": "[\"pena_anos\"]",
+   "naipe": "pandas",
+   "verso": "Um par de colchetes só devolve a coluna solta, e não uma tabela. O encadeamento acaba aqui."
+  },
+  {
+   "id": "P20",
+   "codigo": ".head(5)",
+   "naipe": "pandas",
+   "verso": "Fica com as cinco primeiras linhas DA TABELA COMO ELA ESTÁ NESTE PONTO. Por isso quase sempre vem por último."
+  },
+  {
+   "id": "P21",
+   "codigo": ".assign(eh_capital=criminal[\"comarca\"] == \"São Paulo\")",
+   "naipe": "pandas",
+   "verso": "Cria uma coluna nova, verdadeiro ou falso, dizendo se o acórdão é da capital. Precisa vir ANTES de qualquer operação que use essa coluna."
+  },
+  {
+   "id": "P22",
+   "codigo": ".assign(pena_alta=criminal[\"pena_anos\"] > 8)",
+   "naipe": "pandas",
+   "verso": "Cria uma coluna nova dizendo se a pena passa de 8 anos. Onde a pena está vazia, o resultado é falso, e não vazio."
+  },
+  {
+   "id": "P23",
+   "codigo": ".groupby(\"comarca\")",
+   "naipe": "pandas",
+   "verso": "Faz uma pilha por comarca. São dezenas de comarcas, e a maioria com pouquíssimos acórdãos."
+  },
+  {
+   "id": "G01",
+   "codigo": "ggplot(penas)",
+   "naipe": "grafico",
+   "verso": "De qual tabela o gráfico sai. Sozinho, desenha um retângulo vazio: é um gráfico válido que ainda não diz o que desenhar."
+  },
+  {
+   "id": "G02",
+   "codigo": "ggplot(resumo)",
+   "naipe": "grafico",
+   "verso": "O gráfico sai da tabela resumo, aquela que o bloco de pandas acabou de montar, e não da base crua."
+  },
+  {
+   "id": "G03",
+   "codigo": "+ aes(x=\"classe\")",
+   "naipe": "grafico",
+   "verso": "Mapeia a coluna classe no eixo horizontal. Uma variável, um lugar no desenho."
+  },
+  {
+   "id": "G04",
+   "codigo": "+ aes(x=\"houve_reincidencia\", fill=\"regime\")",
+   "naipe": "grafico",
+   "verso": "Duas variáveis mapeadas: a reincidência no eixo e o regime no preenchimento. Como a cor virou variável, aparece legenda."
+  },
+  {
+   "id": "G05",
+   "codigo": "+ aes(x=\"pena_anos\")",
+   "naipe": "grafico",
+   "verso": "Mapeia a pena no eixo horizontal. É uma variável numérica, então o desenho que combina é o histograma."
+  },
+  {
+   "id": "G06",
+   "codigo": "+ aes(x=\"regime_inicial\", y=\"prop_reincidencia\")",
+   "naipe": "grafico",
+   "verso": "Mapeia duas colunas, uma em cada eixo. A altura da barra já está calculada na coluna do y."
+  },
+  {
+   "id": "G07",
+   "codigo": "+ geom_bar()",
+   "naipe": "grafico",
+   "verso": "Conta quantas linhas há em cada categoria e desenha a barra com a altura dessa contagem. A contagem é feita pela geometria."
+  },
+  {
+   "id": "G08",
+   "codigo": "+ geom_bar(fill=\"#E50505\")",
+   "naipe": "grafico",
+   "verso": "As mesmas barras, todas pintadas de vermelho. Fora do aes(), fill recebe uma cor fixa: é tinta, não representa nada, e não gera legenda."
+  },
+  {
+   "id": "G09",
+   "codigo": "+ geom_col()",
+   "naipe": "grafico",
+   "verso": "Desenha a barra com a altura que você mapeou em y. Ao contrário do geom_bar(), não conta nada: usa o número que já está na tabela."
+  },
+  {
+   "id": "G10",
+   "codigo": "+ geom_histogram(bins=20)",
+   "naipe": "grafico",
+   "verso": "Corta a variável numérica em 20 caixas e conta quantos casos caem em cada uma."
+  },
+  {
+   "id": "G12",
+   "codigo": "+ facet_wrap(\"~regime\")",
+   "naipe": "grafico",
+   "verso": "Reparte a tabela por regime e desenha um painel para cada. Não são três gráficos: é um gráfico com a tabela repartida, e os eixos são os mesmos."
+  },
+  {
+   "id": "G20",
+   "codigo": "+ geom_bar(position=\"dodge\")",
+   "naipe": "grafico",
+   "verso": "Põe as barras de cada categoria LADO A LADO, em vez de empilhadas. Comparar alturas que começam na mesma linha é bem mais fácil."
+  },
+  {
+   "id": "G14",
+   "codigo": "+ coord_flip()",
+   "naipe": "grafico",
+   "verso": "Troca os eixos depois que o gráfico já está montado. Nada muda nos dados nem na geometria: só o sistema de coordenadas."
+  },
+  {
+   "id": "G15",
+   "codigo": "+ labs(x=\"Houve reincidência\", y=\"Acórdãos\")",
+   "naipe": "grafico",
+   "verso": "Dá nome aos dois eixos. Sem isso, o eixo vertical sai escrito count."
+  },
+  {
+   "id": "G16",
+   "codigo": "+ labs(x=\"Pena (anos)\", y=\"Acórdãos\")",
+   "naipe": "grafico",
+   "verso": "Nomes de eixo para quando a variável do eixo horizontal é a pena."
+  },
+  {
+   "id": "G17",
+   "codigo": "+ labs(x=\"Regime inicial\", y=\"Proporção com reincidência\")",
+   "naipe": "grafico",
+   "verso": "Nomes de eixo para quando a altura da barra é uma proporção, e não uma contagem."
+  },
+  {
+   "id": "G18",
+   "codigo": "+ aes(x=\"regime\", color=\"houve_reincidencia\")",
+   "naipe": "grafico",
+   "verso": "color pinta o TRAÇO, e fill pinta o INTERIOR. Numa barra, mapear color só colore o contorno, e o miolo continua cinza."
+  },
+  {
+   "id": "G19",
+   "codigo": "+ geom_bar(fill=\"houve_reincidencia\")",
+   "naipe": "grafico",
+   "verso": "Tenta pintar tudo de uma cor chamada \"houve_reincidencia\", que não existe. Fora do aes(), o argumento recebe um valor fixo, não o nome de uma coluna."
+  }
+ ],
+ "rodadas": [
+  {
+   "id": "A1",
+   "rotulo": "Aquecimento A1",
+   "titulo": "A tabela, cinco primeiras linhas",
+   "pergunta": "A tabela inteira, mostrando só as cinco primeiras linhas.",
+   "naipe": "pandas",
+   "tipo": "tabela",
+   "n_cartas": 2,
+   "minutos": 2,
+   "pontua": false,
+   "figura": null,
+   "dois_blocos": false,
+   "impressao": "b73cfae51ef45101"
+  },
+  {
+   "id": "A2",
+   "rotulo": "Aquecimento A2",
+   "titulo": "Só os acórdãos de tráfico",
+   "pergunta": "Fique só com os acórdãos de tráfico.",
+   "naipe": "pandas",
+   "tipo": "tabela",
+   "n_cartas": 2,
+   "minutos": 2,
+   "pontua": false,
+   "figura": null,
+   "dois_blocos": false,
+   "impressao": "0ff58d797959c029"
+  },
+  {
+   "id": "A3",
+   "rotulo": "Aquecimento A3",
+   "titulo": "As cinco maiores penas",
+   "pergunta": "Todos os acórdãos, enfileirados da maior pena para a menor, e só os cinco primeiros.",
+   "naipe": "pandas",
+   "tipo": "tabela",
+   "n_cartas": 3,
+   "minutos": 3,
+   "pontua": false,
+   "figura": null,
+   "dois_blocos": false,
+   "impressao": "5a3d92dc196ded7b"
+  },
+  {
+   "id": "1",
+   "rotulo": "Rodada 1",
+   "titulo": "As cinco maiores penas do tráfico",
+   "pergunta": "Entre os acórdãos de tráfico, quais são as cinco maiores penas? Mostre processo, comarca e pena.",
+   "naipe": "pandas",
+   "tipo": "tabela",
+   "n_cartas": 5,
+   "minutos": 7,
+   "pontua": true,
+   "figura": null,
+   "dois_blocos": false,
+   "impressao": "637fd553bb16dd9a"
+  },
+  {
+   "id": "2",
+   "rotulo": "Rodada 2",
+   "titulo": "Quantos em cada regime",
+   "pergunta": "Quantos acórdãos há em cada regime inicial? Descarte os acórdãos em que o regime não foi encontrado na ementa. A tabela precisa sair com uma linha por regime e com o regime numa coluna, e não no rótulo da linha.",
+   "naipe": "pandas",
+   "tipo": "tabela",
+   "n_cartas": 5,
+   "minutos": 6,
+   "pontua": true,
+   "figura": null,
+   "dois_blocos": false,
+   "impressao": "e050c7e2f5497bd4"
+  },
+  {
+   "id": "3",
+   "rotulo": "Rodada 3",
+   "titulo": "A capital julga diferente?",
+   "pergunta": "A capital julga diferente do interior? Crie a coluna que separa os dois e devolva, para cada grupo: quantos acórdãos, a pena mediana e a proporção com reincidência. Descarte quem não tem pena, e deixe o grupo numa coluna da tabela.",
+   "naipe": "pandas",
+   "tipo": "tabela",
+   "n_cartas": 6,
+   "minutos": 10,
+   "pontua": true,
+   "figura": null,
+   "dois_blocos": false,
+   "impressao": "48b793928c1d368f"
+  },
+  {
+   "id": "4",
+   "rotulo": "Rodada 4",
+   "titulo": "As classes processuais",
+   "pergunta": "Monte o código que produz este gráfico. A tabela é penas.",
+   "naipe": "gráfico",
+   "tipo": "grafico",
+   "n_cartas": 4,
+   "minutos": 7,
+   "pontua": true,
+   "figura": "figuras/r4.png",
+   "dois_blocos": false,
+   "impressao": null
+  },
+  {
+   "id": "5",
+   "rotulo": "Rodada 5",
+   "titulo": "Pintar não é mapear",
+   "pergunta": "Monte o código que produz este gráfico. A tabela é penas. Repare que as duas variáveis são as mesmas do telão, trocadas de lugar.",
+   "naipe": "gráfico",
+   "tipo": "grafico",
+   "n_cartas": 4,
+   "minutos": 8,
+   "pontua": true,
+   "figura": "figuras/r5.png",
+   "dois_blocos": false,
+   "impressao": null
+  },
+  {
+   "id": "6",
+   "rotulo": "Rodada 6",
+   "titulo": "Do pandas ao gráfico",
+   "pergunta": "Este gráfico precisa de dois blocos: primeiro um pipeline de pandas que constrói a tabela resumo, e depois o gráfico que sai dela. Monte os dois no tabuleiro.",
+   "naipe": "os dois",
+   "tipo": "grafico",
+   "n_cartas": 9,
+   "minutos": 12,
+   "pontua": true,
+   "figura": "figuras/r6.png",
+   "dois_blocos": true,
+   "impressao": null
+  },
+  {
+   "id": "7",
+   "rotulo": "Rodada bônus",
+   "titulo": "O histograma repartido",
+   "pergunta": "Só se sobrar tempo. Monte o código deste gráfico. A tabela é penas.",
+   "naipe": "gráfico",
+   "tipo": "grafico",
+   "n_cartas": 5,
+   "minutos": 8,
+   "pontua": true,
+   "figura": "figuras/r7.png",
+   "dois_blocos": false,
+   "impressao": null
+  }
+ ],
+ "impressao_py": "\ndef _impressao(df):\n    import hashlib\n    fora = [c for c in df.columns if c == \"ementa\"]\n    corte = df.drop(columns=fora)\n    corpo = corte.to_csv(index=False, float_format=\"%.4f\", lineterminator=\"\\n\")\n    return hashlib.sha256(corpo.encode(\"utf-8\")).hexdigest()[:16]\n"
+}

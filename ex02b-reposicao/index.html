@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Projeto 2 (reposição) · Montar o gráfico · CDAD II</title>
+<link rel="icon" href="../_shared/img/logo-insper-preto.png">
+<script src="../_shared/tema.js"></script>
+<link rel="stylesheet" href="../_shared/styles.css">
+<style>
+  /* colunas fixas: sem isso o layout dança quando a tabela ou a figura aparece */
+  .oficina { display: grid; gap: 1rem; }
+  @media (min-width: 1040px) { .oficina { grid-template-columns: minmax(0, 30rem) minmax(0, 1fr); } }
+
+  .zona {
+    border: 1px dashed var(--cinza-400);
+    border-radius: var(--raio);
+    padding: .6rem;
+    min-height: 4rem;
+    background: repeating-linear-gradient(
+      -45deg, transparent, transparent 9px, var(--grade-papel) 9px, var(--grade-papel) 18px);
+  }
+  .zona.vazia::after {
+    content: "use o botão → dos blocos acima, na ordem em que devem rodar";
+    color: var(--cinza-600); font-size: .82rem;
+  }
+  .zona.vazia > .bloco { display: none; }
+
+  .bloco {
+    display: flex; align-items: center; gap: .5rem;
+    background: var(--branco);
+    border: var(--borda-forte);
+    border-left: 3px solid var(--grafite);
+    border-radius: 0 var(--raio) var(--raio) 0;
+    padding: .4rem .5rem;
+    margin-bottom: .4rem;
+  }
+  .bloco.pandas { border-left-color: var(--azul-num); }
+  .bloco.plotnine { border-left-color: var(--roxo); }
+  .bloco code {
+    flex: 1; min-width: 0;
+    display: block; white-space: pre-wrap; word-break: break-word;
+    background: none; border: none; padding: 0;
+    font-size: .78rem; color: var(--tinta);
+  }
+  .bloco .mover { display: flex; gap: .15rem; }
+  .bloco .mover button { padding: .1rem .35rem; font-size: .7rem; line-height: 1.1; }
+  .bloco .ordem {
+    font-family: var(--fonte-mono); font-size: .7rem; font-weight: 700;
+    color: var(--vermelho); min-width: 1.1rem; text-align: center;
+  }
+  .bloco .ordem:empty { min-width: 0; }
+
+  /* painel de código sempre visível, montado ao vivo */
+  .painel-codigo pre { height: 22rem; overflow: auto; }
+  .painel-codigo .vazio { color: var(--cinza-400); }
+
+  /* figuras com tamanho fixo: sem isso o layout dança quando a imagem carrega */
+  .figuras { display: grid; gap: 1rem; justify-items: center; }
+  @media (min-width: 1000px) { .figuras { grid-template-columns: 1fr 1fr; } }
+  .quadro-figura {
+    border: var(--borda); border-radius: var(--raio); background: var(--branco);
+    padding: .5rem; width: 100%; max-width: 520px; height: 22rem;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .quadro-figura img { width: 100%; max-width: 500px; height: auto; display: block; }
+  .figura-alvo { max-width: 560px; margin: 0 auto 1rem; }
+  .quadro-figura .aguardando { color: var(--cinza-600); font-size: .85rem; text-align: center; }
+
+  .placar { display: flex; gap: .4rem; flex-wrap: wrap; }
+</style>
+</head>
+<body>
+
+<main>
+  <div class="abertura">
+    <h2>Montar o gráfico na ordem certa</h2>
+    <p class="enunciado">
+      Todo gráfico é o fim de uma sequência: primeiro a tabela chega no formato certo, depois o
+      gráfico é desenhado. Neste projeto as duas partes vêm em blocos soltos, e o trabalho é
+      <strong>colocar na ordem que responde à pergunta</strong>.
+    </p>
+    <ol class="enunciado">
+      <li>Carregar o ambiente (o Python roda no seu navegador).</li>
+      <li>Ler a pergunta e olhar o gráfico que precisa ser produzido.</li>
+      <li>Colocar os blocos nas duas esteiras, com o botão →: preparar os dados (pandas) e montar o gráfico (plotnine).</li>
+      <li>Rodar. O gráfico que aparece é o do seu código, inclusive quando está errado.</li>
+      <li>Comparar os dois gráficos e ajustar. São 4 desafios, e dá para seguir para o próximo mesmo sem acertar.</li>
+    </ol>
+    <div class="entrega">
+      <strong>Como conta a nota:</strong> cada um dos quatro desafios vale <strong>2,5</strong>,
+      somando 10. Cada tentativa errada desconta <strong>0,25</strong>, e conta tanto o código
+      que dá erro quanto o que roda mas produz outro gráfico. O placar no alto do desafio
+      mostra a nota em tempo real.
+      <br><br>
+      <strong>No fim:</strong> o app registra os blocos que você usou, a nota, e gera um arquivo
+      <code>.py</code> com os quatro códigos, para você guardar.
+      <br>
+      <span class="miudo">Projeto individual. Alguns blocos não devem ser usados: escolher o
+      errado faz parte, e o app explica o que aquele bloco fez.</span>
+      <br>
+      <span class="miudo">Esta é a versão de reposição: mesma base, mesma mecânica e mesma
+      rubrica do projeto feito em sala, com quatro perguntas diferentes.</span>
+    </div>
+  </div>
+
+  <section class="secao" id="s-ambiente">
+    <header>
+      <span class="n">00</span>
+      <h2>Ambiente</h2>
+      <span class="dica">pandas e plotnine no seu navegador</span>
+    </header>
+    <div class="corpo">
+      <div class="fileira">
+        <button class="principal" id="b-carregar">Carregar o ambiente</button>
+        <span id="status-ambiente" class="miudo">o primeiro carregamento leva alguns segundos</span>
+      </div>
+      <div class="barra" style="margin-top:.7rem"><i id="barra-ambiente"></i></div>
+      <div id="resumo-base" style="margin-top:.8rem"></div>
+    </div>
+  </section>
+
+  <section class="secao travada" id="s-desafio">
+    <header>
+      <span class="n">01</span>
+      <h2 id="titulo-desafio">Desafio</h2>
+      <span class="dica placar" id="placar"></span>
+    </header>
+    <div class="corpo">
+      <div id="enunciado-desafio"></div>
+
+      <div class="figura-alvo">
+        <span class="rotulo" style="text-align:center">o gráfico que você tem que produzir</span>
+        <div class="quadro-figura">
+          <img id="figura-esperada" alt="gráfico que a pergunta pede">
+        </div>
+      </div>
+
+      <div id="painel-rubrica"></div>
+
+      <div class="oficina" style="margin-top:1rem">
+        <div>
+          <h3>Blocos disponíveis</h3>
+          <div class="zona" id="banco"></div>
+
+          <h3>1. Preparar os dados (pandas)</h3>
+          <p class="miudo" style="margin:0 0 .4rem">Aqui a ordem muda o resultado.</p>
+          <div class="zona vazia" id="zona-pandas" data-tipo="pandas"><span class="bloco"></span></div>
+
+          <h3>2. Montar o gráfico (plotnine)</h3>
+          <p class="miudo" style="margin:0 0 .4rem">
+            O primeiro bloco tem que ser o <code>ggplot()</code>. Depois dele, a ordem das camadas
+            não importa.
+          </p>
+          <div class="zona vazia" id="zona-plotnine" data-tipo="plotnine"><span class="bloco"></span></div>
+        </div>
+        <div class="painel-codigo">
+          <h3>O código que você montou</h3>
+          <pre><code id="codigo-montado" class="vazio">import pandas as pd
+from plotnine import *
+
+dados = (
+    camaras
+    # adicionar as operações
+)
+
+g = (
+    # ggplot aqui
+)</code></pre>
+          <div id="tabela-dados" style="margin-top:.8rem"></div>
+        </div>
+      </div>
+
+      <div class="acoes">
+        <button class="principal" id="b-rodar">Rodar</button>
+        <button class="secundario" id="b-limpar">Limpar as esteiras</button>
+        <span class="espaco"></span>
+        <button class="secundario" id="b-proximo">Próximo desafio →</button>
+        <span id="status-rodada" class="miudo"></span>
+      </div>
+
+      <div class="figuras" style="margin-top:1rem">
+        <div>
+          <span class="rotulo">o gráfico que o seu código produziu</span>
+          <div class="quadro-figura" id="quadro-meu">
+            <span class="aguardando" id="aguardando-figura">clique em Rodar para ver</span>
+            <img id="figura" alt="gráfico gerado pelo seu código" style="display:none">
+          </div>
+        </div>
+        <div>
+          <span class="rotulo">o gráfico que a pergunta pede (para comparar)</span>
+          <div class="quadro-figura">
+            <img id="figura-esperada-2" alt="gráfico que a pergunta pede">
+          </div>
+        </div>
+      </div>
+      <div id="avaliacao" style="margin-top:.8rem"></div>
+    </div>
+  </section>
+
+  <section class="secao" id="s-fim">
+    <header>
+      <span class="n">02</span>
+      <h2>Fechar o projeto</h2>
+    </header>
+    <div class="corpo">
+      <p class="enunciado">
+        Ao terminar, feche aqui. O app registra quais desafios você resolveu, quantas tentativas
+        levou em cada um, e gera um arquivo com os códigos que você montou.
+      </p>
+      <div class="acoes">
+        <button class="principal" id="b-fechar">Fechar e gerar o arquivo</button>
+        <span id="status-fim" class="miudo"></span>
+      </div>
+      <div id="painel-fim" style="margin-top:1rem"></div>
+    </div>
+  </section>
+</main>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>

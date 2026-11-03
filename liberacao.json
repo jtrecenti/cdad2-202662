@@ -1,0 +1,110 @@
+{
+ "_leia": [
+  "Controle de liberação dos projetos aplicados. Edite as datas aqui: o portal e cada app leem",
+  "este arquivo. Formato da data: AAAA-MM-DDTHH:MM (hora de Brasília).",
+  "",
+  "As datas seguem o plano de aula oficial de 2026/2, e a hora é o início da aula:",
+  "terça 12:00, quinta 16:30. Quem roda só em parte da aula abre mais tarde: veja o",
+  "campo `_nota` do exercício.",
+  "",
+  "- `libera_em`: antes disso o aluno vê o card mas não entra.",
+  "- `entrega_em`: prazo de entrega no BlackBoard. É informativo aqui: quem trava o prazo",
+  "  é o BlackBoard, e este campo existe para o card mostrar a data ao aluno.",
+  "  A regra: a entrega é sempre no mesmo dia em que a atividade começa. Do projeto 3",
+  "  em diante, no fim da aula (terça 14:00, quinta 18:30), porque o projeto é feito",
+  "  em sala e não há o que entregar depois. Nada de prazo no dia seguinte.",
+  "- `gabarito_em`: só o projeto 7 usa, para liberar o gabarito comentado depois da aula.",
+  "- `so_professor`: o card só aparece no modo professor.",
+  "- `acesso_em`: a partir daqui, quem tem a senha combinada (secret ACESSOS do Worker)",
+  "  entra pelo link direto, mesmo antes de `libera_em`. É o caso da reposição.",
+  "- `oculto_ate`: até esta data o card nem aparece no portal para o aluno.",
+  "- `presencial`: o aluno vê o card explicando que é em papel, e não há app para ele abrir.",
+  "",
+  "Modo professor: abra o portal com ?prof=1 e informe a sua senha da equipe (secrets",
+  "PROF_TOKEN e PROF_SENHAS do Worker). Sem a senha não há liberação, então saber a URL",
+  "não basta."
+ ],
+ "fuso": "America/Sao_Paulo",
+ "exercicios": {
+  "ex01": {
+   "aula": 3,
+   "_nota": "Exceção à regra do início da aula: a atividade dura 1 hora e roda na segunda hora da aula 3 (terça, 12:00 às 14:00), depois da parte expositiva.",
+   "libera_em": "2026-08-18T13:00",
+   "entrega_em": "2026-08-18T23:59"
+  },
+  "ex02": {
+   "aula": 6,
+   "_nota": "Exceção à regra do início da aula: a atividade dura 1 hora e roda na segunda hora da aula 6 (quinta, 16:30 às 18:30), depois dos slides e do notebook.",
+   "libera_em": "2026-08-27T17:25",
+   "entrega_em": "2026-08-27T23:59"
+  },
+  "ex02b": {
+   "aula": 6,
+   "_nota": "Reposição do projeto 2, para quem combinou outra data com o professor. A senha do secret ACESSOS do Worker vale desde o horário da aula 6 (`acesso_em`), e é por ela que a pessoa entra pelo link direto. Até 31/08 o card não aparece no portal (`oculto_ate`) e ninguém entra sem a senha. Depois de 31/08 fica visível e aberto para a turma, como material de estudo. O prazo é 31/08, e não o do projeto 2, porque a reposição é combinada caso a caso.",
+   "libera_em": "2026-08-31T00:00",
+   "entrega_em": "2026-08-31T23:59",
+   "acesso_em": "2026-08-27T16:30",
+   "oculto_ate": "2026-08-31T00:00"
+  },
+  "ex03": {
+   "aula": 10,
+   "libera_em": "2026-09-10T16:30",
+   "entrega_em": "2026-09-10T18:30",
+   "presencial": true
+  },
+  "ex03b": {
+   "aula": 10,
+   "_nota": "Reposição do projeto 3 (a prova em papel de 10/09), para fazer em casa, combinada com o professor. A senha do secret ACESSOS_EXTRA do Worker vale desde 15/09 (`acesso_em`), e é por ela que a pessoa entra pelo link direto. Até 21/09 o card não aparece no portal (`oculto_ate`) e ninguém entra sem a senha. Depois fica visível e aberto para a turma, como material de estudo para a prova intermediária. O gabarito fica só no repositório privado.",
+   "libera_em": "2026-09-21T00:00",
+   "entrega_em": "2026-09-20T23:59",
+   "acesso_em": "2026-09-15T00:00",
+   "oculto_ate": "2026-09-21T00:00"
+  },
+  "quest": {
+   "aula": 12,
+   "_nota": "Quest do planejamento, em grupos, na aula 12 (quinta, 16:30 às 18:30), depois da introdução. Não há entrega: o plano fica no app, vira os slides do grupo e é avaliado por outro grupo na troca.",
+   "libera_em": "2026-09-17T16:30",
+   "entrega_em": "2026-09-17T18:30"
+  },
+  "ex04": {
+   "aula": 13,
+   "_nota": "Exceção à regra do início da aula: a primeira hora da aula 13 é a revisão integrada para a prova intermediária, e o projeto roda na segunda hora (terça, 13:00 às 14:00). Segunda exceção, decidida em 22/09: o prazo de entrega foi estendido das 14:00 para 23:59 do mesmo dia, a pedido do professor. A regra geral (entregar no fim da aula, porque o projeto é feito em sala) continua valendo para os projetos seguintes. O BlackBoard precisa do mesmo horário, senão o card e o prazo real divergem.",
+   "libera_em": "2026-09-22T13:00",
+   "entrega_em": "2026-09-22T23:59"
+  },
+  "ex05": {
+   "aula": 18,
+   "libera_em": "2026-10-13T12:00",
+   "entrega_em": "2026-10-13T17:00"
+  },
+  "ex05b": {
+   "aula": 18,
+   "_nota": "Reposição do projeto 5, individual, para quem faltou à aula 18. Abriu em 13/10 às 13:00; o prazo, que era 19:00 do mesmo dia, foi estendido para 14/10 às 17:00 para atender um aluno que estava viajando. Outra base (criminal) e outras cinco perguntas, sem feedback automático, e as violações (saídas da aba e tentativas de copiar ou colar) descontam nota. O próprio app recusa abrir e gerar a entrega depois de `entrega_em`. Não há entrega no BlackBoard: a nota sai das submissões do app.",
+   "libera_em": "2026-10-13T13:00",
+   "entrega_em": "2026-10-14T17:00"
+  },
+  "ex06": {
+   "aula": 21,
+   "libera_em": "2026-10-27T12:00",
+   "entrega_em": "2026-10-27T19:00"
+  },
+  "ex06b": {
+   "aula": 21,
+   "_nota": "Versão para casa do projeto 6, individual: mesmo exercício, outro caso (execução fiscal) e outros números. Abriu em 27/10 das 13:00 às 19:00; cada aluno tem 1 hora a partir de quando se identifica (o contador fica no próprio app). Reaberto em 03/11, das 14:00 às 19:00, para uma reposição combinada, sem o limite de 1 hora (SEM_LIMITE_DE_HORA no app.js), com entrega por e-mail.",
+   "libera_em": "2026-11-03T14:00",
+   "entrega_em": "2026-11-03T19:00"
+  },
+  "ex07": {
+   "aula": 25,
+   "libera_em": "2026-11-10T12:00",
+   "entrega_em": "2026-11-10T12:30",
+   "gabarito_em": "2026-11-10T14:00",
+   "_nota": "Provinha de 15 minutos no início da aula 25 (terça, 12:00 às 14:00), como os demais projetos. Estava na meia hora final da aula 24 (05/11) e foi movida para 10/11 a pedido do professor em 02/11, porque a aula 24 ficaria pesada demais."
+  },
+  "ex08": {
+   "aula": 24,
+   "libera_em": "2026-11-05T16:30",
+   "entrega_em": "2026-11-24T12:00"
+  }
+ }
+}
