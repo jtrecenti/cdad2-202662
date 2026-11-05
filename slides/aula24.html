@@ -1410,7 +1410,7 @@ Julio Trecenti
 <div class="colunas">
 <div>
 <div class="caixa exercicio">
-<p><span class="rotulo">Notebook da aula 24 · individual · até 18:00</span></p>
+<p><span class="rotulo">Notebook da aula 24 · individual · até 18:30</span></p>
 <p>Continua a pergunta da aula 23, na mesma base.</p>
 <ol type="1">
 <li>Ajustar e ler uma árvore.</li>
@@ -1438,8 +1438,8 @@ Julio Trecenti
 <p><span class="rotulo">Projeto 08 · individual · em casa · até 24/11, 12:00</span></p>
 <p><strong>Prever se o recurso criminal será integralmente negado</strong>, em acórdãos reais do TJSP.</p>
 <ul>
-<li><code>treino.csv</code>: 5.953 acórdãos, com <code>negou</code>.</li>
-<li><code>teste.csv</code>: 2.552 acórdãos, sem a resposta.</li>
+<li><code>p08_treino.csv</code>: 5.953 acórdãos, com <code>negou</code>.</li>
+<li><code>p08_teste.csv</code>: 2.552 acórdãos, sem a resposta.</li>
 <li><strong>Entrega:</strong> CSV com <code>id</code> e <code>prob</code>, no portal.</li>
 <li><strong>Nota pela AUC</strong>, em <strong>3 submissões</strong>: vale a melhor. Pode usar IA.</li>
 </ul>
@@ -2847,7 +2847,89 @@ padding: .55em .8em; min-height: 4.4em; }
 .reveal .subtitulo strong { color: var(--texto); }
 </style>
     <style type="text/css">.grafico-svg .zona-cabe { fill: color-mix(in srgb, var(--turquesa) 14%, transparent); }.grafico-svg .cabe-txt { fill: var(--turquesa); }.grafico-svg .barra-corte { fill: var(--azul); opacity: .8; }.grafico-svg .ponto-turma { fill: var(--texto-fraco); opacity: .55; stroke: var(--fundo); stroke-width: 1.5; }.grafico-svg .area-auc { fill: color-mix(in srgb, var(--turquesa) 22%, transparent); }.grafico-svg .grande-anot { font-size: 26px; }.grafico-svg .ponto-treino { fill: var(--marca); stroke: var(--fundo); stroke-width: 2; }.grafico-svg .ponto-teste { fill: var(--azul); opacity: .35; }.grafico-svg .linha-treino { fill: none; stroke: var(--marca); stroke-width: 4; }.grafico-svg .linha-treino-p { fill: var(--marca); }.grafico-svg .linha-teste { fill: none; stroke: var(--azul); stroke-width: 4; }.grafico-svg .linha-teste-p { fill: var(--azul); }.grafico-svg .treino-txt { fill: var(--marca); }.grafico-svg .teste-txt { fill: var(--azul); }.grafico-svg .anel { fill: none; stroke: var(--turquesa); stroke-width: 4; }.grafico-svg .bloco-tr { fill: var(--azul); opacity: .55; }.grafico-svg .bloco-val { fill: var(--laranja); }.grafico-svg .barra-cv { fill: var(--texto-fraco); opacity: .6; }.grafico-svg .barra-cv.melhor { fill: var(--turquesa); opacity: 1; }.grafico-svg .barra-lasso { fill: var(--turquesa); transition: x .2s, width .2s; }.grafico-svg .barra-lasso.zerada { fill: var(--texto-fraco); }#pr22-num, #roc-num, #sobre-num { display: grid; grid-template-columns: 1fr 1fr; gap: .3em .8em; font-size: .66em; margin: .6em 0; }#pr22-num b, #roc-num b, #sobre-num b { font-size: 1.2em; }#sobre-num .sobre-rot { grid-column: 1 / -1; font-weight: 800; color: var(--marca); font-size: 1.1em; }#lasso-num { font-size: .7em; margin: .5em 0; }#leg-roc, #leg-sobre, #leg-erros { margin-top: .3em; }#leg-cv { margin-top: .2em; }#fluxo-ml { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; margin: .8em 0 1em; }#fluxo-ml .f-caixa { background: var(--superficie); border: 1px solid var(--superficie-borda);border-top: 5px solid var(--turquesa); border-radius: 6px; padding: .5em .6em;font-size: .8em; line-height: 1.35; min-height: 7.5em; }#fluxo-ml .f-caixa[data-i="4"] { border-top-color: var(--marca); }#fluxo-ml .f-caixa p { margin: 0 0 .3em; }.reveal table th { text-transform: none; letter-spacing: 0; }</style>
-    <style type="text/css">.grafico-svg .barra-hist { fill: var(--marca); }.grafico-svg .barra-novos { fill: var(--azul); }#pen-num { display: grid; grid-template-columns: 1fr 1fr; gap: .3em .8em; font-size: .7em; margin: .5em 0; }#pen-num b { font-size: 1.5em; }.treino-txt { color: var(--marca); }.teste-txt { color: var(--azul); }.reveal .codigo-curto pre { font-size: .56em; margin: .3em 0; }.reveal .codigo-curto pre code { max-height: none; }.grafico-svg .folha-0 { fill: var(--azul); fill-opacity: .16; }.grafico-svg .folha-1 { fill: var(--marca); fill-opacity: .16; }.grafico-svg .ponto-0 { fill: var(--azul); opacity: .65; }.grafico-svg .ponto-1 { fill: var(--marca); opacity: .65; }.grafico-svg .corte-arvore { stroke: var(--texto); stroke-width: 3; }.grafico-svg .no-caixa { fill: var(--superficie); stroke: var(--superficie-borda); stroke-width: 2; }.grafico-svg .no-caixa.folha-a { stroke: var(--marca); stroke-width: 3; }.grafico-svg .no-caixa.folha-b { stroke: var(--azul); stroke-width: 3; }.grafico-svg .no-txt { font-size: 17px; fill: var(--texto); }.grafico-svg .no-txt.forte { font-weight: 800; }.grafico-svg .ramo { stroke: var(--texto-fraco); stroke-width: 2; fill: none; }.grafico-svg .barra-voto { fill: var(--turquesa); }.grafico-svg .barra-voto.media { fill: var(--marca); }#prof-num { display: grid; grid-template-columns: 1fr 1fr; gap: .3em .8em; font-size: .7em; margin: .5em 0; }#prof-num b { font-size: 1.5em; }#leg-arvore, #leg-floresta { margin-top: .3em; }.grafico-svg .barra-juiz { fill: var(--texto-fraco); opacity: .5; transition: y .25s, height .25s; }.grafico-svg .barra-juiz.destaque { fill: var(--marca); opacity: 1; }.grafico-svg .juiz-txt { fill: var(--marca); transition: y .25s; }#pen-num { grid-template-columns: 1fr 1fr; }#escala-c { display: grid; grid-template-columns: 1fr 1.1fr 1fr; gap: 0; margin-top: .5em; font-size: .62em;line-height: 1.35; border-radius: 6px; overflow: hidden;background: linear-gradient(90deg, color-mix(in srgb, var(--azul) 22%, transparent),color-mix(in srgb, var(--turquesa) 22%, transparent),color-mix(in srgb, var(--marca) 22%, transparent)); }#escala-c > div { padding: .5em .8em; }#escala-c .ec-meio { text-align: center; }#escala-c .ec-dir { text-align: right; }#escala-c p { margin: 0; }#g-fluxo { margin-top: .2em; }.grafico-svg .fl-caixa { fill: var(--superficie); stroke-width: 3; }.grafico-svg .fl-base { stroke: var(--texto-fraco); }.grafico-svg .fl-treino { stroke: var(--azul); }.grafico-svg .fl-teste { stroke: var(--laranja); stroke-dasharray: 8 5; }.grafico-svg .fl-hiper { stroke: var(--turquesa); }.grafico-svg .fl-final { stroke: var(--marca); }.grafico-svg .fl-txt { font-size: 22px; fill: var(--texto); }.grafico-svg .fl-txt.forte { font-weight: 800; }.grafico-svg .fl-anot { font-size: 18px; fill: var(--texto-fraco); }.grafico-svg .fl-seta { fill: none; stroke: var(--texto-fraco); stroke-width: 3; }.grafico-svg .fl-cabeca { fill: var(--texto-fraco); }.reveal .fluxo-nota { font-size: .62em; margin-top: .3em; }.grafico-svg .moldura { fill: none; stroke: var(--superficie-borda); stroke-width: 1.5; }.grafico-svg .regiao { fill-opacity: .2; }.grafico-svg .linha-varre { stroke: var(--texto); stroke-width: 3; }.grafico-svg .ponto-varre { fill: var(--turquesa); stroke: var(--fundo); stroke-width: 2; }.grafico-svg .curva-erro { fill: none; stroke: var(--turquesa); stroke-width: 4; }.grafico-svg .anot-varre { font-size: 22px; font-weight: 800; fill: var(--texto); }.grafico-svg .anot-regiao { font-size: 22px; font-weight: 800; fill: var(--texto); }.grafico-svg .rotulo-ramo { font-size: 16px; fill: var(--texto-fraco); font-style: italic; }.grafico-svg .ramo-ativo { fill: none; stroke: var(--turquesa); stroke-width: 7; stroke-linecap: round; }.grafico-svg .bola { fill: var(--turquesa); stroke: var(--fundo); stroke-width: 3; }.grafico-svg .cartao { fill: var(--superficie); stroke: var(--turquesa); stroke-width: 3; }.grafico-svg .no-txt.grande { font-size: 22px; }.grafico-svg .estrela { fill: #f2c200; stroke: var(--texto); stroke-width: 2; }.grafico-svg .anot-voto { font-size: 20px; font-weight: 800; fill: var(--texto); }.grafico-svg .linha-media { stroke: var(--marca); stroke-width: 3; stroke-dasharray: 6 5; }.grafico-svg .cel-1 { fill: var(--marca); }.grafico-svg .cel-0 { fill: var(--azul); }.grafico-svg .barra-tr { fill: var(--texto-fraco); opacity: .35; }.grafico-svg .barra-va { fill: var(--azul); }.grafico-svg .barra-va.melhor { fill: var(--turquesa); }#profs-num { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: .3em .6em; font-size: .62em; margin: .4em 0; }#profs-num b { font-size: 1.5em; }#leg-varre, #leg-desce, #leg-amostras, #leg-votam, #leg-mapas { margin-top: .2em; }.reveal .legendas.curta { font-size: .8em; }.grafico-svg .anot-varre.pequena { font-size: 18px; }
+    <style type="text/css">
+.grafico-svg .barra-hist { fill: var(--marca); }
+.grafico-svg .barra-novos { fill: var(--azul); }
+#pen-num { display: grid; grid-template-columns: 1fr 1fr; gap: .3em .8em; font-size: .7em; margin: .5em 0; }
+#pen-num b { font-size: 1.5em; }
+.treino-txt { color: var(--marca); }
+.teste-txt { color: var(--azul); }
+
+.reveal .codigo-curto pre { font-size: .56em; margin: .3em 0; }
+.reveal .codigo-curto pre code { max-height: none; }
+
+.grafico-svg .folha-0 { fill: var(--azul); fill-opacity: .16; }
+.grafico-svg .folha-1 { fill: var(--marca); fill-opacity: .16; }
+.grafico-svg .ponto-0 { fill: var(--azul); opacity: .65; }
+.grafico-svg .ponto-1 { fill: var(--marca); opacity: .65; }
+.grafico-svg .corte-arvore { stroke: var(--texto); stroke-width: 3; }
+.grafico-svg .no-caixa { fill: var(--superficie); stroke: var(--superficie-borda); stroke-width: 2; }
+.grafico-svg .no-caixa.folha-a { stroke: var(--marca); stroke-width: 3; }
+.grafico-svg .no-caixa.folha-b { stroke: var(--azul); stroke-width: 3; }
+.grafico-svg .no-txt { font-size: 17px; fill: var(--texto); }
+.grafico-svg .no-txt.forte { font-weight: 800; }
+.grafico-svg .ramo { stroke: var(--texto-fraco); stroke-width: 2; fill: none; }
+.grafico-svg .barra-voto { fill: var(--turquesa); }
+.grafico-svg .barra-voto.media { fill: var(--marca); }
+#prof-num { display: grid; grid-template-columns: 1fr 1fr; gap: .3em .8em; font-size: .7em; margin: .5em 0; }
+#prof-num b { font-size: 1.5em; }
+#leg-arvore, #leg-floresta { margin-top: .3em; }
+
+.grafico-svg .barra-juiz { fill: var(--texto-fraco); opacity: .5; transition: y .25s, height .25s; }
+.grafico-svg .barra-juiz.destaque { fill: var(--marca); opacity: 1; }
+.grafico-svg .juiz-txt { fill: var(--marca); transition: y .25s; }
+#pen-num { grid-template-columns: 1fr 1fr; }
+
+#escala-c { display: grid; grid-template-columns: 1fr 1.1fr 1fr; gap: 0; margin-top: .5em; font-size: .62em;
+line-height: 1.35; border-radius: 6px; overflow: hidden;
+background: linear-gradient(90deg, color-mix(in srgb, var(--azul) 22%, transparent),
+color-mix(in srgb, var(--turquesa) 22%, transparent),
+color-mix(in srgb, var(--marca) 22%, transparent)); }
+#escala-c > div { padding: .5em .8em; }
+#escala-c .ec-meio { text-align: center; }
+#escala-c .ec-dir { text-align: right; }
+#escala-c p { margin: 0; }
+
+#g-fluxo { margin-top: .2em; }
+.grafico-svg .fl-caixa { fill: var(--superficie); stroke-width: 3; }
+.grafico-svg .fl-base { stroke: var(--texto-fraco); }
+.grafico-svg .fl-treino { stroke: var(--azul); }
+.grafico-svg .fl-teste { stroke: var(--laranja); stroke-dasharray: 8 5; }
+.grafico-svg .fl-hiper { stroke: var(--turquesa); }
+.grafico-svg .fl-final { stroke: var(--marca); }
+.grafico-svg .fl-txt { font-size: 22px; fill: var(--texto); }
+.grafico-svg .fl-txt.forte { font-weight: 800; }
+.grafico-svg .fl-anot { font-size: 18px; fill: var(--texto-fraco); }
+.grafico-svg .fl-seta { fill: none; stroke: var(--texto-fraco); stroke-width: 3; }
+.grafico-svg .fl-cabeca { fill: var(--texto-fraco); }
+.reveal .fluxo-nota { font-size: .62em; margin-top: .3em; }
+
+.grafico-svg .moldura { fill: none; stroke: var(--superficie-borda); stroke-width: 1.5; }
+.grafico-svg .regiao { fill-opacity: .2; }
+.grafico-svg .linha-varre { stroke: var(--texto); stroke-width: 3; }
+.grafico-svg .ponto-varre { fill: var(--turquesa); stroke: var(--fundo); stroke-width: 2; }
+.grafico-svg .curva-erro { fill: none; stroke: var(--turquesa); stroke-width: 4; }
+.grafico-svg .anot-varre { font-size: 22px; font-weight: 800; fill: var(--texto); }
+.grafico-svg .anot-regiao { font-size: 22px; font-weight: 800; fill: var(--texto); }
+.grafico-svg .rotulo-ramo { font-size: 16px; fill: var(--texto-fraco); font-style: italic; }
+.grafico-svg .ramo-ativo { fill: none; stroke: var(--turquesa); stroke-width: 7; stroke-linecap: round; }
+.grafico-svg .bola { fill: var(--turquesa); stroke: var(--fundo); stroke-width: 3; }
+.grafico-svg .cartao { fill: var(--superficie); stroke: var(--turquesa); stroke-width: 3; }
+.grafico-svg .no-txt.grande { font-size: 22px; }
+.grafico-svg .estrela { fill: #f2c200; stroke: var(--texto); stroke-width: 2; }
+.grafico-svg .anot-voto { font-size: 20px; font-weight: 800; fill: var(--texto); }
+.grafico-svg .linha-media { stroke: var(--marca); stroke-width: 3; stroke-dasharray: 6 5; }
+.grafico-svg .cel-1 { fill: var(--marca); }
+.grafico-svg .cel-0 { fill: var(--azul); }
+.grafico-svg .barra-tr { fill: var(--texto-fraco); opacity: .35; }
+.grafico-svg .barra-va { fill: var(--azul); }
+.grafico-svg .barra-va.melhor { fill: var(--turquesa); }
+#profs-num { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: .3em .6em; font-size: .62em; margin: .4em 0; }
+#profs-num b { font-size: 1.5em; }
+#leg-varre, #leg-desce, #leg-amostras, #leg-votam, #leg-mapas { margin-top: .2em; }
+.reveal .legendas.curta { font-size: .8em; }
+.grafico-svg .anot-varre.pequena { font-size: 18px; }
+
 .grafico-svg .curva-poli { fill: none; stroke: var(--texto); stroke-width: 4; }
 .grafico-svg .residuo-treino { stroke: var(--marca); stroke-width: 2; opacity: .55; }
 .grafico-svg .residuo-novo { stroke: var(--azul); stroke-width: 3; stroke-dasharray: 5 4; }
@@ -2897,6 +2979,23 @@ border: 2px solid var(--azul); background: var(--azul); color: #fff; cursor: poi
 #sens-num { display: grid; grid-template-columns: 1fr 1fr; gap: .3em .8em; font-size: .62em; margin: .4em 0; }
 #sens-num b { font-size: 1.5em; display: block; }
 #sens-num small { font-size: .8em; color: var(--texto-fraco); }
+
+.conf-grade { display: grid; grid-template-columns: 1.1fr 1fr 1fr .6fr; gap: 8px; font-size: .8em; margin-top: .8em; }
+.conf-grade > div { padding: .45em .5em; border-radius: 6px; text-align: center; transition: opacity .3s, outline-color .3s, background .3s; }
+.conf-grade small { display: block; font-size: .72em; color: var(--texto-fraco); line-height: 1.2; }
+.conf-grade b { display: block; font-size: 1.7em; }
+.conf-cab { font-weight: 700; }
+.conf-lin { font-weight: 800; text-align: left !important; display: flex; align-items: center; }
+.conf-lin.c-lin1 { color: var(--marca); }
+.conf-lin.c-lin0 { color: var(--azul); }
+.conf-cel { background: var(--superficie); border: 1px solid var(--superficie-borda); }
+.conf-tot { font-weight: 700; color: var(--texto-fraco); display: flex; align-items: center; justify-content: center; }
+.conf-grade.focado > div:not(.aceso) { opacity: .28; }
+.conf-grade > div.aceso.conf-cel { background: color-mix(in srgb, var(--turquesa) 16%, var(--superficie)); outline: 3px solid var(--turquesa); }
+.conf-grade.dobro .c-fp b::after { content: " → ×2"; color: var(--marca); font-size: .6em; }
+#leg-conf { margin-top: .6em; }
+#leg-conf [id^="conf-"] { font-weight: 800; }
+#conf-sens, #conf-prec { display: inline-block; font-size: 1.3em; }
 </style>
     <script>/*!
  * GSAP 3.12.5
