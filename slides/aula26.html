@@ -1142,16 +1142,14 @@ Julio Trecenti
 <h2>Objetivos de aprendizagem</h2>
 <p>Ao final da aula, você será capaz de:</p>
 <ol type="1">
-<li><strong>explicar</strong> por que um neurônio faz a mesma conta de uma regressão logística;</li>
-<li><strong>descrever</strong> como uma rede com camadas escondidas aprende formas que uma reta não aprende, e o que é treinar a rede;</li>
-<li><strong>reconhecer</strong> quando uma rede neural vale a pena e quando não ganha de um modelo simples;</li>
-<li><strong>explicar</strong> o que é um embedding e como ele transforma um texto em números;</li>
-<li><strong>usar</strong> embeddings para buscar e comparar decisões judiciais pelo significado;</li>
-<li><strong>identificar</strong> limites e vieses dos embeddings em aplicações jurídicas.</li>
+<li><strong>explicar</strong> como um neurônio refaz a conta da regressão logística, e como camadas de neurônios aprendem formas que uma reta não aprende;</li>
+<li><strong>descrever</strong> o treino de uma rede: passo para frente, erro, gradientes e atualização dos pesos;</li>
+<li><strong>explicar</strong> o que é um embedding e como ele transforma um texto em números comparáveis;</li>
+<li><strong>usar</strong> embeddings para buscar e comparar ementas, reconhecendo os seus limites e vieses.</li>
 </ol>
 </section>
 <section class="slide level2">
-<h2>Um neurônio faz a mesma conta da regressão logística</h2>
+<h2>Da regressão logística a um neurônio</h2>
 <div class="colunas larga-esquerda">
 <div>
 <div id="g-neuronio">
@@ -1164,16 +1162,16 @@ Julio Trecenti
 </div>
 <div id="leg-neuronio" class="legendas">
 <div>
-<p>A base de juros e causa das aulas 21 e 22. O neurônio recebe os <strong>dois números</strong> de um processo.</p>
+<p>A regressão logística das aulas 20 e 21, ajustada na base de juros e valor da causa. A probabilidade de sentença favorável é a <strong>função logística (σ)</strong> aplicada a uma <strong>soma</strong>.</p>
 </div>
 <div>
-<p>Cada entrada é multiplicada por um <strong>peso</strong>. Os pesos são os coeficientes da regressão logística ajustada nessa base.</p>
+<p>Cada variável vira uma <strong>entrada</strong> do neurônio, e cada coeficiente vira um <strong>peso</strong> na seta. A entrada é multiplicada pelo peso.</p>
 </div>
 <div>
-<p>O neurônio <strong>soma</strong> tudo, com o intercepto. É o logit da aula 20.</p>
+<p>O neurônio <strong>soma</strong> os produtos e o intercepto, que nas redes se chama <strong>viés</strong>. É o logit da aula 20.</p>
 </div>
 <div>
-<p>A <strong>função logística</strong> transforma a soma numa probabilidade entre 0 e 1. Mexa nos controles: é a regressão logística, com outro nome.</p>
+<p>A <strong>função logística</strong> transforma a soma numa probabilidade. Isso é <strong>um neurônio</strong>: a mesma regressão logística, desenhada como rede. Mexa nos controles.</p>
 </div>
 </div>
 </div>
@@ -1181,7 +1179,7 @@ Julio Trecenti
 <p><span class="fragment neu"></span> <span class="fragment neu"></span> <span class="fragment neu"></span></p>
 </section>
 <section class="slide level2">
-<h2>Uma reta não faz um U: liminares de medicamento por idade</h2>
+<h2>Com uma camada escondida, a rede aprende que crianças e idosos têm mais liminares</h2>
 <div class="colunas larga-esquerda">
 <div>
 <div id="g-u">
@@ -1194,43 +1192,51 @@ Julio Trecenti
 </div>
 <div id="leg-u" class="legendas">
 <div>
-<p><strong>Base simulada:</strong> 300 pedidos de liminar de medicamento. Crianças e idosos têm mais deferimentos (as bolas cinza são a proporção por faixa de 10 anos).</p>
+<p><strong>A pergunta:</strong> em pedidos de liminar de medicamento (base simulada, 300 pedidos), a chance de deferimento muda com a idade? As bolas cinza são a proporção de deferidos a cada 10 anos: alta nas crianças, baixa nos adultos, alta de novo nos idosos. Um <strong>U</strong>.</p>
 </div>
 <div>
-<p>A <strong>regressão logística</strong> só sobe ou só desce. Ela não consegue fazer um U.</p>
+<p>A <strong>regressão logística</strong> com a idade só tem uma tendência: a chance sobe com a idade, ou desce. Ela erra as duas pontas do U.</p>
 </div>
 <div>
-<p>A rede tem <strong>dois neurônios escondidos</strong>, cada um uma curva em S. O primeiro aprende a parte das crianças: alto até uns 10 anos.</p>
+<p>Uma rede com <strong>dois neurônios escondidos</strong>, cada um uma logística da idade. O <strong>neurônio 1</strong> aprendeu sozinho a pergunta “é criança?”: vale perto de 1 até uns 10 anos e cai depois.</p>
 </div>
 <div>
-<p>O segundo cai depois dos 65 anos. Ele entra na saída com <strong>peso negativo</strong>: quando ele cai, a probabilidade sobe. É a parte dos idosos.</p>
+<p>O <strong>neurônio 2</strong> aprendeu “tem menos de 65 anos?”. Ele entra na saída com <strong>peso negativo</strong>: quando ele cai, nos idosos, a probabilidade sobe.</p>
 </div>
 <div>
-<p>O neurônio de saída <strong>combina os dois</strong>, e a rede faz o U. Mais neurônios, mais formas possíveis.</p>
+<p>O <strong>neurônio de saída</strong> combina os dois: alto se é criança, alto se já passou dos 65. É o U. Ninguém disse à rede onde estavam as faixas de idade: ela as achou nos dados.</p>
 </div>
 </div>
 </div>
 </div>
 <p><span class="fragment u"></span> <span class="fragment u"></span> <span class="fragment u"></span> <span class="fragment u"></span></p>
 </section>
-<section class="slide level2">
-<h2>Treinar a rede é diminuir o erro aos poucos</h2>
-<div class="colunas larga-esquerda">
-<div>
+<section class="slide level2 denso">
+<h2>O treino da rede, passo a passo</h2>
 <div id="g-treino">
 
 </div>
-</div>
+<div class="colunas">
 <div>
-<div class="ctrl">
-<p><label class="ctrl-rotulo">época: <b id="tre-v"></b></label> <input type="range" id="tre-a" min="0" max="19" step="1" value="0"> <button id="tre-play" class="botao-play">▶ treinar</button></p>
+<div id="botoes-treino" class="botoes-poli">
+<button id="tre-passo">
+próximo passo
+</button>
+<button id="tre-auto" class="sec">
+treinar sozinho
+</button>
+<button id="tre-zera" class="sec">
+recomeçar
+</button>
 </div>
-<div id="g-perda">
+<div id="treino-msg" class="caixa">
 
 </div>
+</div>
+<div>
 <div class="caixa ideia">
-<p><span class="rotulo">Como a rede aprende</span></p>
-<p>Os pesos começam <strong>sorteados</strong>. A cada época, a rede mede o erro no treino e muda cada peso um pouco, na direção que diminui o erro: a <strong>descida do gradiente</strong>.</p>
+<p><span class="rotulo">Do neurônio à rede</span></p>
+<p>Verde: <strong>dados</strong>; cinza: <strong>pesos</strong>; laranja: <strong>contas</strong>. Numa rede com várias camadas, o passo para trás atravessa todas elas, do erro até os primeiros pesos: é a <strong>retropropagação</strong> (<em>backpropagation</em>).</p>
 </div>
 </div>
 </div>
@@ -1278,7 +1284,46 @@ Julio Trecenti
 <p><span class="fragment param"></span> <span class="fragment param"></span></p>
 </section>
 <section class="slide level2">
-<h2>Para a rede, um texto vira pedaços e depois números</h2>
+<h2>Texto vira número: cada palavra recebe um código</h2>
+<div id="g-ids">
+
+</div>
+<div id="leg-ids" class="legendas">
+<div>
+<p>Três frases curtas. Para entrar num modelo, o texto precisa virar número.</p>
+</div>
+<div>
+<p>O jeito mais simples: montar um <strong>vocabulário</strong> e dar um número a cada palavra. Cada frase vira uma sequência de números.</p>
+</div>
+<div>
+<p><strong>O problema:</strong> o número é só um código. “Pagou” é 3 e “quitou” é 6, mas querem dizer quase o mesmo; e a conta 3 + 3 = 6 não tem sentido nenhum.</p>
+</div>
+</div>
+<p><span class="fragment ids"></span> <span class="fragment ids"></span></p>
+</section>
+<section class="slide level2">
+<h2>One-hot e embedding: de códigos a vetores com significado</h2>
+<div id="g-onehot">
+
+</div>
+<div id="leg-onehot" class="legendas">
+<div>
+<p><strong>One-hot:</strong> cada palavra vira uma coluna de zeros com um 1 na sua posição. O vocabulário real tem dezenas de milhares de palavras, e todas ficam igualmente distantes umas das outras.</p>
+</div>
+<div>
+<p><strong>Embedding:</strong> cada palavra vira uma linha de poucos números, <strong>aprendidos no treino</strong> de uma rede, e não escolhidos por alguém.</p>
+</div>
+<div>
+<p>No treino, palavras usadas em contextos parecidos ganham números parecidos: veja <strong>pagou</strong> e <strong>quitou</strong>.</p>
+</div>
+<div>
+<p>Para um texto inteiro, um jeito simples é a <strong>média</strong> das linhas das suas palavras. O texto vira um vetor, e textos parecidos ficam perto.</p>
+</div>
+</div>
+<p><span class="fragment onehot"></span> <span class="fragment onehot"></span> <span class="fragment onehot"></span></p>
+</section>
+<section class="slide level2">
+<h2>Nos modelos atuais: pedaços de palavras e um vetor de 384 números</h2>
 <div id="g-tokens">
 
 </div>
@@ -1293,13 +1338,13 @@ Julio Trecenti
 <p>A rede devolve <strong><span data-v="emb.dim" data-f="n0">0</span> números</strong> para a frase toda: o <strong>embedding</strong>. Cada barra é um número; vermelho é positivo, azul é negativo.</p>
 </div>
 <div>
-<p>Textos com <strong>significado parecido</strong> ganham números parecidos. Por isso cada texto vira um ponto, e textos parecidos ficam perto.</p>
+<p>O modelo foi treinado com pares de frases de <strong>mesmo sentido</strong>, para que elas ganhem números parecidos. Por isso cada texto vira um ponto, e textos parecidos ficam perto.</p>
 </div>
 </div>
 <p><span class="fragment tok"></span> <span class="fragment tok"></span> <span class="fragment tok"></span></p>
 </section>
 <section class="slide level2">
-<h2>Mapa de 1.423 ementas do TJSP pelo significado</h2>
+<h2>Mapa de 1.423 ementas do TJSP: perto quer dizer parecido</h2>
 <div class="colunas larga-esquerda">
 <div>
 <div id="g-mapa">
@@ -1310,16 +1355,26 @@ Julio Trecenti
 <div id="mapa-leg">
 
 </div>
+<div id="leg-mapa" class="legendas">
+<div>
+<p>Cada ementa virou <span data-v="emb.dim" data-f="n0">0</span> números. Para desenhar, eles são <strong>achatados em 2</strong>, como a sombra de um objeto na parede: perde detalhe, mas quem está perto continua perto.</p>
+</div>
+<div>
+<p>Uma ementa de cada base: <strong>plano de saúde</strong>, <strong>dano moral</strong> e <strong>criminal</strong>. Cada ementa é um ponto.</p>
+</div>
+<div>
+<p>As 1.423 ementas. A <strong>cor</strong> é a base de onde a ementa veio. O modelo <strong>não sabia</strong> disso, e mesmo assim cada tema ocupou uma região.</p>
+</div>
+<div>
+<p>Das cinco vizinhas de cada ementa, <strong><span data-v="emb.mesmo_tema" data-f="pct">0</span></strong> são do mesmo tema. <strong>Clique em um ponto</strong> para ler a ementa e ver as cinco mais parecidas.</p>
+</div>
+</div>
 <div id="mapa-info" class="caixa">
-<p><strong>Clique em um ponto</strong> para ler a ementa e acender as cinco mais parecidas.</p>
-</div>
-<div class="caixa ideia">
-<p><span class="rotulo">Como o mapa foi feito</span></p>
-<p>Cada ementa virou <span data-v="emb.dim" data-f="n0">0</span> números, achatados em 2 para caber na tela. Das cinco vizinhas de cada ementa, <strong><span data-v="emb.mesmo_tema" data-f="pct">0</span></strong> são do mesmo tema, e ninguém contou ao modelo qual era o tema.</p>
+
 </div>
 </div>
 </div>
-<p><span class="fragment mapa"></span></p>
+<p><span class="fragment mapa"></span> <span class="fragment mapa"></span> <span class="fragment mapa"></span></p>
 </section>
 <section class="slide level2">
 <h2>Busca por palavra e busca por significado</h2>
@@ -1450,7 +1505,7 @@ Julio Trecenti
 <p><span class="rotulo">Pontos principais da aula</span></p>
 <ul>
 <li>Um <strong>neurônio</strong> faz a conta da regressão logística; <strong>camadas escondidas</strong> fazem formas que uma reta não faz.</li>
-<li><strong>Treinar</strong> é ajustar os pesos aos poucos, diminuindo o erro.</li>
+<li><strong>Treinar</strong> é repetir: passo para frente, erro, gradientes (retropropagação) e atualização dos pesos.</li>
 <li>Em tabelas pequenas, a rede <strong>não costuma ganhar</strong> de modelos simples.</li>
 <li>Um <strong>embedding</strong> transforma um texto em números: textos parecidos ficam perto.</li>
 <li>Embeddings servem para <strong>buscar e agrupar</strong>, e carregam os <strong>vieses</strong> dos textos de treino.</li>
@@ -2985,104 +3040,7 @@ border: 2px solid var(--azul); background: var(--azul); color: #fff; cursor: poi
 #leg-conf [id^="conf-"] { font-weight: 800; }
 #conf-sens, #conf-prec { display: inline-block; font-size: 1.3em; }
 </style>
-    <style type="text/css">
-
-.grafico-svg .neu-seta { stroke: var(--texto-fraco); stroke-width: 3; }
-.grafico-svg .neu-entrada { fill: var(--superficie); stroke: var(--azul); stroke-width: 3; }
-.grafico-svg .neu-no { fill: var(--superficie); stroke: var(--turquesa); stroke-width: 3; }
-.grafico-svg .neu-saida { fill: var(--superficie); stroke: var(--marca); stroke-width: 4; }
-.grafico-svg .neu-caixa { fill: var(--superficie); stroke: var(--superficie-borda); stroke-width: 2; }
-.grafico-svg .neu-sig { fill: none; stroke: var(--marca); stroke-width: 4; }
-.grafico-svg .neu-peso { fill: var(--fundo); stroke: var(--laranja); stroke-width: 2; }
-.grafico-svg .neu-peso-txt { font-size: 19px; font-weight: 800; fill: var(--laranja); font-family: "JetBrains Mono", Consolas, monospace; }
-.grafico-svg .neu-prod { font-size: 18px; font-weight: 700; fill: var(--texto); font-family: "JetBrains Mono", Consolas, monospace; }
-.grafico-svg .neu-valor { font-size: 22px; font-weight: 800; fill: var(--texto); }
-.grafico-svg .neu-valor.pequeno { font-size: 20px; font-family: "JetBrains Mono", Consolas, monospace; }
-.grafico-svg .bola { fill: var(--turquesa); stroke: var(--fundo); stroke-width: 3; }
-.reveal .ctrl input[type="range"] { width: 100%; }
-#leg-neuronio, #leg-u, #leg-tokens { margin-top: .4em; }
-
-.grafico-svg .ponto-0 { fill: var(--azul); opacity: .45; }
-.grafico-svg .ponto-1 { fill: var(--marca); opacity: .45; }
-.grafico-svg .faixa { fill: var(--texto-fraco); opacity: .55; stroke: var(--fundo); stroke-width: 2; }
-.grafico-svg .curva-log { fill: none; stroke: var(--texto); stroke-width: 4; stroke-dasharray: 10 6; }
-.grafico-svg .curva-h1 { fill: none; stroke: var(--azul); stroke-width: 4; }
-.grafico-svg .curva-h2 { fill: none; stroke: var(--laranja); stroke-width: 4; }
-.grafico-svg .curva-saida { fill: none; stroke: var(--marca); stroke-width: 6; }
-.grafico-svg .rede-aresta { stroke: var(--texto-fraco); stroke-width: 3; }
-.grafico-svg .rede-aresta.a-h1 { stroke: var(--azul); }
-.grafico-svg .rede-aresta.a-h2 { stroke: var(--laranja); }
-.grafico-svg .rede-no { fill: var(--superficie); stroke: var(--texto-fraco); stroke-width: 3; }
-.grafico-svg .rede-no.n-h1 { stroke: var(--azul); }
-.grafico-svg .rede-no.n-h2 { stroke: var(--laranja); }
-.grafico-svg .rede-no.n-s { stroke: var(--marca); }
-.grafico-svg .rede-txt { font-size: 16px; font-weight: 700; fill: var(--texto); }
-#g-rede { max-width: 360px; margin: 0 auto .2em; }
-
-.grafico-svg .curva-erro-rede { fill: none; stroke: var(--marca); stroke-width: 4; }
-.reveal .botao-play { font: inherit; font-size: .7em; font-weight: 700; margin-top: .4em; padding: .35em .9em;
-border-radius: 8px; border: 2px solid var(--marca); background: var(--marca); color: #fff; cursor: pointer; }
-#g-perda { margin: .3em 0; }
-
-.grafico-svg .ponto-borda-0 { fill: var(--azul); stroke: var(--fundo); stroke-width: 1; opacity: .8; }
-.grafico-svg .ponto-borda-1 { fill: var(--marca); stroke: var(--fundo); stroke-width: 1; opacity: .8; }
-
-.grafico-svg .barra-pequena { fill: var(--turquesa); }
-.grafico-svg .barra-grande { fill: var(--marca); }
-
-.grafico-svg .tok-frase { font-size: 26px; font-weight: 700; fill: var(--texto); }
-.grafico-svg .tok-ficha { fill: color-mix(in srgb, var(--turquesa) 16%, var(--superficie)); stroke: var(--turquesa); stroke-width: 2; }
-.grafico-svg .tok-txt { font-size: 21px; font-weight: 700; fill: var(--texto); font-family: "JetBrains Mono", Consolas, monospace; }
-.grafico-svg .vet-pos { fill: var(--marca); }
-.grafico-svg .vet-neg { fill: var(--azul); }
-.grafico-svg .tok-ponto { fill: var(--turquesa); stroke: var(--fundo); stroke-width: 3; }
-
-.grafico-svg .ementa-pto { opacity: .75; cursor: pointer; transition: opacity .2s; stroke: var(--fundo); stroke-width: .8; }
-.grafico-svg .ementa-pto:hover { opacity: 1; stroke: var(--texto); stroke-width: 2; }
-.grafico-svg .ementa-pto.apagado-mapa { opacity: .12; }
-.grafico-svg .ementa-pto.aceso { opacity: 1; stroke: var(--texto); stroke-width: 2.5; }
-.grafico-svg .ementa-pto.escolhido { opacity: 1; stroke: var(--texto); stroke-width: 3; }
-.grafico-svg .lig-vizinho { stroke: var(--texto); stroke-width: 2; opacity: .7; }
-#mapa-leg { display: flex; flex-wrap: wrap; gap: .3em 1em; font-size: .6em; margin-bottom: .4em; }
-.mapa-chave i { display: inline-block; width: .9em; height: .9em; border-radius: 50%; margin-right: .35em; vertical-align: -.1em; }
-#mapa-info { font-size: .52em; line-height: 1.35; min-height: 9em; margin-bottom: .5em; }
-#mapa-info p { margin: 0 0 .35em; }
-#mapa-info .mapa-tit { font-weight: 800; }
-#mapa-info .mapa-tit span { font-weight: 400; color: var(--texto-fraco); }
-#mapa-info .mapa-ementa { color: var(--texto-fraco); }
-#mapa-info .mapa-viz { margin: 0; padding-left: 1.3em; }
-
-#busca-botoes { display: flex; flex-wrap: wrap; gap: .35em; margin-bottom: .5em; }
-.reveal .busca-botao { font: inherit; font-size: .48em; padding: .35em .7em; border-radius: 8px; cursor: pointer;
-border: 2px solid var(--azul); background: transparent; color: var(--azul); font-weight: 600; text-align: left; }
-.reveal .busca-botao.ativo { background: var(--azul); color: #fff; }
-.reveal .colunas h3 { font-size: .62em; margin: 0 0 .3em; }
-.busca-lista { display: grid; gap: .35em; }
-.busca-item { background: var(--superficie); border: 1px solid var(--superficie-borda); border-radius: 6px; padding: .3em .55em; }
-.busca-item p { margin: 0; }
-.busca-cab { display: flex; justify-content: space-between; font-size: .52em; }
-.busca-cab span { font-family: "JetBrains Mono", Consolas, monospace; color: var(--texto-fraco); }
-.busca-txt { font-size: .42em; line-height: 1.3; color: var(--texto-fraco); }
-
-.grafico-svg .barra-palavras { fill: var(--azul); }
-.grafico-svg .barra-emb { fill: var(--turquesa); }
-.grafico-svg .vies-mulher { fill: var(--laranja); stroke: var(--fundo); stroke-width: 2; }
-.grafico-svg .vies-homem { fill: var(--azul); stroke: var(--fundo); stroke-width: 2; }
-.grafico-svg .vies-liga { stroke-width: 4; opacity: .5; }
-.grafico-svg .vies-liga.homem { stroke: var(--azul); }
-.grafico-svg .vies-liga.mulher { stroke: var(--laranja); }
-
-.grade-apps { display: grid; grid-template-columns: repeat(3, 1fr); gap: .6em; margin-top: .4em; }
-.grade-apps .app { background: var(--superficie); border-top: 4px solid var(--turquesa); border-radius: 6px;
-padding: .7em .85em; font-size: .74em; line-height: 1.35; }
-.grade-apps .app p { margin: 0 0 .3em; }
-.grade-apps .app.alerta { border-top-color: var(--marca); }
-
-.reveal .colunas.larga-esquerda > :last-child .caixa { font-size: .78em; }
-.reveal .colunas.baixo .caixa { font-size: .66em; }
-.busca-titulo { display: block; font-weight: 800; font-size: .6em; margin-bottom: .3em; }
-.reveal .caixa.baixa { font-size: .66em; margin-top: .6em; }
-</style>
+    <style type="text/css">.grafico-svg .neu-seta { stroke: var(--texto-fraco); stroke-width: 3; }.grafico-svg .neu-entrada { fill: var(--superficie); stroke: var(--azul); stroke-width: 3; }.grafico-svg .neu-no { fill: var(--superficie); stroke: var(--turquesa); stroke-width: 3; }.grafico-svg .neu-saida { fill: var(--superficie); stroke: var(--marca); stroke-width: 4; }.grafico-svg .neu-caixa { fill: var(--superficie); stroke: var(--superficie-borda); stroke-width: 2; }.grafico-svg .neu-sig { fill: none; stroke: var(--marca); stroke-width: 4; }.grafico-svg .neu-peso { fill: var(--fundo); stroke: var(--laranja); stroke-width: 2; }.grafico-svg .neu-peso-txt { font-size: 19px; font-weight: 800; fill: var(--laranja); font-family: "JetBrains Mono", Consolas, monospace; }.grafico-svg .neu-prod { font-size: 18px; font-weight: 700; fill: var(--texto); font-family: "JetBrains Mono", Consolas, monospace; }.grafico-svg .neu-valor { font-size: 22px; font-weight: 800; fill: var(--texto); }.grafico-svg .neu-valor.pequeno { font-size: 20px; font-family: "JetBrains Mono", Consolas, monospace; }.grafico-svg .bola { fill: var(--turquesa); stroke: var(--fundo); stroke-width: 3; }.reveal .ctrl input[type="range"] { width: 100%; }#leg-neuronio, #leg-u, #leg-tokens { margin-top: .4em; }.grafico-svg .ponto-0 { fill: var(--azul); opacity: .45; }.grafico-svg .ponto-1 { fill: var(--marca); opacity: .45; }.grafico-svg .faixa { fill: var(--texto-fraco); opacity: .55; stroke: var(--fundo); stroke-width: 2; }.grafico-svg .curva-log { fill: none; stroke: var(--texto); stroke-width: 4; stroke-dasharray: 10 6; }.grafico-svg .curva-h1 { fill: none; stroke: var(--azul); stroke-width: 4; }.grafico-svg .curva-h2 { fill: none; stroke: var(--laranja); stroke-width: 4; }.grafico-svg .curva-saida { fill: none; stroke: var(--marca); stroke-width: 6; }.grafico-svg .rede-aresta { stroke: var(--texto-fraco); stroke-width: 3; }.grafico-svg .rede-aresta.a-h1 { stroke: var(--azul); }.grafico-svg .rede-aresta.a-h2 { stroke: var(--laranja); }.grafico-svg .rede-no { fill: var(--superficie); stroke: var(--texto-fraco); stroke-width: 3; }.grafico-svg .rede-no.n-h1 { stroke: var(--azul); }.grafico-svg .rede-no.n-h2 { stroke: var(--laranja); }.grafico-svg .rede-no.n-s { stroke: var(--marca); }.grafico-svg .rede-txt { font-size: 16px; font-weight: 700; fill: var(--texto); }#g-rede { max-width: 360px; margin: 0 auto .2em; }.grafico-svg .curva-erro-rede { fill: none; stroke: var(--marca); stroke-width: 4; }.reveal .botao-play { font: inherit; font-size: .7em; font-weight: 700; margin-top: .4em; padding: .35em .9em;border-radius: 8px; border: 2px solid var(--marca); background: var(--marca); color: #fff; cursor: pointer; }#g-perda { margin: .3em 0; }.grafico-svg .ponto-borda-0 { fill: var(--azul); stroke: var(--fundo); stroke-width: 1; opacity: .8; }.grafico-svg .ponto-borda-1 { fill: var(--marca); stroke: var(--fundo); stroke-width: 1; opacity: .8; }.grafico-svg .barra-pequena { fill: var(--turquesa); }.grafico-svg .barra-grande { fill: var(--marca); }.grafico-svg .tok-frase { font-size: 26px; font-weight: 700; fill: var(--texto); }.grafico-svg .tok-ficha { fill: color-mix(in srgb, var(--turquesa) 16%, var(--superficie)); stroke: var(--turquesa); stroke-width: 2; }.grafico-svg .tok-txt { font-size: 21px; font-weight: 700; fill: var(--texto); font-family: "JetBrains Mono", Consolas, monospace; }.grafico-svg .vet-pos { fill: var(--marca); }.grafico-svg .vet-neg { fill: var(--azul); }.grafico-svg .tok-ponto { fill: var(--turquesa); stroke: var(--fundo); stroke-width: 3; }.grafico-svg .ementa-pto { opacity: .75; cursor: pointer; transition: opacity .2s; stroke: var(--fundo); stroke-width: .8; }.grafico-svg .ementa-pto:hover { opacity: 1; stroke: var(--texto); stroke-width: 2; }.grafico-svg .ementa-pto.apagado-mapa { opacity: .12; }.grafico-svg .ementa-pto.aceso { opacity: 1; stroke: var(--texto); stroke-width: 2.5; }.grafico-svg .ementa-pto.escolhido { opacity: 1; stroke: var(--texto); stroke-width: 3; }.grafico-svg .lig-vizinho { stroke: var(--texto); stroke-width: 2; opacity: .7; }#mapa-leg { display: flex; flex-wrap: wrap; gap: .3em 1em; font-size: .6em; margin-bottom: .4em; }.mapa-chave i { display: inline-block; width: .9em; height: .9em; border-radius: 50%; margin-right: .35em; vertical-align: -.1em; }#mapa-info { font-size: .52em; line-height: 1.35; min-height: 9em; margin-bottom: .5em; }#mapa-info p { margin: 0 0 .35em; }#mapa-info .mapa-tit { font-weight: 800; }#mapa-info .mapa-tit span { font-weight: 400; color: var(--texto-fraco); }#mapa-info .mapa-ementa { color: var(--texto-fraco); }#mapa-info .mapa-viz { margin: 0; padding-left: 1.3em; }#busca-botoes { display: flex; flex-wrap: wrap; gap: .35em; margin-bottom: .5em; }.reveal .busca-botao { font: inherit; font-size: .48em; padding: .35em .7em; border-radius: 8px; cursor: pointer;border: 2px solid var(--azul); background: transparent; color: var(--azul); font-weight: 600; text-align: left; }.reveal .busca-botao.ativo { background: var(--azul); color: #fff; }.reveal .colunas h3 { font-size: .62em; margin: 0 0 .3em; }.busca-lista { display: grid; gap: .35em; }.busca-item { background: var(--superficie); border: 1px solid var(--superficie-borda); border-radius: 6px; padding: .3em .55em; }.busca-item p { margin: 0; }.busca-cab { display: flex; justify-content: space-between; font-size: .52em; }.busca-cab span { font-family: "JetBrains Mono", Consolas, monospace; color: var(--texto-fraco); }.busca-txt { font-size: .42em; line-height: 1.3; color: var(--texto-fraco); }.grafico-svg .barra-palavras { fill: var(--azul); }.grafico-svg .barra-emb { fill: var(--turquesa); }.grafico-svg .vies-mulher { fill: var(--laranja); stroke: var(--fundo); stroke-width: 2; }.grafico-svg .vies-homem { fill: var(--azul); stroke: var(--fundo); stroke-width: 2; }.grafico-svg .vies-liga { stroke-width: 4; opacity: .5; }.grafico-svg .vies-liga.homem { stroke: var(--azul); }.grafico-svg .vies-liga.mulher { stroke: var(--laranja); }.grade-apps { display: grid; grid-template-columns: repeat(3, 1fr); gap: .6em; margin-top: .4em; }.grade-apps .app { background: var(--superficie); border-top: 4px solid var(--turquesa); border-radius: 6px;padding: .7em .85em; font-size: .74em; line-height: 1.35; }.grade-apps .app p { margin: 0 0 .3em; }.grade-apps .app.alerta { border-top-color: var(--marca); }.reveal .colunas.larga-esquerda > :last-child .caixa { font-size: .78em; }.reveal .colunas.baixo .caixa { font-size: .66em; }.busca-titulo { display: block; font-weight: 800; font-size: .6em; margin-bottom: .3em; }.reveal .caixa.baixa { font-size: .66em; margin-top: .6em; }.grafico-svg .formula { font-size: 21px; font-weight: 700; fill: var(--texto); font-family: "JetBrains Mono", Consolas, monospace; }.grafico-svg .formula.voo { fill: var(--marca); }.grafico-svg .tr-no { stroke-width: 2.5; }.grafico-svg .tr-no.dado { fill: color-mix(in srgb, var(--turquesa) 22%, var(--fundo)); stroke: var(--turquesa); }.grafico-svg .tr-no.peso { fill: color-mix(in srgb, var(--texto-fraco) 18%, var(--fundo)); stroke: var(--texto-fraco); }.grafico-svg .tr-no.conta { fill: color-mix(in srgb, var(--laranja) 22%, var(--fundo)); stroke: var(--laranja); }.grafico-svg .tr-valor { font-size: 17px; fill: var(--texto); font-family: "JetBrains Mono", Consolas, monospace; }.grafico-svg .tr-frente { stroke: var(--laranja); stroke-width: 4; }.grafico-svg .tr-tras { stroke: var(--marca); stroke-width: 4; stroke-dasharray: 9 6; }.grafico-svg .ponta-frente { fill: var(--laranja); }.grafico-svg .ponta-tras { fill: var(--marca); }.grafico-svg .tr-grad { font-size: 16px; font-weight: 700; fill: var(--marca); }.grafico-svg .tok-id { font-size: 22px; font-weight: 700; fill: var(--azul); font-family: "JetBrains Mono", Consolas, monospace; }.grafico-svg .oh-um { fill: var(--marca); stroke: var(--fundo); stroke-width: 2; }.grafico-svg .oh-zero { fill: var(--superficie); stroke: var(--superficie-borda); stroke-width: 2; }.grafico-svg .oh-txt { font-size: 16px; fill: var(--texto); }.grafico-svg .emb-linha { fill: var(--superficie); stroke: var(--superficie-borda); }.grafico-svg .emb-media { fill: color-mix(in srgb, var(--turquesa) 22%, var(--fundo)); stroke: var(--turquesa); stroke-width: 2; }.grafico-svg .rotulo-exemplo { paint-order: stroke; stroke: var(--fundo); stroke-width: 5px; }#treino-msg { font-size: .62em; min-height: 4.5em; }#botoes-treino { margin: .2em 0 .4em; }#mapa-info:empty { display: none; }#leg-mapa { margin-bottom: .5em; }#g-treino svg { max-height: 400px; }</style>
     <script>/*!
  * GSAP 3.12.5
  * https://gsap.com
@@ -3100,11 +3058,13 @@ padding: .7em .85em; font-size: .74em; line-height: 1.35; }
     <script>/*
  * Slides interativos da aula 26 (redes neurais e embeddings), com GSAP.
  *
- *   - neurônio: juros e causa entram, são multiplicados pelos pesos da
- *     regressão logística, somados e passados pela função logística;
+ *   - neurônio: a fórmula da regressão logística se desmonta e vira o
+ *     desenho de um neurônio (entradas, pesos, soma com viés e função logística);
  *   - U: liminares por idade (base simulada); a logística não faz o U, e os
  *     dois neurônios escondidos da rede, combinados, fazem;
- *   - treino: a curva da rede muda época a época, com o erro ao lado;
+ *   - treino: o grafo de computação de um neurônio (dados, pesos, previsão,
+ *     erro), com o passo para frente, os gradientes e a atualização, à mão;
+ *   - números das palavras, one-hot, embedding e a média da frase;
  *   - mapas: logística e rede na base de juros e causa;
  *   - parâmetros: do neurônio ao GPT-3, em escala de potências de 10;
  *   - tokens: uma frase vira pedaços e depois 384 números;
@@ -3181,50 +3141,71 @@ padding: .7em .85em; font-size: .74em; line-height: 1.35; }
   }
 
   /* ====================================================================== */
-  /* 1. O neurônio                                                          */
+  /* 1. Da fórmula da regressão logística ao desenho de um neurônio         */
   /* ====================================================================== */
 
   function desenharNeuronio() {
     const caixa = $("#g-neuronio");
     if (!caixa) return;
     const J = D.jc;
-    const svg = el("svg", { viewBox: "0 0 820 500", class: "grafico-svg" }, caixa);
+    const svg = el("svg", { viewBox: "0 0 900 620", class: "grafico-svg" }, caixa);
+    const DY = 110;  // o desenho da rede fica abaixo da fórmula
+    const dg = el("g", { transform: `translate(0 ${DY})` }, svg);
     const ent = [{ y: 100, nome: "taxa de juros", peso: J.b_juros }, { y: 410, nome: "valor da causa", peso: J.b_causa }];
-    const soma = { x: 400, y: 255 }, curva = { x0: 520, x1: 660, y0: 195, y1: 315 }, saida = { x: 750, y: 255 };
+    const soma = { x: 400, y: 255 }, curva = { x0: 520, x1: 660, y0: 195, y1: 315 }, saida = { x: 790, y: 255 };
+    const fmt = (v) => num(v, Math.abs(v) < 0.1 ? 3 : 2);
 
-    // as setas, os pesos e os produtos
-    const gPesos = el("g", {}, svg);
+    // a fórmula, termo a termo (cada termo vai voar para o lugar dele na rede)
+    const LC = 12.7;  // largura de um caractere da fonte monoespaçada, a 21px
+    const largura = (t) => t.length * LC;
+    let xf = 10;
+    const termos = ["P(favorável) = σ(", fmt(J.b0), "+", fmt(J.b_juros), "× juros", "+", fmt(J.b_causa), "× valor da causa", ")"]
+      .map((t) => { const x = xf; xf += largura(t) + 11; return [t, x]; });
+    const gF = el("g", {}, svg);
+    const T = termos.map(([t, x]) => texto(gF, x, 52, t, { class: "formula" }));
+    const voa = (tl, i, alvoX, alvoY, quando) => {
+      const [t, x] = termos[i];
+      const c = texto(svg, x, 52, t, { class: "formula voo" });
+      gsap.set(c, { autoAlpha: 0 });
+      tl.fromTo(c, { autoAlpha: 1, x: 0, y: 0 },
+        { x: alvoX - (x + largura(t) / 2), y: alvoY - 52, duration: 0.9, ease: "power2.inOut", immediateRender: false }, quando);
+      tl.to(c, { autoAlpha: 0, duration: 0.3 }, quando + 0.9);
+      tl.to(T[i], { opacity: 0.3, duration: 0.3 }, quando);
+    };
+
+    // setas, pesos e produtos
+    const gPesos = el("g", {}, dg);
     const prods = [];
+    const gEnt = el("g", {}, dg);
     ent.forEach((e) => {
-      el("line", { x1: 140, y1: e.y, x2: soma.x - 60, y2: soma.y, class: "neu-seta" }, svg);
+      el("line", { x1: 140, y1: e.y, x2: soma.x - 60, y2: soma.y, class: "neu-seta" }, gEnt);
       const mx = (140 + soma.x - 60) / 2, my = (e.y + soma.y) / 2;
-      const r = el("rect", { x: mx - 66, y: my - 19, width: 132, height: 38, rx: 6, class: "neu-peso" }, gPesos);
-      texto(gPesos, mx, my + 7, `× ${num(e.peso, e.peso < 0.1 ? 4 : 2)}`, { "text-anchor": "middle", class: "neu-peso-txt" });
-      r.dataset.y = my;
-      prods.push(texto(svg, mx + 70, my + (e.y < soma.y ? -30 : 44), "", { "text-anchor": "middle", class: "neu-prod" }));
+      e.mx = mx; e.my = my;
+      el("rect", { x: mx - 66, y: my - 19, width: 132, height: 38, rx: 6, class: "neu-peso" }, gPesos);
+      texto(gPesos, mx, my + 7, `× ${fmt(e.peso)}`, { "text-anchor": "middle", class: "neu-peso-txt" });
+      prods.push(texto(dg, mx + 70, my + (e.y < soma.y ? -30 : 44), "", { "text-anchor": "middle", class: "neu-prod" }));
     });
-    svg.appendChild(gPesos);  // os pesos por cima das setas
-    // entradas
+    dg.appendChild(gPesos);
     const vals = ent.map((e) => {
-      el("circle", { cx: 90, cy: e.y, r: 50, class: "neu-entrada" }, svg);
-      texto(svg, 90, e.y - 62, e.nome, { "text-anchor": "middle", class: "rotulo-eixo forte" });
-      return texto(svg, 90, e.y + 8, "", { "text-anchor": "middle", class: "neu-valor" });
+      el("circle", { cx: 90, cy: e.y, r: 50, class: "neu-entrada" }, gEnt);
+      texto(gEnt, 90, e.y - 62, e.nome, { "text-anchor": "middle", class: "rotulo-eixo forte" });
+      return texto(gEnt, 90, e.y + 8, "", { "text-anchor": "middle", class: "neu-valor" });
     });
     // soma
-    const gSoma = el("g", {}, svg);
+    const gSoma = el("g", {}, dg);
     el("circle", { cx: soma.x, cy: soma.y, r: 60, class: "neu-no" }, gSoma);
     texto(gSoma, soma.x, soma.y - 8, "soma", { "text-anchor": "middle", class: "rotulo-eixo forte" });
     const zTxt = texto(gSoma, soma.x, soma.y + 24, "", { "text-anchor": "middle", class: "neu-valor pequeno" });
-    texto(gSoma, soma.x, soma.y + 92, `intercepto: ${num(J.b0)}`, { "text-anchor": "middle", class: "rotulo-eixo" });
-    // a função logística
-    const gSig = el("g", {}, svg);
+    texto(gSoma, soma.x, soma.y - 78, `viés (intercepto): ${fmt(J.b0)}`, { "text-anchor": "middle", class: "rotulo-eixo forte" });
+    // a função logística e a saída
+    const gSig = el("g", {}, dg);
     el("line", { x1: soma.x + 60, y1: soma.y, x2: curva.x0, y2: soma.y, class: "neu-seta" }, gSig);
     el("rect", { x: curva.x0, y: curva.y0, width: curva.x1 - curva.x0, height: curva.y1 - curva.y0, rx: 8, class: "neu-caixa" }, gSig);
     const sx = escala(-6, 6, curva.x0 + 8, curva.x1 - 8), sy = escala(0, 1, curva.y1 - 10, curva.y0 + 10);
     const pts = [];
     for (let z = -6; z <= 6.01; z += 0.2) pts.push([sx(z), sy(sig(z))]);
     el("path", { d: caminho(pts), class: "neu-sig" }, gSig);
-    texto(gSig, (curva.x0 + curva.x1) / 2, curva.y1 + 26, "função logística", { "text-anchor": "middle", class: "rotulo-eixo" });
+    texto(gSig, (curva.x0 + curva.x1) / 2, curva.y1 + 26, "função logística (σ)", { "text-anchor": "middle", class: "rotulo-eixo" });
     const bola = el("circle", { r: 8, class: "bola" }, gSig);
     el("line", { x1: curva.x1, y1: soma.y, x2: saida.x - 50, y2: soma.y, class: "neu-seta" }, gSig);
     el("circle", { cx: saida.x, cy: saida.y, r: 50, class: "neu-saida" }, gSig);
@@ -3251,12 +3232,26 @@ padding: .7em .85em; font-size: .74em; line-height: 1.35; }
       e.addEventListener("keydown", (ev) => ev.stopPropagation());
     }
     f();
-    gsap.set([gPesos, ...prods, gSoma, gSig], { autoAlpha: 0 });
-    const t1 = linha().fromTo(gPesos, { autoAlpha: 0, y: 10 }, { autoAlpha: 1, y: 0, duration: 0.5, immediateRender: false })
-      .fromTo(prods, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.4, stagger: 0.2, immediateRender: false });
-    const t2 = linha().fromTo(gSoma, { autoAlpha: 0, scale: 0.6, transformOrigin: `${soma.x}px ${soma.y}px` },
-      { autoAlpha: 1, scale: 1, duration: 0.6, ease: "back.out(1.7)", immediateRender: false });
-    const t3 = linha().fromTo(gSig, { autoAlpha: 0, x: -20 }, { autoAlpha: 1, x: 0, duration: 0.7, immediateRender: false });
+    gsap.set([gEnt, gPesos, ...prods, gSoma, gSig], { autoAlpha: 0 });
+    // passo 1: as variáveis viram entradas, e os coeficientes, pesos
+    const t1 = linha();
+    voa(t1, 3, ent[0].mx, ent[0].my + DY + 7, 0);
+    voa(t1, 4, 90, ent[0].y + DY - 62, 0.1);
+    voa(t1, 6, ent[1].mx, ent[1].my + DY + 7, 0.2);
+    voa(t1, 7, 90, ent[1].y + DY - 62, 0.3);
+    t1.fromTo([gEnt, gPesos], { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.5, immediateRender: false }, 0.9);
+    t1.fromTo(prods, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.4, stagger: 0.2, immediateRender: false }, 1.3);
+    t1.to([T[2], T[5]], { opacity: 0.3, duration: 0.3 }, 0);
+    // passo 2: o intercepto vira o viés, dentro da soma
+    const t2 = linha();
+    voa(t2, 1, soma.x, soma.y - 78 + DY, 0);
+    t2.fromTo(gSoma, { autoAlpha: 0, scale: 0.6, svgOrigin: `${soma.x} ${soma.y}` },
+      { autoAlpha: 1, scale: 1, duration: 0.6, ease: "back.out(1.7)", immediateRender: false }, 0.8);
+    // passo 3: a função logística vira a última etapa do neurônio
+    const t3 = linha();
+    voa(t3, 0, (curva.x0 + curva.x1) / 2, curva.y1 + 26 + DY, 0);
+    voa(t3, 8, (curva.x0 + curva.x1) / 2, curva.y1 + 26 + DY, 0);
+    t3.fromTo(gSig, { autoAlpha: 0, x: -20 }, { autoAlpha: 1, x: 0, duration: 0.7, immediateRender: false }, 0.8);
     passos("#g-neuronio", "neu", [t1, t2, t3], "#leg-neuronio");
   }
 
@@ -3320,7 +3315,9 @@ padding: .7em .85em; font-size: .74em; line-height: 1.35; }
     };
     no("e", "idade", "");
     const n1 = no("h1", "1", "n-h1"), n2 = no("h2", "2", "n-h2"), ns = no("s", "saída", "n-s");
-    texto(rs, 190, 245, "camada escondida", { "text-anchor": "middle", class: "rotulo-eixo" });
+    texto(rs, 226, 22, "é criança?", { "text-anchor": "start", class: "rotulo-eixo forte" });
+    texto(rs, 226, 232, "menos de 65?", { "text-anchor": "start", class: "rotulo-eixo forte" });
+    texto(rs, 20, 232, "camada escondida", { "text-anchor": "start", class: "rotulo-eixo" });
     const pw = (k, w, dy) => texto(rs, (nos[k][0] + nos.s[0]) / 2 + 8, (nos[k][1] + nos.s[1]) / 2 + dy,
       `peso ${w > 0 ? "+" : "−"}${num(Math.abs(w), 1)}`, { "text-anchor": "start", class: "rotulo-eixo forte" });
     const w1 = pw("h1", L.pesos_saida[1], -12), w2 = pw("h2", L.pesos_saida[0], 26);
@@ -3342,52 +3339,136 @@ padding: .7em .85em; font-size: .74em; line-height: 1.35; }
   }
 
   /* ====================================================================== */
-  /* 3. O treino                                                            */
+  /* 3. O treino: passo para frente, gradientes e atualização dos pesos     */
   /* ====================================================================== */
 
   function desenharTreino() {
     const caixa = $("#g-treino");
     if (!caixa) return;
-    const L = D.lim, F = L.fotos;
-    const svg = el("svg", { viewBox: "0 0 760 480", class: "grafico-svg" }, caixa);
-    const g = grafIdade(svg, { x0: 90, x1: 740, y0: 16, y1: 400 });
-    const cur = g.curva(F[0].saida, "curva-saida");
-
-    const ps = el("svg", { viewBox: "0 0 420 230", class: "grafico-svg" }, $("#g-perda"));
-    const m = { l: 60, r: 14, t: 14, b: 44 };
-    const sx = escala(0, F.length - 1, m.l, 420 - m.r);
-    const sy = escala(0.45, 0.72, 230 - m.b, m.t);
-    for (const v of [0.5, 0.6, 0.7]) {
-      el("line", { x1: m.l, x2: 420 - m.r, y1: sy(v), y2: sy(v), class: "grade-linha" }, ps);
-      texto(ps, m.l - 8, sy(v) + 5, num(v, 1), { "text-anchor": "end", class: "rotulo-eixo" });
-    }
-    texto(ps, (m.l + 420) / 2, 230 - 10, "épocas de treino", { "text-anchor": "middle", class: "rotulo-eixo" });
-    texto(ps, 420 - m.r, m.t + 4, "erro no treino", { "text-anchor": "end", class: "rotulo-eixo forte", "dominant-baseline": "hanging" });
-    el("line", { x1: m.l, x2: 420 - m.r, y1: sy(L.perda_log), y2: sy(L.perda_log), class: "zero" }, ps);
-    texto(ps, 420 - m.r, sy(L.perda_log) - 8, "regressão logística", { "text-anchor": "end", class: "rotulo-eixo" });
-    const rastro = el("path", { class: "curva-erro-rede" }, ps);
-    const bola = el("circle", { r: 7, class: "bola" }, ps);
-
-    const ent = $("#tre-a");
-    const mostra = (k) => {
-      const f = F[k];
-      gsap.to(cur, { attr: { d: caminho(L.grade.map((a, i) => [g.sx(a), g.sy(f.saida[i])])) }, duration: 0.35, overwrite: true });
-      rastro.setAttribute("d", caminho(F.slice(0, k + 1).map((p, i) => [sx(i), sy(p.perda)])));
-      bola.setAttribute("cx", sx(k)); bola.setAttribute("cy", sy(f.perda));
-      $("#tre-v").textContent = `${f.epoca} · erro ${num(f.perda, 3)}`;
+    // um neurônio com uma entrada (os juros, centrados), treinado nos pontos da
+    // base de juros e causa: a conta é feita aqui mesmo, passo a passo
+    const X = D.jc.pontos.map((p) => (p[0] - 2) / 0.6), Y = D.jc.pontos.map((p) => p[2]);
+    const N = X.length, TAXA = 1.0;
+    let w = 0, b = 0, fase = 0, hist = [], yhat = null, gw = null, gb = null;
+    const perda = (w2, b2) => {
+      let s = 0;
+      for (let i = 0; i < N; i++) {
+        const p = Math.min(1 - 1e-9, Math.max(1e-9, sig(w2 * X[i] + b2)));
+        s -= Y[i] * Math.log(p) + (1 - Y[i]) * Math.log(1 - p);
+      }
+      return s / N;
     };
-    ent.addEventListener("input", () => mostra(+ent.value));
-    ent.addEventListener("keydown", (e) => e.stopPropagation());
+    const grad = () => {
+      let a = 0, c = 0;
+      for (let i = 0; i < N; i++) { const e = sig(w * X[i] + b) - Y[i]; a += e * X[i]; c += e; }
+      return [a / N, c / N];
+    };
+
+    const svg = el("svg", { viewBox: "0 0 1180 440", class: "grafico-svg" }, caixa);
+    const defs = el("defs", {}, svg);
+    for (const [id, cls] of [["ps-fr", "ponta-frente"], ["ps-tr", "ponta-tras"]]) {
+      const mk = el("marker", { id, viewBox: "0 0 10 10", refX: 9, refY: 5, markerWidth: 7, markerHeight: 7, orient: "auto-start-reverse" }, defs);
+      el("path", { d: "M0 0 L10 5 L0 10 Z", class: cls }, mk);
+    }
+    const no = (x, y, w2, h, cls, l1) => {
+      const g = el("g", {}, svg);
+      el("rect", { x: x - w2 / 2, y: y - h / 2, width: w2, height: h, rx: 8, class: `tr-no ${cls}` }, g);
+      texto(g, x, y - 6, l1, { "text-anchor": "middle", class: "rotulo-eixo forte" });
+      const v = texto(g, x, y + 20, "", { "text-anchor": "middle", class: "tr-valor" });
+      return v;
+    };
+    // o grafo de computação: dados em verde, pesos em cinza, contas em laranja
+    const vX = no(110, 60, 190, 64, "dado", "dado: taxa de juros");
+    const vW = no(110, 200, 170, 64, "peso", "peso w");
+    const vB = no(110, 320, 170, 64, "peso", "viés b");
+    const vYh = no(430, 200, 290, 76, "conta", "previsão = σ(w · x + b)");
+    const vY = no(700, 60, 190, 64, "dado", "dado: sentença (0 ou 1)");
+    const vL = no(700, 320, 230, 76, "conta", "erro (entropia cruzada)");
+    const seta = (x1, y1, x2, y2, cls, marca) => el("line", { x1, y1, x2, y2, class: cls, "marker-end": `url(#${marca})` }, svg);
+    const frente = [
+      seta(110, 92, 330, 160, "tr-frente", "ps-fr"), seta(195, 196, 282, 196, "tr-frente", "ps-fr"),
+      seta(195, 312, 330, 240, "tr-frente", "ps-fr"), seta(540, 238, 640, 282, "tr-frente", "ps-fr"),
+      seta(700, 92, 700, 280, "tr-frente", "ps-fr"),
+    ];
+    const tras = [
+      seta(625, 305, 520, 246, "tr-tras", "ps-tr"), seta(282, 214, 200, 214, "tr-tras", "ps-tr"),
+      seta(320, 246, 200, 322, "tr-tras", "ps-tr"),
+    ];
+    const tGw = texto(svg, 110, 250, "", { "text-anchor": "middle", class: "tr-grad" });
+    const tGb = texto(svg, 110, 370, "", { "text-anchor": "middle", class: "tr-grad" });
+    const tFase = texto(svg, 430, 425, "", { "text-anchor": "middle", class: "anot forte" });
+
+    // à direita: os dados e a curva do neurônio, e o erro a cada passo
+    const a = { x0: 860, x1: 1170, y0: 20, y1: 200 };
+    const sx = escala(-2.2, 2.4, a.x0, a.x1), sy = escala(0, 1, a.y1, a.y0);
+    el("rect", { x: a.x0, y: a.y0, width: a.x1 - a.x0, height: a.y1 - a.y0, class: "moldura" }, svg);
+    X.forEach((x, i) => el("circle", { cx: sx(x), cy: sy(Y[i] ? 0.97 - (i % 5) * 0.012 : 0.03 + (i % 5) * 0.012), r: 2.6, class: Y[i] ? "ponto-1" : "ponto-0" }, svg));
+    for (const j of [1, 2, 3]) texto(svg, sx((j - 2) / 0.6), a.y1 + 18, `${j}%`, { "text-anchor": "middle", class: "rotulo-eixo" });
+    texto(svg, (a.x0 + a.x1) / 2, a.y1 + 38, "taxa de juros", { "text-anchor": "middle", class: "rotulo-eixo" });
+    const curva = el("path", { class: "curva-saida" }, svg);
+    const e = { x0: 860, x1: 1170, y0: 270, y1: 420 };
+    const ex = escala(0, 30, e.x0, e.x1), ey = escala(0.3, 0.72, e.y1, e.y0);
+    el("rect", { x: e.x0, y: e.y0, width: e.x1 - e.x0, height: e.y1 - e.y0, class: "moldura" }, svg);
+    texto(svg, e.x0, e.y0 - 8, "erro a cada passo de treino", { class: "rotulo-eixo forte" });
+    texto(svg, (e.x0 + e.x1) / 2, e.y1 + 18, "passos", { "text-anchor": "middle", class: "rotulo-eixo" });
+    const rastro = el("path", { class: "curva-erro-rede" }, svg);
+
+    const desenha = () => {
+      const pts = [];
+      for (let x = -2.2; x <= 2.41; x += 0.1) pts.push([sx(x), sy(sig(w * x + b))]);
+      curva.setAttribute("d", caminho(pts));
+      rastro.setAttribute("d", caminho(hist.map((l, i) => [ex(Math.min(i, 30)), ey(Math.max(0.3, Math.min(0.72, l)))])));
+      vX.textContent = "x (260 processos)";
+      vY.textContent = "y (260 processos)";
+      vW.textContent = num(w);
+      vB.textContent = num(b);
+      vYh.textContent = yhat == null ? "" : `ex.: juros de 2,5% → ${pct(sig(w * (0.5 / 0.6) + b))}`;
+      vL.textContent = hist.length ? num(hist[hist.length - 1], 3) : "";
+      tGw.textContent = gw == null ? "" : `gradiente de w: ${num(gw, 3)}`;
+      tGb.textContent = gb == null ? "" : `gradiente de b: ${num(gb, 3)}`;
+    };
+    const brilho = (setas, cor) => gsap.fromTo(setas, { opacity: 0.15 }, { opacity: 1, duration: 0.35, stagger: 0.15, overwrite: true });
+    const apaga = (setas) => gsap.to(setas, { opacity: 0.15, duration: 0.3, overwrite: true });
+    const msg = $("#treino-msg");
+    const textos = [
+      "Os pesos começam em zero: a previsão é 50% para todo processo.",
+      "<b>1. Passo para frente:</b> cada processo passa pela conta do neurônio, e a previsão é comparada com a sentença real. O erro resume o quanto a rede errou.",
+      "<b>2. Gradientes (passo para trás):</b> para cada peso, quanto o erro muda se o peso aumentar um pouco. O cálculo volta do erro até os pesos: é a <b>retropropagação</b>.",
+      "<b>3. Atualização:</b> cada peso anda um pouco no sentido contrário ao gradiente, o que diminui o erro. E o ciclo recomeça.",
+    ];
+    const passo = () => {
+      if (fase === 0 || fase === 3) {
+        if (fase === 3) { w -= TAXA * gw; b -= TAXA * gb; gw = gb = null; }
+        yhat = true;
+        hist.push(perda(w, b));
+        apaga(tras); brilho(frente);
+        fase = 1;
+      } else if (fase === 1) {
+        [gw, gb] = grad();
+        apaga(frente); brilho(tras);
+        fase = 2;
+      } else {
+        w -= TAXA * gw; b -= TAXA * gb;
+        gsap.fromTo([vW, vB], { fill: "var(--marca)" }, { fill: "var(--texto)", duration: 1 });
+        gw = gb = null;
+        apaga(tras); apaga(frente);
+        fase = 3;
+      }
+      tFase.textContent = ["", "passo para frente", "passo para trás (gradientes)", "atualização dos pesos"][fase];
+      msg.innerHTML = textos[fase];
+      desenha();
+    };
+    const reinicia = () => { w = 0; b = 0; fase = 0; hist = []; yhat = gw = gb = null; apaga(frente); apaga(tras); tFase.textContent = ""; msg.innerHTML = textos[0]; desenha(); };
     let rodando = null;
-    $("#tre-play").addEventListener("click", () => {
+    $("#tre-passo").addEventListener("click", () => { if (!rodando) passo(); });
+    $("#tre-auto").addEventListener("click", () => {
       if (rodando) { clearInterval(rodando); rodando = null; return; }
-      let k = +ent.value >= F.length - 1 ? 0 : +ent.value;
-      rodando = setInterval(() => {
-        ent.value = k; mostra(k); k++;
-        if (k >= F.length) { clearInterval(rodando); rodando = null; }
-      }, 420);
+      let n = 0;
+      rodando = setInterval(() => { passo(); if (++n >= 45) { clearInterval(rodando); rodando = null; } }, 160);
     });
-    mostra(0);
+    $("#tre-zera").addEventListener("click", () => { if (rodando) { clearInterval(rodando); rodando = null; } reinicia(); });
+    gsap.set([...frente, ...tras], { opacity: 0.15 });
+    reinicia();
   }
 
   /* ====================================================================== */
@@ -3462,6 +3543,117 @@ padding: .7em .85em; font-size: .74em; line-height: 1.35; }
     passos("#g-params", "param", [cresce(barras[3]), cresce(barras[4])]);
   }
 
+  /* ====================================================================== */
+  /* 5b. Cada palavra ganha um número                                       */
+  /* ====================================================================== */
+
+  const FRASES = [["o", "réu", "pagou", "a", "dívida"], ["o", "réu", "quitou", "a", "dívida"], ["o", "autor", "pagou", "a", "multa"]];
+  const VOCAB = ["o", "réu", "pagou", "a", "dívida", "quitou", "autor", "multa"];
+
+  function desenharIds() {
+    const caixa = $("#g-ids");
+    if (!caixa) return;
+    const svg = el("svg", { viewBox: "0 0 1160 420", class: "grafico-svg" }, caixa);
+    const ids = [];
+    FRASES.forEach((fr, k) => {
+      let x = 40;
+      const y = 60 + k * 100;
+      fr.forEach((p) => {
+        const w = 30 + p.length * 15;
+        texto(svg, x + w / 2, y, p, { "text-anchor": "middle", class: "tok-frase" });
+        const id = texto(svg, x + w / 2, y + 40, String(VOCAB.indexOf(p) + 1), { "text-anchor": "middle", class: "tok-id" });
+        ids.push(id);
+        x += w + 12;
+      });
+    });
+    // o vocabulário
+    const gV = el("g", {}, svg);
+    texto(gV, 760, 40, "vocabulário", { class: "rotulo-eixo forte" });
+    VOCAB.forEach((p, i) => {
+      const y = 72 + i * 34;
+      texto(gV, 760, y, String(i + 1), { class: "tok-id" });
+      texto(gV, 800, y, p, { class: "rotulo-eixo forte" });
+    });
+    // o problema: a régua dos números
+    const gR = el("g", {}, svg);
+    const rx = escala(1, 8, 70, 660);
+    el("line", { x1: 50, x2: 680, y1: 370, y2: 370, class: "eixo" }, gR);
+    VOCAB.forEach((p, i) => {
+      el("circle", { cx: rx(i + 1), cy: 370, r: 6, class: p === "pagou" || p === "quitou" ? "ponto-1" : "ponto-0" }, gR);
+      texto(gR, rx(i + 1), 400, `${i + 1} ${p}`, { "text-anchor": "middle", class: "rotulo-eixo" });
+    });
+    texto(gR, (rx(3) + rx(6)) / 2, 350, "pagou (3) e quitou (6): longe, mas querem dizer o mesmo", { "text-anchor": "middle", class: "anot final-txt" });
+    gsap.set([...ids, gV, gR], { autoAlpha: 0 });
+    const t1 = linha();
+    t1.fromTo(gV, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.4, immediateRender: false });
+    t1.fromTo(ids, { autoAlpha: 0, y: -10 }, { autoAlpha: 1, y: 0, stagger: 0.06, duration: 0.3, immediateRender: false });
+    const t2 = linha();
+    t2.fromTo(gR, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.5, immediateRender: false });
+    passos("#g-ids", "ids", [t1, t2], "#leg-ids");
+  }
+
+  /* ====================================================================== */
+  /* 5c. One-hot, embedding e a média da frase                              */
+  /* ====================================================================== */
+
+  function desenharOneHot() {
+    const caixa = $("#g-onehot");
+    if (!caixa) return;
+    const svg = el("svg", { viewBox: "0 0 1160 430", class: "grafico-svg" }, caixa);
+    // one-hot de "pagou" e "quitou": oito posições, um só 1
+    const gO = el("g", {}, svg);
+    texto(gO, 40, 30, "one-hot: uma coluna por palavra do vocabulário", { class: "rotulo-eixo forte" });
+    ["pagou", "quitou", "multa"].forEach((p, k) => {
+      const x = 60 + k * 110;
+      texto(gO, x + 20, 62, p, { "text-anchor": "middle", class: "rotulo-eixo forte" });
+      VOCAB.forEach((v, i) => {
+        const um = v === p;
+        el("rect", { x, y: 74 + i * 38, width: 40, height: 34, class: um ? "oh-um" : "oh-zero" }, gO);
+        texto(gO, x + 20, 97 + i * 38, um ? "1" : "0", { "text-anchor": "middle", class: "oh-txt" });
+      });
+    });
+    texto(gO, 210, 400, "todas a mesma distância umas das outras", { "text-anchor": "middle", class: "anot" });
+    // embedding: uma linha por palavra, com 3 números (ilustrativos)
+    const E = { o: [0.1, 0.0, 0.2], "réu": [0.7, 0.1, -0.3], pagou: [-0.5, 0.8, 0.4], a: [0.0, 0.1, 0.1],
+      "dívida": [-0.2, 0.6, 0.9], quitou: [-0.4, 0.9, 0.3], autor: [0.8, 0.0, -0.2], multa: [-0.1, 0.5, -0.8] };
+    const gE = el("g", {}, svg);
+    const x0 = 440;
+    texto(gE, x0, 30, "embedding: cada palavra, uma linha de números aprendidos", { class: "rotulo-eixo forte" });
+    ["d1", "d2", "d3"].forEach((d, j) => texto(gE, x0 + 150 + j * 80, 62, d, { "text-anchor": "middle", class: "rotulo-eixo forte" }));
+    const linhasE = {};
+    VOCAB.forEach((p, i) => {
+      const y = 74 + i * 38;
+      const g = el("g", {}, gE);
+      el("rect", { x: x0, y, width: 380, height: 34, class: "emb-linha" }, g);
+      texto(g, x0 + 10, y + 23, p, { class: "rotulo-eixo forte" });
+      E[p].forEach((v, j) => texto(g, x0 + 150 + j * 80, y + 23, num(v, 1), { "text-anchor": "middle", class: "rotulo-eixo" }));
+      linhasE[p] = g;
+    });
+    texto(gE, x0 + 190, 400, "números ilustrativos; nos modelos reais, centenas por palavra", { "text-anchor": "middle", class: "rotulo-eixo" });
+    // a frase: a média das linhas
+    const gM = el("g", {}, svg);
+    const fr = FRASES[0];
+    texto(gM, 900, 62, `"${fr.join(" ")}"`, { class: "rotulo-eixo forte" });
+    const media = [0, 1, 2].map((j) => fr.reduce((s, p) => s + E[p][j], 0) / fr.length);
+    texto(gM, 900, 110, "média das linhas das palavras:", { class: "rotulo-eixo" });
+    media.forEach((v, j) => {
+      el("rect", { x: 900 + j * 80, y: 124, width: 70, height: 40, rx: 6, class: "emb-media" }, gM);
+      texto(gM, 935 + j * 80, 150, num(v, 2), { "text-anchor": "middle", class: "rotulo-eixo forte" });
+    });
+    texto(gM, 900, 200, "um texto vira um vetor;", { class: "anot" });
+    texto(gM, 900, 226, "textos parecidos, vetores parecidos", { class: "anot" });
+    gsap.set([gE, gM], { autoAlpha: 0 });
+    const t1 = linha();
+    t1.to(gO, { opacity: 0.35, duration: 0.3 }, 0);
+    t1.fromTo(gE, { autoAlpha: 0, x: -20 }, { autoAlpha: 1, x: 0, duration: 0.5, immediateRender: false }, 0);
+    const t2 = linha();
+    for (const p of ["pagou", "quitou"]) t2.to(linhasE[p].querySelector("rect"), { fill: "color-mix(in srgb, var(--marca) 22%, transparent)", duration: 0.4 }, 0);
+    const t3 = linha();
+    for (const p of ["pagou", "quitou"]) t3.to(linhasE[p].querySelector("rect"), { fill: "var(--superficie)", duration: 0.2 }, 0);
+    for (const p of fr) t3.to(linhasE[p].querySelector("rect"), { fill: "color-mix(in srgb, var(--turquesa) 22%, transparent)", duration: 0.3 }, 0.1);
+    t3.fromTo(gM, { autoAlpha: 0, x: -20 }, { autoAlpha: 1, x: 0, duration: 0.5, immediateRender: false }, 0.4);
+    passos("#g-onehot", "onehot", [t1, t2, t3], "#leg-onehot");
+  }
   /* ====================================================================== */
   /* 6. Tokens e o vetor                                                    */
   /* ====================================================================== */
@@ -3539,7 +3731,9 @@ padding: .7em .85em; font-size: .74em; line-height: 1.35; }
       html("span", "mapa-chave", leg, `<i style="background:${COR_TEMA[t]}"></i>${t} (${E.por_tema[t]})`);
     }
     const info = $("#mapa-info");
+    info.style.display = "none";
     function escolher(i) {
+      info.style.display = "";
       const p = P[i];
       bolas.forEach((b) => b.classList.remove("aceso", "escolhido"));
       // a opacidade vai pelo GSAP, que é quem já controla a entrada dos pontos
@@ -3559,13 +3753,29 @@ padding: .7em .85em; font-size: .74em; line-height: 1.35; }
         `<p class="mapa-tit">As cinco mais parecidas (semelhança de 0 a 1)</p><ol class="mapa-viz">${viz}</ol>`;
       gsap.fromTo(info, { autoAlpha: 0.3 }, { autoAlpha: 1, duration: 0.3 });
     }
-    // os pontos saem todos do centro
+    // passo 1: uma ementa de cada tema, com o assunto ao lado
+    const exemplos = Object.keys(COR_TEMA).map((t) => P.findIndex((p) => p.t === t));
+    const gEx = el("g", {}, svg);
+    const rotulos = exemplos.map((i) => {
+      const p = P[i], x = sx(p.x), y = sy(p.y);
+      const t = texto(gEx, x + (p.x > 0.6 ? -14 : 14), y - 12, p.a.length > 34 ? p.a.slice(0, 33) + "..." : p.a,
+        { "text-anchor": p.x > 0.6 ? "end" : "start", class: "rotulo-eixo forte rotulo-exemplo" });
+      return t;
+    });
     const t1 = linha();
-    t1.fromTo(bolas, { attr: { cx: sx(0.5), cy: sy(0.5) }, autoAlpha: 0 },
-      { attr: { cx: (i) => sx(P[i].x), cy: (i) => sy(P[i].y) }, autoAlpha: 1, duration: 1.4, ease: "power3.out",
-        stagger: { amount: 0.6, from: "random" }, immediateRender: false });
+    t1.fromTo(exemplos.map((i) => bolas[i]), { autoAlpha: 0, attr: { r: 0 } },
+      { autoAlpha: 1, attr: { r: 9 }, duration: 0.6, stagger: 0.3, ease: "back.out(3)", immediateRender: false });
+    t1.fromTo(rotulos, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.4, stagger: 0.3, immediateRender: false }, 0.2);
+    // passo 2: as outras saem do centro
+    const resto = bolas.filter((_, i) => !exemplos.includes(i));
+    const t2 = linha();
+    t2.to(rotulos, { autoAlpha: 0, duration: 0.3 }, 0);
+    t2.to(exemplos.map((i) => bolas[i]), { attr: { r: 4.5 }, duration: 0.4 }, 0);
+    t2.fromTo(resto, { attr: { cx: sx(0.5), cy: sy(0.5) }, autoAlpha: 0 },
+      { attr: { cx: (k) => sx(P[bolas.indexOf(resto[k])].x), cy: (k) => sy(P[bolas.indexOf(resto[k])].y) }, autoAlpha: 1,
+        duration: 1, ease: "power3.out", stagger: { amount: 0.4, from: "random" }, immediateRender: false }, 0.2);
     gsap.set(bolas, { autoAlpha: 0 });
-    passos("#g-mapa", "mapa", [t1]);
+    passos("#g-mapa", "mapa", [t1, t2, linha()], "#leg-mapa");
   }
 
   /* ====================================================================== */
@@ -3683,6 +3893,8 @@ padding: .7em .85em; font-size: .74em; line-height: 1.35; }
     desenharTreino();
     desenharMapasRede();
     desenharParams();
+    desenharIds();
+    desenharOneHot();
     desenharTokens();
     desenharMapa();
     desenharBusca();
