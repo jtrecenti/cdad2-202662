@@ -1241,53 +1241,7 @@ processo C
 <p><span class="fragment enxame"></span> <span class="fragment enxame"></span></p>
 </section>
 <section class="slide level2">
-<h2>A explicação é do modelo, não do mundo</h2>
-<div class="colunas larga-esquerda">
-<div>
-<div id="g-causal">
-
-</div>
-</div>
-<div>
-<div id="leg-causal" class="legendas">
-<div>
-<p>Na cascata do <strong>processo C</strong>, “escritório de massa = sim” tirou <strong>14 pontos</strong> da previsão. Como ler isso?</p>
-</div>
-<div>
-<p><strong>Leitura errada:</strong> “se o autor trocasse de escritório, a chance subiria 14 pontos”. O modelo não foi feito para responder o que aconteceria se algo mudasse.</p>
-</div>
-<div>
-<p><strong>Leitura certa:</strong> nesta base, processos de escritório de massa <strong>costumam perder</strong>, e o modelo usa essa associação. O motivo pode ser outro: escritórios de massa levam ações <strong>padronizadas, com pouca prova</strong>, e é isso que pesa na sentença.</p>
-</div>
-<div>
-<p>Para saber o efeito de trocar de escritório, é preciso um <strong>desenho causal</strong> (aulas 16 a 18). O SHAP serve para <strong>conferir</strong> o modelo (uma variável que pesa demais pode ser vazamento), <strong>contestar</strong> um caso e <strong>auditar</strong> grupos.</p>
-</div>
-</div>
-</div>
-</div>
-<p><span class="fragment causal"></span> <span class="fragment causal"></span> <span class="fragment causal"></span></p>
-</section>
-<section class="slide level2">
-<h2>Justiça algorítmica: o que é e por que importa</h2>
-<div class="colunas">
-<div>
-<div class="caixa caso">
-<p><span class="rotulo">Relembrando o Projeto 06</span></p>
-<p>O NatJus recebe <strong>1.000 processos de saúde</strong> por mês e consegue fazer <strong>análise aprofundada</strong> em 150. Um modelo dá a cada processo a probabilidade de precisar dessa análise, e o <strong>corte</strong> decide quem recebe.</p>
-<p>O erro grave é o caso que <strong>precisava</strong> de análise e ficou de fora: um paciente cujo pedido foi decidido sem o parecer de que precisava.</p>
-</div>
-</div>
-<div>
-<div class="caixa ideia">
-<p><span class="rotulo">A pergunta da justiça algorítmica</span></p>
-<p>Esses erros caem <strong>igualmente</strong> sobre grupos diferentes de pessoas?</p>
-<p>Um modelo pode ter boa AUC no geral e, ainda assim, falhar mais com um grupo, <strong>sem usar</strong> nenhuma variável sobre o grupo. Aqui, o grupo é <strong>quem é o réu</strong>: o <strong>poder público</strong>, nos pedidos de pacientes do SUS, ou um <strong>plano de saúde</strong>.</p>
-</div>
-</div>
-</div>
-</section>
-<section class="slide level2">
-<h2>O mesmo corte, erros diferentes por grupo</h2>
+<h2>Justiça algorítmica: o modelo erra igual com todos?</h2>
 <div class="colunas larga-esquerda">
 <div>
 <div id="g-just1">
@@ -1295,24 +1249,21 @@ processo C
 </div>
 </div>
 <div>
-<div class="ctrl">
-<p><label class="ctrl-rotulo">ponto de corte: <b id="just1-v"></b></label> <input type="range" id="just1-a" min="0.05" max="0.6" step="0.005" value="0.2"></p>
-</div>
 <div id="leg-just1" class="legendas">
 <div>
-<p>O corte que a turma escolheu no Projeto 06 (mediana de <strong>0,20</strong>), aplicado aos dois grupos. Três medidas para cada grupo de réu.</p>
+<p><strong>Relembrando o Projeto 06:</strong> o NatJus não consegue analisar todos os processos de saúde, e um modelo dá a cada um a probabilidade de precisar de análise. Cada ponto é um processo; à direita do <strong>corte</strong>, ele recebe análise. (Exemplo ilustrativo; no notebook, a base real.)</p>
 </div>
 <div>
-<p><strong>Processos marcados:</strong> quantos processos do grupo recebem análise. O poder público tem mais processos marcados.</p>
+<p>Depois do parecer, sabemos quais processos <strong>precisavam</strong> de análise (em vermelho). Os vermelhos com anel, à esquerda do corte, são o erro grave: o paciente precisava da análise e <strong>ficou sem</strong>.</p>
 </div>
 <div>
-<p><strong>Sensibilidade:</strong> de cada 100 processos que <strong>precisavam</strong> de análise, quantos o modelo encontra. Com o mesmo corte, encontra menos quando o réu é um plano.</p>
+<p>Agora separamos os processos por <strong>quem é o réu</strong>: o <strong>poder público</strong> (pacientes do SUS) ou um <strong>plano de saúde</strong>. O modelo não usa essa informação.</p>
 </div>
 <div>
-<p><strong>Precisão:</strong> de cada 100 processos <strong>marcados</strong>, quantos precisavam. Aqui são os planos que ficam na frente.</p>
+<p>Com o mesmo corte, o modelo acha <strong>8 de cada 10</strong> pacientes que precisavam quando o réu é o poder público, mas só <strong>5 de cada 10</strong> quando é um plano. Essa proporção é a <strong>sensibilidade</strong>, agora medida por grupo.</p>
 </div>
 <div>
-<p><strong>Para a turma:</strong> e se a sensibilidade fosse <strong>80%</strong> para quem processa o poder público e <strong>50%</strong> para quem processa um plano? Seria aceitável? Arraste o corte.</p>
+<p><strong>Por quê?</strong> Nos planos, os casos que precisavam ganharam probabilidades mais baixas: o modelo os reconhece pior. <strong>Para a turma:</strong> isso é aceitável? O que vocês fariam? (Dá para arrastar o corte.)</p>
 </div>
 </div>
 </div>
@@ -1320,7 +1271,7 @@ processo C
 <p><span class="fragment just1"></span> <span class="fragment just1"></span> <span class="fragment just1"></span> <span class="fragment just1"></span></p>
 </section>
 <section class="slide level2">
-<h2>Critérios de justiça que não cabem juntos</h2>
+<h2>Igualar um erro desiguala outro</h2>
 <div class="colunas larga-esquerda">
 <div>
 <div id="g-just2">
@@ -1328,21 +1279,18 @@ processo C
 </div>
 </div>
 <div>
-<div class="ctrl">
-<p><label class="ctrl-rotulo">corte, réu poder público: <b id="just2-v0"></b></label> <input type="range" id="just2-a0" min="0.05" max="0.6" step="0.005" value="0.2"> <label class="ctrl-rotulo">corte, réu plano de saúde: <b id="just2-v1"></b></label> <input type="range" id="just2-a1" min="0.05" max="0.6" step="0.005" value="0.2"></p>
-</div>
 <div id="leg-just2" class="legendas">
 <div>
-<p>Uma saída é dar a cada grupo <strong>o seu corte</strong>. Começamos com 0,20 para os dois.</p>
+<p>Uma saída: dar <strong>um corte a cada grupo</strong>. Começamos com o mesmo corte, 0,5, nos dois. Com o mesmo corte, o modelo acha 8 de cada 10 contra 5 de cada 10.</p>
 </div>
 <div>
-<p><strong>Critério da mesma sensibilidade:</strong> quem precisa de análise tem a mesma chance de ser encontrado, seja qual for o réu. Para isso, o corte dos planos desce para <strong>0,175</strong>.</p>
+<p>O corte dos planos desce para <strong>0,35</strong>. Agora quem precisa de análise tem a mesma chance de ser encontrado, <strong>8 em 10</strong>, seja qual for o réu. O custo: 10 análises a mais.</p>
 </div>
 <div>
-<p>Mas as outras barras continuam diferentes: a <strong>marcação</strong> e a <strong>precisão</strong>. Na base, precisam de análise <strong>10%</strong> dos processos contra o poder público e <strong>7%</strong> dos contra planos. Com proporções diferentes, igualar uma medida desiguala as outras.</p>
+<p>Mas olhe para quem <strong>recebeu</strong> análise (anel azul: não precisava). No poder público, <strong>2 de cada 3</strong> analisados precisavam; nos planos, só <strong>2 de cada 5</strong>. Essa proporção é a <strong>precisão</strong>, e agora é ela que fica diferente.</p>
 </div>
 <div>
-<p>Não existe corte que deixe as três iguais. <strong>Escolher qual igualdade importa é uma decisão normativa</strong>, como a escolha do corte no Projeto 06.</p>
+<p>Cada corte iguala <strong>uma</strong> medida, não as duas. No fundo, os grupos são diferentes: precisam <strong>20 de 100</strong> contra <strong>10 de 100</strong>. Com proporções diferentes, um modelo que erra não consegue ter erros e precisão iguais ao mesmo tempo. <strong>Qual igualdade importa é uma decisão normativa.</strong></p>
 </div>
 </div>
 </div>
@@ -1350,7 +1298,7 @@ processo C
 <p><span class="fragment just2"></span> <span class="fragment just2"></span> <span class="fragment just2"></span></p>
 </section>
 <section class="slide level2">
-<h2>O caso COMPAS: o mesmo modelo, dois diagnósticos</h2>
+<h2>O mesmo dilema num caso real: o COMPAS</h2>
 <div class="colunas larga-esquerda">
 <div>
 <div id="g-compas">
@@ -1360,21 +1308,24 @@ processo C
 <div>
 <div id="leg-compas" class="legendas">
 <div>
-<p>O <strong>COMPAS</strong> é um programa usado em tribunais dos EUA que dá ao réu uma nota de <strong>risco de reincidência</strong>, levada em conta em decisões de fiança e de pena. Ele <strong>não usa raça</strong> como variável. Em 2016, a ProPublica comparou as notas de cerca de 7 mil réus da Flórida com o que aconteceu nos dois anos seguintes.</p>
+<p>O <strong>COMPAS</strong> dá a cada réu uma nota de <strong>risco de reincidência</strong>, usada nos EUA em decisões de fiança e de pena. É o desenho do NatJus com outros nomes: <strong>réus</strong> no lugar de processos, <strong>voltar a ser preso</strong> em dois anos no lugar de precisar de análise, <strong>alto risco</strong> no lugar de receber análise.</p>
 </div>
 <div>
-<p>Entre os réus que <strong>não</strong> voltaram a ser presos, <strong>45%</strong> dos negros tinham sido marcados como <strong>alto risco</strong>, contra <strong>23%</strong> dos brancos. O erro de acusar a mais recai sobre os réus negros.</p>
+<p>Em 2016, a ProPublica seguiu cerca de 7 mil réus da Flórida. Cada ponto é 1 de 100 réus de cada grupo. Em <strong>vermelho</strong>, quem voltou a ser preso: <strong>51</strong> de cada 100 réus negros e <strong>39</strong> de cada 100 brancos. As proporções são diferentes, como os 20 e os 10 do NatJus.</p>
 </div>
 <div>
-<p>Entre os que <strong>voltaram</strong>, <strong>48%</strong> dos brancos tinham sido marcados como <strong>baixo risco</strong>, contra <strong>28%</strong> dos negros. O erro de aliviar a mais favorece os réus brancos.</p>
+<p>O anel escuro marca quem o COMPAS chamou de <strong>alto risco</strong>. Entre os que <strong>não</strong> voltaram, <strong>45%</strong> dos réus negros foram marcados de alto risco, contra <strong>23%</strong> dos brancos. O erro de <strong>acusar a mais</strong> recai sobre os réus negros.</p>
 </div>
 <div>
-<p>A empresa respondeu: entre os marcados como alto risco, cerca de <strong>6 em cada 10</strong> reincidiram, nos <strong>dois</strong> grupos, então a nota significa o mesmo para todos. As duas análises estão certas: é o conflito do slide anterior.</p>
+<p>Entre os que <strong>voltaram</strong>, cerca de <strong>1 em 4</strong> réus negros foi marcado de baixo risco, contra <strong>1 em 2</strong> brancos. O erro de <strong>aliviar a mais</strong> favorece os réus brancos. Essa foi a denúncia da ProPublica.</p>
+</div>
+<div>
+<p>A empresa respondeu olhando a <strong>precisão</strong>: dos marcados de alto risco, voltaram <strong>63%</strong> dos negros e <strong>59%</strong> dos brancos, quase o mesmo. As duas análises estão certas, e não dá para igualar as duas coisas: é o slide anterior.</p>
 </div>
 </div>
 </div>
 </div>
-<p><span class="fragment compas"></span> <span class="fragment compas"></span> <span class="fragment compas"></span></p>
+<p><span class="fragment compas"></span> <span class="fragment compas"></span> <span class="fragment compas"></span> <span class="fragment compas"></span></p>
 </section>
 <section class="slide level2 denso">
 <h2>Sexo, raça e as variáveis que fazem as vezes delas</h2>
@@ -1439,32 +1390,35 @@ processo C
 </div>
 <p><span class="fragment analogia"></span> <span class="fragment analogia"></span></p>
 </section>
-<section class="slide level2 denso">
-<h2>Decisões automatizadas na LGPD e no Judiciário</h2>
-<div class="colunas">
+<section class="slide level2">
+<h2>O que a LGPD garante num caso de crédito</h2>
+<div class="colunas larga-esquerda">
 <div>
-<div class="caixa caso">
-<p><span class="rotulo">O que a lei garante</span></p>
-<ul>
-<li><strong>LGPD, art. 20:</strong> pedir <strong>revisão</strong> de decisão tomada <strong>unicamente</strong> por tratamento automatizado que afete seus interesses (perfil, crédito etc.).</li>
-<li><strong>Art. 20, § 1º:</strong> saber os <strong>critérios e procedimentos</strong>, ressalvados os segredos comercial e industrial; pelo <strong>§ 2º</strong>, a ANPD pode fazer auditoria.</li>
-<li>A revisão “por pessoa natural” foi <strong>vetada</strong> (Lei 13.853/2019).</li>
-<li>No Judiciário, a <strong>Resolução CNJ 615/2025</strong> exige supervisão humana e classificação de risco das soluções de IA.</li>
-</ul>
+<div id="g-lgpd">
+
 </div>
 </div>
 <div>
-<div class="caixa exercicio">
-<p><span class="rotulo">Exemplo: o score de crédito</span></p>
-<p>Um banco nega um empréstimo com base num <strong>score</strong> calculado por um modelo.</p>
-<ul>
-<li>O STJ (<strong>Súmula 550</strong>) admite o score sem consentimento, mas o consumidor pode pedir esclarecimentos sobre os dados pessoais usados e as fontes.</li>
-<li>Pela LGPD, ele pode pedir <strong>revisão</strong> e saber os <strong>critérios</strong>. O banco alega segredo comercial.</li>
-<li>Uma <strong>cascata</strong> do caso dele e a <strong>auditoria por grupo</strong> são formas de explicar sem abrir o código.</li>
-</ul>
+<div id="leg-lgpd" class="legendas">
+<div>
+<p><strong>Um caso:</strong> Ana pede um empréstimo. O banco passa os dados dela por um modelo, que calcula um <strong>score</strong> de crédito, e o pedido é negado sem que ninguém olhe o caso.</p>
+</div>
+<div>
+<p>Pela <strong>LGPD, art. 20</strong>, quem é afetado por uma decisão tomada <strong>só por máquina</strong>, inclusive de crédito, pode pedir <strong>revisão</strong>. O <strong>§ 1º</strong> garante informação clara sobre os <strong>critérios e procedimentos</strong> usados.</p>
+</div>
+<div>
+<p>O banco responde que os critérios são <strong>segredo comercial</strong>, uma ressalva que a própria lei faz. O STJ (<strong>Súmula 550</strong>) já dizia: o score dispensa consentimento, mas o consumidor pode pedir esclarecimentos sobre os <strong>dados</strong> e as <strong>fontes</strong> usados.</p>
+</div>
+<div>
+<p>Dá para explicar sem abrir o código: a <strong>cascata</strong> do caso de Ana mostra o que pesou contra ela. E, diante do segredo, o <strong>§ 2º</strong> deixa a ANPD <strong>auditar</strong> se há discriminação: por exemplo, se o modelo nega mais a quem mora na periferia. (Números ilustrativos.)</p>
+</div>
+<div>
+<p>Dois limites. A revisão <strong>por pessoa natural</strong> foi vetada em 2019: ela pode ser feita por outro sistema. No <strong>Judiciário</strong>, a Resolução CNJ 615/2025 exige supervisão humana e classificação de risco das soluções de IA.</p>
 </div>
 </div>
 </div>
+</div>
+<p><span class="fragment lgpd"></span> <span class="fragment lgpd"></span> <span class="fragment lgpd"></span> <span class="fragment lgpd"></span></p>
 </section>
 <section class="slide level2">
 <h2>Exercício no notebook: explicar e auditar um modelo</h2>
@@ -1498,7 +1452,7 @@ processo C
 <p><span class="rotulo">Pontos principais da aula</span></p>
 <ul>
 <li>A logística e a árvore se leem; a floresta precisa do <strong>SHAP</strong>, que reparte a previsão entre as variáveis.</li>
-<li>A <strong>cascata</strong> explica um caso; o <strong>enxame</strong>, muitos casos. A explicação é do modelo: <strong>não é efeito causal</strong>.</li>
+<li>A <strong>cascata</strong> explica um caso; o <strong>enxame</strong>, muitos casos.</li>
 <li>O mesmo modelo pode <strong>errar diferente</strong> entre grupos, e os critérios de justiça não cabem todos juntos.</li>
 <li>Tirar sexo e raça <strong>não basta</strong>: outras variáveis fazem as vezes delas.</li>
 <li>A <strong>LGPD</strong> garante revisão e informação sobre os critérios.</li>
@@ -3063,58 +3017,7 @@ border: 2px solid var(--azul); background: var(--azul); color: #fff; cursor: poi
 #leg-conf [id^="conf-"] { font-weight: 800; }
 #conf-sens, #conf-prec { display: inline-block; font-size: 1.3em; }
 </style>
-    <style type="text/css">
-
-.grafico-svg .seta-corpo { stroke-width: 9; stroke-linecap: butt; }
-.grafico-svg .seta.juros .seta-corpo { stroke: var(--laranja); }
-.grafico-svg .seta.juros .seta-ponta { fill: var(--laranja); }
-.grafico-svg .seta.causa .seta-corpo { stroke: var(--roxo); }
-.grafico-svg .seta.causa .seta-ponta { fill: var(--roxo); }
-.grafico-svg .juros-txt { fill: var(--laranja); }
-.grafico-svg .causa-txt { fill: var(--roxo); }
-.grafico-svg .guia-juros { stroke: var(--laranja); stroke-width: 3; stroke-dasharray: 6 5; }
-.grafico-svg .guia-causa { stroke: var(--roxo); stroke-width: 3; stroke-dasharray: 6 5; }
-.grafico-svg .estrela { fill: #f2b700; stroke: var(--texto); stroke-width: 1.5; }
-.grafico-svg .linha-base { stroke: var(--texto-fraco); stroke-width: 2.5; stroke-dasharray: 7 6; }
-.grafico-svg .linha-final { stroke: var(--marca); stroke-width: 2.5; stroke-dasharray: 7 6; }
-.grafico-svg .final-txt { fill: var(--marca); }
-.grafico-svg .linha-zero { stroke: var(--texto); stroke-width: 1.5; }
-
-.grafico-svg .barra-pos { fill: var(--marca); }
-.grafico-svg .barra-neg { fill: var(--azul); }
-.grafico-svg .conector { stroke: var(--texto-fraco); stroke-width: 1.2; stroke-dasharray: 3 3; }
-.grafico-svg .cascata-rot { font-size: 14px; }
-.grafico-svg .ponto-enxame { opacity: .85; }
-.grafico-svg .barra-imp { fill: var(--turquesa); }
-
-.grafico-svg .barra-grupo.g0 { fill: var(--laranja); }
-.grafico-svg .barra-grupo.g1 { fill: var(--turquesa); }
-#just1-num { font-size: .7em; margin: .5em 0; }
-#just1-num b { font-size: 1.4em; }
-#botoes-cascata { margin-top: 0; }
-#cascata-dados { min-height: .2em; }
-
-.grafico-svg .palavra-ponto { fill: var(--texto); }
-.grafico-svg .palavra-ponto.destaque { fill: var(--marca); }
-.grafico-svg .vetor { stroke: var(--azul); stroke-width: 4; }
-.grafico-svg .ponta-vetor { fill: var(--azul); }
-
-#g-just2 + * .ctrl-rotulo + input { margin-bottom: .5em; }
-.reveal .ctrl input[type="range"] + .ctrl-rotulo { margin-top: .5em; }
-
-.grafico-svg .painel { fill: var(--superficie); stroke: var(--superficie-borda); stroke-width: 1.5; }
-.grafico-svg .barra-juros { fill: var(--laranja); }
-.grafico-svg .barra-causa { fill: var(--roxo); }
-.grafico-svg .mini-arvore { fill: var(--turquesa); opacity: .85; }
-.grafico-svg .voto-txt { fill: var(--texto); font-size: 13px; }
-.grafico-svg .aresta-dag { stroke: var(--texto-fraco); stroke-width: 3; fill: none; }
-.grafico-svg .aresta-dag.forte { stroke: var(--texto); }
-.grafico-svg .aresta-dag.duvida { stroke-dasharray: 8 6; }
-.grafico-svg .aresta-dag.audita { stroke: var(--turquesa); }
-.grafico-svg .ponta-dag { fill: var(--texto); }
-.grafico-svg .grande-x { font-size: 30px; }
-#leg-proxy { margin-top: .4em; }
-.grafico-svg .no-caixa.audita-caixa { stroke: var(--turquesa); stroke-width: 3; }
+    <style type="text/css">.grafico-svg .seta-corpo { stroke-width: 9; stroke-linecap: butt; }.grafico-svg .seta.juros .seta-corpo { stroke: var(--laranja); }.grafico-svg .seta.juros .seta-ponta { fill: var(--laranja); }.grafico-svg .seta.causa .seta-corpo { stroke: var(--roxo); }.grafico-svg .seta.causa .seta-ponta { fill: var(--roxo); }.grafico-svg .juros-txt { fill: var(--laranja); }.grafico-svg .causa-txt { fill: var(--roxo); }.grafico-svg .guia-juros { stroke: var(--laranja); stroke-width: 3; stroke-dasharray: 6 5; }.grafico-svg .guia-causa { stroke: var(--roxo); stroke-width: 3; stroke-dasharray: 6 5; }.grafico-svg .estrela { fill: #f2b700; stroke: var(--texto); stroke-width: 1.5; }.grafico-svg .linha-base { stroke: var(--texto-fraco); stroke-width: 2.5; stroke-dasharray: 7 6; }.grafico-svg .linha-final { stroke: var(--marca); stroke-width: 2.5; stroke-dasharray: 7 6; }.grafico-svg .final-txt { fill: var(--marca); }.grafico-svg .linha-zero { stroke: var(--texto); stroke-width: 1.5; }.grafico-svg .barra-pos { fill: var(--marca); }.grafico-svg .barra-neg { fill: var(--azul); }.grafico-svg .conector { stroke: var(--texto-fraco); stroke-width: 1.2; stroke-dasharray: 3 3; }.grafico-svg .cascata-rot { font-size: 14px; }.grafico-svg .ponto-enxame { opacity: .85; }.grafico-svg .barra-imp { fill: var(--turquesa); }.grafico-svg .barra-grupo.g0 { fill: var(--laranja); }.grafico-svg .barra-grupo.g1 { fill: var(--turquesa); }#just1-num { font-size: .7em; margin: .5em 0; }#just1-num b { font-size: 1.4em; }#botoes-cascata { margin-top: 0; }#cascata-dados { min-height: .2em; }.grafico-svg .palavra-ponto { fill: var(--texto); }.grafico-svg .palavra-ponto.destaque { fill: var(--marca); }.grafico-svg .vetor { stroke: var(--azul); stroke-width: 4; }.grafico-svg .ponta-vetor { fill: var(--azul); }#g-just2 + * .ctrl-rotulo + input { margin-bottom: .5em; }.reveal .ctrl input[type="range"] + .ctrl-rotulo { margin-top: .5em; }.grafico-svg .painel { fill: var(--superficie); stroke: var(--superficie-borda); stroke-width: 1.5; }.grafico-svg .barra-juros { fill: var(--laranja); }.grafico-svg .barra-causa { fill: var(--roxo); }.grafico-svg .mini-arvore { fill: var(--turquesa); opacity: .85; }.grafico-svg .voto-txt { fill: var(--texto); font-size: 13px; }.grafico-svg .aresta-dag { stroke: var(--texto-fraco); stroke-width: 3; fill: none; }.grafico-svg .aresta-dag.forte { stroke: var(--texto); }.grafico-svg .aresta-dag.duvida { stroke-dasharray: 8 6; }.grafico-svg .aresta-dag.audita { stroke: var(--turquesa); }.grafico-svg .ponta-dag { fill: var(--texto); }.grafico-svg .grande-x { font-size: 30px; }#leg-proxy { margin-top: .4em; }.grafico-svg .no-caixa.audita-caixa { stroke: var(--turquesa); stroke-width: 3; }.grafico-svg .pt { fill: #b9bec6; stroke: none; transition: fill .35s, stroke .3s, opacity .35s; }.grafico-svg .pt.precisa { fill: var(--marca); }.grafico-svg .pt.perdido { stroke: var(--texto); stroke-width: 2.5; }.grafico-svg .pt.sobra { stroke: var(--azul); stroke-width: 2.5; }.grafico-svg .pt.alto { stroke: var(--texto); stroke-width: 3.5; }.grafico-svg .pt.apagado { opacity: .15; }.grafico-svg .area-analise { fill: var(--turquesa); opacity: .1; }.grafico-svg .linha-corte { stroke: var(--texto); stroke-width: 2.5; stroke-dasharray: 6 4; }.grafico-svg .alca-corte { fill: var(--texto); cursor: ew-resize; }.grafico-svg .contador { fill: var(--texto); font-size: 18px; font-weight: 800; }.grafico-svg .contador.fraco { fill: var(--texto-fraco); font-weight: 600; }.grafico-svg .base-txt.destaque { fill: var(--marca); font-weight: 800; font-size: 17px; }.grafico-svg .grande-num { fill: var(--texto); font-size: 32px; font-weight: 800; }.grafico-svg .no-caixa.atencao-caixa { stroke: var(--laranja); stroke-width: 3; }.grafico-svg .contador, .grafico-svg .linha-corte + * { paint-order: stroke; stroke: var(--fundo); stroke-width: 6px; stroke-linejoin: round; }
 </style>
     <script>/*!
  * GSAP 3.12.5
@@ -3139,9 +3042,11 @@ border: 2px solid var(--azul); background: var(--azul); color: #fff; cursor: poi
  *   - cascata: a previsão de um processo montada variável por variável, com
  *     três processos para escolher;
  *   - enxame: o SHAP de 300 processos em cada variável, e a importância geral;
- *   - justiça: a triagem do NatJus por grupo de réu, com um corte para todos e
- *     depois com um corte por grupo;
- *   - COMPAS: as taxas de erro publicadas pela ProPublica;
+ *   - justiça: 200 processos como pontos (exemplo ilustrativo da triagem do
+ *     NatJus), na posição da probabilidade, com o corte arrastável; primeiro
+ *     juntos e depois por grupo de réu, e então com um corte por grupo;
+ *   - COMPAS: 100 réus de cada grupo, nas proporções da ProPublica;
+ *   - LGPD: o caso de crédito de Ana, do pedido negado à auditoria;
  *   - analogia: a seta de homem a mulher aplicada a programador (esquema).
  *
  * Cada slide com passos tem fragmentos vazios de uma classe própria; o passo k
@@ -3314,49 +3219,6 @@ border: 2px solid var(--azul); background: var(--azul); color: #fff; cursor: poi
     t3.fromTo(mini, { autoAlpha: 0, scale: 0.3, transformOrigin: "50% 50%" }, { autoAlpha: 1, scale: 1, stagger: 0.03, duration: 0.3, immediateRender: false });
     gsap.set([...cl, ...nos, ...mini], { autoAlpha: 0 });
     passos("#g-legivel", "legivel", [t1, t2, t3], "#leg-legivel");
-  }
-
-  /* ====================================================================== */
-  /* 3b. Associação não é causa: o diagrama do escritório de massa          */
-  /* ====================================================================== */
-
-  function desenharCausal() {
-    const caixa = $("#g-causal");
-    if (!caixa) return;
-    const svg = el("svg", { viewBox: "0 0 760 440", class: "grafico-svg" }, caixa);
-    const defs = el("defs", {}, svg);
-    for (const [id, cls] of [["seta-dag", "ponta-dag"], ["seta-dag-x", "ponta-dag x"]]) {
-      const mk = el("marker", { id, viewBox: "0 0 10 10", refX: 9, refY: 5, markerWidth: 8, markerHeight: 8, orient: "auto-start-reverse" }, defs);
-      el("path", { d: "M0 0 L10 5 L0 10 Z", class: cls }, mk);
-    }
-    const no = (x, y, w, linhas, cls) => {
-      const g = el("g", {}, svg);
-      el("rect", { x: x - w / 2, y: y - 32, width: w, height: 64, rx: 10, class: `no-caixa ${cls || ""}` }, g);
-      linhas.forEach((l, i) => texto(g, x, y + 6 + (i - (linhas.length - 1) / 2) * 22, l, { "text-anchor": "middle", class: "rotulo-eixo forte" }));
-      return g;
-    };
-    const A = no(140, 330, 220, ["escritório de massa"]);
-    const B = no(620, 330, 220, ["sentença favorável"]);
-    const C = no(380, 80, 300, ["ação padronizada,", "com pouca prova"], "folha-a");
-    const ab = el("line", { x1: 252, y1: 330, x2: 506, y2: 330, class: "aresta-dag", "marker-end": "url(#seta-dag)" }, svg);
-    const tab = texto(svg, 380, 312, "−14 pontos no modelo", { "text-anchor": "middle", class: "anot" });
-    const xis = texto(svg, 380, 368, "trocar de escritório muda a sentença?", { "text-anchor": "middle", class: "anot final-txt" });
-    const ca = el("line", { x1: 320, y1: 114, x2: 190, y2: 296, class: "aresta-dag forte", "marker-end": "url(#seta-dag)" }, svg);
-    const cb = el("line", { x1: 440, y1: 114, x2: 570, y2: 296, class: "aresta-dag forte", "marker-end": "url(#seta-dag)" }, svg);
-    const tac = texto(svg, 380, 412, "associação: andam juntos", { "text-anchor": "middle", class: "anot" });
-    gsap.set([xis, C, ca, cb, tac], { autoAlpha: 0 });
-    const t1 = linha();
-    t1.fromTo(xis, { autoAlpha: 0, y: 8 }, { autoAlpha: 1, y: 0, duration: 0.4, immediateRender: false });
-    t1.fromTo(ab, { attr: { class: "aresta-dag" } }, { attr: { class: "aresta-dag duvida" }, duration: 0.01, immediateRender: false });
-    const t2 = linha();
-    t2.to(xis, { autoAlpha: 0, duration: 0.3 });
-    t2.fromTo(C, { autoAlpha: 0, y: -12 }, { autoAlpha: 1, y: 0, duration: 0.5, immediateRender: false });
-    t2.fromTo([ca, cb], { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.5, stagger: 0.2, immediateRender: false });
-    t2.to(ab, { opacity: 0.35, duration: 0.4 });
-    t2.fromTo(tac, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.4, immediateRender: false });
-    const t3 = linha();
-    t3.to([A, B, ab, tab, tac], { opacity: 0.7, duration: 0.4 });
-    passos("#g-causal", "causal", [t1, t2, t3], "#leg-causal");
   }
 
   /* ====================================================================== */
@@ -3599,153 +3461,377 @@ border: 2px solid var(--azul); background: var(--azul); color: #fff; cursor: poi
   }
 
   /* ====================================================================== */
-  /* 4. Justiça por grupo na triagem do NatJus                              */
+  /* 4. Justiça por grupo: processos como pontos, num exemplo ilustrativo    */
   /* ====================================================================== */
 
-  function metricas(corte, grupo) {
-    let vp = 0, fp = 0, fn = 0, vn = 0;
-    for (const [p, a, g] of D.natjus.linhas) {
-      if (g !== grupo) continue;
-      const marcado = p >= corte;
-      if (marcado && a) vp++; else if (marcado) fp++; else if (a) fn++; else vn++;
+  // 100 processos por grupo, em faixas de probabilidade [quantos, de, até].
+  // Montados para que, com o corte 0,5, o modelo ache 16 dos 20 que precisam
+  // (poder público) e 5 dos 10 (planos); com 0,35 nos planos, acha 8 dos 10.
+  const FAIXAS = [
+    { pos: [[16, 0.52, 0.95], [4, 0.12, 0.47]], neg: [[8, 0.52, 0.74], [72, 0.02, 0.47]] },
+    { pos: [[5, 0.52, 0.86], [3, 0.36, 0.48], [2, 0.08, 0.3]], neg: [[5, 0.52, 0.68], [7, 0.36, 0.48], [78, 0.02, 0.33]] },
+  ];
+  const GRUPOS = ["poder público", "plano de saúde"];
+  const JX = escala(0, 1, 190, 770);
+  const BIN = 0.025, PASSO_Y = 11.5;
+  const BASE_JUNTO = 385, BASE_GRUPO = [212, 395];
+
+  function populacao() {
+    const P = [];
+    FAIXAS.forEach((f, g) => {
+      for (const [chave, precisa] of [["pos", 1], ["neg", 0]])
+        for (const [n, a, b] of f[chave])
+          for (let i = 0; i < n; i++) {
+            const u = (i + 0.5) / n;
+            // quem não precisa se concentra nas probabilidades baixas
+            P.push({ g, precisa, p: a + (b - a) * (precisa ? u : u ** 1.5) });
+          }
+    });
+    // empilha os pontos de cada faixa de 0,025, os vermelhos embaixo: todos
+    // juntos (yj) e separados por grupo (yg)
+    for (const separar of [false, true]) {
+      const cont = {};
+      for (const q of [...P].sort((a, b) => b.precisa - a.precisa || a.g - b.g)) {
+        const k = (separar ? q.g + ":" : "") + Math.floor(q.p / BIN);
+        cont[k] = (cont[k] || 0) + 1;
+        q[separar ? "yg" : "yj"] = (separar ? BASE_GRUPO[q.g] : BASE_JUNTO) - (cont[k] - 1) * PASSO_Y;
+      }
     }
-    const n = vp + fp + fn + vn;
-    return { marcados: vp + fp, taxa: (vp + fp) / n, sens: vp / (vp + fn), prec: vp + fp ? vp / (vp + fp) : 0 };
+    P.forEach((q) => (q.x = JX((Math.floor(q.p / BIN) + 0.5) * BIN)));
+    return P;
   }
 
-  // gráfico de barras: três medidas, dois grupos; devolve a função que atualiza
-  function barrasGrupos(svg) {
-    const N = D.natjus;
-    const medidas = [["taxa", "processos marcados"], ["sens", "sensibilidade"], ["prec", "precisão"]];
-    const m = { l: 60, r: 820, t: 50, b: 420 };
-    const py = escala(0, 1, m.b, m.t);
-    for (const v of [0, 0.25, 0.5, 0.75, 1]) {
-      el("line", { x1: m.l, x2: m.r, y1: py(v), y2: py(v), class: "grade-linha" }, svg);
-      texto(svg, m.l - 8, py(v) + 5, pct(v), { "text-anchor": "end", class: "rotulo-eixo" });
+  function contar(P, g, corte) {
+    let vp = 0, pos = 0, marc = 0;
+    for (const q of P) {
+      if (q.g !== g) continue;
+      const m = q.p >= corte;
+      pos += q.precisa;
+      marc += m;
+      vp += m && q.precisa ? 1 : 0;
     }
-    const larg = (m.r - m.l) / medidas.length;
-    const barras = [];
-    medidas.forEach(([chave, nome], i) => {
-      texto(svg, m.l + larg * i + larg / 2, m.b + 30, nome, { "text-anchor": "middle", class: "rotulo-eixo forte" });
-      [0, 1].forEach((g) => {
-        const x = m.l + larg * i + larg * 0.16 + g * larg * 0.36;
-        const r = el("rect", { x, width: larg * 0.3, y: m.b, height: 0, rx: 3, class: `barra-grupo g${g}` }, svg);
-        const t = texto(svg, x + larg * 0.15, m.b - 8, "", { "text-anchor": "middle", class: "rotulo-eixo forte" });
-        barras.push({ chave, g, r, t });
-      });
+    return { vp, pos, marc, sens: vp / pos, prec: marc ? vp / marc : 0 };
+  }
+
+  function eixoProb(pai, y) {
+    el("line", { x1: JX(0), x2: JX(1), y1: y, y2: y, class: "linha-zero" }, pai);
+    for (const [v, t] of [[0, "0"], [0.25, "0,25"], [0.5, "0,5"], [0.75, "0,75"], [1, "1"]]) {
+      el("line", { x1: JX(v), x2: JX(v), y1: y, y2: y + 5, class: "linha-zero" }, pai);
+      texto(pai, JX(v), y + 22, t, { "text-anchor": "middle", class: "rotulo-eixo" });
+    }
+    texto(pai, JX(0.5), y + 44, "probabilidade de precisar de análise, segundo o modelo", { "text-anchor": "middle", class: "rotulo-eixo" });
+  }
+
+  function rotulosGrupo(pai, comBase) {
+    return GRUPOS.map((nome, g) => {
+      const gr = el("g", {}, pai);
+      const y = BASE_GRUPO[g] - 70;
+      texto(gr, 10, y, "réu:", { class: "rotulo-eixo" });
+      texto(gr, 10, y + 21, nome, { class: "rotulo-eixo forte" });
+      const n = FAIXAS[g].pos.reduce((s, f) => s + f[0], 0);
+      if (comBase) texto(gr, 10, y + 44, `${n} de 100 precisam`, { class: "rotulo-eixo base-txt" });
+      return gr;
     });
-    N.grupos.forEach((nome, g) => {
-      el("rect", { x: m.l + g * 380, y: 8, width: 18, height: 18, rx: 3, class: `barra-grupo g${g}` }, svg);
-      texto(svg, m.l + g * 380 + 26, 23, `réu: ${nome} (${N.positivos[g]} de ${N.n[g]} precisavam)`, { class: "rotulo-eixo forte" });
+  }
+
+  // linha de corte arrastável: o que fica à direita recebe análise
+  function linhaCorte(svg, fundo, topo, y1, y2, rotulo, aoMudar) {
+    const area = el("rect", { y: y1, height: y2 - y1, class: "area-analise" }, fundo);
+    const lin = el("line", { y1, y2, class: "linha-corte" }, topo);
+    const alca = el("circle", { cy: y1, r: 9, class: "alca-corte" }, topo);
+    const txt = texto(topo, 0, y1 + 5, "", { class: "rotulo-eixo forte" });
+    const c = { v: 0.5 };
+    c.desenhar = () => {
+      const x = JX(c.v), esquerda = c.v > 0.62;
+      area.setAttribute("x", x);
+      area.setAttribute("width", JX(1) + 15 - x);
+      lin.setAttribute("x1", x);
+      lin.setAttribute("x2", x);
+      alca.setAttribute("cx", x);
+      txt.setAttribute("x", esquerda ? x - 16 : x + 16);
+      txt.setAttribute("text-anchor", esquerda ? "end" : "start");
+      txt.textContent = `${rotulo} ${num(c.v, 2)}`;
+      aoMudar();
+    };
+    c.ir = (v) => gsap.to(c, { v, duration: 0.5, ease: "power1.inOut", overwrite: true, onUpdate: c.desenhar });
+    let ativo = false;
+    alca.addEventListener("pointerdown", (e) => { ativo = true; alca.setPointerCapture(e.pointerId); e.stopPropagation(); });
+    alca.addEventListener("pointermove", (e) => {
+      if (!ativo) return;
+      const pt = svg.createSVGPoint();
+      pt.x = e.clientX;
+      pt.y = e.clientY;
+      const x = pt.matrixTransform(svg.getScreenCTM().inverse()).x;
+      gsap.killTweensOf(c);
+      c.v = Math.min(0.95, Math.max(0.05, Math.round((x - JX(0)) / (JX(1) - JX(0)) / BIN) * BIN));
+      c.desenhar();
     });
-    const atualiza = (cortes) => {
-      const M = [metricas(cortes[0], 0), metricas(cortes[1], 1)];
-      for (const b of barras) {
-        const v = M[b.g][b.chave];
-        gsap.to(b.r, { attr: { y: py(v), height: m.b - py(v) }, duration: 0.35, overwrite: true });
-        gsap.to(b.t, { attr: { y: py(v) - 8 }, duration: 0.35, overwrite: true });
-        b.t.textContent = pct(v);
-      }
-      return M;
-    };
-    // destaca uma medida (as outras ficam apagadas); null mostra todas
-    atualiza.destacar = (chave) => {
-      const acesa = (b) => chave == null || b.chave === chave || (chave === "nao-sens" && b.chave !== "sens");
-      for (const b of barras) gsap.to([b.r, b.t], { opacity: acesa(b) ? 1 : 0.18, duration: 0.3, overwrite: "auto" });
-    };
-    return atualiza;
+    alca.addEventListener("pointerup", () => (ativo = false));
+    return c;
   }
 
   function desenharJustica1() {
     const caixa = $("#g-just1");
     if (!caixa) return;
-    const svg = el("svg", { viewBox: "0 0 840 460", class: "grafico-svg" }, caixa);
-    const atualiza = barrasGrupos(svg);
-    const ent = $("#just1-a"), saida = $("#just1-v");
-    const f = () => {
-      const c = Number(ent.value);
-      saida.textContent = num(c, 3).replace(/0$/, "");
-      atualiza([c, c]);
+    const svg = el("svg", { viewBox: "0 0 800 470", class: "grafico-svg" }, caixa);
+    const fundo = el("g", {}, svg), meio = el("g", {}, svg), topo = el("g", {}, svg);
+    const P = populacao();
+    eixoProb(fundo, 410);
+    const bolas = P.map((q) => el("circle", { cx: q.x, cy: q.yj, r: 5.2, class: "pt" }, meio));
+    const contadores = GRUPOS.map((_, g) => texto(topo, 785, BASE_GRUPO[g] - 110, "", { "text-anchor": "end", class: "contador" }));
+    const ver = { precisa: false, apaga: false };
+    let corte = null;
+    const pinta = () => {
+      if (!corte) return;
+      bolas.forEach((b, i) => {
+        const q = P[i], cls = ["pt"];
+        if (ver.precisa && q.precisa) cls.push("precisa");
+        if (ver.precisa && q.precisa && q.p < corte.v) cls.push("perdido");
+        if (ver.apaga && !q.precisa) cls.push("apagado");
+        b.setAttribute("class", cls.join(" "));
+      });
+      contadores.forEach((t, g) => {
+        const m = contar(P, g, corte.v);
+        t.textContent = `acha ${m.vp} dos ${m.pos} que precisavam (${pct(m.sens)})`;
+      });
     };
-    ent.addEventListener("input", f);
-    f();
-    // passo 0: tudo; 1 a 3: uma medida por vez; 4: tudo de novo
-    const chaves = [null, "taxa", "sens", "prec", null];
-    aoPasso("#g-just1", "just1", (k) => atualiza.destacar(chaves[Math.min(k, 4)]), "#leg-just1");
+    corte = linhaCorte(svg, fundo, topo, 50, 402, "recebem análise a partir de", pinta);
+    corte.desenhar();
+    const rotJunto = texto(fundo, 10, 300, "200 processos", { class: "rotulo-eixo forte" });
+    const rotG = rotulosGrupo(fundo, false);
+    gsap.set([...rotG, ...contadores], { autoAlpha: 0 });
+    let separado = false, ultimo = -1;
+    // 0: todos juntos; 1: quem precisava; 2: separados por réu; 3: quantos o
+    // modelo acha em cada grupo; 4: só os que precisavam, para comparar
+    aoPasso("#g-just1", "just1", (k) => {
+      ver.precisa = k >= 1;
+      ver.apaga = k >= 4;
+      if (k !== ultimo) corte.ir(0.5);
+      pinta();
+      const sep = k >= 2;
+      if (sep !== separado) {
+        gsap.to(bolas, { attr: { cy: (i) => (sep ? P[i].yg : P[i].yj) }, duration: 0.5, ease: "power2.inOut",
+                         stagger: { amount: 0.3, from: "random" }, overwrite: "auto" });
+        separado = sep;
+      }
+      gsap.to(rotJunto, { autoAlpha: sep ? 0 : 1, duration: 0.3, overwrite: true });
+      gsap.to(rotG, { autoAlpha: sep ? 1 : 0, duration: 0.3, overwrite: true });
+      gsap.to(contadores, { autoAlpha: k >= 3 ? 1 : 0, duration: 0.3, overwrite: true });
+      ultimo = k;
+    }, "#leg-just1");
   }
 
   function desenharJustica2() {
     const caixa = $("#g-just2");
     if (!caixa) return;
-    const svg = el("svg", { viewBox: "0 0 840 460", class: "grafico-svg" }, caixa);
-    const atualiza = barrasGrupos(svg);
-    const e0 = $("#just2-a0"), e1 = $("#just2-a1");
-    const fmt = (v) => num(v, 3).replace(/0$/, "");
-    const f = () => {
-      $("#just2-v0").textContent = fmt(Number(e0.value));
-      $("#just2-v1").textContent = fmt(Number(e1.value));
-      atualiza([Number(e0.value), Number(e1.value)]);
+    const svg = el("svg", { viewBox: "0 0 800 470", class: "grafico-svg" }, caixa);
+    const fundo = el("g", {}, svg), meio = el("g", {}, svg), topo = el("g", {}, svg);
+    const P = populacao();
+    eixoProb(fundo, 410);
+    el("line", { x1: 10, x2: 785, y1: 229, y2: 229, class: "grade-linha" }, fundo);
+    const rotG = rotulosGrupo(fundo, true);
+    const bolas = P.map((q) => el("circle", { cx: q.x, cy: q.yg, r: 5.2, class: "pt precisa" }, meio));
+    // três linhas por grupo: quantos recebem análise, sensibilidade e precisão
+    const linhasCont = GRUPOS.map((_, g) => [0, 1, 2].map((j) =>
+      texto(topo, 785, BASE_GRUPO[g] - 128 + j * 24, "", { "text-anchor": "end", class: j === 0 ? "contador fraco" : "contador" })));
+    const ver = { sobra: false };
+    const cortes = [];
+    const pinta = () => {
+      if (cortes.length < 2) return;
+      bolas.forEach((b, i) => {
+        const q = P[i], c = cortes[q.g].v, cls = ["pt"];
+        if (q.precisa) cls.push("precisa");
+        if (q.precisa && q.p < c) cls.push("perdido");
+        if (ver.sobra && !q.precisa && q.p >= c) cls.push("sobra");
+        b.setAttribute("class", cls.join(" "));
+      });
+      GRUPOS.forEach((_, g) => {
+        const m = contar(P, g, cortes[g].v), [t0, t1, t2] = linhasCont[g];
+        t0.textContent = `recebem análise: ${m.marc}`;
+        t1.textContent = `acha ${m.vp} dos ${m.pos} que precisavam (${pct(m.sens)})`;
+        t2.textContent = `dos ${m.marc} analisados, ${m.vp} precisavam (${pct(m.prec)})`;
+      });
     };
-    e0.addEventListener("input", f);
-    e1.addEventListener("input", f);
-    f();
-    // o passo 1 desce o corte dos planos até igualar a sensibilidade; o passo
-    // 2 apaga a sensibilidade para olhar as outras duas medidas
-    const anima = (alvo) => {
-      const o = { v: Number(e1.value) };
-      gsap.to(o, { v: alvo, duration: 0.5, ease: "power1.inOut", overwrite: true,
-                   onUpdate: () => { e1.value = Math.round(o.v / 0.005) * 0.005; f(); } });
-    };
-    let ultimo = 0;
+    cortes.push(linhaCorte(svg, fundo, topo, 62, 222, "corte:", pinta));
+    cortes.push(linhaCorte(svg, fundo, topo, 245, 402, "corte:", pinta));
+    cortes.forEach((c) => c.desenhar());
+    const bases = rotG.map((g) => g.lastChild);
+    gsap.set(linhasCont.map((l) => l[2]), { autoAlpha: 0 });
+    let ultimo = -1;
+    // 0: o mesmo corte; 1: o corte dos planos desce até igualar a
+    // sensibilidade; 2: a precisão aparece; 3: as proporções de cada grupo
     aoPasso("#g-just2", "just2", (k) => {
-      if (k === 0 && ultimo !== 0) { e0.value = 0.2; anima(0.2); }
-      if (k >= 1 && ultimo === 0) { e0.value = 0.2; anima(0.175); }
-      if (k === 2) atualiza.destacar("nao-sens");
-      else atualiza.destacar(null);
+      ver.sobra = k >= 2;
+      if (k !== ultimo) {
+        cortes[0].ir(0.5);
+        cortes[1].ir(k >= 1 ? 0.35 : 0.5);
+      }
+      pinta();
+      gsap.to(linhasCont.map((l) => l[2]), { autoAlpha: k >= 2 ? 1 : 0, duration: 0.3, overwrite: true });
+      bases.forEach((b) => b.classList.toggle("destaque", k >= 3));
       ultimo = k;
     }, "#leg-just2");
   }
 
   /* ====================================================================== */
-  /* 5. COMPAS                                                              */
+  /* 5. COMPAS: 100 réus de cada grupo, nas proporções da ProPublica         */
   /* ====================================================================== */
 
   function desenharCompas() {
     const caixa = $("#g-compas");
     if (!caixa) return;
-    // ProPublica, "Machine Bias" (2016): taxas de erro por grupo
-    const dados = [
-      ["não reincidiu, mas foi marcado de alto risco", 0.449, 0.235],
-      ["reincidiu, mas foi marcado de baixo risco", 0.28, 0.477],
+    // ProPublica, "Machine Bias" (2016), em 100 réus de cada grupo: voltou a
+    // ser preso em dois anos (vp, fn) ou não (fp, vn); alto risco (vp, fp) ou não
+    const G = [
+      { nome: "réus negros", vp: 37, fn: 14, fp: 22, vn: 27 },
+      { nome: "réus brancos", vp: 20, fn: 19, fp: 14, vn: 47 },
     ];
-    const svg = el("svg", { viewBox: "0 0 760 470", class: "grafico-svg" }, caixa);
-    const m = { l: 40, r: 740, t: 60, b: 380 };
-    const py = escala(0, 0.6, m.b, m.t);
-    for (const v of [0, 0.2, 0.4, 0.6]) {
-      el("line", { x1: m.l, x2: m.r, y1: py(v), y2: py(v), class: "grade-linha" }, svg);
-      texto(svg, m.l - 6, py(v) + 5, pct(v), { "text-anchor": "end", class: "rotulo-eixo" });
-    }
-    ["réus negros", "réus brancos"].forEach((nome, g) => {
-      el("rect", { x: m.l + g * 200, y: 10, width: 18, height: 18, rx: 3, class: `barra-grupo g${g}` }, svg);
-      texto(svg, m.l + g * 200 + 26, 25, nome, { class: "rotulo-eixo forte" });
-    });
-    const larg = (m.r - m.l) / 2;
-    const tls = [linha(), linha()];
-    dados.forEach(([nome, a, b], i) => {
-      const tl = tls[i];
-      const linhas = nome.split(", ");
-      linhas.forEach((t, j) => texto(svg, m.l + larg * i + larg / 2, m.b + 28 + j * 22, t + (j === 0 ? "," : ""), { "text-anchor": "middle", class: "rotulo-eixo forte" }));
-      [a, b].forEach((v, g) => {
-        const x = m.l + larg * i + larg * 0.2 + g * larg * 0.32;
-        const r = el("rect", { x, width: larg * 0.28, y: m.b, height: 0, rx: 3, class: `barra-grupo g${g}` }, svg);
-        const t = texto(svg, x + larg * 0.14, py(v) - 8, num(v * 100, 1) + "%", { "text-anchor": "middle", class: "rotulo-eixo forte" });
-        gsap.set(t, { autoAlpha: 0 });
-        tl.fromTo(r, { attr: { y: m.b, height: 0 } }, { attr: { y: py(v), height: m.b - py(v) }, duration: 0.7, ease: "power2.out", immediateRender: false }, g * 0.15);
-        tl.fromTo(t, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.3, immediateRender: false }, g * 0.15 + 0.5);
+    const svg = el("svg", { viewBox: "0 0 800 470", class: "grafico-svg" }, caixa);
+    const CEL = 25, Y0 = 95, VAO = 36, X0 = [80, 460];
+    const pts = [], rotulos = [], focoNum = [], focoTxt = [];
+    G.forEach((d, g) => {
+      const x0 = X0[g], volta = d.vp + d.fn, linhasVolta = Math.ceil(volta / 10);
+      texto(svg, x0 + 125, 40, d.nome, { "text-anchor": "middle", class: "anot forte" });
+      rotulos.push(texto(svg, x0, Y0 - 18, `voltaram a ser presos: ${volta}`, { class: "rotulo-eixo forte" }));
+      rotulos.push(texto(svg, x0, Y0 + linhasVolta * CEL + VAO - 18, `não voltaram: ${d.fp + d.vn}`, { class: "rotulo-eixo forte" }));
+      const cats = [...Array(d.vp).fill("vp"), ...Array(d.fn).fill("fn"), ...Array(d.fp).fill("fp"), ...Array(d.vn).fill("vn")];
+      cats.forEach((cat, i) => {
+        const j = i < volta ? i : i - volta;
+        const p = {
+          cat,
+          xj: x0 + 12 + (i % 10) * CEL, yj: Y0 + Math.floor(i / 10) * CEL,
+          xs: x0 + 12 + (j % 10) * CEL, ys: Y0 + (i < volta ? 0 : linhasVolta * CEL + VAO) + Math.floor(j / 10) * CEL,
+        };
+        p.c = el("circle", { cx: p.xj, cy: p.yj, r: 9, class: "pt" }, svg);
+        pts.push(p);
       });
+      focoNum.push(texto(svg, x0 + 125, 428, "", { "text-anchor": "middle", class: "grande-num" }));
+      focoTxt.push(texto(svg, x0 + 125, 454, "", { "text-anchor": "middle", class: "rotulo-eixo forte" }));
     });
-    texto(svg, m.r, 460, "Fonte: ProPublica, Machine Bias (2016).", { "text-anchor": "end", class: "rotulo-eixo" });
-    passos("#g-compas", "compas", [...tls, linha()], "#leg-compas");
+    gsap.set(rotulos, { autoAlpha: 0 });
+    // o que cada passo destaca, e o número que aparece embaixo de cada grupo
+    const FOCO = [
+      null, null,
+      { cats: ["fp", "vn"], f: (d) => [d.fp, d.fp + d.vn, "de alto risco entre os", "que não voltaram"] },
+      { cats: ["vp", "fn"], f: (d) => [d.fn, d.vp + d.fn, "de baixo risco entre os", "que voltaram"] },
+      { cats: ["vp", "fp"], f: (d) => [d.vp, d.vp + d.fp, "voltaram entre os", "de alto risco"] },
+    ];
+    let separado = false;
+    aoPasso("#g-compas", "compas", (k) => {
+      const sep = k >= 1, foco = FOCO[Math.min(k, 4)];
+      if (sep !== separado) {
+        gsap.to(pts.map((p) => p.c), { attr: { cx: (i) => (sep ? pts[i].xs : pts[i].xj), cy: (i) => (sep ? pts[i].ys : pts[i].yj) },
+                                       duration: 0.5, ease: "power2.inOut", stagger: { amount: 0.3 }, overwrite: "auto" });
+        separado = sep;
+      }
+      for (const p of pts) {
+        const cls = ["pt"];
+        if (sep && (p.cat === "vp" || p.cat === "fn")) cls.push("precisa");
+        if (k >= 2 && (p.cat === "vp" || p.cat === "fp")) cls.push("alto");
+        if (foco && !foco.cats.includes(p.cat)) cls.push("apagado");
+        p.c.setAttribute("class", cls.join(" "));
+      }
+      gsap.to(rotulos, { autoAlpha: sep ? 1 : 0, duration: 0.3, overwrite: true });
+      G.forEach((d, g) => {
+        if (!foco) {
+          gsap.to([focoNum[g], focoTxt[g]], { autoAlpha: 0, duration: 0.2, overwrite: true });
+          return;
+        }
+        const [a, n, antes, depois] = foco.f(d);
+        focoNum[g].textContent = pct(a / n);
+        focoTxt[g].textContent = `${a} ${antes} ${n} ${depois}`;
+        gsap.fromTo([focoNum[g], focoTxt[g]], { autoAlpha: 0, y: 6 }, { autoAlpha: 1, y: 0, duration: 0.35, overwrite: true });
+      });
+    }, "#leg-compas");
+  }
+
+  /* ====================================================================== */
+  /* 5c. LGPD: o caso de crédito de Ana, passo a passo                       */
+  /* ====================================================================== */
+
+  function desenharLgpd() {
+    const caixa = $("#g-lgpd");
+    if (!caixa) return;
+    const svg = el("svg", { viewBox: "0 0 800 470", class: "grafico-svg" }, caixa);
+    const defs = el("defs", {}, svg);
+    const mk = el("marker", { id: "seta-lg", viewBox: "0 0 10 10", refX: 9, refY: 5, markerWidth: 8, markerHeight: 8, orient: "auto-start-reverse" }, defs);
+    el("path", { d: "M0 0 L10 5 L0 10 Z", class: "ponta-dag" }, mk);
+    const bloco = (x, y, w, h, linhas, cls) => {
+      const g = el("g", {}, svg);
+      el("rect", { x, y, width: w, height: h, rx: 10, class: `no-caixa ${cls || ""}` }, g);
+      linhas.forEach((l, i) => texto(g, x + w / 2, y + h / 2 + 6 + (i - (linhas.length - 1) / 2) * 21, l, { "text-anchor": "middle", class: "rotulo-eixo forte" }));
+      return g;
+    };
+    const flecha = (d) => el("path", { d, class: "aresta-dag forte", "marker-end": "url(#seta-lg)" }, svg);
+
+    // linha de cima: o pedido, o modelo e a negativa
+    bloco(10, 20, 200, 64, ["Ana pede R$ 10 mil", "emprestados"]);
+    bloco(290, 20, 210, 64, ["o modelo do banco", "calcula um score"]);
+    bloco(580, 20, 210, 64, ["score 380 de 1.000:", "pedido negado"], "folha-a");
+    flecha("M212 52 L286 52");
+    flecha("M502 52 L576 52");
+
+    // passo 1: Ana pede revisão e os critérios
+    const pede = bloco(460, 130, 330, 64, ["Ana pede revisão (art. 20)", "e os critérios usados (§ 1º)"]);
+    const f1 = flecha("M685 86 L685 126");
+    const porque = texto(svg, 700, 113, "por quê?", { class: "anot forte final-txt" });
+
+    // passo 2: o banco alega segredo comercial
+    const segredo = bloco(10, 130, 330, 64, ["banco: os critérios são", "segredo comercial (§ 1º)"], "folha-a");
+    const f2 = flecha("M458 162 L344 162");
+
+    // passo 3: explicar sem abrir o código, e a auditoria da ANPD
+    const pCasc = el("g", {}, svg);
+    el("rect", { x: 10, y: 228, width: 380, height: 174, rx: 10, class: "painel" }, pCasc);
+    texto(pCasc, 200, 252, "a cascata do caso de Ana", { "text-anchor": "middle", class: "rotulo-eixo forte" });
+    const sc = escala(350, 620, 190, 375);
+    const passosCasc = [["atrasos: −120", 600, 480], ["renda: −70", 480, 410], ["conta nova: −30", 410, 380]];
+    texto(pCasc, 25, 282, "média: 600", { class: "rotulo-eixo" });
+    el("line", { x1: sc(600), x2: sc(600), y1: 268, y2: 390, class: "conector" }, pCasc);
+    const barrasCasc = passosCasc.map(([rot, de, ate], i) => {
+      const y = 300 + i * 27;
+      texto(pCasc, 25, y + 6, rot, { class: "rotulo-eixo" });
+      const r = el("rect", { x: sc(de), y: y - 9, width: 0, height: 18, rx: 3, class: "barra-neg" }, pCasc);
+      return { r, x: sc(ate), w: sc(de) - sc(ate), x0: sc(de) };
+    });
+    texto(pCasc, 25, 387, "Ana: 380", { class: "rotulo-eixo forte final-txt" });
+    el("rect", { x: sc(380) - 3, y: 374, width: 6, height: 20, rx: 2, class: "barra-pos" }, pCasc);
+    const pAud = el("g", {}, svg);
+    el("rect", { x: 410, y: 228, width: 380, height: 174, rx: 10, class: "painel" }, pAud);
+    texto(pAud, 600, 252, "a ANPD pode auditar (§ 2º)", { "text-anchor": "middle", class: "rotulo-eixo forte" });
+    texto(pAud, 600, 276, "pedidos negados, por bairro", { "text-anchor": "middle", class: "rotulo-eixo" });
+    const sa = escala(0, 0.6, 520, 740);
+    const barrasAud = [["centro", 0.2, 0], ["periferia", 0.45, 1]].map(([rot, v, g], i) => {
+      const y = 315 + i * 42;
+      texto(pAud, 505, y + 6, rot, { "text-anchor": "end", class: "rotulo-eixo forte" });
+      const r = el("rect", { x: sa(0), y: y - 13, width: 0, height: 26, rx: 3, class: `barra-grupo g${g}` }, pAud);
+      const t = texto(pAud, sa(v) + 8, y + 6, pct(v), { class: "rotulo-eixo forte" });
+      return { r, t, w: sa(v) - sa(0) };
+    });
+    const f3 = flecha("M175 196 L175 224");
+    const f4 = flecha("M300 196 C 340 214, 560 200, 600 224");
+
+    // passo 4: os limites
+    const limites = bloco(10, 414, 780, 52, ["Revisão por pessoa natural: vetada (Lei 13.853/2019).",
+                                             "No Judiciário, a Res. CNJ 615/2025 exige supervisão humana da IA."], "atencao-caixa");
+
+    gsap.set([pede, f1, porque, segredo, f2, pCasc, pAud, f3, f4, limites, ...barrasAud.map((b) => b.t)], { autoAlpha: 0 });
+    const aparece = (tl, alvos, quando) =>
+      tl.fromTo(alvos, { autoAlpha: 0, y: 8 }, { autoAlpha: 1, y: 0, duration: 0.35, stagger: 0.1, immediateRender: false }, quando);
+    const t1 = linha();
+    aparece(t1, [f1, porque, pede], 0);
+    const t2 = linha();
+    aparece(t2, [f2, segredo], 0);
+    const t3 = linha();
+    aparece(t3, [f3, f4, pCasc, pAud], 0);
+    barrasCasc.forEach((b, i) => t3.fromTo(b.r, { attr: { x: b.x0, width: 0 } }, { attr: { x: b.x, width: b.w }, duration: 0.3, immediateRender: false }, 0.3 + i * 0.12));
+    barrasAud.forEach((b, i) => {
+      t3.fromTo(b.r, { attr: { width: 0 } }, { attr: { width: b.w }, duration: 0.35, immediateRender: false }, 0.3 + i * 0.12);
+      t3.fromTo(b.t, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.2, immediateRender: false }, 0.55 + i * 0.12);
+    });
+    const t4 = linha();
+    aparece(t4, limites, 0);
+    passos("#g-lgpd", "lgpd", [t1, t2, t3, t4], "#leg-lgpd");
   }
 
   /* ====================================================================== */
@@ -3803,11 +3889,11 @@ border: 2px solid var(--azul); background: var(--azul); color: #fff; cursor: poi
     desenharShap2();
     desenharCascata();
     desenharEnxame();
-    desenharCausal();
     desenharJustica1();
     desenharJustica2();
     desenharCompas();
     desenharProxy();
+    desenharLgpd();
     desenharAnalogia();
     document.querySelectorAll(".legendas").forEach((l) => gsap.set([...l.children].slice(1), { autoAlpha: 0 }));
     const R = window.Reveal;
