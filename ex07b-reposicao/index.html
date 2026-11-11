@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Projeto 7 (reposição) · Provinha de machine learning · CDAD II</title>
+<link rel="icon" href="../_shared/img/logo-insper-preto.png">
+<script src="../_shared/tema.js"></script>
+<link rel="stylesheet" href="../_shared/styles.css">
+<style>
+  .questao { border: var(--borda); border-left: 3px solid var(--grafite);
+             border-radius: 0 var(--raio) var(--raio) 0; padding: .9rem 1rem;
+             margin-bottom: 1.1rem; background: var(--branco); }
+  .questao.respondida { border-left-color: var(--turquesa); }
+  .questao .cabeca { display: flex; gap: .6rem; align-items: baseline; margin-bottom: .5rem; }
+  .questao .numero { font-family: var(--fonte-mono); font-weight: 700; color: var(--vermelho); }
+  .questao .enunciado { font-size: .95rem; }
+  .questao .rolagem { margin: .6rem 0; }
+  .alternativa { display: block; border: 1px solid var(--cinza-200); border-radius: var(--raio);
+                 padding: .5rem .6rem; margin-top: .4rem; cursor: pointer; font-size: .9rem; }
+  .alternativa:hover { border-color: var(--cinza-400); background: var(--cinza-100); }
+  .alternativa.marcada { border-color: var(--vermelho); background: var(--tom-vermelho); }
+  .alternativa input { width: auto; margin-right: .45rem; }
+  .alternativa .letra { font-family: var(--fonte-mono); font-weight: 700; margin-right: .3rem; }
+  .alternativa.certa { border-color: var(--verde-ok); background: var(--tom-verde); }
+  .alternativa.errada { border-color: var(--vermelho); background: var(--tom-vermelho); }
+  .cronometro { font-family: var(--fonte-mono); font-size: 1.05rem; font-weight: 700; }
+  .cronometro.pouco { color: var(--vermelho); }
+  #barra-progresso { position: sticky; top: 0; z-index: 50; }
+  .explicacao { margin-top: .5rem; font-size: .85rem; border-left: 3px solid var(--roxo);
+                padding: .4rem .6rem; background: var(--tom-roxo); }
+  .figura { overflow-x: auto; margin: .7rem 0; }
+  svg.arvore { width: 100%; min-width: 640px; height: auto; font-size: 12.5px;
+               font-family: inherit; fill: currentColor; }
+  svg.arvore .no { fill: var(--branco); stroke: currentColor; stroke-width: 1.2; }
+  svg.arvore .folha { fill: var(--cinza-100); stroke: var(--cinza-400); stroke-width: 1; }
+  svg.arvore .aresta { stroke: var(--cinza-400); stroke-width: 1.2; }
+  svg.arvore .fundo-rotulo { fill: var(--branco); }
+  svg.arvore .rotulo-aresta { font-size: 11px; font-weight: 600; }
+  svg.arvore .forte { font-weight: 700; }
+  #senha { max-width: 18rem; }
+</style>
+</head>
+<body>
+
+<main>
+  <section class="secao" id="s-instrucoes">
+    <header>
+      <span class="n">00</span>
+      <h2>Antes de começar</h2>
+      <span class="dica">5 questões · 53 minutos</span>
+    </header>
+    <div class="corpo">
+      <p class="enunciado">
+        Prova individual, <strong>sem consulta e sem IA</strong>, com 5 questões de múltipla
+        escolha. Cada questão tem uma só alternativa correta e vale <strong>2,0 pontos</strong>.
+        Não há desconto por resposta errada, e não é preciso calculadora. Os conteúdos são os
+        da provinha de 10/11 (aulas 20 a 24), com casos novos.
+      </p>
+      <div class="aviso atencao">
+        <strong>Como esta provinha funciona</strong>
+        Você tem <strong>53 minutos</strong>, contados a partir do clique em "Começar", e a
+        entrega é automática quando o tempo acaba. A prova roda <strong>em tela cheia</strong>:
+        sair da tela cheia ou da aba fica registrado, e cópia e cola estão bloqueados. As
+        questões só chegam ao seu navegador depois da senha, e a correção é feita no servidor.
+        Antes de entregar aparece uma tela para conferir as respostas. <strong>Vale a primeira
+        entrega.</strong>
+      </div>
+      <div class="campo">
+        <label class="rotulo" for="senha">senha que o professor mandou</label>
+        <input type="password" id="senha" autocomplete="one-time-code">
+      </div>
+      <div class="acoes">
+        <button class="principal" id="b-comecar">Começar a provinha</button>
+        <span id="status-inicio" class="miudo"></span>
+      </div>
+    </div>
+  </section>
+
+  <div class="secao oculto" id="barra-progresso">
+    <div class="corpo" style="padding:.55rem 1.15rem">
+      <div class="fileira">
+        <span class="rotulo" style="margin:0">tempo restante</span>
+        <span class="cronometro" id="cronometro">--:--</span>
+        <span class="miudo" id="progresso-respostas"></span>
+        <span class="espaco"></span>
+        <button class="principal" id="b-entregar">Entregar</button>
+      </div>
+      <div class="barra" style="margin-top:.45rem"><i id="barra-tempo"></i></div>
+    </div>
+  </div>
+
+  <section class="secao travada oculto" id="s-questoes">
+    <header>
+      <span class="n">01</span>
+      <h2>Questões</h2>
+    </header>
+    <div class="corpo">
+      <div id="questoes"></div>
+      <div class="acoes">
+        <button class="principal" id="b-entregar-fim">Entregar a provinha</button>
+        <span id="status-entrega" class="miudo"></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="secao oculto" id="s-resultado">
+    <header>
+      <span class="n">02</span>
+      <h2>Resultado</h2>
+    </header>
+    <div class="corpo">
+      <div id="painel-resultado"></div>
+      <div id="gabarito-comentado" style="margin-top:1rem"></div>
+    </div>
+  </section>
+</main>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>
