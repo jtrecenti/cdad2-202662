@@ -1401,27 +1401,6 @@ recomeçar
 </div>
 </section>
 <section class="slide level2">
-<h2>Classificar ementas: contar palavras ou usar o embedding</h2>
-<div class="colunas larga-esquerda">
-<div>
-<div id="g-classif">
-
-</div>
-</div>
-<div>
-<div class="caixa ideia">
-<p><span class="rotulo">Como ler o gráfico</span></p>
-<p>Regressão logística com cada representação, AUC na validação cruzada. A resposta costuma estar <strong>escrita com as mesmas palavras</strong> na ementa (“danos morais”, “transporte aéreo”): contar palavras resolve.</p>
-</div>
-<div class="caixa atencao">
-<p><span class="rotulo">Embedding não é mágica</span></p>
-<p>O embedding resume o <strong>assunto</strong> do texto, e perde detalhes. Ele vale mais quando as palavras mudam e o sentido fica, como na busca.</p>
-</div>
-</div>
-</div>
-<p><span class="fragment classif"></span></p>
-</section>
-<section class="slide level2">
 <h2>Viés nos embeddings: profissões no feminino</h2>
 <div class="colunas larga-esquerda">
 <div>
@@ -1443,33 +1422,72 @@ recomeçar
 <p><span class="fragment vies"></span></p>
 </section>
 <section class="slide level2">
-<h2>Aplicações de embeddings no Direito</h2>
-<div class="grade-apps">
-<div class="app fragment">
-<p><strong>Busca de jurisprudência</strong></p>
-<p>Achar decisões parecidas com o caso, mesmo escritas com outras palavras.</p>
-</div>
-<div class="app fragment">
-<p><strong>Demandas repetitivas</strong></p>
-<p>Agrupar petições quase iguais, para julgar em bloco ou identificar temas de massa.</p>
-</div>
-<div class="app fragment">
-<p><strong>Triagem de processos</strong></p>
-<p>Classificar petições por assunto e encaminhar para a vara ou a equipe certa.</p>
-</div>
-<div class="app fragment">
-<p><strong>Litigância predatória</strong></p>
-<p>Encontrar petições padronizadas, com o mesmo texto e autores diferentes.</p>
-</div>
-<div class="app fragment">
-<p><strong>Busca com modelo de linguagem</strong></p>
-<p>O sistema acha os trechos mais parecidos com a pergunta, e o modelo de linguagem responde só com eles, citando a fonte.</p>
-</div>
-<div class="app fragment alerta">
-<p><strong>Cuidados</strong></p>
-<p>Dados pessoais e sigilo (LGPD), vieses do modelo, e conferir sempre a fonte original.</p>
+<h2>Um modelo de linguagem escreve uma palavra por vez</h2>
+<div class="colunas larga-esquerda">
+<div>
+<div id="g-prox">
+
 </div>
 </div>
+<div>
+<div id="leg-prox" class="legendas">
+<div>
+<p>O ChatGPT e parecidos repetem <strong>uma conta só</strong>: dado o texto até aqui, qual a <strong>probabilidade de cada próxima palavra</strong>? O modelo sorteia uma, junta ao texto e faz a conta de novo. <strong>Clique em “sortear”</strong> algumas vezes.</p>
+</div>
+<div>
+<p>A <strong>temperatura</strong> controla o sorteio. Baixa: quase sempre a palavra mais provável, e o texto fica previsível. Alta: palavras raras saem mais, e o texto fica criativo, ou errático. Arraste e sorteie de novo.</p>
+</div>
+<div>
+<p>Agora o texto pede um <strong>precedente do STJ</strong>. Vários números parecem certos, e o modelo <strong>não consulta</strong> um banco de decisões: escreve o que é <strong>provável</strong>, não o que é <strong>verdadeiro</strong>. Mesmo com temperatura baixa, sai um número com cara de real. É assim que nasce a <strong>alucinação</strong>.</p>
+</div>
+</div>
+<p><span class="nota-prox">Probabilidades ilustrativas, para mostrar a ideia.</span></p>
+</div>
+</div>
+<p><span class="fragment prox"></span> <span class="fragment prox"></span></p>
+</section>
+<section class="slide level2 denso">
+<h2>Jurisprudência que não existe</h2>
+<div class="colunas">
+<div id="g-aluc">
+<div class="aluc-caso">
+<p><strong>Nova York, 2023 · Mata v. Avianca.</strong> Advogados citaram seis decisões inventadas pelo ChatGPT, com número e trecho. Multa de US$ 5 mil.</p>
+<p><span class="aluc-cita"><em>Varghese v. China Southern Airlines</em>, 11th Cir. 2019</span></p>
+</div>
+<div class="aluc-caso">
+<p><strong>Justiça Federal da 1ª Região, 2023.</strong> Uma sentença citou precedentes do STJ que não existem. O juiz atribuiu o texto a um servidor e à sobrecarga; o CNJ abriu apuração.</p>
+</div>
+<div class="aluc-caso">
+<p><strong>TSE, 2025.</strong> Um recurso citou julgados produzidos com IA, que não estão no repositório do tribunal. Multa de cinco salários mínimos por litigância de má-fé (CPC, arts. 80 e 81) e ofício à OAB.</p>
+</div>
+</div>
+<div>
+<div class="caixa caso fragment" data-fragment-index="3">
+<p><span class="rotulo">O que dizem as regras</span></p>
+<ul>
+<li><strong>Juízes</strong> (Resolução CNJ 615/2025, art. 19): a IA generativa é <strong>apoio</strong>, nunca decisão autônoma, e o juiz permanece “integralmente responsável” pelo que assina.</li>
+<li>É vedado pôr <strong>dados sigilosos ou em segredo de justiça</strong> numa ferramenta privada, salvo anonimizados. O uso na redação fica <strong>registrado</strong> no tribunal; citar na decisão é opcional.</li>
+<li><strong>Advogados</strong> (OAB, Recomendação 1/2024): revisar tudo o que a IA produz e proteger o <strong>sigilo</strong> do cliente.</li>
+</ul>
+</div>
+<div class="caixa exercicio fragment" data-fragment-index="4">
+<p><span class="rotulo">Para debater</span></p>
+<p>Um juiz cola a petição inicial no ChatGPT para resumir o caso. Pode? E se o processo correr em <strong>segredo de justiça</strong>? Ele deveria <strong>avisar as partes</strong>?</p>
+</div>
+</div>
+</div>
+<p><span class="fragment aluc" data-fragment-index="0"></span> <span class="fragment aluc" data-fragment-index="1"></span> <span class="fragment aluc" data-fragment-index="2"></span></p>
+</section>
+<section class="slide level2 denso">
+<h2>Busca com modelo de linguagem: responder citando a fonte</h2>
+<div id="g-rag">
+
+</div>
+<div class="caixa atencao baixa">
+<p><span class="rotulo">Por que isso ajuda, e o que não resolve</span></p>
+<p>O modelo responde <strong>a partir de ementas reais</strong>, achadas pelo embedding, e cada frase aponta para a fonte. Ainda pode resumir mal, mas agora <strong>dá para conferir</strong>. É a ideia por trás das ferramentas jurídicas com IA. Os embeddings também servem para agrupar <strong>demandas repetitivas</strong>, fazer <strong>triagem</strong> e achar <strong>petições padronizadas</strong>.</p>
+</div>
+<p><span class="fragment rag"></span> <span class="fragment rag"></span> <span class="fragment rag"></span></p>
 </section>
 <section class="slide level2">
 <h2>Exercício no notebook: busca e classificação com embeddings</h2>
@@ -1483,7 +1501,7 @@ recomeçar
 <li>Semelhança entre duas ementas.</li>
 <li>A sua busca por significado.</li>
 <li>O mapa das ementas.</li>
-<li>Classificar e comparar.</li>
+<li>Classificar e comparar (para casa).</li>
 <li>Medir um viés do modelo.</li>
 </ol>
 <p><strong><a href="https://colab.research.google.com/github/jtrecenti/202662-cdad2/blob/main/notebooks/aula26_redes_embeddings.ipynb">Abrir o notebook no Colab</a></strong></p>
@@ -1509,6 +1527,7 @@ recomeçar
 <li>Em tabelas pequenas, a rede <strong>não costuma ganhar</strong> de modelos simples.</li>
 <li>Um <strong>embedding</strong> transforma um texto em números: textos parecidos ficam perto.</li>
 <li>Embeddings servem para <strong>buscar e agrupar</strong>, e carregam os <strong>vieses</strong> dos textos de treino.</li>
+<li>Um <strong>modelo de linguagem</strong> escreve o provável, não o verdadeiro: conferir a fonte é dever de quem assina.</li>
 </ul>
 </div>
 </div>
@@ -3040,7 +3059,180 @@ border: 2px solid var(--azul); background: var(--azul); color: #fff; cursor: poi
 #leg-conf [id^="conf-"] { font-weight: 800; }
 #conf-sens, #conf-prec { display: inline-block; font-size: 1.3em; }
 </style>
-    <style type="text/css">.grafico-svg .neu-seta { stroke: var(--texto-fraco); stroke-width: 3; }.grafico-svg .neu-entrada { fill: var(--superficie); stroke: var(--azul); stroke-width: 3; }.grafico-svg .neu-no { fill: var(--superficie); stroke: var(--turquesa); stroke-width: 3; }.grafico-svg .neu-saida { fill: var(--superficie); stroke: var(--marca); stroke-width: 4; }.grafico-svg .neu-caixa { fill: var(--superficie); stroke: var(--superficie-borda); stroke-width: 2; }.grafico-svg .neu-sig { fill: none; stroke: var(--marca); stroke-width: 4; }.grafico-svg .neu-peso { fill: var(--fundo); stroke: var(--laranja); stroke-width: 2; }.grafico-svg .neu-peso-txt { font-size: 19px; font-weight: 800; fill: var(--laranja); font-family: "JetBrains Mono", Consolas, monospace; }.grafico-svg .neu-prod { font-size: 18px; font-weight: 700; fill: var(--texto); font-family: "JetBrains Mono", Consolas, monospace; }.grafico-svg .neu-valor { font-size: 22px; font-weight: 800; fill: var(--texto); }.grafico-svg .neu-valor.pequeno { font-size: 20px; font-family: "JetBrains Mono", Consolas, monospace; }.grafico-svg .bola { fill: var(--turquesa); stroke: var(--fundo); stroke-width: 3; }.reveal .ctrl input[type="range"] { width: 100%; }#leg-neuronio, #leg-u, #leg-tokens { margin-top: .4em; }.grafico-svg .ponto-0 { fill: var(--azul); opacity: .45; }.grafico-svg .ponto-1 { fill: var(--marca); opacity: .45; }.grafico-svg .faixa { fill: var(--texto-fraco); opacity: .55; stroke: var(--fundo); stroke-width: 2; }.grafico-svg .curva-log { fill: none; stroke: var(--texto); stroke-width: 4; stroke-dasharray: 10 6; }.grafico-svg .curva-h1 { fill: none; stroke: var(--azul); stroke-width: 4; }.grafico-svg .curva-h2 { fill: none; stroke: var(--laranja); stroke-width: 4; }.grafico-svg .curva-saida { fill: none; stroke: var(--marca); stroke-width: 6; }.grafico-svg .rede-aresta { stroke: var(--texto-fraco); stroke-width: 3; }.grafico-svg .rede-aresta.a-h1 { stroke: var(--azul); }.grafico-svg .rede-aresta.a-h2 { stroke: var(--laranja); }.grafico-svg .rede-no { fill: var(--superficie); stroke: var(--texto-fraco); stroke-width: 3; }.grafico-svg .rede-no.n-h1 { stroke: var(--azul); }.grafico-svg .rede-no.n-h2 { stroke: var(--laranja); }.grafico-svg .rede-no.n-s { stroke: var(--marca); }.grafico-svg .rede-txt { font-size: 16px; font-weight: 700; fill: var(--texto); }#g-rede { max-width: 360px; margin: 0 auto .2em; }.grafico-svg .curva-erro-rede { fill: none; stroke: var(--marca); stroke-width: 4; }.reveal .botao-play { font: inherit; font-size: .7em; font-weight: 700; margin-top: .4em; padding: .35em .9em;border-radius: 8px; border: 2px solid var(--marca); background: var(--marca); color: #fff; cursor: pointer; }#g-perda { margin: .3em 0; }.grafico-svg .ponto-borda-0 { fill: var(--azul); stroke: var(--fundo); stroke-width: 1; opacity: .8; }.grafico-svg .ponto-borda-1 { fill: var(--marca); stroke: var(--fundo); stroke-width: 1; opacity: .8; }.grafico-svg .barra-pequena { fill: var(--turquesa); }.grafico-svg .barra-grande { fill: var(--marca); }.grafico-svg .tok-frase { font-size: 26px; font-weight: 700; fill: var(--texto); }.grafico-svg .tok-ficha { fill: color-mix(in srgb, var(--turquesa) 16%, var(--superficie)); stroke: var(--turquesa); stroke-width: 2; }.grafico-svg .tok-txt { font-size: 21px; font-weight: 700; fill: var(--texto); font-family: "JetBrains Mono", Consolas, monospace; }.grafico-svg .vet-pos { fill: var(--marca); }.grafico-svg .vet-neg { fill: var(--azul); }.grafico-svg .tok-ponto { fill: var(--turquesa); stroke: var(--fundo); stroke-width: 3; }.grafico-svg .ementa-pto { opacity: .75; cursor: pointer; transition: opacity .2s; stroke: var(--fundo); stroke-width: .8; }.grafico-svg .ementa-pto:hover { opacity: 1; stroke: var(--texto); stroke-width: 2; }.grafico-svg .ementa-pto.apagado-mapa { opacity: .12; }.grafico-svg .ementa-pto.aceso { opacity: 1; stroke: var(--texto); stroke-width: 2.5; }.grafico-svg .ementa-pto.escolhido { opacity: 1; stroke: var(--texto); stroke-width: 3; }.grafico-svg .lig-vizinho { stroke: var(--texto); stroke-width: 2; opacity: .7; }#mapa-leg { display: flex; flex-wrap: wrap; gap: .3em 1em; font-size: .6em; margin-bottom: .4em; }.mapa-chave i { display: inline-block; width: .9em; height: .9em; border-radius: 50%; margin-right: .35em; vertical-align: -.1em; }#mapa-info { font-size: .52em; line-height: 1.35; min-height: 9em; margin-bottom: .5em; }#mapa-info p { margin: 0 0 .35em; }#mapa-info .mapa-tit { font-weight: 800; }#mapa-info .mapa-tit span { font-weight: 400; color: var(--texto-fraco); }#mapa-info .mapa-ementa { color: var(--texto-fraco); }#mapa-info .mapa-viz { margin: 0; padding-left: 1.3em; }#busca-botoes { display: flex; flex-wrap: wrap; gap: .35em; margin-bottom: .5em; }.reveal .busca-botao { font: inherit; font-size: .48em; padding: .35em .7em; border-radius: 8px; cursor: pointer;border: 2px solid var(--azul); background: transparent; color: var(--azul); font-weight: 600; text-align: left; }.reveal .busca-botao.ativo { background: var(--azul); color: #fff; }.reveal .colunas h3 { font-size: .62em; margin: 0 0 .3em; }.busca-lista { display: grid; gap: .35em; }.busca-item { background: var(--superficie); border: 1px solid var(--superficie-borda); border-radius: 6px; padding: .3em .55em; }.busca-item p { margin: 0; }.busca-cab { display: flex; justify-content: space-between; font-size: .52em; }.busca-cab span { font-family: "JetBrains Mono", Consolas, monospace; color: var(--texto-fraco); }.busca-txt { font-size: .42em; line-height: 1.3; color: var(--texto-fraco); }.grafico-svg .barra-palavras { fill: var(--azul); }.grafico-svg .barra-emb { fill: var(--turquesa); }.grafico-svg .vies-mulher { fill: var(--laranja); stroke: var(--fundo); stroke-width: 2; }.grafico-svg .vies-homem { fill: var(--azul); stroke: var(--fundo); stroke-width: 2; }.grafico-svg .vies-liga { stroke-width: 4; opacity: .5; }.grafico-svg .vies-liga.homem { stroke: var(--azul); }.grafico-svg .vies-liga.mulher { stroke: var(--laranja); }.grade-apps { display: grid; grid-template-columns: repeat(3, 1fr); gap: .6em; margin-top: .4em; }.grade-apps .app { background: var(--superficie); border-top: 4px solid var(--turquesa); border-radius: 6px;padding: .7em .85em; font-size: .74em; line-height: 1.35; }.grade-apps .app p { margin: 0 0 .3em; }.grade-apps .app.alerta { border-top-color: var(--marca); }.reveal .colunas.larga-esquerda > :last-child .caixa { font-size: .78em; }.reveal .colunas.baixo .caixa { font-size: .66em; }.busca-titulo { display: block; font-weight: 800; font-size: .6em; margin-bottom: .3em; }.reveal .caixa.baixa { font-size: .66em; margin-top: .6em; }.grafico-svg .formula { font-size: 21px; font-weight: 700; fill: var(--texto); font-family: "JetBrains Mono", Consolas, monospace; }.grafico-svg .formula.voo { fill: var(--marca); }.grafico-svg .tr-no { stroke-width: 2.5; }.grafico-svg .tr-no.dado { fill: color-mix(in srgb, var(--turquesa) 22%, var(--fundo)); stroke: var(--turquesa); }.grafico-svg .tr-no.peso { fill: color-mix(in srgb, var(--texto-fraco) 18%, var(--fundo)); stroke: var(--texto-fraco); }.grafico-svg .tr-no.conta { fill: color-mix(in srgb, var(--laranja) 22%, var(--fundo)); stroke: var(--laranja); }.grafico-svg .tr-valor { font-size: 17px; fill: var(--texto); font-family: "JetBrains Mono", Consolas, monospace; }.grafico-svg .tr-frente { stroke: var(--laranja); stroke-width: 4; }.grafico-svg .tr-tras { stroke: var(--marca); stroke-width: 4; stroke-dasharray: 9 6; }.grafico-svg .ponta-frente { fill: var(--laranja); }.grafico-svg .ponta-tras { fill: var(--marca); }.grafico-svg .tr-grad { font-size: 16px; font-weight: 700; fill: var(--marca); }.grafico-svg .tok-id { font-size: 22px; font-weight: 700; fill: var(--azul); font-family: "JetBrains Mono", Consolas, monospace; }.grafico-svg .oh-um { fill: var(--marca); stroke: var(--fundo); stroke-width: 2; }.grafico-svg .oh-zero { fill: var(--superficie); stroke: var(--superficie-borda); stroke-width: 2; }.grafico-svg .oh-txt { font-size: 16px; fill: var(--texto); }.grafico-svg .emb-linha { fill: var(--superficie); stroke: var(--superficie-borda); }.grafico-svg .emb-media { fill: color-mix(in srgb, var(--turquesa) 22%, var(--fundo)); stroke: var(--turquesa); stroke-width: 2; }.grafico-svg .rotulo-exemplo { paint-order: stroke; stroke: var(--fundo); stroke-width: 5px; }#treino-msg { font-size: .62em; min-height: 4.5em; }#botoes-treino { margin: .2em 0 .4em; }#mapa-info:empty { display: none; }#leg-mapa { margin-bottom: .5em; }#g-treino svg { max-height: 400px; }</style>
+    <style type="text/css">
+
+.grafico-svg .neu-seta { stroke: var(--texto-fraco); stroke-width: 3; }
+.grafico-svg .neu-entrada { fill: var(--superficie); stroke: var(--azul); stroke-width: 3; }
+.grafico-svg .neu-no { fill: var(--superficie); stroke: var(--turquesa); stroke-width: 3; }
+.grafico-svg .neu-saida { fill: var(--superficie); stroke: var(--marca); stroke-width: 4; }
+.grafico-svg .neu-caixa { fill: var(--superficie); stroke: var(--superficie-borda); stroke-width: 2; }
+.grafico-svg .neu-sig { fill: none; stroke: var(--marca); stroke-width: 4; }
+.grafico-svg .neu-peso { fill: var(--fundo); stroke: var(--laranja); stroke-width: 2; }
+.grafico-svg .neu-peso-txt { font-size: 19px; font-weight: 800; fill: var(--laranja); font-family: "JetBrains Mono", Consolas, monospace; }
+.grafico-svg .neu-prod { font-size: 18px; font-weight: 700; fill: var(--texto); font-family: "JetBrains Mono", Consolas, monospace; }
+.grafico-svg .neu-valor { font-size: 22px; font-weight: 800; fill: var(--texto); }
+.grafico-svg .neu-valor.pequeno { font-size: 20px; font-family: "JetBrains Mono", Consolas, monospace; }
+.grafico-svg .bola { fill: var(--turquesa); stroke: var(--fundo); stroke-width: 3; }
+.reveal .ctrl input[type="range"] { width: 100%; }
+#leg-neuronio, #leg-u, #leg-tokens { margin-top: .4em; }
+
+.grafico-svg .ponto-0 { fill: var(--azul); opacity: .45; }
+.grafico-svg .ponto-1 { fill: var(--marca); opacity: .45; }
+.grafico-svg .faixa { fill: var(--texto-fraco); opacity: .55; stroke: var(--fundo); stroke-width: 2; }
+.grafico-svg .curva-log { fill: none; stroke: var(--texto); stroke-width: 4; stroke-dasharray: 10 6; }
+.grafico-svg .curva-h1 { fill: none; stroke: var(--azul); stroke-width: 4; }
+.grafico-svg .curva-h2 { fill: none; stroke: var(--laranja); stroke-width: 4; }
+.grafico-svg .curva-saida { fill: none; stroke: var(--marca); stroke-width: 6; }
+.grafico-svg .rede-aresta { stroke: var(--texto-fraco); stroke-width: 3; }
+.grafico-svg .rede-aresta.a-h1 { stroke: var(--azul); }
+.grafico-svg .rede-aresta.a-h2 { stroke: var(--laranja); }
+.grafico-svg .rede-no { fill: var(--superficie); stroke: var(--texto-fraco); stroke-width: 3; }
+.grafico-svg .rede-no.n-h1 { stroke: var(--azul); }
+.grafico-svg .rede-no.n-h2 { stroke: var(--laranja); }
+.grafico-svg .rede-no.n-s { stroke: var(--marca); }
+.grafico-svg .rede-txt { font-size: 16px; font-weight: 700; fill: var(--texto); }
+#g-rede { max-width: 360px; margin: 0 auto .2em; }
+
+.grafico-svg .curva-erro-rede { fill: none; stroke: var(--marca); stroke-width: 4; }
+.reveal .botao-play { font: inherit; font-size: .7em; font-weight: 700; margin-top: .4em; padding: .35em .9em;
+border-radius: 8px; border: 2px solid var(--marca); background: var(--marca); color: #fff; cursor: pointer; }
+#g-perda { margin: .3em 0; }
+
+.grafico-svg .ponto-borda-0 { fill: var(--azul); stroke: var(--fundo); stroke-width: 1; opacity: .8; }
+.grafico-svg .ponto-borda-1 { fill: var(--marca); stroke: var(--fundo); stroke-width: 1; opacity: .8; }
+
+.grafico-svg .barra-pequena { fill: var(--turquesa); }
+.grafico-svg .barra-grande { fill: var(--marca); }
+
+.grafico-svg .tok-frase { font-size: 26px; font-weight: 700; fill: var(--texto); }
+.grafico-svg .tok-ficha { fill: color-mix(in srgb, var(--turquesa) 16%, var(--superficie)); stroke: var(--turquesa); stroke-width: 2; }
+.grafico-svg .tok-txt { font-size: 21px; font-weight: 700; fill: var(--texto); font-family: "JetBrains Mono", Consolas, monospace; }
+.grafico-svg .vet-pos { fill: var(--marca); }
+.grafico-svg .vet-neg { fill: var(--azul); }
+.grafico-svg .tok-ponto { fill: var(--turquesa); stroke: var(--fundo); stroke-width: 3; }
+
+.grafico-svg .ementa-pto { opacity: .75; cursor: pointer; transition: opacity .2s; stroke: var(--fundo); stroke-width: .8; }
+.grafico-svg .ementa-pto:hover { opacity: 1; stroke: var(--texto); stroke-width: 2; }
+.grafico-svg .ementa-pto.apagado-mapa { opacity: .12; }
+.grafico-svg .ementa-pto.aceso { opacity: 1; stroke: var(--texto); stroke-width: 2.5; }
+.grafico-svg .ementa-pto.escolhido { opacity: 1; stroke: var(--texto); stroke-width: 3; }
+.grafico-svg .lig-vizinho { stroke: var(--texto); stroke-width: 2; opacity: .7; }
+#mapa-leg { display: flex; flex-wrap: wrap; gap: .3em 1em; font-size: .6em; margin-bottom: .4em; }
+.mapa-chave i { display: inline-block; width: .9em; height: .9em; border-radius: 50%; margin-right: .35em; vertical-align: -.1em; }
+#mapa-info { font-size: .52em; line-height: 1.35; min-height: 9em; margin-bottom: .5em; }
+#mapa-info p { margin: 0 0 .35em; }
+#mapa-info .mapa-tit { font-weight: 800; }
+#mapa-info .mapa-tit span { font-weight: 400; color: var(--texto-fraco); }
+#mapa-info .mapa-ementa { color: var(--texto-fraco); }
+#mapa-info .mapa-viz { margin: 0; padding-left: 1.3em; }
+
+#busca-botoes { display: flex; flex-wrap: wrap; gap: .35em; margin-bottom: .5em; }
+.reveal .busca-botao { font: inherit; font-size: .48em; padding: .35em .7em; border-radius: 8px; cursor: pointer;
+border: 2px solid var(--azul); background: transparent; color: var(--azul); font-weight: 600; text-align: left; }
+.reveal .busca-botao.ativo { background: var(--azul); color: #fff; }
+.reveal .colunas h3 { font-size: .62em; margin: 0 0 .3em; }
+.busca-lista { display: grid; gap: .35em; }
+.busca-item { background: var(--superficie); border: 1px solid var(--superficie-borda); border-radius: 6px; padding: .3em .55em; }
+.busca-item p { margin: 0; }
+.busca-cab { display: flex; justify-content: space-between; font-size: .52em; }
+.busca-cab span { font-family: "JetBrains Mono", Consolas, monospace; color: var(--texto-fraco); }
+.busca-txt { font-size: .42em; line-height: 1.3; color: var(--texto-fraco); }
+
+.grafico-svg .barra-palavras { fill: var(--azul); }
+.grafico-svg .barra-emb { fill: var(--turquesa); }
+.grafico-svg .vies-mulher { fill: var(--laranja); stroke: var(--fundo); stroke-width: 2; }
+.grafico-svg .vies-homem { fill: var(--azul); stroke: var(--fundo); stroke-width: 2; }
+.grafico-svg .vies-liga { stroke-width: 4; opacity: .5; }
+.grafico-svg .vies-liga.homem { stroke: var(--azul); }
+.grafico-svg .vies-liga.mulher { stroke: var(--laranja); }
+
+.grade-apps { display: grid; grid-template-columns: repeat(3, 1fr); gap: .6em; margin-top: .4em; }
+.grade-apps .app { background: var(--superficie); border-top: 4px solid var(--turquesa); border-radius: 6px;
+padding: .7em .85em; font-size: .74em; line-height: 1.35; }
+.grade-apps .app p { margin: 0 0 .3em; }
+.grade-apps .app.alerta { border-top-color: var(--marca); }
+
+.reveal .colunas.larga-esquerda > :last-child .caixa { font-size: .78em; }
+.reveal .colunas.baixo .caixa { font-size: .66em; }
+.busca-titulo { display: block; font-weight: 800; font-size: .6em; margin-bottom: .3em; }
+.reveal .caixa.baixa { font-size: .66em; margin-top: .6em; }
+
+.grafico-svg .formula { font-size: 21px; font-weight: 700; fill: var(--texto); font-family: "JetBrains Mono", Consolas, monospace; }
+.grafico-svg .formula.voo { fill: var(--marca); }
+.grafico-svg .tr-no { stroke-width: 2.5; }
+.grafico-svg .tr-no.dado { fill: color-mix(in srgb, var(--turquesa) 22%, var(--fundo)); stroke: var(--turquesa); }
+.grafico-svg .tr-no.peso { fill: color-mix(in srgb, var(--texto-fraco) 18%, var(--fundo)); stroke: var(--texto-fraco); }
+.grafico-svg .tr-no.conta { fill: color-mix(in srgb, var(--laranja) 22%, var(--fundo)); stroke: var(--laranja); }
+.grafico-svg .tr-valor { font-size: 17px; fill: var(--texto); font-family: "JetBrains Mono", Consolas, monospace; }
+.grafico-svg .tr-frente { stroke: var(--laranja); stroke-width: 4; }
+.grafico-svg .tr-tras { stroke: var(--marca); stroke-width: 4; stroke-dasharray: 9 6; }
+.grafico-svg .ponta-frente { fill: var(--laranja); }
+.grafico-svg .ponta-tras { fill: var(--marca); }
+.grafico-svg .tr-grad { font-size: 16px; font-weight: 700; fill: var(--marca); }
+.grafico-svg .tok-id { font-size: 22px; font-weight: 700; fill: var(--azul); font-family: "JetBrains Mono", Consolas, monospace; }
+.grafico-svg .oh-um { fill: var(--marca); stroke: var(--fundo); stroke-width: 2; }
+.grafico-svg .oh-zero { fill: var(--superficie); stroke: var(--superficie-borda); stroke-width: 2; }
+.grafico-svg .oh-txt { font-size: 16px; fill: var(--texto); }
+.grafico-svg .emb-linha { fill: var(--superficie); stroke: var(--superficie-borda); }
+.grafico-svg .emb-media { fill: color-mix(in srgb, var(--turquesa) 22%, var(--fundo)); stroke: var(--turquesa); stroke-width: 2; }
+.grafico-svg .rotulo-exemplo { paint-order: stroke; stroke: var(--fundo); stroke-width: 5px; }
+#treino-msg { font-size: .62em; min-height: 4.5em; }
+#botoes-treino { margin: .2em 0 .4em; }
+#mapa-info:empty { display: none; }
+#leg-mapa { margin-bottom: .5em; }
+#g-treino svg { max-height: 400px; }
+
+.prox-abas { display: flex; gap: .4em; margin-bottom: .5em; }
+.prox-texto { font-size: .72em; line-height: 1.45; background: var(--superficie); border: 1px solid var(--superficie-borda);
+border-radius: 8px; padding: .55em .8em; min-height: 3.2em; }
+.prox-texto .prox-nova { color: var(--marca); }
+.prox-cursor { color: var(--texto-fraco); animation: prox-pisca 1s steps(2) infinite; }
+@keyframes prox-pisca { 50% { opacity: 0; } }
+.prox-barras { margin: .55em 0 .3em; display: grid; gap: .22em; }
+.prox-linha { display: grid; grid-template-columns: 7.5em 1fr 3em; align-items: center; gap: .5em; font-size: .6em;
+border-radius: 6px; padding: .1em .3em; transition: background-color .3s; }
+.prox-linha.sorteada { background: color-mix(in srgb, var(--marca) 20%, transparent); }
+.prox-pal { font-weight: 700; text-align: right; font-family: "JetBrains Mono", Consolas, monospace; }
+.prox-trilho { height: .9em; background: var(--superficie); border-radius: 4px; overflow: hidden; }
+.prox-trilho i { display: block; height: 100%; width: 0; background: var(--azul); border-radius: 4px; }
+.prox-pct { font-family: "JetBrains Mono", Consolas, monospace; color: var(--texto-fraco); }
+.prox-ctrl { display: flex; align-items: center; gap: .6em; flex-wrap: wrap; }
+.prox-ctrl .botao-play { margin-top: 0; }
+.reveal .botao-play.sec { background: var(--fundo); color: var(--marca); }
+.prox-temp { font-size: .58em; }
+.prox-tbox { display: flex; flex-direction: column; flex: 1; min-width: 8em; }
+.reveal .prox-tbox input[type="range"] { width: 100%; }
+.prox-aviso { display: inline-block; margin-top: .5em; font-size: .62em; font-weight: 800; color: var(--marca);
+border: 3px solid var(--marca); border-radius: 6px; padding: .2em .6em; }
+.prox-aviso:empty { display: none; }
+.nota-prox { display: block; font-size: .45em; color: var(--texto-fraco); margin-top: .5em; }
+#g-aluc { display: grid; gap: .5em; flex: 1.25; }
+.aluc-caso { position: relative; background: var(--superficie); border-left: 4px solid var(--marca); border-radius: 6px;
+padding: .5em .75em 1.9em; font-size: .64em; line-height: 1.38; }
+.aluc-caso p { margin: 0 0 .25em; }
+.aluc-cita { position: relative; display: inline-block; font-family: "JetBrains Mono", Consolas, monospace; font-size: .9em;
+color: var(--texto-fraco); }
+.aluc-risco { position: absolute; left: -2px; right: -2px; top: 52%; height: 3px; background: var(--marca); transform-origin: left; }
+.aluc-selo { position: absolute; right: .6em; bottom: .45em; font-weight: 900; text-transform: uppercase; letter-spacing: .05em;
+color: var(--marca); border: 3px solid var(--marca); border-radius: 6px; padding: .05em .45em; font-size: .95em;
+background: var(--fundo); }
+#g-rag { display: grid; grid-template-columns: .8fr 1.35fr 1fr 1.25fr; gap: .7em; align-items: start; }
+.rag-col { min-width: 0; }
+.rag-tit { margin: 0 0 .35em; font-size: .55em; font-weight: 800; }
+.rag-tit span { display: inline-block; width: 1.5em; height: 1.5em; line-height: 1.5em; text-align: center; border-radius: 50%;
+background: var(--marca); color: #fff; margin-right: .4em; }
+.rag-pergunta { font-size: .62em; font-style: italic; background: var(--superficie); border-radius: 8px; padding: .6em .7em; }
+.rag-ementa { margin-bottom: .3em; }
+.rag-proc { font-size: .4em; font-family: "JetBrains Mono", Consolas, monospace; color: var(--azul); }
+.rag-prompt { font-size: .5em; line-height: 1.4; background: color-mix(in srgb, var(--laranja) 12%, var(--fundo));
+border: 1px dashed var(--laranja); border-radius: 8px; padding: .6em .7em; }
+.rag-mais { margin: .6em 0 0; font-style: italic; color: var(--texto-fraco); }
+.rag-resposta { font-size: .54em; line-height: 1.45; background: color-mix(in srgb, var(--turquesa) 12%, var(--fundo));
+border-left: 4px solid var(--turquesa); border-radius: 6px; padding: .6em .7em; }
+.rag-resposta b { color: var(--azul); }
+.rag-nota { font-size: .38em; color: var(--texto-fraco); margin: .3em 0 0; }
+.reveal .colunas > #g-aluc ~ div .caixa { font-size: .7em; }
+</style>
     <script>/*!
  * GSAP 3.12.5
  * https://gsap.com
@@ -3070,7 +3262,10 @@ border: 2px solid var(--azul); background: var(--azul); color: #fff; cursor: poi
  *   - tokens: uma frase vira pedaços e depois 384 números;
  *   - mapa das ementas: 1.423 ementas reais, com os vizinhos de cada uma;
  *   - busca: por palavra e por significado, para cinco consultas;
- *   - classificação e viés: barras e halteres.
+ *   - classificação e viés: barras e halteres;
+ *   - próxima palavra: o sorteio com temperatura, e o precedente inventado;
+ *   - alucinação: três casos reais com o carimbo "não existe";
+ *   - busca com modelo de linguagem: pergunta, ementas, instrução e resposta.
  *
  * Cada slide com passos tem fragmentos vazios de uma classe própria; o passo k
  * toca as k primeiras linhas do tempo e volta as outras.
@@ -3873,6 +4068,173 @@ border: 2px solid var(--azul); background: var(--azul); color: #fff; cursor: poi
     passos("#g-vies", "vies", [tl]);
   }
 
+  /* ====================================================================== */
+  /* 10. Um modelo de linguagem escreve uma palavra por vez                 */
+  /* ====================================================================== */
+
+  // Probabilidades ilustrativas. Cada passo tem um texto que vem antes
+  // ("antes") e as opções; "junto" cola a opção sem espaço.
+  const CENARIOS = [
+    { nome: "frase de sentença", prefixo: "O réu foi condenado a pagar indenização por danos", passos: [
+      { opcoes: [["morais", 0.62], ["materiais", 0.21], ["estéticos", 0.07], ["coletivos", 0.04], ["emergentes", 0.03], ["patrimoniais", 0.03]] },
+      { antes: " no valor de R$", opcoes: [["10 mil", 0.34], ["5 mil", 0.27], ["15 mil", 0.14], ["20 mil", 0.11], ["8 mil", 0.08], ["50 mil", 0.06]] }],
+      fim: "." },
+    { nome: "pedir um precedente", prefixo: "Nesse sentido, decidiu o STJ no REsp nº", passos: [
+      { opcoes: [["1.523", 0.18], ["1.810", 0.17], ["1.374", 0.17], ["1.698", 0.16], ["1.457", 0.16], ["1.902", 0.16]] },
+      { antes: ".", junto: true, opcoes: [["231", 0.18], ["908", 0.17], ["614", 0.17], ["075", 0.16], ["382", 0.16], ["559", 0.16]] },
+      { junto: true, opcoes: [["/SP", 0.42], ["/RJ", 0.2], ["/MG", 0.14], ["/RS", 0.1], ["/PR", 0.08], ["/DF", 0.06]] },
+      { antes: ", julgado em", opcoes: [["2022", 0.22], ["2021", 0.21], ["2020", 0.2], ["2023", 0.19], ["2019", 0.18]] }],
+      fim: ".", aviso: "Esse precedente existe? O modelo não sabe: ninguém conferiu." },
+  ];
+
+  function desenharProx() {
+    const caixa = $("#g-prox");
+    if (!caixa) return;
+    const abas = html("div", "prox-abas", caixa);
+    const txt = html("div", "prox-texto", caixa);
+    const barras = html("div", "prox-barras", caixa);
+    const ctrl = html("div", "prox-ctrl", caixa);
+    const bSort = html("button", "botao-play", ctrl, "sortear a próxima palavra");
+    const bZera = html("button", "botao-play sec", ctrl, "recomeçar");
+    const tbox = html("div", "prox-tbox", ctrl);
+    const rot = html("label", "prox-temp", tbox, "temperatura <b>1,0</b>");
+    const faixa = html("input", "", tbox);
+    Object.assign(faixa, { type: "range", min: 0.2, max: 2, step: 0.1, value: 1 });
+    faixa.addEventListener("keydown", (ev) => ev.stopPropagation());
+    // solto o controle, as setas voltam a passar os slides
+    faixa.addEventListener("change", () => faixa.blur());
+    const aviso = html("div", "prox-aviso", caixa);
+
+    let c = 0, k = 0, saida = [];
+    const botoesAba = CENARIOS.map((cn, i) => {
+      const b = html("button", "busca-botao", abas, cn.nome);
+      b.addEventListener("click", () => cenario(i));
+      return b;
+    });
+    const T = () => Number(faixa.value);
+    function probs(op) {
+      const w = op.map(([, p]) => Math.pow(p, 1 / T()));
+      const s = w.reduce((a, b) => a + b, 0);
+      return w.map((v) => v / s);
+    }
+    function escreverTexto() {
+      const C = CENARIOS[c];
+      let h = `<span>${C.prefixo}</span>`;
+      saida.forEach((x) => { h += `${x.antes}${x.junto ? "" : " "}<b class="prox-nova">${x.tok}</b>`; });
+      const prox = C.passos[k];
+      h += prox ? `${prox.antes || ""}<span class="prox-cursor">${prox.junto ? "" : " "}▍</span>` : C.fim;
+      txt.innerHTML = h;
+    }
+    function escreverBarras(anima) {
+      const C = CENARIOS[c];
+      barras.innerHTML = "";
+      if (k >= C.passos.length) {
+        aviso.textContent = C.aviso || "";
+        if (C.aviso) gsap.fromTo(aviso, { autoAlpha: 0, scale: 1.3, rotation: -6 }, { autoAlpha: 1, scale: 1, rotation: -2, duration: 0.4, ease: "back.out(2)" });
+        return;
+      }
+      aviso.textContent = "";
+      const op = C.passos[k].opcoes, P = probs(op);
+      op.forEach(([w], i) => {
+        const l = html("div", "prox-linha", barras, `<span class="prox-pal">${w}</span><span class="prox-trilho"><i></i></span><span class="prox-pct">${Math.round(P[i] * 100)}%</span>`);
+        gsap.to(l.querySelector("i"), { width: `${P[i] * 100}%`, duration: anima ? 0.5 : 0, ease: "power2.out" });
+      });
+    }
+    function cenario(i) {
+      c = i; k = 0; saida = [];
+      botoesAba.forEach((b, j) => b.classList.toggle("ativo", i === j));
+      escreverTexto(); escreverBarras(true);
+    }
+    function sortear() {
+      const C = CENARIOS[c];
+      if (k >= C.passos.length) return cenario(c);
+      const p = C.passos[k], P = probs(p.opcoes);
+      let u = Math.random(), j = 0;
+      while (j < P.length - 1 && u > P[j]) { u -= P[j]; j++; }
+      barras.children[j].classList.add("sorteada");
+      saida.push({ tok: p.opcoes[j][0], antes: p.antes || "", junto: p.junto });
+      k++;
+      setTimeout(() => {
+        escreverTexto(); escreverBarras(true);
+        const nova = txt.querySelectorAll(".prox-nova");
+        if (nova.length) gsap.from(nova[nova.length - 1], { y: -12, autoAlpha: 0, duration: 0.35 });
+      }, 450);
+    }
+    bSort.addEventListener("click", sortear);
+    bZera.addEventListener("click", () => cenario(c));
+    faixa.addEventListener("input", () => {
+      rot.innerHTML = `temperatura <b>${num(T(), 1)}</b>`;
+      escreverBarras(false);
+    });
+    cenario(0);
+    // o segundo passo do slide troca para o precedente
+    const t1 = linha().to({}, { duration: 0.01 });
+    const t2 = gsap.timeline({ paused: true, onComplete: () => cenario(1), onReverseComplete: () => cenario(0) }).to({}, { duration: 0.01 });
+    passos("#g-prox", "prox", [t1, t2], "#leg-prox");
+  }
+
+  /* ====================================================================== */
+  /* 11. Jurisprudência que não existe: o carimbo em cada caso              */
+  /* ====================================================================== */
+
+  function desenharAluc() {
+    const caixa = $("#g-aluc");
+    if (!caixa) return;
+    const casos = [...caixa.querySelectorAll(".aluc-caso")];
+    const linhas = casos.map((cs) => {
+      const cita = cs.querySelector(".aluc-cita");
+      const selo = html("span", "aluc-selo", cs, "não existe");
+      gsap.set([cs, selo], { autoAlpha: 0 });
+      const tl = linha();
+      tl.fromTo(cs, { autoAlpha: 0, x: -30 }, { autoAlpha: 1, x: 0, duration: 0.45, immediateRender: false });
+      if (cita) {
+        const risco = html("i", "aluc-risco", cita);
+        tl.fromTo(risco, { scaleX: 0 }, { scaleX: 1, duration: 0.3, immediateRender: false }, 0.5);
+      }
+      tl.fromTo(selo, { autoAlpha: 0, scale: 2.2, rotation: -20 }, { autoAlpha: 1, scale: 1, rotation: -8, duration: 0.35, ease: "back.out(2.5)", immediateRender: false }, 0.6);
+      return tl;
+    });
+    passos("#g-aluc", "aluc", linhas);
+  }
+
+  /* ====================================================================== */
+  /* 12. Busca com modelo de linguagem (RAG)                                */
+  /* ====================================================================== */
+
+  // As três primeiras ementas da busca por significado de "o convênio não quis
+  // pagar o remédio do câncer" (D.emb.buscas[1]), com os números dos processos
+  // no TJSP; a resposta foi escrita à mão a partir das ementas inteiras.
+  const RAG_PROC = ["1007710-34.2025.8.26.0566", "1010457-03.2024.8.26.0562", "1004461-41.2022.8.26.0191"];
+  const RAG_RESP = "Nas três decisões, o TJSP considerou indevida a recusa do plano: a operadora não pode " +
+    "interferir na indicação do médico, mesmo fora do rol da ANS <b>[1]</b> <b>[3]</b>. Houve dano moral de " +
+    "R$ 8 mil <b>[1]</b> e R$ 5 mil <b>[2]</b> <b>[3]</b>. Atenção: só <b>[1]</b> trata de remédio para câncer; " +
+    "<b>[2]</b> e <b>[3]</b> são cirurgias.";
+
+  function desenharRag() {
+    const caixa = $("#g-rag");
+    if (!caixa) return;
+    const B = D.emb.buscas[1];
+    const col = (n, titulo) => {
+      const c = html("div", "rag-col", caixa);
+      html("p", "rag-tit", c, `<span>${n}</span>${titulo}`);
+      return c;
+    };
+    const c1 = col(1, "A pergunta");
+    html("div", "rag-pergunta", c1, `"${B.consulta}"`);
+    const c2 = col(2, "Busca por significado");
+    B.significado.slice(0, 3).forEach((it, i) => html("div", "busca-item rag-ementa", c2,
+      `<p class="busca-cab"><b>[${i + 1}] ${it.a}</b><span>${num(it.s, 2)}</span></p><p class="rag-proc">${RAG_PROC[i]}</p><p class="busca-txt">${it.e}</p>`));
+    const c3 = col(3, "Instrução ao modelo");
+    html("div", "rag-prompt", c3, "Responda à pergunta <b>só com base nas ementas [1] a [3]</b>. Cite o número entre colchetes em cada frase. Se a resposta não estiver nas ementas, diga que não sabe.<p class=\"rag-mais\">+ a pergunta e as três ementas</p>");
+    const c4 = col(4, "Resposta, com as fontes");
+    html("div", "rag-resposta", c4, RAG_RESP);
+    html("p", "rag-nota", c4, "Resposta escrita para ilustrar, a partir das ementas.");
+    const cols = [c2, c3, c4];
+    gsap.set(cols, { autoAlpha: 0 });
+    const tl = cols.map((cl) => linha().fromTo(cl, { autoAlpha: 0, x: -25 }, { autoAlpha: 1, x: 0, duration: 0.45, immediateRender: false }));
+    passos("#g-rag", "rag", tl);
+  }
+
   /* ---------- números do texto -------------------------------------------- */
 
   function pegar(caminho2) {
@@ -3900,6 +4262,9 @@ border: 2px solid var(--azul); background: var(--azul); color: #fff; cursor: poi
     desenharBusca();
     desenharClassif();
     desenharVies();
+    desenharProx();
+    desenharAluc();
+    desenharRag();
     document.querySelectorAll(".legendas").forEach((l) => gsap.set([...l.children].slice(1), { autoAlpha: 0 }));
     const R = window.Reveal;
     R.on("fragmentshown", () => atualizar(false));
