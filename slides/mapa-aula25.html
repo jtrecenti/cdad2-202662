@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mapa mental da aula 25 · CDAD II</title>
+<style>
+  :root {
+    --marca: #e50505; --texto: #14161a; --texto-fraco: #4a4f57;
+    --fundo: #ffffff; --superficie: #f6f7f9; --borda: #e3e6ea;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --marca: #ff6b6b; --texto: #eceef1; --texto-fraco: #a9afb8;
+            --fundo: #15171b; --superficie: #1e2126; --borda: #30343b; }
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; overflow: hidden; background: var(--fundo); color: var(--texto);
+               font-family: "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif;
+               display: flex; flex-direction: column; }
+  header { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem 1rem;
+           padding: .7rem 16px; border-bottom: 1px solid var(--borda); background: var(--superficie); }
+  header h1 { font-size: 1.05rem; margin: 0; font-weight: 700; }
+  header h1 span { color: var(--marca); }
+  header p { margin: 0; font-size: .82rem; color: var(--texto-fraco); flex: 1 1 18rem; }
+  header .botoes { display: flex; gap: .4rem; flex-wrap: wrap; }
+  header button, header a.botao {
+    font: inherit; font-size: .8rem; padding: .3rem .7rem; border-radius: 6px; cursor: pointer;
+    border: 1px solid var(--borda); background: var(--fundo); color: var(--texto); text-decoration: none; }
+  header button:hover, header a.botao:hover { border-color: var(--marca); }
+  #mapa { display: block; width: 100%; flex: 1 1 auto; min-height: 0; }
+  .markmap { --markmap-text-color: var(--texto); --markmap-font: 400 14px/1.35 "Segoe UI", system-ui, sans-serif;
+             --markmap-a-color: var(--marca); --markmap-code-bg: var(--superficie);
+             --markmap-circle-open-bg: var(--fundo); }
+  .markmap-foreign strong { font-weight: 700; }
+  @media print { html, body { height: 100vh; } header .botoes { display: none; } }
+</style>
+</head>
+<body>
+<header>
+  <h1><span>Aula 25</span> · Interpretabilidade, justiça algorítmica e LGPD</h1>
+  <p>Mapa mental da aula de 10/11. Clique num círculo para abrir ou fechar um ramo; arraste e use a roda do mouse para navegar.</p>
+  <div class="botoes">
+    <button id="b-abrir">Abrir tudo</button>
+    <button id="b-fechar">Só os temas</button>
+    <button id="b-ajustar">Ajustar à tela</button>
+    <a class="botao" href="mapa-aula25.pdf" target="_blank">PDF</a>
+  </div>
+</header>
+<svg id="mapa"></svg>
+
+<script type="text/plain" id="conteudo">
+Aula 25 · 10/11 · Interpretabilidade, justiça algorítmica e LGPD
+  1. Modelos que se leem e modelos que não se leem
+    O mesmo processo: juros de **2,3% ao mês** e valor da causa de **R$ 30 mil** (base simulada das aulas 21 e 22)
+    **Regressão logística**: uma conta
+      logit = −8,11 + 3,47 × juros + 0,027 × causa
+      Previsão para o processo: **66%**
+      Dá para ver quanto cada variável soma e qual pesa mais
+    **Árvore** de profundidade 2: uma regra
+      Juros acima de 2,24 e até 2,56: folha com **79%**
+      A regra cabe numa frase; o valor da causa nem é perguntado
+    **Floresta** de 300 árvores: a média das árvores
+      Previsão para o processo: **88%**
+      Ninguém lê 300 caminhos
+      Para saber o que pesou, é preciso outra ferramenta: o **SHAP**
+  2. Valor de Shapley: repartir a previsão entre as variáveis
+    A pergunta: dos 88%, quanto se deve aos **juros** e quanto ao **valor da causa**?
+    Ponto de partida: sem saber nada do processo, a floresta prevê em média **43%**
+    "Não saber" uma variável: usar os valores dela em outros processos da base e tirar a média das previsões
+    Ordem 1: juros primeiro
+      Só os juros: 73% (**juros +30**)
+      Depois a causa: 88% (**causa +15**)
+    Ordem 2: valor da causa primeiro
+      Só a causa: 48% (**causa +5**)
+      Depois os juros: 88% (**juros +40**)
+    A mesma informação vale mais ou menos conforme o que já se sabe: as variáveis **interagem**
+    Média das duas ordens = **valor de Shapley**
+      Juros: **+34,6 pontos**
+      Valor da causa: **+9,6 pontos**
+      A soma fecha: 43 + 35 + 10 = 88
+    O **SHAP** faz a mesma conta com todas as variáveis (o shap.TreeExplainer confere a conta à mão)
+  3. SHAP em gráficos
+    **Cascata**: a explicação de um processo
+      Começa na média da floresta (**40%**) e soma uma variável por vez
+      Barra vermelha empurra para a sentença favorável; azul, contra
+      Processo A: 99%
+      Processo B: 1%
+      Processo C: 50%, porque juros (+34) e escritório de massa (−14) se anulam em parte
+    **Enxame**: as explicações de muitos processos
+      Floresta com todas as variáveis (AUC de 0,932 na validação cruzada) e 300 processos
+      Cada ponto é o SHAP de um processo numa variável
+      A cor é o valor da variável: vermelho, alto; azul, baixo
+      Juros altos ficam à direita: aumentam a chance de sentença favorável
+      A média do tamanho dos pontos (sem sinal) é a **importância geral** da aula 24, agora com a direção
+    Importância pelo SHAP (média sem sinal, em pontos)
+      Juros: 18,3
+      Escritório de massa: 9,4
+      Perícia: 9,2
+      Valor da causa: 4,4
+      Juizado: 2,2
+      Valor financiado, idade e tribunal: menos de 1
+    No Projeto 08: se uma variável pesa muito mais do que o esperado, desconfie de **vazamento** antes de comemorar a AUC
+  4. Justiça algorítmica: o modelo erra igual com todos?
+    O caso: a triagem do **NatJus** (Projeto 06)
+      O NatJus não consegue analisar todos os processos de saúde
+      O modelo dá a cada processo a probabilidade de precisar de análise; à direita do **corte**, recebe análise
+      Erro grave: o paciente precisava da análise e **ficou sem**
+    Separar por réu: **poder público** (SUS) ou **plano de saúde**; o modelo não usa essa informação
+    **Sensibilidade** por grupo, com o mesmo corte (exemplo ilustrativo, corte 0,5)
+      Poder público: acha **8 de cada 10** que precisavam
+      Planos: só **5 de cada 10**
+      Nos planos, os casos que precisavam ganharam probabilidades mais baixas: o modelo os reconhece pior
+    Uma saída: **um corte por grupo**
+      O corte dos planos desce para 0,35: 8 de cada 10 nos dois grupos
+      Custo: 10 análises a mais
+    Mas a **precisão** se desiguala
+      Poder público: **2 de cada 3** analisados precisavam
+      Planos: só **2 de cada 5**
+    Por quê? Os grupos são diferentes: precisam **20 de 100** contra **10 de 100**
+    Com proporções diferentes, um modelo que erra não consegue igualar os erros e a precisão ao mesmo tempo
+    **Qual igualdade importa é uma decisão normativa**
+    No notebook, com a base real (corte 0,20): sensibilidade de 44% no poder público e 39% nos planos
+  5. COMPAS: o mesmo dilema num caso real
+    Nota de **risco de reincidência** usada nos EUA em decisões de fiança e de pena
+    O mesmo desenho com outros nomes: réus, voltar a ser preso em dois anos, alto risco
+    ProPublica (2016): cerca de 7 mil réus da Flórida
+    Voltaram a ser presos: **51 de 100** réus negros e **39 de 100** brancos (proporções diferentes, como no NatJus)
+    Acusar a mais: entre quem **não** voltou, alto risco para **45%** dos negros e **23%** dos brancos
+    Aliviar a mais: entre quem voltou, baixo risco para cerca de **1 em 4** negros e **1 em 2** brancos
+    A resposta da empresa: precisão parecida (dos marcados de alto risco, voltaram 63% dos negros e 59% dos brancos)
+    As duas análises estão certas, e não dá para igualar as duas coisas
+  6. Sexo, raça e as variáveis que fazem as vezes delas
+    Tirar raça e sexo do modelo parece resolver: o modelo não "vê" o grupo
+    Variáveis **substitutas**: bairro, escola, profissão, até o nome
+      Elas carregam a mesma informação, e o modelo reconstrói o grupo
+      O COMPAS não usava raça
+    Sem a variável, não dá para **auditar** a sensibilidade por grupo
+    Para debater: um modelo de risco para **audiências de custódia** pode usar raça? E o bairro? E o sexo, se na base os homens reincidem mais?
+    Base normativa
+      Constituição, arts. 3º, IV, e 5º, I
+      LGPD, art. 5º, II: origem racial é **dado sensível**
+      LGPD, art. 6º, IX: **não discriminação** (sexo não é dado sensível, mas o princípio vale)
+  7. Viés em modelos de linguagem
+    Modelos de linguagem representam cada palavra como um **vetor** (aula 26)
+    A diferença entre dois vetores carrega uma relação: de homem a mulher
+    A mesma seta aplicada a "programador" chegou a "dona de casa" (Bolukbasi e coautores, 2016)
+    Tradução de pronome neutro como "ele é médico" e "ela é enfermeira" (Caliskan e coautores, 2017)
+    Jurisprudência **inventada** por chatbot numa peça (Mata v. Avianca, Nova York, 2023)
+    Um modelo treinado em decisões passadas aprende os padrões delas, **inclusive os injustos**, e os repete em escala
+  8. LGPD e decisões automatizadas: o caso de Ana
+    Ana pede um empréstimo; o **score** do modelo nega o pedido sem que ninguém olhe o caso
+    **Art. 20**: quem é afetado por decisão tomada só por máquina pode pedir **revisão**
+      § 1º: informação clara sobre os **critérios e procedimentos**
+      Ressalva da própria lei: **segredo comercial**
+      § 2º: diante do segredo, a **ANPD** pode auditar se há discriminação (por exemplo, negar mais a quem mora na periferia)
+    STJ, **Súmula 550**: o score dispensa consentimento, mas o consumidor pode pedir esclarecimentos sobre os dados e as fontes
+    Dá para explicar sem abrir o código: a **cascata** do caso de Ana mostra o que pesou contra ela
+    Limites
+      A revisão **por pessoa natural** foi vetada em 2019 (Lei 13.853/2019): pode ser feita por outro sistema
+      No Judiciário, a **Resolução CNJ 615/2025** (que substituiu a 332/2020) exige supervisão humana e classificação de risco das soluções de IA
+  Notebook, próximos passos e leituras
+    Notebook da aula 25
+      Ajustar a floresta e calcular o SHAP
+      Ler a cascata de um processo
+      Ler o enxame e comparar com a importância da aula 24
+      Medir a sensibilidade por grupo na triagem do NatJus (base real)
+      A explicação basta para o art. 20 da LGPD?
+    Próximos passos
+      Aula 26 (12/11): redes neurais e embeddings
+      14/11: relatório da Pesquisa de Campo
+      Projeto 08 até 24/11, 12:00
+    Para consultar depois
+      [Interpretable Machine Learning](https://christophm.github.io/interpretable-ml-book/), de Christoph Molnar
+      [Documentação do SHAP](https://shap.readthedocs.io/en/latest/)
+      [Machine Bias](https://www.propublica.org/article/machine-bias-risk-assessments-in-criminal-sentencing), a reportagem da ProPublica
+      [Fairness and Machine Learning](https://fairmlbook.org/), de Barocas, Hardt e Narayanan
+      [LGPD, Lei 13.709/2018](https://www.planalto.gov.br/ccivil_03/_ato2015-2018/2018/lei/l13709.htm)
+      [Resolução CNJ 615/2025](https://atos.cnj.jus.br/files/original1555302025031467d4517244566.pdf)
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/markmap-view@0.18.12/dist/browser/index.js"></script>
+<script>
+  // Cada linha é um nó; a indentação (2 espaços) diz o nível.
+  function html(t) {
+    return t.replace(/&/g, "&amp;").replace(/</g, "&lt;")
+      .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
+      .replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+  }
+  function arvore(texto) {
+    const raiz = { content: "", children: [] };
+    const pilha = [{ nivel: -1, no: raiz }];
+    for (const linha of texto.split("\n")) {
+      if (!linha.trim()) continue;
+      const nivel = linha.match(/^ */)[0].length / 2;
+      const no = { content: html(linha.trim()), children: [] };
+      while (pilha[pilha.length - 1].nivel >= nivel) pilha.pop();
+      pilha[pilha.length - 1].no.children.push(no);
+      pilha.push({ nivel, no });
+    }
+    return raiz.children[0];
+  }
+
+  const cores = ["#1f63c6", "#730d9f", "#12996f", "#e50505", "#c96a10", "#8a5a00", "#b0306a", "#2a7f8f", "#5b6270"];
+  const { Markmap, deriveOptions } = window.markmap;
+  const dados = arvore(document.getElementById("conteudo").textContent);
+  dados.children.forEach((ramo, i) => { ramo.payload = { cor: cores[i % cores.length] }; });
+
+  function marcarCor(no, cor) {
+    no.payload = Object.assign({}, no.payload, { cor });
+    (no.children || []).forEach(f => marcarCor(f, cor));
+  }
+  dados.children.forEach(r => marcarCor(r, r.payload.cor));
+
+  // ?ramo=N mostra só o ramo N, todo aberto (usado para gerar o PDF, uma página por ramo).
+  const params = new URLSearchParams(location.search);
+  let raiz = dados;
+  if (params.has("ramo")) {
+    raiz = dados.children[+params.get("ramo")];
+    document.querySelector("header").style.display = "none";
+  }
+  const abrirTudo = params.has("tudo") || params.has("ramo");
+  const opcoes = Object.assign(deriveOptions({ maxWidth: 340, initialExpandLevel: abrirTudo ? -1 : 2,
+                                               spacingVertical: 7, spacingHorizontal: 90, duration: 400, maxInitialScale: params.has("ramo") ? 2 : 1.2 }),
+                               { color: no => (no.payload && no.payload.cor) || "#5b6270" });
+  const mm = Markmap.create("#mapa", opcoes, raiz);
+  setTimeout(() => mm.fit(), 50);
+
+  function dobrar(no, nivel, limite) {
+    no.payload = Object.assign({}, no.payload, { fold: limite >= 0 && nivel >= limite ? 1 : 0 });
+    (no.children || []).forEach(f => dobrar(f, nivel + 1, limite));
+  }
+  document.getElementById("b-abrir").onclick = () => { dobrar(mm.state.data, 0, -1); mm.renderData().then(() => mm.fit()); };
+  document.getElementById("b-fechar").onclick = () => { dobrar(mm.state.data, 0, 1); mm.renderData().then(() => mm.fit()); };
+  document.getElementById("b-ajustar").onclick = () => mm.fit();
+</script>
+</body>
+</html>
