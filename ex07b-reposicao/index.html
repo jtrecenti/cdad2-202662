@@ -38,7 +38,7 @@
   svg.arvore .fundo-rotulo { fill: var(--branco); }
   svg.arvore .rotulo-aresta { font-size: 11px; font-weight: 600; }
   svg.arvore .forte { font-weight: 700; }
-  #senha { max-width: 18rem; }
+  #chave { max-width: 18rem; -webkit-text-security: disc; }
 </style>
 </head>
 <body>
@@ -67,8 +67,9 @@
         entrega.</strong>
       </div>
       <div class="campo">
-        <label class="rotulo" for="senha">senha que o professor mandou</label>
-        <input type="password" id="senha" autocomplete="one-time-code">
+        <label class="rotulo" for="chave">senha que o professor mandou</label>
+        <!-- texto comum com os caracteres escondidos: type="password" abre o gerenciador de senhas do Safari, que tira a página da tela cheia -->
+        <input type="text" id="chave" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" data-1p-ignore data-lpignore="true">
       </div>
       <div class="acoes">
         <button class="principal" id="b-comecar">Começar a provinha</button>

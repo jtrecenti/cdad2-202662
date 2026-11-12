@@ -63,7 +63,7 @@ async function iniciar() {
   });
 
   $("#b-comecar").addEventListener("click", comecar);
-  $("#senha").addEventListener("keydown", (e) => {
+  $("#chave").addEventListener("keydown", (e) => {
     if (e.key === "Enter") comecar();
   });
   $("#b-entregar").addEventListener("click", () => entregar(false));
@@ -81,7 +81,7 @@ async function iniciar() {
 async function comecar() {
   const status = $("#status-inicio");
   const botao = $("#b-comecar");
-  estado.senha = $("#senha").value.trim();
+  estado.senha = $("#chave").value.trim();
   if (!estado.senha) {
     status.replaceChildren(el("span.etiqueta.erro", { texto: "digite a senha" }));
     return;
@@ -117,7 +117,7 @@ async function comecar() {
   estado.inicio = Date.now();
   estado.guarda.marco("ex07b_inicio", `${estado.questoes.length} questões`);
 
-  $("#senha").disabled = true;
+  $("#chave").disabled = true;
   status.replaceChildren();
   $("#s-instrucoes").classList.add("concluida");
   $("#s-questoes").classList.remove("travada", "oculto");
